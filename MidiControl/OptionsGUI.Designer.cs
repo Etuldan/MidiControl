@@ -43,16 +43,16 @@
             this.ChkBoxMIDIFeedback = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ChkCmbBoxMIDI = new CheckComboBoxTest.CheckedComboBox();
-            this.groupBoxMuteAll = new System.Windows.Forms.GroupBox();
-            this.txtBoxMuteAllNote = new System.Windows.Forms.TextBox();
-            this.txtBoxMuteAllChannel = new System.Windows.Forms.TextBox();
-            this.lblMuteAllNote = new System.Windows.Forms.Label();
-            this.lvlMuteAllChannel = new System.Windows.Forms.Label();
-            this.lblMuteAllDevice = new System.Windows.Forms.Label();
-            this.txtBoxMuteAllDevice = new System.Windows.Forms.TextBox();
+            this.groupBoxStopAllSounds = new System.Windows.Forms.GroupBox();
+            this.txtBoxStopAllSoundsNote = new System.Windows.Forms.TextBox();
+            this.txtBoxStopAllSoundsChannel = new System.Windows.Forms.TextBox();
+            this.lblStopAllSoundsNote = new System.Windows.Forms.Label();
+            this.lvlStopAllSoundsChannel = new System.Windows.Forms.Label();
+            this.lblStopAllSoundsDevice = new System.Windows.Forms.Label();
+            this.txtBoxStopAllSoundsDevice = new System.Windows.Forms.TextBox();
             this.groupBoxOBS.SuspendLayout();
             this.groupBoxMIDI.SuspendLayout();
-            this.groupBoxMuteAll.SuspendLayout();
+            this.groupBoxStopAllSounds.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblOBSIP
@@ -198,73 +198,73 @@
             // 
             // groupBoxMuteAll
             // 
-            this.groupBoxMuteAll.Controls.Add(this.txtBoxMuteAllNote);
-            this.groupBoxMuteAll.Controls.Add(this.txtBoxMuteAllChannel);
-            this.groupBoxMuteAll.Controls.Add(this.lblMuteAllNote);
-            this.groupBoxMuteAll.Controls.Add(this.lvlMuteAllChannel);
-            this.groupBoxMuteAll.Controls.Add(this.lblMuteAllDevice);
-            this.groupBoxMuteAll.Controls.Add(this.txtBoxMuteAllDevice);
-            this.groupBoxMuteAll.Location = new System.Drawing.Point(12, 275);
-            this.groupBoxMuteAll.Name = "groupBoxMuteAll";
-            this.groupBoxMuteAll.Size = new System.Drawing.Size(230, 74);
-            this.groupBoxMuteAll.TabIndex = 12;
-            this.groupBoxMuteAll.TabStop = false;
-            this.groupBoxMuteAll.Text = "Mute All Sounds Keybind";
+            this.groupBoxStopAllSounds.Controls.Add(this.txtBoxStopAllSoundsNote);
+            this.groupBoxStopAllSounds.Controls.Add(this.txtBoxStopAllSoundsChannel);
+            this.groupBoxStopAllSounds.Controls.Add(this.lblStopAllSoundsNote);
+            this.groupBoxStopAllSounds.Controls.Add(this.lvlStopAllSoundsChannel);
+            this.groupBoxStopAllSounds.Controls.Add(this.lblStopAllSoundsDevice);
+            this.groupBoxStopAllSounds.Controls.Add(this.txtBoxStopAllSoundsDevice);
+            this.groupBoxStopAllSounds.Location = new System.Drawing.Point(12, 275);
+            this.groupBoxStopAllSounds.Name = "groupBoxMuteAll";
+            this.groupBoxStopAllSounds.Size = new System.Drawing.Size(230, 74);
+            this.groupBoxStopAllSounds.TabIndex = 12;
+            this.groupBoxStopAllSounds.TabStop = false;
+            this.groupBoxStopAllSounds.Text = "Stop All Sounds Keybind";
             // 
             // txtBoxMuteAllNote
             // 
-            this.txtBoxMuteAllNote.Location = new System.Drawing.Point(186, 45);
-            this.txtBoxMuteAllNote.Name = "txtBoxMuteAllNote";
-            this.txtBoxMuteAllNote.Size = new System.Drawing.Size(38, 20);
-            this.txtBoxMuteAllNote.TabIndex = 5;
+            this.txtBoxStopAllSoundsNote.Location = new System.Drawing.Point(186, 45);
+            this.txtBoxStopAllSoundsNote.Name = "txtBoxMuteAllNote";
+            this.txtBoxStopAllSoundsNote.Size = new System.Drawing.Size(38, 20);
+            this.txtBoxStopAllSoundsNote.TabIndex = 5;
             // 
             // txtBoxMuteAllChannel
             // 
-            this.txtBoxMuteAllChannel.Location = new System.Drawing.Point(58, 45);
-            this.txtBoxMuteAllChannel.Name = "txtBoxMuteAllChannel";
-            this.txtBoxMuteAllChannel.Size = new System.Drawing.Size(38, 20);
-            this.txtBoxMuteAllChannel.TabIndex = 4;
+            this.txtBoxStopAllSoundsChannel.Location = new System.Drawing.Point(58, 45);
+            this.txtBoxStopAllSoundsChannel.Name = "txtBoxMuteAllChannel";
+            this.txtBoxStopAllSoundsChannel.Size = new System.Drawing.Size(38, 20);
+            this.txtBoxStopAllSoundsChannel.TabIndex = 4;
             // 
             // lblMuteAllNote
             // 
-            this.lblMuteAllNote.AutoSize = true;
-            this.lblMuteAllNote.Location = new System.Drawing.Point(150, 48);
-            this.lblMuteAllNote.Name = "lblMuteAllNote";
-            this.lblMuteAllNote.Size = new System.Drawing.Size(30, 13);
-            this.lblMuteAllNote.TabIndex = 3;
-            this.lblMuteAllNote.Text = "Note";
+            this.lblStopAllSoundsNote.AutoSize = true;
+            this.lblStopAllSoundsNote.Location = new System.Drawing.Point(150, 48);
+            this.lblStopAllSoundsNote.Name = "lblMuteAllNote";
+            this.lblStopAllSoundsNote.Size = new System.Drawing.Size(30, 13);
+            this.lblStopAllSoundsNote.TabIndex = 3;
+            this.lblStopAllSoundsNote.Text = "Note";
             // 
             // lvlMuteAllChannel
             // 
-            this.lvlMuteAllChannel.AutoSize = true;
-            this.lvlMuteAllChannel.Location = new System.Drawing.Point(6, 48);
-            this.lvlMuteAllChannel.Name = "lvlMuteAllChannel";
-            this.lvlMuteAllChannel.Size = new System.Drawing.Size(46, 13);
-            this.lvlMuteAllChannel.TabIndex = 2;
-            this.lvlMuteAllChannel.Text = "Channel";
+            this.lvlStopAllSoundsChannel.AutoSize = true;
+            this.lvlStopAllSoundsChannel.Location = new System.Drawing.Point(6, 48);
+            this.lvlStopAllSoundsChannel.Name = "lvlMuteAllChannel";
+            this.lvlStopAllSoundsChannel.Size = new System.Drawing.Size(46, 13);
+            this.lvlStopAllSoundsChannel.TabIndex = 2;
+            this.lvlStopAllSoundsChannel.Text = "Channel";
             // 
             // lblMuteAllDevice
             // 
-            this.lblMuteAllDevice.AutoSize = true;
-            this.lblMuteAllDevice.Location = new System.Drawing.Point(6, 20);
-            this.lblMuteAllDevice.Name = "lblMuteAllDevice";
-            this.lblMuteAllDevice.Size = new System.Drawing.Size(67, 13);
-            this.lblMuteAllDevice.TabIndex = 1;
-            this.lblMuteAllDevice.Text = "MIDI Device";
+            this.lblStopAllSoundsDevice.AutoSize = true;
+            this.lblStopAllSoundsDevice.Location = new System.Drawing.Point(6, 20);
+            this.lblStopAllSoundsDevice.Name = "lblMuteAllDevice";
+            this.lblStopAllSoundsDevice.Size = new System.Drawing.Size(67, 13);
+            this.lblStopAllSoundsDevice.TabIndex = 1;
+            this.lblStopAllSoundsDevice.Text = "MIDI Device";
             // 
             // txtBoxMuteAllDevice
             // 
-            this.txtBoxMuteAllDevice.Location = new System.Drawing.Point(80, 17);
-            this.txtBoxMuteAllDevice.Name = "txtBoxMuteAllDevice";
-            this.txtBoxMuteAllDevice.Size = new System.Drawing.Size(144, 20);
-            this.txtBoxMuteAllDevice.TabIndex = 0;
+            this.txtBoxStopAllSoundsDevice.Location = new System.Drawing.Point(80, 17);
+            this.txtBoxStopAllSoundsDevice.Name = "txtBoxMuteAllDevice";
+            this.txtBoxStopAllSoundsDevice.Size = new System.Drawing.Size(144, 20);
+            this.txtBoxStopAllSoundsDevice.TabIndex = 0;
             // 
             // OptionsGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(254, 381);
-            this.Controls.Add(this.groupBoxMuteAll);
+            this.Controls.Add(this.groupBoxStopAllSounds);
             this.Controls.Add(this.groupBoxMIDI);
             this.Controls.Add(this.groupBoxOBS);
             this.Controls.Add(this.BtnSave);
@@ -278,8 +278,8 @@
             this.groupBoxOBS.PerformLayout();
             this.groupBoxMIDI.ResumeLayout(false);
             this.groupBoxMIDI.PerformLayout();
-            this.groupBoxMuteAll.ResumeLayout(false);
-            this.groupBoxMuteAll.PerformLayout();
+            this.groupBoxStopAllSounds.ResumeLayout(false);
+            this.groupBoxStopAllSounds.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -300,12 +300,12 @@
         private CheckComboBoxTest.CheckedComboBox ChkCmbBoxMIDI;
         private System.Windows.Forms.CheckBox ChkBoxAutoReconnect;
         private System.Windows.Forms.CheckBox ChkBoxMIDIFeedback;
-        private System.Windows.Forms.GroupBox groupBoxMuteAll;
-        private System.Windows.Forms.TextBox txtBoxMuteAllNote;
-        private System.Windows.Forms.TextBox txtBoxMuteAllChannel;
-        private System.Windows.Forms.Label lblMuteAllNote;
-        private System.Windows.Forms.Label lvlMuteAllChannel;
-        private System.Windows.Forms.Label lblMuteAllDevice;
-        private System.Windows.Forms.TextBox txtBoxMuteAllDevice;
+        private System.Windows.Forms.GroupBox groupBoxStopAllSounds;
+        private System.Windows.Forms.TextBox txtBoxStopAllSoundsNote;
+        private System.Windows.Forms.TextBox txtBoxStopAllSoundsChannel;
+        private System.Windows.Forms.Label lblStopAllSoundsNote;
+        private System.Windows.Forms.Label lvlStopAllSoundsChannel;
+        private System.Windows.Forms.Label lblStopAllSoundsDevice;
+        private System.Windows.Forms.TextBox txtBoxStopAllSoundsDevice;
     }
 }

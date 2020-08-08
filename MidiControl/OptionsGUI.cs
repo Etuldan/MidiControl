@@ -36,9 +36,9 @@ namespace MidiControl
             ChkBoxMIDIForward.Checked = options.options.MIDIForwardEnabled;
             ChkBoxMIDIFeedback.Checked = options.options.MIDIFeedbackEnabled;
 
-            txtBoxMuteAllDevice.Text = options.options.MidiDeviceStopAllSounds;
-            txtBoxMuteAllChannel.Text = options.options.ChannelStopAllSounds.ToString();
-            txtBoxMuteAllNote.Text = options.options.NoteNumberStopAllSounds.ToString();
+            txtBoxStopAllSoundsDevice.Text = options.options.MidiDeviceStopAllSounds;
+            txtBoxStopAllSoundsChannel.Text = options.options.ChannelStopAllSounds.ToString();
+            txtBoxStopAllSoundsNote.Text = options.options.NoteNumberStopAllSounds.ToString();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -52,9 +52,9 @@ namespace MidiControl
             options.options.MIDIForwardEnabled = ChkBoxMIDIForward.Checked;
             options.options.MIDIFeedbackEnabled = ChkBoxMIDIFeedback.Checked;
 
-            options.options.MidiDeviceStopAllSounds = txtBoxMuteAllDevice.Text;
-            options.options.ChannelStopAllSounds = Int32.Parse(txtBoxMuteAllChannel.Text);
-            options.options.NoteNumberStopAllSounds = Int32.Parse(txtBoxMuteAllNote.Text);
+            options.options.MidiDeviceStopAllSounds = txtBoxStopAllSoundsDevice.Text;
+            options.options.ChannelStopAllSounds = Int32.Parse(txtBoxStopAllSoundsChannel.Text);
+            options.options.NoteNumberStopAllSounds = Int32.Parse(txtBoxStopAllSoundsNote.Text);
 
             CheckedListBox.CheckedItemCollection items = ChkCmbBoxMIDI.CheckedItems;
             options.options.MIDIInterfaces.Clear();
