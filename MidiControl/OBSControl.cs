@@ -135,6 +135,32 @@ namespace MidiControl
                         obs.SetCurrentTransition(args[0]);
                         obs.SetTransitionDuration(Int32.Parse(args[1]));
                         break;
+                    case "misc":
+                        foreach (string arg in args)
+                        {
+                            switch (arg)
+                            {
+                                case "Start Stream":
+                                    obs.StartStreaming();
+                                    break;
+                                case "Stop Stream":
+                                    obs.StopStreaming();
+                                    break;
+                                case "Toggle Stream":
+                                    obs.StartStopStreaming();
+                                    break;
+                                case "Start Record":
+                                    obs.StartRecording();
+                                    break;
+                                case "Stop Record":
+                                    obs.StopRecording();
+                                    break;
+                                case "Toggle Record":
+                                    obs.StartStopRecording();
+                                    break;
+                            }
+                        }
+                        break;
                 }
             }
             catch (ErrorResponseException)

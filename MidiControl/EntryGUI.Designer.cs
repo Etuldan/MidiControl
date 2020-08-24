@@ -41,6 +41,8 @@
             this.GrpBoxKeyPress = new System.Windows.Forms.GroupBox();
             this.TabKeyPress = new System.Windows.Forms.TabControl();
             this.TabOBSPress = new System.Windows.Forms.TabPage();
+            this.ChkCboBoxMiscPress = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxMiscPress = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxToggleFilterPress = new CheckComboBoxTest.CheckedComboBox();
             this.ChkBoxToggleFilterPress = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxShowFilterPress = new CheckComboBoxTest.CheckedComboBox();
@@ -77,6 +79,8 @@
             this.GrpBoxKeyRelease = new System.Windows.Forms.GroupBox();
             this.TabKeyRelease = new System.Windows.Forms.TabControl();
             this.TabOBSRelease = new System.Windows.Forms.TabPage();
+            this.ChkCboBoxMiscRelease = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxMiscRelease = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxToggleFilterRelease = new CheckComboBoxTest.CheckedComboBox();
             this.ChkCboBoxToggleSourceRelease = new CheckComboBoxTest.CheckedComboBox();
             this.ChkBoxToggleFilterRelease = new System.Windows.Forms.CheckBox();
@@ -221,6 +225,8 @@
             // 
             // TabOBSPress
             // 
+            this.TabOBSPress.Controls.Add(this.ChkCboBoxMiscPress);
+            this.TabOBSPress.Controls.Add(this.ChkBoxMiscPress);
             this.TabOBSPress.Controls.Add(this.ChkCboBoxToggleFilterPress);
             this.TabOBSPress.Controls.Add(this.ChkBoxToggleFilterPress);
             this.TabOBSPress.Controls.Add(this.ChkCboBoxShowFilterPress);
@@ -251,6 +257,31 @@
             this.TabOBSPress.TabIndex = 0;
             this.TabOBSPress.Text = "OBS";
             this.TabOBSPress.UseVisualStyleBackColor = true;
+            // 
+            // ChkCboBoxMiscPress
+            // 
+            this.ChkCboBoxMiscPress.CheckOnClick = true;
+            this.ChkCboBoxMiscPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMiscPress.DropDownHeight = 1;
+            this.ChkCboBoxMiscPress.Enabled = false;
+            this.ChkCboBoxMiscPress.FormattingEnabled = true;
+            this.ChkCboBoxMiscPress.IntegralHeight = false;
+            this.ChkCboBoxMiscPress.Location = new System.Drawing.Point(357, 115);
+            this.ChkCboBoxMiscPress.Name = "ChkCboBoxMiscPress";
+            this.ChkCboBoxMiscPress.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxMiscPress.TabIndex = 25;
+            this.ChkCboBoxMiscPress.ValueSeparator = ", ";
+            // 
+            // ChkBoxMiscPress
+            // 
+            this.ChkBoxMiscPress.AutoSize = true;
+            this.ChkBoxMiscPress.Location = new System.Drawing.Point(276, 117);
+            this.ChkBoxMiscPress.Name = "ChkBoxMiscPress";
+            this.ChkBoxMiscPress.Size = new System.Drawing.Size(48, 17);
+            this.ChkBoxMiscPress.TabIndex = 24;
+            this.ChkBoxMiscPress.Text = "Misc";
+            this.ChkBoxMiscPress.UseVisualStyleBackColor = true;
+            this.ChkBoxMiscPress.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkCboBoxToggleFilterPress
             // 
@@ -656,6 +687,8 @@
             // 
             // TabOBSRelease
             // 
+            this.TabOBSRelease.Controls.Add(this.ChkCboBoxMiscRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkBoxMiscRelease);
             this.TabOBSRelease.Controls.Add(this.ChkCboBoxToggleFilterRelease);
             this.TabOBSRelease.Controls.Add(this.ChkCboBoxToggleSourceRelease);
             this.TabOBSRelease.Controls.Add(this.ChkBoxToggleFilterRelease);
@@ -686,6 +719,31 @@
             this.TabOBSRelease.TabIndex = 0;
             this.TabOBSRelease.Text = "OBS";
             this.TabOBSRelease.UseVisualStyleBackColor = true;
+            // 
+            // ChkCboBoxMiscRelease
+            // 
+            this.ChkCboBoxMiscRelease.CheckOnClick = true;
+            this.ChkCboBoxMiscRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMiscRelease.DropDownHeight = 1;
+            this.ChkCboBoxMiscRelease.Enabled = false;
+            this.ChkCboBoxMiscRelease.FormattingEnabled = true;
+            this.ChkCboBoxMiscRelease.IntegralHeight = false;
+            this.ChkCboBoxMiscRelease.Location = new System.Drawing.Point(357, 116);
+            this.ChkCboBoxMiscRelease.Name = "ChkCboBoxMiscRelease";
+            this.ChkCboBoxMiscRelease.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxMiscRelease.TabIndex = 27;
+            this.ChkCboBoxMiscRelease.ValueSeparator = ", ";
+            // 
+            // ChkBoxMiscRelease
+            // 
+            this.ChkBoxMiscRelease.AutoSize = true;
+            this.ChkBoxMiscRelease.Location = new System.Drawing.Point(276, 118);
+            this.ChkBoxMiscRelease.Name = "ChkBoxMiscRelease";
+            this.ChkBoxMiscRelease.Size = new System.Drawing.Size(48, 17);
+            this.ChkBoxMiscRelease.TabIndex = 26;
+            this.ChkBoxMiscRelease.Text = "Misc";
+            this.ChkBoxMiscRelease.UseVisualStyleBackColor = true;
+            this.ChkBoxMiscRelease.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkCboBoxToggleFilterRelease
             // 
@@ -1171,5 +1229,9 @@
         private System.Windows.Forms.CheckBox ChkBoxShowFilterRelease;
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxHideFilterRelease;
         private System.Windows.Forms.CheckBox ChkBoxHideFilterRelease;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMiscPress;
+        private System.Windows.Forms.CheckBox ChkBoxMiscPress;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMiscRelease;
+        private System.Windows.Forms.CheckBox ChkBoxMiscRelease;
     }
 }

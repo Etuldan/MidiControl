@@ -170,6 +170,14 @@ namespace MidiControl
                                 ChkCboBoxToggleFilterPress.SetItemChecked(ChkCboBoxToggleFilterPress.Items.IndexOf(arg), true);
                             }
                             break;
+                        case "misc":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMiscPress.Checked = true;
+                                ChkCboBoxMiscPress.Enabled = true;
+                                ChkCboBoxMiscPress.SetItemChecked(ChkCboBoxMiscPress.Items.IndexOf(arg), true);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -268,6 +276,14 @@ namespace MidiControl
                                 ChkCboBoxToggleFilterRelease.SetItemChecked(ChkCboBoxToggleFilterRelease.Items.IndexOf(arg), true);
                             }
                             break;
+                        case "misc":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMiscRelease.Checked = true;
+                                ChkCboBoxMiscRelease.Enabled = true;
+                                ChkCboBoxMiscRelease.SetItemChecked(ChkCboBoxMiscRelease.Items.IndexOf(arg), true);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -328,6 +344,8 @@ namespace MidiControl
             CheckToCombo.Add("ChkBoxShowFilterRelease", new string[] { "ChkCboBoxShowFilterRelease" });
             CheckToCombo.Add("ChkBoxHideFilterRelease", new string[] { "ChkCboBoxHideFilterRelease" });
             CheckToCombo.Add("ChkBoxToggleFilterRelease", new string[] { "ChkCboBoxToggleFilterRelease" });
+            CheckToCombo.Add("ChkBoxMiscPress", new string[] { "ChkCboBoxMiscPress" });
+            CheckToCombo.Add("ChkBoxMiscRelease", new string[] { "ChkCboBoxMiscRelease" });
             CheckToCombo.Add("ChkBoxAdjustVolume", new string[] { "ChkCboBoxVolumeSlider" });
 
             CheckToCombo.Add("ChkBoxEnableAudio", new string[] { "CboBoxAudioDevice", "TxtBoxAudioFile", "BtnAudioSelect", "ChkBoxAudioStop" });
@@ -396,6 +414,12 @@ namespace MidiControl
                 ChkCboBoxHideFilterRelease.Items.Add(filter);
                 ChkCboBoxToggleFilterRelease.Items.Add(filter);
             }
+
+            ChkCboBoxMiscPress.Items.Clear();
+            ChkCboBoxMiscRelease.Items.Clear();
+            string[] itemValues = new string[] {"Start Stream", "Stop Stream", "Toggle Stream", "Start Record", "Stop Record", "Toggle Record" };
+            ChkCboBoxMiscPress.Items.AddRange(itemValues);
+            ChkCboBoxMiscRelease.Items.AddRange(itemValues);
 
             for (int i = 0; i < WaveOut.DeviceCount; i++)
             {
@@ -570,6 +594,20 @@ namespace MidiControl
                 callback.Action = "togglefilter";
                 key.OBSCallBacksON.Add(callback);
             }
+            if (ChkBoxMiscPress.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>()
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMiscPress.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                callback.Action = "misc";
+                key.OBSCallBacksON.Add(callback);
+            }
 
 
 
@@ -737,6 +775,21 @@ namespace MidiControl
                 callback.Action = "togglefilter";
                 key.OBSCallBacksOFF.Add(callback);
             }
+            if (ChkBoxMiscRelease.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>()
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMiscRelease.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                callback.Action = "misc";
+                key.OBSCallBacksOFF.Add(callback);
+            }
+
             //if (ChkBoxAdjustVolume.Checked)
             //{
             //    OBSCallBack callback = new OBSCallBack();
