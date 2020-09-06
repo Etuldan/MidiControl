@@ -111,6 +111,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ChkBoxAdjustVolume = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxVolumeSlider = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
             this.GrpBoxKeyPress.SuspendLayout();
             this.TabKeyPress.SuspendLayout();
             this.TabOBSPress.SuspendLayout();
@@ -1068,6 +1069,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.ChkBoxAdjustTransitionDuration);
             this.tabPage1.Controls.Add(this.ChkBoxAdjustVolume);
             this.tabPage1.Controls.Add(this.ChkCboBoxVolumeSlider);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -1102,6 +1104,16 @@
             this.ChkCboBoxVolumeSlider.Size = new System.Drawing.Size(168, 21);
             this.ChkCboBoxVolumeSlider.TabIndex = 1;
             this.ChkCboBoxVolumeSlider.ValueSeparator = ", ";
+            // 
+            // ChkBoxAdjustTransitionDuration
+            // 
+            this.ChkBoxAdjustTransitionDuration.AutoSize = true;
+            this.ChkBoxAdjustTransitionDuration.Location = new System.Drawing.Point(273, 8);
+            this.ChkBoxAdjustTransitionDuration.Name = "ChkBoxAdjustTransitionDuration";
+            this.ChkBoxAdjustTransitionDuration.Size = new System.Drawing.Size(147, 17);
+            this.ChkBoxAdjustTransitionDuration.TabIndex = 2;
+            this.ChkBoxAdjustTransitionDuration.Text = "Adjust Transition Duration";
+            this.ChkBoxAdjustTransitionDuration.UseVisualStyleBackColor = true;
             // 
             // EntryGUI
             // 
@@ -1233,5 +1245,6 @@
         private System.Windows.Forms.CheckBox ChkBoxMiscPress;
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxMiscRelease;
         private System.Windows.Forms.CheckBox ChkBoxMiscRelease;
+        private System.Windows.Forms.CheckBox ChkBoxAdjustTransitionDuration;
     }
 }

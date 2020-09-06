@@ -301,6 +301,7 @@ namespace MidiControl
                             }
                             break;
                         case "transition":
+                            ChkBoxAdjustTransitionDuration.Checked = true;
                             break;
                         default:
                             break;
@@ -449,163 +450,163 @@ namespace MidiControl
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "transition"
                 };
                 if ((string)CboBoxTransitionPress.SelectedItem == null) return;
                 callback.Args.Add((string)CboBoxTransitionPress.SelectedItem);
                 callback.Args.Add(NumericTransitionPress.Value.ToString());
-                callback.Action = "transition";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxSwitchScenePress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "switchScene"
                 };
                 if ((string)CboBoxSwitchScenePress.SelectedItem == null) return;
                 callback.Args.Add((string)CboBoxSwitchScenePress.SelectedItem);
-                callback.Action = "switchScene";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxMutePress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "mute"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxMutePress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "mute";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxUnmutePress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "unmute"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxUnmutePress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "unmute";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxHideSourcePress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "hide"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxHidePress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "hide";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxShowSourcePress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "show"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxShowPress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "show";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxToggleSourcePress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "togglehide"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleSourcePress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "togglehide";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxTogglemutePress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "togglemute"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleMutePress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "togglemute";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxHideFilterPress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "hidefilter"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxHideFilterPress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "hidefilter";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxShowFilterPress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "showfilter"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxShowFilterPress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "showfilter";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxToggleFilterPress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "togglefilter"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleFilterPress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "togglefilter";
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxMiscPress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "misc"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxMiscPress.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "misc";
                 key.OBSCallBacksON.Add(callback);
             }
 
@@ -616,186 +617,188 @@ namespace MidiControl
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "transition"
                 };
                 if ((string)CboBoxTransitionRelease.SelectedItem == null) return;
                 callback.Args.Add((string)CboBoxTransitionRelease.SelectedItem);
                 callback.Args.Add(NumericTransitionRelease.Value.ToString());
-                callback.Action = "transition";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxSwitchSceneRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "switchScene"
                 };
                 if ((string)CboBoxSwitchSceneRelease.SelectedItem == null) return;
                 callback.Args.Add((string)CboBoxSwitchSceneRelease.SelectedItem);
-                callback.Action = "switchScene";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxMuteRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "mute"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxMuteRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "mute";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxUnmuteRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "unmute"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxUnmuteRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "unmute";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxHideSourceRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "hide"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxHideRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "hide";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxShowSourceRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "show"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxShowRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "show";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxToggleSourceRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "togglehide"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleSourceRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "togglehide";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxTogglemuteRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "togglemute"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleMuteRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "togglemute";
                 key.OBSCallBacksOFF.Add(callback);
-            }
-            if (ChkBoxAdjustVolume.Checked)
-            {
-                OBSCallBack callback = new OBSCallBack
-                {
-                    Args = new List<string>()
-                };
-                CheckedListBox.CheckedItemCollection items = ChkCboBoxVolumeSlider.CheckedItems;
-                foreach (object item in items)
-                {
-                    callback.Args.Add(item.ToString());
-                }
-                callback.Action = "volume";
-                key.OBSCallBacksSlider.Add(callback);
             }
             if (ChkBoxHideFilterRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "hidefilter"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxHideFilterRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "hidefilter";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxShowFilterRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "showfilter"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxShowFilterRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "showfilter";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxToggleFilterRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "togglefilter"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleFilterRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "togglefilter";
                 key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxMiscRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
                 {
-                    Args = new List<string>()
+                    Args = new List<string>(),
+                    Action = "misc"
                 };
                 CheckedListBox.CheckedItemCollection items = ChkCboBoxMiscRelease.CheckedItems;
                 foreach (object item in items)
                 {
                     callback.Args.Add(item.ToString());
                 }
-                callback.Action = "misc";
                 key.OBSCallBacksOFF.Add(callback);
             }
 
-            //if (ChkBoxAdjustVolume.Checked)
-            //{
-            //    OBSCallBack callback = new OBSCallBack();
-            //    callback.action = "transition";
-            //    key.OBSCallBacksSlider.Add(callback);
-            //}
+            if (ChkBoxAdjustVolume.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "volume"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxVolumeSlider.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksSlider.Add(callback);
+            }
+            if (ChkBoxAdjustTransitionDuration.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Action = "transition"
+                };
+                key.OBSCallBacksSlider.Add(callback);
+            }
 
             if (ChkBoxEnableAudio.Checked)
             {

@@ -175,7 +175,7 @@ namespace MidiControl
             switch (action)
             {
                 case "transition":
-                    //obs.SetCurrentScene(value);
+                    obs.SetTransitionDuration((90 + (int)value)*50);
                     break;
                 case "volume":
                     foreach (string arg in args)
@@ -280,12 +280,14 @@ namespace MidiControl
 
             if (obs.StudioModeEnabled() == true)
             {
+                int oldTransition = obs.GetTransitionDuration();
                 obs.SetTransitionDuration(0);
                 OBSScene displayScene = obs.GetCurrentScene();
                 OBSScene previewScene = obs.GetPreviewScene();
                 obs.SetPreviewScene(displayScene);
                 obs.TransitionToProgram();
                 obs.SetPreviewScene(previewScene);
+                obs.SetTransitionDuration(oldTransition);
             }
         }
         private void ShowSources(List<string> sources, bool show)
@@ -326,12 +328,14 @@ namespace MidiControl
             }
             if(obs.StudioModeEnabled() == true)
             {
+                int oldTransition = obs.GetTransitionDuration();
                 obs.SetTransitionDuration(0);
                 OBSScene displayScene = obs.GetCurrentScene();
                 OBSScene previewScene = obs.GetPreviewScene();
                 obs.SetPreviewScene(displayScene);
                 obs.TransitionToProgram();
                 obs.SetPreviewScene(previewScene);
+                obs.SetTransitionDuration(oldTransition);
             }
         }
 
