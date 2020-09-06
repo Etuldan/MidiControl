@@ -39,6 +39,7 @@ namespace MidiControl
             txtBoxStopAllSoundsDevice.Text = options.options.MidiDeviceStopAllSounds;
             txtBoxStopAllSoundsChannel.Text = options.options.ChannelStopAllSounds.ToString();
             txtBoxStopAllSoundsNote.Text = options.options.NoteNumberStopAllSounds.ToString();
+            txtBoxDelay.Text = options.options.Delay.ToString();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -62,6 +63,7 @@ namespace MidiControl
             {
                 options.options.MIDIInterfaces.Add(item.ToString());
             }
+            options.options.Delay = Int32.Parse(txtBoxDelay.Text);
 
             options.Save();
             this.Close();

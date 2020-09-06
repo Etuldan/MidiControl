@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace MidiControl
 {
@@ -111,7 +112,11 @@ namespace MidiControl
             {
                 obs = OBSControl.GetInstance();
             }
-            obs.DoAction(Action, Args);
+            var t = Task.Run(async delegate
+            {
+                await Task.Delay(obs.options.options.Delay);
+                obs.DoAction(Action, Args);
+            });
         }
 
         public void Start(float value)
@@ -120,7 +125,11 @@ namespace MidiControl
             {
                 obs = OBSControl.GetInstance();
             }
-            obs.DoAction(Action, Args, value);
+            var t = Task.Run(async delegate
+            {
+                await Task.Delay(obs.options.options.Delay);
+                obs.DoAction(Action, Args, value);
+            });
         }
     }
 }

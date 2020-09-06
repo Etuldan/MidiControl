@@ -53,7 +53,8 @@ namespace MidiControl
                     MIDIForwardInterface = "",
                     MIDIForwardEnabled = false,
                     MIDIFeedbackEnabled = false,
-                    MIDIInterfaces = new List<string>()
+                    MIDIInterfaces = new List<string>(),
+                    Delay = 0
                 };
             }
         }
@@ -77,6 +78,7 @@ namespace MidiControl
             public int ChannelStopAllSounds { get; set; }
             public string MidiDeviceStopAllSounds { get; set; }
             public List<string> MIDIInterfaces { get; set; }
+            public int Delay { get; set; }
         }
     }
 }

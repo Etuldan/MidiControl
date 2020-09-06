@@ -13,7 +13,7 @@ namespace MidiControl
         private readonly OBSWebsocket obs;
         private readonly MIDIControlGUI gui;
         private static OBSControl _instance;
-        private readonly OptionsManagment options;
+        public readonly OptionsManagment options;
         private Timer timer;
 
         public OBSControl()
