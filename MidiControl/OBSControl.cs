@@ -135,6 +135,12 @@ namespace MidiControl
                         obs.SetCurrentTransition(args[0]);
                         obs.SetTransitionDuration(Int32.Parse(args[1]));
                         break;
+                    case "transitionTo":
+                        if (obs.StudioModeEnabled() == true)
+                        {
+                            obs.TransitionToProgram();
+                        }
+                        break;
                     case "misc":
                         foreach (string arg in args)
                         {
@@ -155,6 +161,22 @@ namespace MidiControl
                                 case "Stop Record":
                                     obs.StopRecording();
                                     break;
+                                case "Play/Pause Record":
+                                    try
+                                    {
+                                        obs.SendRequest("PauseRecording");
+                                    }
+                                    catch (ErrorResponseException e)
+                                    {
+                                        if(e.Message.Equals("recording already paused"))
+                                        {
+                                            obs.SendRequest("ResumeRecording");
+                                        }
+                                    }
+                                    break;
+                                case "Transition To Program (Studio)":
+                                    obs.TransitionToProgram();
+                                    break;
                                 case "Toggle Record":
                                     obs.StartStopRecording();
                                     break;
@@ -165,7 +187,6 @@ namespace MidiControl
             }
             catch (ErrorResponseException)
             {
-
             }
         }
         public void DoAction(string action, List<string> args, float value)

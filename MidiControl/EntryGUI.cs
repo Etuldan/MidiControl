@@ -418,7 +418,7 @@ namespace MidiControl
 
             ChkCboBoxMiscPress.Items.Clear();
             ChkCboBoxMiscRelease.Items.Clear();
-            string[] itemValues = new string[] {"Start Stream", "Stop Stream", "Toggle Stream", "Start Record", "Stop Record", "Toggle Record" };
+            string[] itemValues = new string[] {"Start Stream", "Stop Stream", "Toggle Stream", "Start Record", "Stop Record", "Toggle Record", "Play/Pause Record", "Transition To Program (Studio)" };
             ChkCboBoxMiscPress.Items.AddRange(itemValues);
             ChkCboBoxMiscRelease.Items.AddRange(itemValues);
 
