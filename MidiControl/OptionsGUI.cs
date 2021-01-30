@@ -54,8 +54,17 @@ namespace MidiControl
             options.options.MIDIFeedbackEnabled = ChkBoxMIDIFeedback.Checked;
 
             options.options.MidiDeviceStopAllSounds = txtBoxStopAllSoundsDevice.Text;
-            options.options.ChannelStopAllSounds = Int32.Parse(txtBoxStopAllSoundsChannel.Text);
-            options.options.NoteNumberStopAllSounds = Int32.Parse(txtBoxStopAllSoundsNote.Text);
+            try
+            {
+                options.options.ChannelStopAllSounds = Int32.Parse(txtBoxStopAllSoundsChannel.Text);
+                options.options.NoteNumberStopAllSounds = Int32.Parse(txtBoxStopAllSoundsNote.Text);
+            }
+            catch (FormatException)
+            {
+                options.options.ChannelStopAllSounds = 0;
+                options.options.NoteNumberStopAllSounds = 0;
+            }
+
 
             CheckedListBox.CheckedItemCollection items = ChkCmbBoxMIDI.CheckedItems;
             options.options.MIDIInterfaces.Clear();
@@ -63,8 +72,14 @@ namespace MidiControl
             {
                 options.options.MIDIInterfaces.Add(item.ToString());
             }
-            options.options.Delay = Int32.Parse(txtBoxDelay.Text);
-
+            try
+            {
+                options.options.Delay = Int32.Parse(txtBoxDelay.Text);
+            }
+            catch (FormatException)
+            {
+                options.options.Delay = 0;
+            }
             options.Save();
             this.Close();
         }
