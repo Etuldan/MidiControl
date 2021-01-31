@@ -93,7 +93,13 @@ namespace MidiControl
                             {
                                 ChkBoxMutePress.Checked = true;
                                 ChkCboBoxMutePress.Enabled = true;
+                                try 
+                                { 
                                 ChkCboBoxMutePress.SetItemChecked(ChkCboBoxMutePress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "unmute":
@@ -101,7 +107,13 @@ namespace MidiControl
                             {
                                 ChkBoxUnmutePress.Checked = true;
                                 ChkCboBoxUnmutePress.Enabled = true;
-                                ChkCboBoxUnmutePress.SetItemChecked(ChkCboBoxUnmutePress.Items.IndexOf(arg), true);
+                                try
+                                {
+                                    ChkCboBoxUnmutePress.SetItemChecked(ChkCboBoxUnmutePress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException) 
+                                {
+                                }
                             }
                             break;
                         case "togglemute":
@@ -109,7 +121,13 @@ namespace MidiControl
                             {
                                 ChkBoxTogglemutePress.Checked = true;
                                 ChkCboBoxToggleMutePress.Enabled = true;
-                                ChkCboBoxToggleMutePress.SetItemChecked(ChkCboBoxToggleMutePress.Items.IndexOf(arg), true);
+                                try
+                                {
+                                    ChkCboBoxToggleMutePress.SetItemChecked(ChkCboBoxToggleMutePress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "hide":
@@ -117,7 +135,13 @@ namespace MidiControl
                             {
                                 ChkBoxHideSourcePress.Checked = true;
                                 ChkCboBoxHidePress.Enabled = true;
-                                ChkCboBoxHidePress.SetItemChecked(ChkCboBoxHidePress.Items.IndexOf(arg), true);
+                                try
+                                {
+                                    ChkCboBoxHidePress.SetItemChecked(ChkCboBoxHidePress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "show":
@@ -125,7 +149,13 @@ namespace MidiControl
                             {
                                 ChkBoxShowSourcePress.Checked = true;
                                 ChkCboBoxShowPress.Enabled = true;
-                                ChkCboBoxShowPress.SetItemChecked(ChkCboBoxShowPress.Items.IndexOf(arg), true);
+                                try
+                                {
+                                    ChkCboBoxShowPress.SetItemChecked(ChkCboBoxShowPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "togglehide":
@@ -133,8 +163,14 @@ namespace MidiControl
                             {
                                 ChkBoxToggleSourcePress.Checked = true;
                                 ChkCboBoxToggleSourcePress.Enabled = true;
-                                ChkCboBoxToggleSourcePress.SetItemChecked(ChkCboBoxToggleSourcePress.Items.IndexOf(arg), true);
-                            }
+                                try 
+                                { 
+                                    ChkCboBoxToggleSourcePress.SetItemChecked(ChkCboBoxToggleSourcePress.Items.IndexOf(arg), true);
+                                }
+                                    catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                    }
                             break;
                         case "transition":
                             foreach (string arg in on.Args)
@@ -151,7 +187,13 @@ namespace MidiControl
                             {
                                 ChkBoxHideFilterPress.Checked = true;
                                 ChkCboBoxHideFilterPress.Enabled = true;
-                                ChkCboBoxHideFilterPress.SetItemChecked(ChkCboBoxHideFilterPress.Items.IndexOf(arg), true);
+                                try 
+                                { 
+                                    ChkCboBoxHideFilterPress.SetItemChecked(ChkCboBoxHideFilterPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "showfilter":
@@ -159,7 +201,13 @@ namespace MidiControl
                             {
                                 ChkBoxShowFilterPress.Checked = true;
                                 ChkCboBoxShowFilterPress.Enabled = true;
-                                ChkCboBoxShowFilterPress.SetItemChecked(ChkCboBoxShowFilterPress.Items.IndexOf(arg), true);
+                                try 
+                                { 
+                                    ChkCboBoxShowFilterPress.SetItemChecked(ChkCboBoxShowFilterPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "togglefilter":
@@ -167,7 +215,13 @@ namespace MidiControl
                             {
                                 ChkBoxToggleFilterPress.Checked = true;
                                 ChkCboBoxToggleFilterPress.Enabled = true;
-                                ChkCboBoxToggleFilterPress.SetItemChecked(ChkCboBoxToggleFilterPress.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxToggleFilterPress.SetItemChecked(ChkCboBoxToggleFilterPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "misc":
@@ -175,7 +229,13 @@ namespace MidiControl
                             {
                                 ChkBoxMiscPress.Checked = true;
                                 ChkCboBoxMiscPress.Enabled = true;
-                                ChkCboBoxMiscPress.SetItemChecked(ChkCboBoxMiscPress.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxMiscPress.SetItemChecked(ChkCboBoxMiscPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         default:
@@ -199,7 +259,13 @@ namespace MidiControl
                             {
                                 ChkBoxMuteRelease.Checked = true;
                                 ChkCboBoxMuteRelease.Enabled = true;
-                                ChkCboBoxMuteRelease.SetItemChecked(ChkCboBoxMuteRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxMuteRelease.SetItemChecked(ChkCboBoxMuteRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "unmute":
@@ -207,7 +273,13 @@ namespace MidiControl
                             {
                                 ChkBoxUnmuteRelease.Checked = true;
                                 ChkCboBoxUnmuteRelease.Enabled = true;
-                                ChkCboBoxUnmuteRelease.SetItemChecked(ChkCboBoxUnmuteRelease.Items.IndexOf(arg), true);
+                                try
+                                {
+                                    ChkCboBoxUnmuteRelease.SetItemChecked(ChkCboBoxUnmuteRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "togglemute":
@@ -215,7 +287,13 @@ namespace MidiControl
                             {
                                 ChkBoxTogglemuteRelease.Checked = true;
                                 ChkCboBoxToggleMuteRelease.Enabled = true;
-                                ChkCboBoxToggleMuteRelease.SetItemChecked(ChkCboBoxToggleMuteRelease.Items.IndexOf(arg), true);
+                                try
+                                {
+                                    ChkCboBoxToggleMuteRelease.SetItemChecked(ChkCboBoxToggleMuteRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "hide":
@@ -223,7 +301,13 @@ namespace MidiControl
                             {
                                 ChkBoxHideSourceRelease.Checked = true;
                                 ChkCboBoxHideRelease.Enabled = true;
-                                ChkCboBoxHideRelease.SetItemChecked(ChkCboBoxHideRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxHideRelease.SetItemChecked(ChkCboBoxHideRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "show":
@@ -231,7 +315,13 @@ namespace MidiControl
                             {
                                 ChkBoxShowSourceRelease.Checked = true;
                                 ChkCboBoxShowRelease.Enabled = true;
-                                ChkCboBoxShowRelease.SetItemChecked(ChkCboBoxShowRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxShowRelease.SetItemChecked(ChkCboBoxShowRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "togglehide":
@@ -239,7 +329,13 @@ namespace MidiControl
                             {
                                 ChkBoxToggleSourceRelease.Checked = true;
                                 ChkCboBoxToggleSourceRelease.Enabled = true;
-                                ChkCboBoxToggleSourceRelease.SetItemChecked(ChkCboBoxToggleSourceRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxToggleSourceRelease.SetItemChecked(ChkCboBoxToggleSourceRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "transition":
@@ -257,7 +353,13 @@ namespace MidiControl
                             {
                                 ChkBoxHideFilterRelease.Checked = true;
                                 ChkCboBoxHideFilterRelease.Enabled = true;
-                                ChkCboBoxHideFilterRelease.SetItemChecked(ChkCboBoxHideFilterRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxHideFilterRelease.SetItemChecked(ChkCboBoxHideFilterRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "showfilter":
@@ -265,7 +367,13 @@ namespace MidiControl
                             {
                                 ChkBoxShowFilterRelease.Checked = true;
                                 ChkCboBoxShowFilterRelease.Enabled = true;
-                                ChkCboBoxShowFilterRelease.SetItemChecked(ChkCboBoxShowFilterRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxShowFilterRelease.SetItemChecked(ChkCboBoxShowFilterRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "togglefilter":
@@ -273,7 +381,13 @@ namespace MidiControl
                             {
                                 ChkBoxToggleFilterRelease.Checked = true;
                                 ChkCboBoxToggleFilterRelease.Enabled = true;
-                                ChkCboBoxToggleFilterRelease.SetItemChecked(ChkCboBoxToggleFilterRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxToggleFilterRelease.SetItemChecked(ChkCboBoxToggleFilterRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "misc":
@@ -281,7 +395,13 @@ namespace MidiControl
                             {
                                 ChkBoxMiscRelease.Checked = true;
                                 ChkCboBoxMiscRelease.Enabled = true;
-                                ChkCboBoxMiscRelease.SetItemChecked(ChkCboBoxMiscRelease.Items.IndexOf(arg), true);
+                                try
+                                { 
+                                    ChkCboBoxMiscRelease.SetItemChecked(ChkCboBoxMiscRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         default:
@@ -297,7 +417,12 @@ namespace MidiControl
                             {
                                 ChkBoxAdjustVolume.Checked = true;
                                 ChkCboBoxVolumeSlider.Enabled = true;
-                                ChkCboBoxVolumeSlider.SetItemChecked(ChkCboBoxHideRelease.Items.IndexOf(arg), true);
+                                try { 
+                                    ChkCboBoxVolumeSlider.SetItemChecked(ChkCboBoxHideRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
                             }
                             break;
                         case "transition":
@@ -803,7 +928,8 @@ namespace MidiControl
             if (ChkBoxEnableAudio.Checked)
             {
                 key.SoundCallBack = new SoundCallBack(TxtBoxAudioFile.Text, CboBoxAudioDevice.Text, ChkBoxAudioStop.Checked, chkBoxLoop.Checked, volumeSlider.Volume);
-            } else
+            }
+            else
             {
                 key.SoundCallBack = null;
             }
@@ -825,7 +951,7 @@ namespace MidiControl
         {
             foreach (KeyValuePair<string, string[]> items in CheckToCombo)
             {
-                foreach(string item in items.Value)
+                foreach (string item in items.Value)
                 {
                     if (((CheckBox)sender).Name == items.Key)
                     {
