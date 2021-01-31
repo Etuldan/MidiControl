@@ -36,7 +36,7 @@ namespace MidiControl
         {
             midi.ReleaseAll();
         }
-            public static MIDIControlGUI GetInstance()
+        public static MIDIControlGUI GetInstance()
         {
             return _instance;
         }
