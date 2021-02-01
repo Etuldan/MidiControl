@@ -174,6 +174,12 @@ namespace MidiControl
                                         }
                                     }
                                     break;
+                                case "Pause Record":
+                                    obs.SendRequest("PauseRecording");
+                                    break;
+                                case "Resume Record":
+                                    obs.SendRequest("ResumeRecording");
+                                    break;
                                 case "Transition To Program (Studio)":
                                     obs.TransitionToProgram();
                                     break;
