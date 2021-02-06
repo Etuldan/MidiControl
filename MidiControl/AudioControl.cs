@@ -64,6 +64,7 @@ namespace MidiControl
         {
             try
             {
+                MIDIFeedback feedback = new MIDIFeedback(keybind);
                 MediaFoundationReader waveReader = new MediaFoundationReader(File);
                 LoopStream loop = new LoopStream(waveReader)
                 {
@@ -78,11 +79,14 @@ namespace MidiControl
                 void PlaybackStopped(object sender, EventArgs e, KeyBindEntry bind)
                 {
                     WaveOuts.Remove(bind);
+                    MIDIFeedback feedbackOff = new MIDIFeedback(bind); ;
+                    feedbackOff.SendOff();
                 }
                 waveOut.PlaybackStopped += (sender, e) => PlaybackStopped(sender, e, keybind);
                 waveOut.DeviceNumber = Device;
                 waveOut.Init(channel);
                 waveOut.Play();
+                feedback.SendIn();
                 try
                 {
                     List<WaveOut> list = new List<WaveOut> { waveOut };
@@ -108,8 +112,10 @@ namespace MidiControl
         {
             if (WaveOuts.TryGetValue(keybind, out List<WaveOut> waveOuts) == true)
             {
+                MIDIFeedback feedback = new MIDIFeedback(keybind);
                 foreach (WaveOut waveOut in waveOuts)
                 {
+                    feedback.SendOff();
                     waveOut.Stop();
                     waveOut.Dispose();
                 }
@@ -124,6 +130,8 @@ namespace MidiControl
                 foreach (WaveOut waveOut in entry.Value)
                 {
                     list.Add(waveOut);
+                    MIDIFeedback feedback = new MIDIFeedback(entry.Key); ;
+                    feedback.SendOff();
                 }
             }
 

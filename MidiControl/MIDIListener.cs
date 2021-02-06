@@ -156,7 +156,7 @@ namespace MidiControl
                 {
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksON)
                     {
-                        callback.Start();
+                        callback.Start(entry.Value);
                     }
                     if(entry.Value.SoundCallBack != null)
                     {
@@ -167,7 +167,7 @@ namespace MidiControl
                 {
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksOFF)
                     {
-                        callback.Start();
+                        callback.Start(entry.Value);
                     }
                     if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased == true)
                     {
@@ -180,7 +180,7 @@ namespace MidiControl
                     {
                         foreach (OBSCallBack callback in entry.Value.OBSCallBacksON)
                         {
-                            callback.Start();
+                            callback.Start(entry.Value);
                         }
                         if (entry.Value.SoundCallBack != null)
                         {
@@ -191,7 +191,7 @@ namespace MidiControl
                     {
                         foreach (OBSCallBack callback in entry.Value.OBSCallBacksOFF)
                         {
-                            callback.Start();
+                            callback.Start(entry.Value);
                         }
                         if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased == true)
                         {

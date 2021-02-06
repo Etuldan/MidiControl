@@ -112,7 +112,7 @@ namespace MidiControl
             obs = OBSControl.GetInstance();
         }
 
-        public void Start()
+        public void Start(KeyBindEntry midiDevice)
         {
             if (obs == null)
             {
@@ -121,11 +121,11 @@ namespace MidiControl
             var t = Task.Run(async delegate
             {
                 await Task.Delay(obs.options.options.Delay);
-                obs.DoAction(Action, Args);
+                obs.DoAction(midiDevice, Action, Args);
             });
         }
 
-        public void Start(float value)
+        public void Start(KeyBindEntry midiDevice, float value)
         {
             if (obs == null)
             {
@@ -134,7 +134,7 @@ namespace MidiControl
             var t = Task.Run(async delegate
             {
                 await Task.Delay(obs.options.options.Delay);
-                obs.DoAction(Action, Args, value);
+                obs.DoAction(midiDevice, Action, Args, value);
             });
         }
     }

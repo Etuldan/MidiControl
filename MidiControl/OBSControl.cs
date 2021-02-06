@@ -75,10 +75,11 @@ namespace MidiControl
             }
         }
 
-        public void DoAction(string action, List<string> args)
+        public void DoAction(KeyBindEntry keybind, string action, List<string> args)
         {
             if (!obs.IsConnected) return;
 
+            MIDIFeedback feedback = new MIDIFeedback(keybind);
             try
             {
                 switch (action)
@@ -195,10 +196,11 @@ namespace MidiControl
             {
             }
         }
-        public void DoAction(string action, List<string> args, float value)
+        public void DoAction(KeyBindEntry keybind, string action, List<string> args, float value)
         {
             if (!obs.IsConnected) return;
 
+            MIDIFeedback feedback = new MIDIFeedback(keybind); ;
             switch (action)
             {
                 case "transition":

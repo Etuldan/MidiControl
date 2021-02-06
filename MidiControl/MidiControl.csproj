@@ -85,6 +85,7 @@
     <Compile Include="EntryGUI.Designer.cs">
       <DependentUpon>EntryGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="MIDIFeedback.cs" />
     <Compile Include="MidiInCustom.cs" />
     <Compile Include="OBSControl.cs" />
     <Compile Include="OptionsManagment.cs" />
