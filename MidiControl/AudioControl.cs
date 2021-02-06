@@ -60,11 +60,6 @@ namespace MidiControl
     {
         private readonly Dictionary<KeyBindEntry, List<WaveOut>> WaveOuts = new Dictionary<KeyBindEntry, List<WaveOut>>();
 
-        public AudioControl()
-        {
-
-        }
-
         public void PlaySound(KeyBindEntry keybind, string File, int Device, bool Loop, float volume = 1.0f)
         {
             try
