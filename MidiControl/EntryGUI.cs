@@ -23,6 +23,7 @@ namespace MidiControl
         private string Device;
         private int Channel;
         private int Note;
+        private Event Input;
 
 
         public EntryGUI()
@@ -58,6 +59,7 @@ namespace MidiControl
             Device = keybind.Mididevice;
             Note = keybind.NoteNumber;
             Channel = keybind.Channel;
+            Input = keybind.Input;
 
             TxtBoxName.Text = name;
             TxtBoxNote.Text = Note.ToString();
@@ -568,7 +570,8 @@ namespace MidiControl
             {
                 Mididevice = Device,
                 NoteNumber = Note,
-                Channel = Channel
+                Channel = Channel,
+                Input = Input
             };
 
             if (ChkBoxTransitionPress.Checked)
@@ -969,6 +972,7 @@ namespace MidiControl
                 Device = MidiIn.DeviceInfo(device).ProductName;
                 Channel = ((NoteEvent)e.MidiEvent).Channel;
                 Note = ((NoteEvent)e.MidiEvent).NoteNumber;
+                Input = Event.Note;
 
                 this.Invoke(this.MIDIDelegate, new object[] {
                     Note.ToString(),
@@ -982,6 +986,7 @@ namespace MidiControl
                 Device = MidiIn.DeviceInfo(device).ProductName;
                 Channel = ((ControlChangeEvent)e.MidiEvent).Channel;
                 Note = (int)((ControlChangeEvent)e.MidiEvent).Controller;
+                Input = Event.Slider;
 
                 this.Invoke(this.MIDIDelegate, new object[] {
                     Note.ToString(),

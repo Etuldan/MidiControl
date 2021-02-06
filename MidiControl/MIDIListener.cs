@@ -146,13 +146,13 @@ namespace MidiControl
             foreach (KeyValuePair<string, KeyBindEntry> entry in conf.Config)
             {
                 var type = e.MidiEvent.GetType();
-                if (type.Name == "ControlChangeEvent" && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
+                if (type.Name == "ControlChangeEvent" && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
                     ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
 
-                if ((type.Name == "NoteEvent" || type.Name == "NoteOnEvent") && (((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber ||
+                if ((type.Name == "NoteEvent" || type.Name == "NoteOnEvent") && entry.Value.Input == Event.Note && (((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber ||
                     ((NoteEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
 
-                if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity != 0)
+                if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity != 0)
                 {
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksON)
                     {
@@ -163,7 +163,7 @@ namespace MidiControl
                         audioControl.PlaySound(entry.Value, entry.Value.SoundCallBack.File, entry.Value.SoundCallBack.Device, entry.Value.SoundCallBack.Loop, entry.Value.SoundCallBack.Volume);
                     }
                 }
-                else if ((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))
+                else if ((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff && entry.Value.Input == Event.Note || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))
                 {
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksOFF)
                     {
@@ -174,7 +174,7 @@ namespace MidiControl
                         audioControl.StopSound(entry.Value);
                     }
                 }
-                else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
+                else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider)
                 {
                     if(((ControlChangeEvent)e.MidiEvent).ControllerValue != 0)
                     {

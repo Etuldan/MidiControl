@@ -53,11 +53,17 @@ namespace MidiControl
         }
     }
 
+    public enum Event
+    {
+        Note,
+        Slider
+    }
     public class KeyBindEntry
     {
         public string Mididevice { get; set; }
         public int NoteNumber { get; set; }
         public int Channel { get; set; }
+        public Event Input { get; set; }
 
         public List<OBSCallBack> OBSCallBacksON = new List<OBSCallBack>();
         public List<OBSCallBack> OBSCallBacksOFF = new List<OBSCallBack>();
