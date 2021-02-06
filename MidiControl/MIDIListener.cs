@@ -200,18 +200,11 @@ namespace MidiControl
                     }
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksSlider)
                     {
-                        double value = Linear2dB((float)((ControlChangeEvent)e.MidiEvent).ControllerValue, 0, 127, -90, 0);
-                        callback.Start((float)value);
+                        callback.Start(entry.Value, (float)((ControlChangeEvent)e.MidiEvent).ControllerValue / 127);
                     }
                 }
             }
         }
-
-        private float Linear2dB(float inp, float ista, float isto, float osta, float osto)
-        {
-            return osta + (osto - osta) * ((inp - ista) / (isto - ista));
-        }
-
 
         public void StopAllSounds()
         {

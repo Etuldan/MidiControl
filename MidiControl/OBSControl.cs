@@ -202,7 +202,7 @@ namespace MidiControl
             switch (action)
             {
                 case "transition":
-                    obs.SetTransitionDuration((90 + (int)value)*50);
+                    obs.SetTransitionDuration((int)(value * 5000));
                     break;
                 case "volume":
                     foreach (string arg in args)
@@ -211,7 +211,7 @@ namespace MidiControl
                         {
                             source = arg,
                             volume = value,
-                            useDecibel = true
+                            useDecibel = false
                         });
                         obs.SendRequest("SetVolume", o);
                     }
