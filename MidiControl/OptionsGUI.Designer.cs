@@ -40,7 +40,8 @@
             this.groupBoxOBS = new System.Windows.Forms.GroupBox();
             this.ChkBoxAutoReconnect = new System.Windows.Forms.CheckBox();
             this.groupBoxMIDI = new System.Windows.Forms.GroupBox();
-            this.ChkBoxMIDIFeedback = new System.Windows.Forms.CheckBox();
+            this.txtBoxDelay = new System.Windows.Forms.TextBox();
+            this.lblDelay = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ChkCmbBoxMIDI = new CheckComboBoxTest.CheckedComboBox();
             this.groupBoxStopAllSounds = new System.Windows.Forms.GroupBox();
@@ -50,8 +51,6 @@
             this.lvlStopAllSoundsChannel = new System.Windows.Forms.Label();
             this.lblStopAllSoundsDevice = new System.Windows.Forms.Label();
             this.txtBoxStopAllSoundsDevice = new System.Windows.Forms.TextBox();
-            this.txtBoxDelay = new System.Windows.Forms.TextBox();
-            this.lblDelay = new System.Windows.Forms.Label();
             this.groupBoxOBS.SuspendLayout();
             this.groupBoxMIDI.SuspendLayout();
             this.groupBoxStopAllSounds.SuspendLayout();
@@ -112,7 +111,7 @@
             // ChkBoxMIDIForward
             // 
             this.ChkBoxMIDIForward.AutoSize = true;
-            this.ChkBoxMIDIForward.Location = new System.Drawing.Point(6, 63);
+            this.ChkBoxMIDIForward.Location = new System.Drawing.Point(6, 107);
             this.ChkBoxMIDIForward.Name = "ChkBoxMIDIForward";
             this.ChkBoxMIDIForward.Size = new System.Drawing.Size(140, 17);
             this.ChkBoxMIDIForward.TabIndex = 7;
@@ -122,7 +121,7 @@
             // CmbBoxMIDIForward
             // 
             this.CmbBoxMIDIForward.FormattingEnabled = true;
-            this.CmbBoxMIDIForward.Location = new System.Drawing.Point(6, 86);
+            this.CmbBoxMIDIForward.Location = new System.Drawing.Point(6, 130);
             this.CmbBoxMIDIForward.Name = "CmbBoxMIDIForward";
             this.CmbBoxMIDIForward.Size = new System.Drawing.Size(218, 21);
             this.CmbBoxMIDIForward.TabIndex = 8;
@@ -155,7 +154,6 @@
             // groupBoxMIDI
             // 
             this.groupBoxMIDI.Controls.Add(this.txtBoxDelay);
-            this.groupBoxMIDI.Controls.Add(this.ChkBoxMIDIFeedback);
             this.groupBoxMIDI.Controls.Add(this.lblDelay);
             this.groupBoxMIDI.Controls.Add(this.label1);
             this.groupBoxMIDI.Controls.Add(this.ChkCmbBoxMIDI);
@@ -168,20 +166,26 @@
             this.groupBoxMIDI.TabStop = false;
             this.groupBoxMIDI.Text = "MIDI (Restart software after any change)";
             // 
-            // ChkBoxMIDIFeedback
+            // txtBoxDelay
             // 
-            this.ChkBoxMIDIFeedback.AutoSize = true;
-            this.ChkBoxMIDIFeedback.Location = new System.Drawing.Point(6, 114);
-            this.ChkBoxMIDIFeedback.Name = "ChkBoxMIDIFeedback";
-            this.ChkBoxMIDIFeedback.Size = new System.Drawing.Size(136, 17);
-            this.ChkBoxMIDIFeedback.TabIndex = 11;
-            this.ChkBoxMIDIFeedback.Text = "Enable MIDI Feedback";
-            this.ChkBoxMIDIFeedback.UseVisualStyleBackColor = true;
+            this.txtBoxDelay.Location = new System.Drawing.Point(83, 23);
+            this.txtBoxDelay.Name = "txtBoxDelay";
+            this.txtBoxDelay.Size = new System.Drawing.Size(63, 20);
+            this.txtBoxDelay.TabIndex = 7;
+            // 
+            // lblDelay
+            // 
+            this.lblDelay.AutoSize = true;
+            this.lblDelay.Location = new System.Drawing.Point(6, 26);
+            this.lblDelay.Name = "lblDelay";
+            this.lblDelay.Size = new System.Drawing.Size(67, 13);
+            this.lblDelay.TabIndex = 6;
+            this.lblDelay.Text = "Delay (in ms)";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 20);
+            this.label1.Location = new System.Drawing.Point(6, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 13);
             this.label1.TabIndex = 10;
@@ -194,7 +198,7 @@
             this.ChkCmbBoxMIDI.DropDownHeight = 1;
             this.ChkCmbBoxMIDI.FormattingEnabled = true;
             this.ChkCmbBoxMIDI.IntegralHeight = false;
-            this.ChkCmbBoxMIDI.Location = new System.Drawing.Point(6, 36);
+            this.ChkCmbBoxMIDI.Location = new System.Drawing.Point(6, 68);
             this.ChkCmbBoxMIDI.Name = "ChkCmbBoxMIDI";
             this.ChkCmbBoxMIDI.Size = new System.Drawing.Size(218, 21);
             this.ChkCmbBoxMIDI.TabIndex = 9;
@@ -263,22 +267,6 @@
             this.txtBoxStopAllSoundsDevice.Size = new System.Drawing.Size(144, 20);
             this.txtBoxStopAllSoundsDevice.TabIndex = 0;
             // 
-            // txtBoxDelay
-            // 
-            this.txtBoxDelay.Location = new System.Drawing.Point(79, 131);
-            this.txtBoxDelay.Name = "txtBoxDelay";
-            this.txtBoxDelay.Size = new System.Drawing.Size(63, 20);
-            this.txtBoxDelay.TabIndex = 7;
-            // 
-            // lblDelay
-            // 
-            this.lblDelay.AutoSize = true;
-            this.lblDelay.Location = new System.Drawing.Point(6, 134);
-            this.lblDelay.Name = "lblDelay";
-            this.lblDelay.Size = new System.Drawing.Size(67, 13);
-            this.lblDelay.TabIndex = 6;
-            this.lblDelay.Text = "Delay (in ms)";
-            // 
             // OptionsGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,7 +307,6 @@
         private System.Windows.Forms.Label label1;
         private CheckComboBoxTest.CheckedComboBox ChkCmbBoxMIDI;
         private System.Windows.Forms.CheckBox ChkBoxAutoReconnect;
-        private System.Windows.Forms.CheckBox ChkBoxMIDIFeedback;
         private System.Windows.Forms.GroupBox groupBoxStopAllSounds;
         private System.Windows.Forms.TextBox txtBoxStopAllSoundsNote;
         private System.Windows.Forms.TextBox txtBoxStopAllSoundsChannel;

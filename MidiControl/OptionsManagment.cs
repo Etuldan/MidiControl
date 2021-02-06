@@ -52,7 +52,6 @@ namespace MidiControl
                     AutoReconnect = false,
                     MIDIForwardInterface = "",
                     MIDIForwardEnabled = false,
-                    MIDIFeedbackEnabled = false,
                     MIDIInterfaces = new List<string>(),
                     Delay = 0
                 };
@@ -73,7 +72,6 @@ namespace MidiControl
             public bool AutoReconnect { get; set; }
             public string MIDIForwardInterface { get; set; }
             public bool MIDIForwardEnabled { get; set; }
-            public bool MIDIFeedbackEnabled { get; set; }
             public int NoteNumberStopAllSounds { get; set; }
             public int ChannelStopAllSounds { get; set; }
             public string MidiDeviceStopAllSounds { get; set; }

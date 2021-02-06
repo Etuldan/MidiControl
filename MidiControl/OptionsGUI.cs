@@ -34,7 +34,6 @@ namespace MidiControl
                 }
             }
             ChkBoxMIDIForward.Checked = options.options.MIDIForwardEnabled;
-            ChkBoxMIDIFeedback.Checked = options.options.MIDIFeedbackEnabled;
 
             txtBoxStopAllSoundsDevice.Text = options.options.MidiDeviceStopAllSounds;
             txtBoxStopAllSoundsChannel.Text = options.options.ChannelStopAllSounds.ToString();
@@ -51,7 +50,6 @@ namespace MidiControl
 
             options.options.MIDIForwardInterface = CmbBoxMIDIForward.Text;
             options.options.MIDIForwardEnabled = ChkBoxMIDIForward.Checked;
-            options.options.MIDIFeedbackEnabled = ChkBoxMIDIFeedback.Checked;
 
             options.options.MidiDeviceStopAllSounds = txtBoxStopAllSoundsDevice.Text;
             try

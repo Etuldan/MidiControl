@@ -1,7 +1,7 @@
 ﻿using NAudio.Midi;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace MidiControl
 {
@@ -13,6 +13,8 @@ namespace MidiControl
         public List<MidiOut> midiOut = new List<MidiOut>();
         public List<string> midiOutStringOptions = new List<string>();
         public Dictionary<string, MidiInCustom> midiInInterface = new Dictionary<string, MidiInCustom>();
+
+        private static readonly IEnumerable<string> FeedBackDevices = new List<string>{ "APC MINI" };
 
         private static MIDIListener _instance;
         private readonly Configuration conf;
@@ -32,22 +34,18 @@ namespace MidiControl
             {
                 try
                 {
-                    //if(MidiIn.DeviceInfo(device).ProductName != options.options.MIDIForwardInterface) // Avoid infinite Loopback
-                    //{
-                        if (!options.options.MIDIInterfaces.Contains(MidiIn.DeviceInfo(device).ProductName))
-                        {
-                            MidiInCustom MidiIndevice = new MidiInCustom(device);
-                            midiInInterface.Add(MidiIn.DeviceInfo(device).ProductName, MidiIndevice);
-                            midiInStringFeedback.Add(MidiIn.DeviceInfo(device).ProductName);
+                    if (!options.options.MIDIInterfaces.Contains(MidiIn.DeviceInfo(device).ProductName))
+                    {
+                        MidiInCustom MidiIndevice = new MidiInCustom(device);
+                        midiInInterface.Add(MidiIn.DeviceInfo(device).ProductName, MidiIndevice);
+                        midiInStringFeedback.Add(MidiIn.DeviceInfo(device).ProductName);
 
-                            MidiIndevice.Start();
-                            midiIn.Add(MidiIndevice);
+                        MidiIndevice.Start();
+                        midiIn.Add(MidiIndevice);
 
-                            Debug.WriteLine("MIDI IN Device " + MidiIn.DeviceInfo(device).ProductName);
-                        }
-
-                        midiInStringOptions.Add(MidiIn.DeviceInfo(device).ProductName);
-                    //}
+                        Debug.WriteLine("MIDI IN Device " + MidiIn.DeviceInfo(device).ProductName);
+                    }
+                    midiInStringOptions.Add(MidiIn.DeviceInfo(device).ProductName);
                 }
                 catch (NAudio.MmException)
                 {
@@ -61,14 +59,11 @@ namespace MidiControl
 
                 try
                 {
-                    if (options.options.MIDIFeedbackEnabled == true)
+                    if (midiInStringFeedback.Contains(MidiOut.DeviceInfo(device).ProductName) && FeedBackDevices.Contains(MidiOut.DeviceInfo(device).ProductName))
                     {
-                        if(midiInStringFeedback.Contains(MidiOut.DeviceInfo(device).ProductName))
-                        {
-                            MidiOutCustom MidiOutdevice = new MidiOutCustom(device);
-                            midiOut.Add(MidiOutdevice);
-                            Debug.WriteLine("MIDI OUT Feedback Device " + MidiOut.DeviceInfo(device).ProductName);
-                        }
+                        MidiOutCustom MidiOutdevice = new MidiOutCustom(device);
+                        midiOut.Add(MidiOutdevice);
+                        Debug.WriteLine("MIDI OUT Feedback Device " + MidiOut.DeviceInfo(device).ProductName);
                     }
 
                     if (MidiOut.DeviceInfo(device).ProductName == options.options.MIDIForwardInterface)
@@ -138,16 +133,6 @@ namespace MidiControl
                     MidiOutdevice = new MidiOutCustom(currentDeviceOut);
                 }
                 MidiOutdevice.Send(e.RawMessage);
-            }
-            if (options.options.MIDIFeedbackEnabled == true)
-            {
-                foreach(MidiOutCustom outDevice in midiOut)
-                {
-                    if(MidiOut.DeviceInfo(outDevice.device).ProductName == MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName)
-                    {
-                        outDevice.Send(e.RawMessage);
-                    }
-                }
             }
 
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity != 0 && 
