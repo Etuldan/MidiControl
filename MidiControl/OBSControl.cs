@@ -162,6 +162,9 @@ namespace MidiControl
                                 case "Stop Record":
                                     obs.StopRecording();
                                     break;
+                                case "Toggle Record":
+                                    obs.StartStopRecording();
+                                    break;
                                 case "Play/Pause Record":
                                     try
                                     {
@@ -183,9 +186,6 @@ namespace MidiControl
                                     break;
                                 case "Transition To Program (Studio)":
                                     obs.TransitionToProgram();
-                                    break;
-                                case "Toggle Record":
-                                    obs.StartStopRecording();
                                     break;
                             }
                         }
