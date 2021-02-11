@@ -108,7 +108,16 @@ namespace MidiControl
                     case "togglemute":
                         foreach (string arg in args)
                         {
+                            bool currentMute = obs.GetMute(arg);
                             obs.ToggleMute(arg);
+                            if (currentMute)
+                            {
+                                feedback.SendOff();
+                            }
+                            else
+                            {
+                                feedback.SendIn();
+                            }
                         }
                         break;
                     case "hide":
@@ -118,7 +127,8 @@ namespace MidiControl
                         ShowSources(args, true);
                         break;
                     case "togglehide":
-                        ToggleSources(args);
+                        ToggleSources(feedback, args);
+                        // here FeedBack
                         break;
                     case "hidefilter":
                         foreach (string arg in args)
@@ -135,7 +145,7 @@ namespace MidiControl
                     case "togglefilter":
                         foreach (string arg in args)
                         {
-                            ToggleFilter(arg);
+                            ToggleFilter(feedback, arg);
                         }
                         break;
                     case "mediaplay":
@@ -185,6 +195,7 @@ namespace MidiControl
                     case "misc":
                         foreach (string arg in args)
                         {
+                            OutputStatus streamstatus;
                             switch (arg)
                             {
                                 case "Start Stream":
@@ -194,7 +205,16 @@ namespace MidiControl
                                     obs.StopStreaming();
                                     break;
                                 case "Toggle Stream":
+                                    streamstatus = obs.GetStreamingStatus();
                                     obs.StartStopStreaming();
+                                    if (streamstatus.IsStreaming)
+                                    {
+                                        feedback.SendOff();
+                                    }
+                                    else
+                                    {
+                                        feedback.SendIn();
+                                    }
                                     break;
                                 case "Start Record":
                                     obs.StartRecording();
@@ -203,18 +223,29 @@ namespace MidiControl
                                     obs.StopRecording();
                                     break;
                                 case "Toggle Record":
+                                    streamstatus = obs.GetStreamingStatus();
                                     obs.StartStopRecording();
+                                    if (streamstatus.IsRecording)
+                                    {
+                                        feedback.SendOff();
+                                    }
+                                    else
+                                    {
+                                        feedback.SendIn();
+                                    }
                                     break;
                                 case "Play/Pause Record":
                                     try
                                     {
                                         obs.SendRequest("PauseRecording");
+                                        feedback.SendIn();
                                     }
                                     catch (ErrorResponseException e)
                                     {
                                         if(e.Message.Equals("recording already paused"))
                                         {
                                             obs.SendRequest("ResumeRecording");
+                                            feedback.SendOff();
                                         }
                                     }
                                     break;
@@ -236,11 +267,10 @@ namespace MidiControl
             {
             }
         }
-        public void DoAction(KeyBindEntry keybind, string action, List<string> args, float value)
+        public void DoAction(KeyBindEntry _, string action, List<string> args, float value)
         {
             if (!obs.IsConnected) return;
 
-            MIDIFeedback feedback = new MIDIFeedback(keybind); ;
             switch (action)
             {
                 case "transition":
@@ -266,7 +296,7 @@ namespace MidiControl
         }
 
 
-        private void ToggleFilter(string filter)
+        private void ToggleFilter(MIDIFeedback feedback, string filter)
         {
             foreach (string source in this.GetSources())
             {
@@ -279,7 +309,12 @@ namespace MidiControl
                         obs.SetSourceFilterVisibility(source, filter, !currentVisibility);
                         if(currentVisibility)
                         {
+                            feedback.SendOff();
+                        }
+                        else
                         {
+                            feedback.SendOn();
+                        }
                     }
                 }
             }
@@ -303,7 +338,7 @@ namespace MidiControl
                 }
             }
         }
-        private void ToggleSources(List<string> sources)
+        private void ToggleSources(MIDIFeedback feedback, List<string> sources)
         {
             Dictionary<SourceScene, bool> sourcesName = new Dictionary<SourceScene, bool>();
             List<OBSScene> scenes = obs.ListScenes();
@@ -338,6 +373,14 @@ namespace MidiControl
             foreach (KeyValuePair<SourceScene, bool> entry in sourcesName)
             {
                 obs.SetSourceRender(entry.Key.Source, !entry.Value, entry.Key.Scene);
+                if (entry.Value)
+                {
+                    feedback.SendOff();
+                }
+                else
+                {
+                    feedback.SendOn(); 
+                }
             }
 
             if (obs.StudioModeEnabled() == true)
