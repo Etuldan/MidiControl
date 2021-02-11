@@ -35,7 +35,7 @@ namespace MidiControl
             timer.Elapsed += new ElapsedEventHandler(Timer_Tick);
             timer.Interval = 10000;
         }
-        public void Timer_Tick(Object source, System.Timers.ElapsedEventArgs e)
+        public void Timer_Tick(Object source, ElapsedEventArgs e)
         {
             if(options.options.AutoReconnect && !obs.IsConnected)
             {
@@ -249,13 +249,7 @@ namespace MidiControl
                 case "volume":
                     foreach (string arg in args)
                     {
-                        JObject o = JObject.FromObject(new
-                        {
-                            source = arg,
-                            volume = value,
-                            useDecibel = false
-                        });
-                        obs.SendRequest("SetVolume", o);
+                        obs.SetVolume(arg, value, false);
                     }
                     break;
                 case "transitionSlider":
@@ -280,21 +274,12 @@ namespace MidiControl
                 {
                     if(filtersetting.Name == filter)
                     {
-                        JObject o = JObject.FromObject(new
+                        FilterSettings setting = obs.GetSourceFilterInfo(source, filter);
+                        bool currentVisibility = setting.IsEnabled;
+                        obs.SetSourceFilterVisibility(source, filter, !currentVisibility);
+                        if(currentVisibility)
                         {
-                            sourceName = source,
-                            filterName = filter
-                        });
-                        JObject result = obs.SendRequest("GetSourceFilterInfo", o);
-                        bool currentVisibilty = result.SelectToken("enabled").Value<bool>();
-
-                        o = JObject.FromObject(new
                         {
-                            sourceName = source,
-                            filterName = filter,
-                            filterEnabled = !currentVisibilty
-                        });
-                        obs.SendRequest("SetSourceFilterVisibility", o);
                     }
                 }
             }
