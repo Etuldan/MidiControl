@@ -58,7 +58,7 @@ namespace MidiControl
                     if(obs.IsConnected)
                     {
                         Version pluginVersion = new Version(obs.GetVersion().PluginVersion);
-                        if (pluginVersion.CompareTo(new Version("4.8.0")) < 0)
+                        if (pluginVersion.CompareTo(new Version("4.9.0")) < 0)
                         {
                             throw new ErrorResponseException("Incompatible plugin Version. Please update your OBS-Websocket plugin");
                         }
@@ -86,6 +86,12 @@ namespace MidiControl
                 {
                     case "switchScene":
                         obs.SetCurrentScene(args[0]);
+                        break;
+                    case "previewScene":
+                        if(obs.StudioModeEnabled())
+                        {
+                            obs.SetPreviewScene(args[0]);
+                        }
                         break;
                     case "mute":
                         foreach (string arg in args)
@@ -130,6 +136,40 @@ namespace MidiControl
                         foreach (string arg in args)
                         {
                             ToggleFilter(arg);
+                        }
+                        break;
+                    case "mediaplay":
+                        foreach (string arg in args)
+                        {
+                            JObject o = JObject.FromObject(new
+                            {
+                                sourceName = arg,
+                                playPause = false
+                            });
+                            obs.SendRequest("PlayPauseMedia", o);
+                            //obs.PlayPauseMedia(arg, false);
+                        }
+                        break;
+                    case "mediastop":
+                        foreach (string arg in args)
+                        {
+                            JObject o = JObject.FromObject(new
+                            {
+                                sourceName = arg
+                            });
+                            obs.SendRequest("StopMedia", o);
+                            //obs.StopMedia(arg);
+                        }
+                        break;
+                    case "mediarestart":
+                        foreach (string arg in args)
+                        {
+                            JObject o = JObject.FromObject(new
+                            {
+                                sourceName = arg
+                            });
+                            obs.SendRequest("RestartMedia", o);
+                            //obs.RestartMedia(arg);
                         }
                         break;
                     case "transition":
@@ -217,6 +257,14 @@ namespace MidiControl
                         });
                         obs.SendRequest("SetVolume", o);
                     }
+                    break;
+                case "transitionSlider":
+                    JObject o = JObject.FromObject(new
+                    {
+                        position = value
+                    });
+                    obs.SendRequest("SetTBarPosition", o);
+                    //obs.SetTBarPosition(value);
                     break;
                 default:
                     break;
