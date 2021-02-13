@@ -11,14 +11,14 @@ namespace MidiControl
     {
         private int channel = 0;
         private int note = 0;
-        private List<MidiOut> midiOut;
+        private MidiOutCustom MidiOutdeviceFeedback;
         private string device;
         public MIDIFeedback(KeyBindEntry keybind)
         {
             device = keybind.Mididevice;
             channel = keybind.Channel;
             note = keybind.NoteNumber;
-            midiOut = MIDIListener.GetInstance().midiOut;
+            MidiOutdeviceFeedback = MIDIListener.GetInstance().MidiOutdeviceFeedback;
         }
         public void SendOn()
         {
@@ -40,12 +40,9 @@ namespace MidiControl
 
         private void Send(MidiEvent me)
         {
-            foreach (MidiOutCustom outDevice in midiOut)
+            if (MidiOut.DeviceInfo(MidiOutdeviceFeedback.device).ProductName == device)
             {
-                if (MidiOut.DeviceInfo(outDevice.device).ProductName == device)
-                {
-                    outDevice.Send(me.GetAsShortMessage());
-                }
+                MidiOutdeviceFeedback.Send(me.GetAsShortMessage());
             }
         }
     }
