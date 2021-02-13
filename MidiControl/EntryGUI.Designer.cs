@@ -41,6 +41,14 @@
             this.GrpBoxKeyPress = new System.Windows.Forms.GroupBox();
             this.TabKeyPress = new System.Windows.Forms.TabControl();
             this.TabOBSPress = new System.Windows.Forms.TabPage();
+            this.ChkCboBoxMediaStopPress = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxMediaStopPress = new System.Windows.Forms.CheckBox();
+            this.ChkCboBoxMediaRestartPress = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxMediaRestartPress = new System.Windows.Forms.CheckBox();
+            this.ChkCboBoxMediaPlayPress = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxMediaPlayPress = new System.Windows.Forms.CheckBox();
+            this.CboBoxPreviewScenePress = new System.Windows.Forms.ComboBox();
+            this.ChkBoxPreviewScenePress = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxMiscPress = new CheckComboBoxTest.CheckedComboBox();
             this.ChkBoxMiscPress = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxToggleFilterPress = new CheckComboBoxTest.CheckedComboBox();
@@ -79,8 +87,16 @@
             this.GrpBoxKeyRelease = new System.Windows.Forms.GroupBox();
             this.TabKeyRelease = new System.Windows.Forms.TabControl();
             this.TabOBSRelease = new System.Windows.Forms.TabPage();
+            this.ChkCboBoxMediaStopRelease = new CheckComboBoxTest.CheckedComboBox();
+            this.CboBoxPreviewSceneRelease = new System.Windows.Forms.ComboBox();
+            this.ChkBoxMediaStopRelease = new System.Windows.Forms.CheckBox();
+            this.ChkCboBoxMediaRestartRelease = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxPreviewSceneRelease = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaRestartRelease = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxMiscRelease = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkCboBoxMediaPlayRelease = new CheckComboBoxTest.CheckedComboBox();
             this.ChkBoxMiscRelease = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaPlayRelease = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxToggleFilterRelease = new CheckComboBoxTest.CheckedComboBox();
             this.ChkCboBoxToggleSourceRelease = new CheckComboBoxTest.CheckedComboBox();
             this.ChkBoxToggleFilterRelease = new System.Windows.Forms.CheckBox();
@@ -109,9 +125,10 @@
             this.GrpBoxKeySlider = new System.Windows.Forms.GroupBox();
             this.TabKeySlider = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ChkBoxSlideTransition = new System.Windows.Forms.CheckBox();
+            this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
             this.ChkBoxAdjustVolume = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxVolumeSlider = new CheckComboBoxTest.CheckedComboBox();
-            this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
             this.GrpBoxKeyPress.SuspendLayout();
             this.TabKeyPress.SuspendLayout();
             this.TabOBSPress.SuspendLayout();
@@ -179,7 +196,7 @@
             // 
             // BtnAdd
             // 
-            this.BtnAdd.Location = new System.Drawing.Point(513, 518);
+            this.BtnAdd.Location = new System.Drawing.Point(513, 626);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(75, 23);
             this.BtnAdd.TabIndex = 8;
@@ -209,7 +226,7 @@
             this.GrpBoxKeyPress.Controls.Add(this.TabKeyPress);
             this.GrpBoxKeyPress.Location = new System.Drawing.Point(9, 36);
             this.GrpBoxKeyPress.Name = "GrpBoxKeyPress";
-            this.GrpBoxKeyPress.Size = new System.Drawing.Size(579, 190);
+            this.GrpBoxKeyPress.Size = new System.Drawing.Size(579, 248);
             this.GrpBoxKeyPress.TabIndex = 11;
             this.GrpBoxKeyPress.TabStop = false;
             this.GrpBoxKeyPress.Text = "On Key Press";
@@ -221,11 +238,19 @@
             this.TabKeyPress.Location = new System.Drawing.Point(7, 20);
             this.TabKeyPress.Name = "TabKeyPress";
             this.TabKeyPress.SelectedIndex = 0;
-            this.TabKeyPress.Size = new System.Drawing.Size(568, 165);
+            this.TabKeyPress.Size = new System.Drawing.Size(568, 222);
             this.TabKeyPress.TabIndex = 0;
             // 
             // TabOBSPress
             // 
+            this.TabOBSPress.Controls.Add(this.ChkCboBoxMediaStopPress);
+            this.TabOBSPress.Controls.Add(this.ChkBoxMediaStopPress);
+            this.TabOBSPress.Controls.Add(this.ChkCboBoxMediaRestartPress);
+            this.TabOBSPress.Controls.Add(this.ChkBoxMediaRestartPress);
+            this.TabOBSPress.Controls.Add(this.ChkCboBoxMediaPlayPress);
+            this.TabOBSPress.Controls.Add(this.ChkBoxMediaPlayPress);
+            this.TabOBSPress.Controls.Add(this.CboBoxPreviewScenePress);
+            this.TabOBSPress.Controls.Add(this.ChkBoxPreviewScenePress);
             this.TabOBSPress.Controls.Add(this.ChkCboBoxMiscPress);
             this.TabOBSPress.Controls.Add(this.ChkBoxMiscPress);
             this.TabOBSPress.Controls.Add(this.ChkCboBoxToggleFilterPress);
@@ -254,10 +279,105 @@
             this.TabOBSPress.Location = new System.Drawing.Point(4, 22);
             this.TabOBSPress.Name = "TabOBSPress";
             this.TabOBSPress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabOBSPress.Size = new System.Drawing.Size(560, 139);
+            this.TabOBSPress.Size = new System.Drawing.Size(560, 196);
             this.TabOBSPress.TabIndex = 0;
             this.TabOBSPress.Text = "OBS";
             this.TabOBSPress.UseVisualStyleBackColor = true;
+            // 
+            // ChkCboBoxMediaStopPress
+            // 
+            this.ChkCboBoxMediaStopPress.CheckOnClick = true;
+            this.ChkCboBoxMediaStopPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMediaStopPress.DropDownHeight = 1;
+            this.ChkCboBoxMediaStopPress.Enabled = false;
+            this.ChkCboBoxMediaStopPress.FormattingEnabled = true;
+            this.ChkCboBoxMediaStopPress.IntegralHeight = false;
+            this.ChkCboBoxMediaStopPress.Location = new System.Drawing.Point(363, 123);
+            this.ChkCboBoxMediaStopPress.Name = "ChkCboBoxMediaStopPress";
+            this.ChkCboBoxMediaStopPress.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxMediaStopPress.TabIndex = 33;
+            this.ChkCboBoxMediaStopPress.ValueSeparator = ", ";
+            // 
+            // ChkBoxMediaStopPress
+            // 
+            this.ChkBoxMediaStopPress.AutoSize = true;
+            this.ChkBoxMediaStopPress.Location = new System.Drawing.Point(276, 125);
+            this.ChkBoxMediaStopPress.Name = "ChkBoxMediaStopPress";
+            this.ChkBoxMediaStopPress.Size = new System.Drawing.Size(80, 17);
+            this.ChkBoxMediaStopPress.TabIndex = 32;
+            this.ChkBoxMediaStopPress.Text = "Media Stop";
+            this.ChkBoxMediaStopPress.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaStopPress.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // ChkCboBoxMediaRestartPress
+            // 
+            this.ChkCboBoxMediaRestartPress.CheckOnClick = true;
+            this.ChkCboBoxMediaRestartPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMediaRestartPress.DropDownHeight = 1;
+            this.ChkCboBoxMediaRestartPress.Enabled = false;
+            this.ChkCboBoxMediaRestartPress.FormattingEnabled = true;
+            this.ChkCboBoxMediaRestartPress.IntegralHeight = false;
+            this.ChkCboBoxMediaRestartPress.Location = new System.Drawing.Point(363, 146);
+            this.ChkCboBoxMediaRestartPress.Name = "ChkCboBoxMediaRestartPress";
+            this.ChkCboBoxMediaRestartPress.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxMediaRestartPress.TabIndex = 31;
+            this.ChkCboBoxMediaRestartPress.ValueSeparator = ", ";
+            // 
+            // ChkBoxMediaRestartPress
+            // 
+            this.ChkBoxMediaRestartPress.AutoSize = true;
+            this.ChkBoxMediaRestartPress.Location = new System.Drawing.Point(276, 148);
+            this.ChkBoxMediaRestartPress.Name = "ChkBoxMediaRestartPress";
+            this.ChkBoxMediaRestartPress.Size = new System.Drawing.Size(92, 17);
+            this.ChkBoxMediaRestartPress.TabIndex = 30;
+            this.ChkBoxMediaRestartPress.Text = "Media Restart";
+            this.ChkBoxMediaRestartPress.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaRestartPress.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // ChkCboBoxMediaPlayPress
+            // 
+            this.ChkCboBoxMediaPlayPress.CheckOnClick = true;
+            this.ChkCboBoxMediaPlayPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMediaPlayPress.DropDownHeight = 1;
+            this.ChkCboBoxMediaPlayPress.Enabled = false;
+            this.ChkCboBoxMediaPlayPress.FormattingEnabled = true;
+            this.ChkCboBoxMediaPlayPress.IntegralHeight = false;
+            this.ChkCboBoxMediaPlayPress.Location = new System.Drawing.Point(363, 98);
+            this.ChkCboBoxMediaPlayPress.Name = "ChkCboBoxMediaPlayPress";
+            this.ChkCboBoxMediaPlayPress.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxMediaPlayPress.TabIndex = 29;
+            this.ChkCboBoxMediaPlayPress.ValueSeparator = ", ";
+            // 
+            // ChkBoxMediaPlayPress
+            // 
+            this.ChkBoxMediaPlayPress.AutoSize = true;
+            this.ChkBoxMediaPlayPress.Location = new System.Drawing.Point(276, 100);
+            this.ChkBoxMediaPlayPress.Name = "ChkBoxMediaPlayPress";
+            this.ChkBoxMediaPlayPress.Size = new System.Drawing.Size(78, 17);
+            this.ChkBoxMediaPlayPress.TabIndex = 28;
+            this.ChkBoxMediaPlayPress.Text = "Media Play";
+            this.ChkBoxMediaPlayPress.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaPlayPress.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // CboBoxPreviewScenePress
+            // 
+            this.CboBoxPreviewScenePress.Enabled = false;
+            this.CboBoxPreviewScenePress.FormattingEnabled = true;
+            this.CboBoxPreviewScenePress.Location = new System.Drawing.Point(98, 27);
+            this.CboBoxPreviewScenePress.Name = "CboBoxPreviewScenePress";
+            this.CboBoxPreviewScenePress.Size = new System.Drawing.Size(172, 21);
+            this.CboBoxPreviewScenePress.TabIndex = 27;
+            // 
+            // ChkBoxPreviewScenePress
+            // 
+            this.ChkBoxPreviewScenePress.AutoSize = true;
+            this.ChkBoxPreviewScenePress.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxPreviewScenePress.Name = "ChkBoxPreviewScenePress";
+            this.ChkBoxPreviewScenePress.Size = new System.Drawing.Size(98, 17);
+            this.ChkBoxPreviewScenePress.TabIndex = 26;
+            this.ChkBoxPreviewScenePress.Text = "Preview Scene";
+            this.ChkBoxPreviewScenePress.UseVisualStyleBackColor = true;
+            this.ChkBoxPreviewScenePress.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkCboBoxMiscPress
             // 
@@ -267,16 +387,16 @@
             this.ChkCboBoxMiscPress.Enabled = false;
             this.ChkCboBoxMiscPress.FormattingEnabled = true;
             this.ChkCboBoxMiscPress.IntegralHeight = false;
-            this.ChkCboBoxMiscPress.Location = new System.Drawing.Point(357, 115);
+            this.ChkCboBoxMiscPress.Location = new System.Drawing.Point(363, 169);
             this.ChkCboBoxMiscPress.Name = "ChkCboBoxMiscPress";
-            this.ChkCboBoxMiscPress.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxMiscPress.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxMiscPress.TabIndex = 25;
             this.ChkCboBoxMiscPress.ValueSeparator = ", ";
             // 
             // ChkBoxMiscPress
             // 
             this.ChkBoxMiscPress.AutoSize = true;
-            this.ChkBoxMiscPress.Location = new System.Drawing.Point(276, 117);
+            this.ChkBoxMiscPress.Location = new System.Drawing.Point(276, 171);
             this.ChkBoxMiscPress.Name = "ChkBoxMiscPress";
             this.ChkBoxMiscPress.Size = new System.Drawing.Size(48, 17);
             this.ChkBoxMiscPress.TabIndex = 24;
@@ -292,7 +412,7 @@
             this.ChkCboBoxToggleFilterPress.Enabled = false;
             this.ChkCboBoxToggleFilterPress.FormattingEnabled = true;
             this.ChkCboBoxToggleFilterPress.IntegralHeight = false;
-            this.ChkCboBoxToggleFilterPress.Location = new System.Drawing.Point(98, 115);
+            this.ChkCboBoxToggleFilterPress.Location = new System.Drawing.Point(98, 169);
             this.ChkCboBoxToggleFilterPress.Name = "ChkCboBoxToggleFilterPress";
             this.ChkCboBoxToggleFilterPress.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxToggleFilterPress.TabIndex = 23;
@@ -301,7 +421,7 @@
             // ChkBoxToggleFilterPress
             // 
             this.ChkBoxToggleFilterPress.AutoSize = true;
-            this.ChkBoxToggleFilterPress.Location = new System.Drawing.Point(6, 117);
+            this.ChkBoxToggleFilterPress.Location = new System.Drawing.Point(6, 171);
             this.ChkBoxToggleFilterPress.Name = "ChkBoxToggleFilterPress";
             this.ChkBoxToggleFilterPress.Size = new System.Drawing.Size(84, 17);
             this.ChkBoxToggleFilterPress.TabIndex = 22;
@@ -317,7 +437,7 @@
             this.ChkCboBoxShowFilterPress.Enabled = false;
             this.ChkCboBoxShowFilterPress.FormattingEnabled = true;
             this.ChkCboBoxShowFilterPress.IntegralHeight = false;
-            this.ChkCboBoxShowFilterPress.Location = new System.Drawing.Point(98, 93);
+            this.ChkCboBoxShowFilterPress.Location = new System.Drawing.Point(98, 121);
             this.ChkCboBoxShowFilterPress.Name = "ChkCboBoxShowFilterPress";
             this.ChkCboBoxShowFilterPress.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxShowFilterPress.TabIndex = 21;
@@ -326,7 +446,7 @@
             // ChkBoxShowFilterPress
             // 
             this.ChkBoxShowFilterPress.AutoSize = true;
-            this.ChkBoxShowFilterPress.Location = new System.Drawing.Point(6, 95);
+            this.ChkBoxShowFilterPress.Location = new System.Drawing.Point(6, 123);
             this.ChkBoxShowFilterPress.Name = "ChkBoxShowFilterPress";
             this.ChkBoxShowFilterPress.Size = new System.Drawing.Size(78, 17);
             this.ChkBoxShowFilterPress.TabIndex = 20;
@@ -342,16 +462,16 @@
             this.ChkCboBoxHideFilterPress.Enabled = false;
             this.ChkCboBoxHideFilterPress.FormattingEnabled = true;
             this.ChkCboBoxHideFilterPress.IntegralHeight = false;
-            this.ChkCboBoxHideFilterPress.Location = new System.Drawing.Point(357, 93);
+            this.ChkCboBoxHideFilterPress.Location = new System.Drawing.Point(98, 145);
             this.ChkCboBoxHideFilterPress.Name = "ChkCboBoxHideFilterPress";
-            this.ChkCboBoxHideFilterPress.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxHideFilterPress.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxHideFilterPress.TabIndex = 19;
             this.ChkCboBoxHideFilterPress.ValueSeparator = ", ";
             // 
             // ChkBoxHideFilterPress
             // 
             this.ChkBoxHideFilterPress.AutoSize = true;
-            this.ChkBoxHideFilterPress.Location = new System.Drawing.Point(276, 95);
+            this.ChkBoxHideFilterPress.Location = new System.Drawing.Point(6, 147);
             this.ChkBoxHideFilterPress.Name = "ChkBoxHideFilterPress";
             this.ChkBoxHideFilterPress.Size = new System.Drawing.Size(73, 17);
             this.ChkBoxHideFilterPress.TabIndex = 18;
@@ -367,7 +487,7 @@
             this.ChkCboBoxToggleSourcePress.Enabled = false;
             this.ChkCboBoxToggleSourcePress.FormattingEnabled = true;
             this.ChkCboBoxToggleSourcePress.IntegralHeight = false;
-            this.ChkCboBoxToggleSourcePress.Location = new System.Drawing.Point(98, 71);
+            this.ChkCboBoxToggleSourcePress.Location = new System.Drawing.Point(98, 97);
             this.ChkCboBoxToggleSourcePress.Name = "ChkCboBoxToggleSourcePress";
             this.ChkCboBoxToggleSourcePress.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxToggleSourcePress.TabIndex = 17;
@@ -376,7 +496,7 @@
             // ChkBoxToggleSourcePress
             // 
             this.ChkBoxToggleSourcePress.AutoSize = true;
-            this.ChkBoxToggleSourcePress.Location = new System.Drawing.Point(6, 73);
+            this.ChkBoxToggleSourcePress.Location = new System.Drawing.Point(6, 99);
             this.ChkBoxToggleSourcePress.Name = "ChkBoxToggleSourcePress";
             this.ChkBoxToggleSourcePress.Size = new System.Drawing.Size(96, 17);
             this.ChkBoxToggleSourcePress.TabIndex = 16;
@@ -392,16 +512,16 @@
             this.ChkCboBoxToggleMutePress.Enabled = false;
             this.ChkCboBoxToggleMutePress.FormattingEnabled = true;
             this.ChkCboBoxToggleMutePress.IntegralHeight = false;
-            this.ChkCboBoxToggleMutePress.Location = new System.Drawing.Point(357, 71);
+            this.ChkCboBoxToggleMutePress.Location = new System.Drawing.Point(363, 74);
             this.ChkCboBoxToggleMutePress.Name = "ChkCboBoxToggleMutePress";
-            this.ChkCboBoxToggleMutePress.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxToggleMutePress.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxToggleMutePress.TabIndex = 15;
             this.ChkCboBoxToggleMutePress.ValueSeparator = ", ";
             // 
             // ChkBoxTogglemutePress
             // 
             this.ChkBoxTogglemutePress.AutoSize = true;
-            this.ChkBoxTogglemutePress.Location = new System.Drawing.Point(276, 73);
+            this.ChkBoxTogglemutePress.Location = new System.Drawing.Point(276, 76);
             this.ChkBoxTogglemutePress.Name = "ChkBoxTogglemutePress";
             this.ChkBoxTogglemutePress.Size = new System.Drawing.Size(86, 17);
             this.ChkBoxTogglemutePress.TabIndex = 14;
@@ -438,9 +558,9 @@
             // 
             this.CboBoxTransitionPress.Enabled = false;
             this.CboBoxTransitionPress.FormattingEnabled = true;
-            this.CboBoxTransitionPress.Location = new System.Drawing.Point(357, 4);
+            this.CboBoxTransitionPress.Location = new System.Drawing.Point(363, 4);
             this.CboBoxTransitionPress.Name = "CboBoxTransitionPress";
-            this.CboBoxTransitionPress.Size = new System.Drawing.Size(139, 21);
+            this.CboBoxTransitionPress.Size = new System.Drawing.Size(133, 21);
             this.CboBoxTransitionPress.TabIndex = 10;
             // 
             // ChkCboBoxHidePress
@@ -451,7 +571,7 @@
             this.ChkCboBoxHidePress.Enabled = false;
             this.ChkCboBoxHidePress.FormattingEnabled = true;
             this.ChkCboBoxHidePress.IntegralHeight = false;
-            this.ChkCboBoxHidePress.Location = new System.Drawing.Point(98, 49);
+            this.ChkCboBoxHidePress.Location = new System.Drawing.Point(98, 74);
             this.ChkCboBoxHidePress.Name = "ChkCboBoxHidePress";
             this.ChkCboBoxHidePress.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxHidePress.TabIndex = 9;
@@ -460,7 +580,7 @@
             // ChkBoxHideSourcePress
             // 
             this.ChkBoxHideSourcePress.AutoSize = true;
-            this.ChkBoxHideSourcePress.Location = new System.Drawing.Point(6, 51);
+            this.ChkBoxHideSourcePress.Location = new System.Drawing.Point(6, 76);
             this.ChkBoxHideSourcePress.Name = "ChkBoxHideSourcePress";
             this.ChkBoxHideSourcePress.Size = new System.Drawing.Size(85, 17);
             this.ChkBoxHideSourcePress.TabIndex = 8;
@@ -476,7 +596,7 @@
             this.ChkCboBoxShowPress.Enabled = false;
             this.ChkCboBoxShowPress.FormattingEnabled = true;
             this.ChkCboBoxShowPress.IntegralHeight = false;
-            this.ChkCboBoxShowPress.Location = new System.Drawing.Point(98, 27);
+            this.ChkCboBoxShowPress.Location = new System.Drawing.Point(98, 50);
             this.ChkCboBoxShowPress.Name = "ChkCboBoxShowPress";
             this.ChkCboBoxShowPress.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxShowPress.TabIndex = 7;
@@ -485,7 +605,7 @@
             // ChkBoxShowSourcePress
             // 
             this.ChkBoxShowSourcePress.AutoSize = true;
-            this.ChkBoxShowSourcePress.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxShowSourcePress.Location = new System.Drawing.Point(6, 52);
             this.ChkBoxShowSourcePress.Name = "ChkBoxShowSourcePress";
             this.ChkBoxShowSourcePress.Size = new System.Drawing.Size(90, 17);
             this.ChkBoxShowSourcePress.TabIndex = 6;
@@ -501,16 +621,16 @@
             this.ChkCboBoxUnmutePress.Enabled = false;
             this.ChkCboBoxUnmutePress.FormattingEnabled = true;
             this.ChkCboBoxUnmutePress.IntegralHeight = false;
-            this.ChkCboBoxUnmutePress.Location = new System.Drawing.Point(357, 49);
+            this.ChkCboBoxUnmutePress.Location = new System.Drawing.Point(363, 51);
             this.ChkCboBoxUnmutePress.Name = "ChkCboBoxUnmutePress";
-            this.ChkCboBoxUnmutePress.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxUnmutePress.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxUnmutePress.TabIndex = 5;
             this.ChkCboBoxUnmutePress.ValueSeparator = ", ";
             // 
             // ChkBoxUnmutePress
             // 
             this.ChkBoxUnmutePress.AutoSize = true;
-            this.ChkBoxUnmutePress.Location = new System.Drawing.Point(276, 51);
+            this.ChkBoxUnmutePress.Location = new System.Drawing.Point(276, 53);
             this.ChkBoxUnmutePress.Name = "ChkBoxUnmutePress";
             this.ChkBoxUnmutePress.Size = new System.Drawing.Size(64, 17);
             this.ChkBoxUnmutePress.TabIndex = 4;
@@ -526,16 +646,16 @@
             this.ChkCboBoxMutePress.Enabled = false;
             this.ChkCboBoxMutePress.FormattingEnabled = true;
             this.ChkCboBoxMutePress.IntegralHeight = false;
-            this.ChkCboBoxMutePress.Location = new System.Drawing.Point(357, 27);
+            this.ChkCboBoxMutePress.Location = new System.Drawing.Point(363, 28);
             this.ChkCboBoxMutePress.Name = "ChkCboBoxMutePress";
-            this.ChkCboBoxMutePress.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxMutePress.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxMutePress.TabIndex = 3;
             this.ChkCboBoxMutePress.ValueSeparator = ", ";
             // 
             // ChkBoxMutePress
             // 
             this.ChkBoxMutePress.AutoSize = true;
-            this.ChkBoxMutePress.Location = new System.Drawing.Point(276, 29);
+            this.ChkBoxMutePress.Location = new System.Drawing.Point(276, 30);
             this.ChkBoxMutePress.Name = "ChkBoxMutePress";
             this.ChkBoxMutePress.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ChkBoxMutePress.Size = new System.Drawing.Size(50, 17);
@@ -578,7 +698,7 @@
             this.TabSoundPress.Location = new System.Drawing.Point(4, 22);
             this.TabSoundPress.Name = "TabSoundPress";
             this.TabSoundPress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabSoundPress.Size = new System.Drawing.Size(560, 139);
+            this.TabSoundPress.Size = new System.Drawing.Size(560, 196);
             this.TabSoundPress.TabIndex = 1;
             this.TabSoundPress.Text = "SoundBoard";
             this.TabSoundPress.UseVisualStyleBackColor = true;
@@ -669,9 +789,9 @@
             // GrpBoxKeyRelease
             // 
             this.GrpBoxKeyRelease.Controls.Add(this.TabKeyRelease);
-            this.GrpBoxKeyRelease.Location = new System.Drawing.Point(9, 232);
+            this.GrpBoxKeyRelease.Location = new System.Drawing.Point(9, 290);
             this.GrpBoxKeyRelease.Name = "GrpBoxKeyRelease";
-            this.GrpBoxKeyRelease.Size = new System.Drawing.Size(579, 191);
+            this.GrpBoxKeyRelease.Size = new System.Drawing.Size(579, 241);
             this.GrpBoxKeyRelease.TabIndex = 12;
             this.GrpBoxKeyRelease.TabStop = false;
             this.GrpBoxKeyRelease.Text = "On Key Release";
@@ -683,13 +803,21 @@
             this.TabKeyRelease.Location = new System.Drawing.Point(7, 20);
             this.TabKeyRelease.Name = "TabKeyRelease";
             this.TabKeyRelease.SelectedIndex = 0;
-            this.TabKeyRelease.Size = new System.Drawing.Size(568, 165);
+            this.TabKeyRelease.Size = new System.Drawing.Size(568, 215);
             this.TabKeyRelease.TabIndex = 0;
             // 
             // TabOBSRelease
             // 
+            this.TabOBSRelease.Controls.Add(this.ChkCboBoxMediaStopRelease);
+            this.TabOBSRelease.Controls.Add(this.CboBoxPreviewSceneRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkBoxMediaStopRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkCboBoxMediaRestartRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkBoxPreviewSceneRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkBoxMediaRestartRelease);
             this.TabOBSRelease.Controls.Add(this.ChkCboBoxMiscRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkCboBoxMediaPlayRelease);
             this.TabOBSRelease.Controls.Add(this.ChkBoxMiscRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkBoxMediaPlayRelease);
             this.TabOBSRelease.Controls.Add(this.ChkCboBoxToggleFilterRelease);
             this.TabOBSRelease.Controls.Add(this.ChkCboBoxToggleSourceRelease);
             this.TabOBSRelease.Controls.Add(this.ChkBoxToggleFilterRelease);
@@ -716,10 +844,80 @@
             this.TabOBSRelease.Location = new System.Drawing.Point(4, 22);
             this.TabOBSRelease.Name = "TabOBSRelease";
             this.TabOBSRelease.Padding = new System.Windows.Forms.Padding(3);
-            this.TabOBSRelease.Size = new System.Drawing.Size(560, 139);
+            this.TabOBSRelease.Size = new System.Drawing.Size(560, 189);
             this.TabOBSRelease.TabIndex = 0;
             this.TabOBSRelease.Text = "OBS";
             this.TabOBSRelease.UseVisualStyleBackColor = true;
+            // 
+            // ChkCboBoxMediaStopRelease
+            // 
+            this.ChkCboBoxMediaStopRelease.CheckOnClick = true;
+            this.ChkCboBoxMediaStopRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMediaStopRelease.DropDownHeight = 1;
+            this.ChkCboBoxMediaStopRelease.Enabled = false;
+            this.ChkCboBoxMediaStopRelease.FormattingEnabled = true;
+            this.ChkCboBoxMediaStopRelease.IntegralHeight = false;
+            this.ChkCboBoxMediaStopRelease.Location = new System.Drawing.Point(363, 117);
+            this.ChkCboBoxMediaStopRelease.Name = "ChkCboBoxMediaStopRelease";
+            this.ChkCboBoxMediaStopRelease.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxMediaStopRelease.TabIndex = 39;
+            this.ChkCboBoxMediaStopRelease.ValueSeparator = ", ";
+            // 
+            // CboBoxPreviewSceneRelease
+            // 
+            this.CboBoxPreviewSceneRelease.Enabled = false;
+            this.CboBoxPreviewSceneRelease.FormattingEnabled = true;
+            this.CboBoxPreviewSceneRelease.Location = new System.Drawing.Point(98, 27);
+            this.CboBoxPreviewSceneRelease.Name = "CboBoxPreviewSceneRelease";
+            this.CboBoxPreviewSceneRelease.Size = new System.Drawing.Size(172, 21);
+            this.CboBoxPreviewSceneRelease.TabIndex = 31;
+            // 
+            // ChkBoxMediaStopRelease
+            // 
+            this.ChkBoxMediaStopRelease.AutoSize = true;
+            this.ChkBoxMediaStopRelease.Location = new System.Drawing.Point(276, 119);
+            this.ChkBoxMediaStopRelease.Name = "ChkBoxMediaStopRelease";
+            this.ChkBoxMediaStopRelease.Size = new System.Drawing.Size(80, 17);
+            this.ChkBoxMediaStopRelease.TabIndex = 38;
+            this.ChkBoxMediaStopRelease.Text = "Media Stop";
+            this.ChkBoxMediaStopRelease.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaStopRelease.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // ChkCboBoxMediaRestartRelease
+            // 
+            this.ChkCboBoxMediaRestartRelease.CheckOnClick = true;
+            this.ChkCboBoxMediaRestartRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMediaRestartRelease.DropDownHeight = 1;
+            this.ChkCboBoxMediaRestartRelease.Enabled = false;
+            this.ChkCboBoxMediaRestartRelease.FormattingEnabled = true;
+            this.ChkCboBoxMediaRestartRelease.IntegralHeight = false;
+            this.ChkCboBoxMediaRestartRelease.Location = new System.Drawing.Point(363, 141);
+            this.ChkCboBoxMediaRestartRelease.Name = "ChkCboBoxMediaRestartRelease";
+            this.ChkCboBoxMediaRestartRelease.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxMediaRestartRelease.TabIndex = 37;
+            this.ChkCboBoxMediaRestartRelease.ValueSeparator = ", ";
+            // 
+            // ChkBoxPreviewSceneRelease
+            // 
+            this.ChkBoxPreviewSceneRelease.AutoSize = true;
+            this.ChkBoxPreviewSceneRelease.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxPreviewSceneRelease.Name = "ChkBoxPreviewSceneRelease";
+            this.ChkBoxPreviewSceneRelease.Size = new System.Drawing.Size(98, 17);
+            this.ChkBoxPreviewSceneRelease.TabIndex = 30;
+            this.ChkBoxPreviewSceneRelease.Text = "Preview Scene";
+            this.ChkBoxPreviewSceneRelease.UseVisualStyleBackColor = true;
+            this.ChkBoxPreviewSceneRelease.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // ChkBoxMediaRestartRelease
+            // 
+            this.ChkBoxMediaRestartRelease.AutoSize = true;
+            this.ChkBoxMediaRestartRelease.Location = new System.Drawing.Point(276, 143);
+            this.ChkBoxMediaRestartRelease.Name = "ChkBoxMediaRestartRelease";
+            this.ChkBoxMediaRestartRelease.Size = new System.Drawing.Size(92, 17);
+            this.ChkBoxMediaRestartRelease.TabIndex = 36;
+            this.ChkBoxMediaRestartRelease.Text = "Media Restart";
+            this.ChkBoxMediaRestartRelease.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaRestartRelease.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkCboBoxMiscRelease
             // 
@@ -729,22 +927,47 @@
             this.ChkCboBoxMiscRelease.Enabled = false;
             this.ChkCboBoxMiscRelease.FormattingEnabled = true;
             this.ChkCboBoxMiscRelease.IntegralHeight = false;
-            this.ChkCboBoxMiscRelease.Location = new System.Drawing.Point(357, 116);
+            this.ChkCboBoxMiscRelease.Location = new System.Drawing.Point(363, 164);
             this.ChkCboBoxMiscRelease.Name = "ChkCboBoxMiscRelease";
-            this.ChkCboBoxMiscRelease.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxMiscRelease.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxMiscRelease.TabIndex = 27;
             this.ChkCboBoxMiscRelease.ValueSeparator = ", ";
+            // 
+            // ChkCboBoxMediaPlayRelease
+            // 
+            this.ChkCboBoxMediaPlayRelease.CheckOnClick = true;
+            this.ChkCboBoxMediaPlayRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxMediaPlayRelease.DropDownHeight = 1;
+            this.ChkCboBoxMediaPlayRelease.Enabled = false;
+            this.ChkCboBoxMediaPlayRelease.FormattingEnabled = true;
+            this.ChkCboBoxMediaPlayRelease.IntegralHeight = false;
+            this.ChkCboBoxMediaPlayRelease.Location = new System.Drawing.Point(363, 94);
+            this.ChkCboBoxMediaPlayRelease.Name = "ChkCboBoxMediaPlayRelease";
+            this.ChkCboBoxMediaPlayRelease.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxMediaPlayRelease.TabIndex = 35;
+            this.ChkCboBoxMediaPlayRelease.ValueSeparator = ", ";
             // 
             // ChkBoxMiscRelease
             // 
             this.ChkBoxMiscRelease.AutoSize = true;
-            this.ChkBoxMiscRelease.Location = new System.Drawing.Point(276, 118);
+            this.ChkBoxMiscRelease.Location = new System.Drawing.Point(276, 166);
             this.ChkBoxMiscRelease.Name = "ChkBoxMiscRelease";
             this.ChkBoxMiscRelease.Size = new System.Drawing.Size(48, 17);
             this.ChkBoxMiscRelease.TabIndex = 26;
             this.ChkBoxMiscRelease.Text = "Misc";
             this.ChkBoxMiscRelease.UseVisualStyleBackColor = true;
             this.ChkBoxMiscRelease.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // ChkBoxMediaPlayRelease
+            // 
+            this.ChkBoxMediaPlayRelease.AutoSize = true;
+            this.ChkBoxMediaPlayRelease.Location = new System.Drawing.Point(276, 96);
+            this.ChkBoxMediaPlayRelease.Name = "ChkBoxMediaPlayRelease";
+            this.ChkBoxMediaPlayRelease.Size = new System.Drawing.Size(78, 17);
+            this.ChkBoxMediaPlayRelease.TabIndex = 34;
+            this.ChkBoxMediaPlayRelease.Text = "Media Play";
+            this.ChkBoxMediaPlayRelease.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaPlayRelease.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkCboBoxToggleFilterRelease
             // 
@@ -754,7 +977,7 @@
             this.ChkCboBoxToggleFilterRelease.Enabled = false;
             this.ChkCboBoxToggleFilterRelease.FormattingEnabled = true;
             this.ChkCboBoxToggleFilterRelease.IntegralHeight = false;
-            this.ChkCboBoxToggleFilterRelease.Location = new System.Drawing.Point(98, 116);
+            this.ChkCboBoxToggleFilterRelease.Location = new System.Drawing.Point(98, 164);
             this.ChkCboBoxToggleFilterRelease.Name = "ChkCboBoxToggleFilterRelease";
             this.ChkCboBoxToggleFilterRelease.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxToggleFilterRelease.TabIndex = 29;
@@ -768,7 +991,7 @@
             this.ChkCboBoxToggleSourceRelease.Enabled = false;
             this.ChkCboBoxToggleSourceRelease.FormattingEnabled = true;
             this.ChkCboBoxToggleSourceRelease.IntegralHeight = false;
-            this.ChkCboBoxToggleSourceRelease.Location = new System.Drawing.Point(98, 72);
+            this.ChkCboBoxToggleSourceRelease.Location = new System.Drawing.Point(98, 96);
             this.ChkCboBoxToggleSourceRelease.Name = "ChkCboBoxToggleSourceRelease";
             this.ChkCboBoxToggleSourceRelease.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxToggleSourceRelease.TabIndex = 23;
@@ -777,7 +1000,7 @@
             // ChkBoxToggleFilterRelease
             // 
             this.ChkBoxToggleFilterRelease.AutoSize = true;
-            this.ChkBoxToggleFilterRelease.Location = new System.Drawing.Point(6, 118);
+            this.ChkBoxToggleFilterRelease.Location = new System.Drawing.Point(6, 166);
             this.ChkBoxToggleFilterRelease.Name = "ChkBoxToggleFilterRelease";
             this.ChkBoxToggleFilterRelease.Size = new System.Drawing.Size(84, 17);
             this.ChkBoxToggleFilterRelease.TabIndex = 28;
@@ -788,7 +1011,7 @@
             // ChkBoxToggleSourceRelease
             // 
             this.ChkBoxToggleSourceRelease.AutoSize = true;
-            this.ChkBoxToggleSourceRelease.Location = new System.Drawing.Point(6, 74);
+            this.ChkBoxToggleSourceRelease.Location = new System.Drawing.Point(6, 98);
             this.ChkBoxToggleSourceRelease.Name = "ChkBoxToggleSourceRelease";
             this.ChkBoxToggleSourceRelease.Size = new System.Drawing.Size(96, 17);
             this.ChkBoxToggleSourceRelease.TabIndex = 22;
@@ -804,7 +1027,7 @@
             this.ChkCboBoxShowFilterRelease.Enabled = false;
             this.ChkCboBoxShowFilterRelease.FormattingEnabled = true;
             this.ChkCboBoxShowFilterRelease.IntegralHeight = false;
-            this.ChkCboBoxShowFilterRelease.Location = new System.Drawing.Point(98, 94);
+            this.ChkCboBoxShowFilterRelease.Location = new System.Drawing.Point(98, 119);
             this.ChkCboBoxShowFilterRelease.Name = "ChkCboBoxShowFilterRelease";
             this.ChkCboBoxShowFilterRelease.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxShowFilterRelease.TabIndex = 27;
@@ -818,16 +1041,16 @@
             this.ChkCboBoxToggleMuteRelease.Enabled = false;
             this.ChkCboBoxToggleMuteRelease.FormattingEnabled = true;
             this.ChkCboBoxToggleMuteRelease.IntegralHeight = false;
-            this.ChkCboBoxToggleMuteRelease.Location = new System.Drawing.Point(357, 72);
+            this.ChkCboBoxToggleMuteRelease.Location = new System.Drawing.Point(363, 72);
             this.ChkCboBoxToggleMuteRelease.Name = "ChkCboBoxToggleMuteRelease";
-            this.ChkCboBoxToggleMuteRelease.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxToggleMuteRelease.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxToggleMuteRelease.TabIndex = 21;
             this.ChkCboBoxToggleMuteRelease.ValueSeparator = ", ";
             // 
             // ChkBoxShowFilterRelease
             // 
             this.ChkBoxShowFilterRelease.AutoSize = true;
-            this.ChkBoxShowFilterRelease.Location = new System.Drawing.Point(6, 96);
+            this.ChkBoxShowFilterRelease.Location = new System.Drawing.Point(6, 121);
             this.ChkBoxShowFilterRelease.Name = "ChkBoxShowFilterRelease";
             this.ChkBoxShowFilterRelease.Size = new System.Drawing.Size(78, 17);
             this.ChkBoxShowFilterRelease.TabIndex = 26;
@@ -843,9 +1066,9 @@
             this.ChkCboBoxHideFilterRelease.Enabled = false;
             this.ChkCboBoxHideFilterRelease.FormattingEnabled = true;
             this.ChkCboBoxHideFilterRelease.IntegralHeight = false;
-            this.ChkCboBoxHideFilterRelease.Location = new System.Drawing.Point(357, 94);
+            this.ChkCboBoxHideFilterRelease.Location = new System.Drawing.Point(98, 142);
             this.ChkCboBoxHideFilterRelease.Name = "ChkCboBoxHideFilterRelease";
-            this.ChkCboBoxHideFilterRelease.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxHideFilterRelease.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxHideFilterRelease.TabIndex = 25;
             this.ChkCboBoxHideFilterRelease.ValueSeparator = ", ";
             // 
@@ -863,7 +1086,7 @@
             // ChkBoxHideFilterRelease
             // 
             this.ChkBoxHideFilterRelease.AutoSize = true;
-            this.ChkBoxHideFilterRelease.Location = new System.Drawing.Point(276, 96);
+            this.ChkBoxHideFilterRelease.Location = new System.Drawing.Point(6, 144);
             this.ChkBoxHideFilterRelease.Name = "ChkBoxHideFilterRelease";
             this.ChkBoxHideFilterRelease.Size = new System.Drawing.Size(73, 17);
             this.ChkBoxHideFilterRelease.TabIndex = 24;
@@ -891,7 +1114,7 @@
             this.ChkCboBoxHideRelease.Enabled = false;
             this.ChkCboBoxHideRelease.FormattingEnabled = true;
             this.ChkCboBoxHideRelease.IntegralHeight = false;
-            this.ChkCboBoxHideRelease.Location = new System.Drawing.Point(98, 50);
+            this.ChkCboBoxHideRelease.Location = new System.Drawing.Point(98, 73);
             this.ChkCboBoxHideRelease.Name = "ChkCboBoxHideRelease";
             this.ChkCboBoxHideRelease.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxHideRelease.TabIndex = 19;
@@ -925,15 +1148,15 @@
             // 
             this.CboBoxTransitionRelease.Enabled = false;
             this.CboBoxTransitionRelease.FormattingEnabled = true;
-            this.CboBoxTransitionRelease.Location = new System.Drawing.Point(357, 4);
+            this.CboBoxTransitionRelease.Location = new System.Drawing.Point(363, 4);
             this.CboBoxTransitionRelease.Name = "CboBoxTransitionRelease";
-            this.CboBoxTransitionRelease.Size = new System.Drawing.Size(139, 21);
+            this.CboBoxTransitionRelease.Size = new System.Drawing.Size(133, 21);
             this.CboBoxTransitionRelease.TabIndex = 14;
             // 
             // ChkBoxHideSourceRelease
             // 
             this.ChkBoxHideSourceRelease.AutoSize = true;
-            this.ChkBoxHideSourceRelease.Location = new System.Drawing.Point(6, 52);
+            this.ChkBoxHideSourceRelease.Location = new System.Drawing.Point(6, 75);
             this.ChkBoxHideSourceRelease.Name = "ChkBoxHideSourceRelease";
             this.ChkBoxHideSourceRelease.Size = new System.Drawing.Size(85, 17);
             this.ChkBoxHideSourceRelease.TabIndex = 18;
@@ -958,7 +1181,7 @@
             this.ChkCboBoxShowRelease.Enabled = false;
             this.ChkCboBoxShowRelease.FormattingEnabled = true;
             this.ChkCboBoxShowRelease.IntegralHeight = false;
-            this.ChkCboBoxShowRelease.Location = new System.Drawing.Point(98, 27);
+            this.ChkCboBoxShowRelease.Location = new System.Drawing.Point(98, 50);
             this.ChkCboBoxShowRelease.Name = "ChkCboBoxShowRelease";
             this.ChkCboBoxShowRelease.Size = new System.Drawing.Size(172, 21);
             this.ChkCboBoxShowRelease.TabIndex = 17;
@@ -979,7 +1202,7 @@
             // ChkBoxShowSourceRelease
             // 
             this.ChkBoxShowSourceRelease.AutoSize = true;
-            this.ChkBoxShowSourceRelease.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxShowSourceRelease.Location = new System.Drawing.Point(6, 52);
             this.ChkBoxShowSourceRelease.Name = "ChkBoxShowSourceRelease";
             this.ChkBoxShowSourceRelease.Size = new System.Drawing.Size(90, 17);
             this.ChkBoxShowSourceRelease.TabIndex = 16;
@@ -995,9 +1218,9 @@
             this.ChkCboBoxMuteRelease.Enabled = false;
             this.ChkCboBoxMuteRelease.FormattingEnabled = true;
             this.ChkCboBoxMuteRelease.IntegralHeight = false;
-            this.ChkCboBoxMuteRelease.Location = new System.Drawing.Point(357, 27);
+            this.ChkCboBoxMuteRelease.Location = new System.Drawing.Point(363, 27);
             this.ChkCboBoxMuteRelease.Name = "ChkCboBoxMuteRelease";
-            this.ChkCboBoxMuteRelease.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxMuteRelease.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxMuteRelease.TabIndex = 13;
             this.ChkCboBoxMuteRelease.ValueSeparator = ", ";
             // 
@@ -1009,9 +1232,9 @@
             this.ChkCboBoxUnmuteRelease.Enabled = false;
             this.ChkCboBoxUnmuteRelease.FormattingEnabled = true;
             this.ChkCboBoxUnmuteRelease.IntegralHeight = false;
-            this.ChkCboBoxUnmuteRelease.Location = new System.Drawing.Point(357, 50);
+            this.ChkCboBoxUnmuteRelease.Location = new System.Drawing.Point(363, 50);
             this.ChkCboBoxUnmuteRelease.Name = "ChkCboBoxUnmuteRelease";
-            this.ChkCboBoxUnmuteRelease.Size = new System.Drawing.Size(197, 21);
+            this.ChkCboBoxUnmuteRelease.Size = new System.Drawing.Size(191, 21);
             this.ChkCboBoxUnmuteRelease.TabIndex = 15;
             this.ChkCboBoxUnmuteRelease.ValueSeparator = ", ";
             // 
@@ -1032,7 +1255,7 @@
             this.TabSoundRelease.Location = new System.Drawing.Point(4, 22);
             this.TabSoundRelease.Name = "TabSoundRelease";
             this.TabSoundRelease.Padding = new System.Windows.Forms.Padding(3);
-            this.TabSoundRelease.Size = new System.Drawing.Size(560, 139);
+            this.TabSoundRelease.Size = new System.Drawing.Size(560, 189);
             this.TabSoundRelease.TabIndex = 1;
             this.TabSoundRelease.Text = "SoundBoard";
             this.TabSoundRelease.UseVisualStyleBackColor = true;
@@ -1051,7 +1274,7 @@
             // GrpBoxKeySlider
             // 
             this.GrpBoxKeySlider.Controls.Add(this.TabKeySlider);
-            this.GrpBoxKeySlider.Location = new System.Drawing.Point(13, 429);
+            this.GrpBoxKeySlider.Location = new System.Drawing.Point(16, 537);
             this.GrpBoxKeySlider.Name = "GrpBoxKeySlider";
             this.GrpBoxKeySlider.Size = new System.Drawing.Size(575, 83);
             this.GrpBoxKeySlider.TabIndex = 13;
@@ -1069,6 +1292,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.ChkBoxSlideTransition);
             this.tabPage1.Controls.Add(this.ChkBoxAdjustTransitionDuration);
             this.tabPage1.Controls.Add(this.ChkBoxAdjustVolume);
             this.tabPage1.Controls.Add(this.ChkCboBoxVolumeSlider);
@@ -1079,6 +1303,27 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "OBS";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxSlideTransition
+            // 
+            this.ChkBoxSlideTransition.AutoSize = true;
+            this.ChkBoxSlideTransition.Location = new System.Drawing.Point(417, 8);
+            this.ChkBoxSlideTransition.Name = "ChkBoxSlideTransition";
+            this.ChkBoxSlideTransition.Size = new System.Drawing.Size(135, 17);
+            this.ChkBoxSlideTransition.TabIndex = 3;
+            this.ChkBoxSlideTransition.Text = "Slide Current Transition";
+            this.ChkBoxSlideTransition.UseVisualStyleBackColor = true;
+            this.ChkBoxSlideTransition.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // ChkBoxAdjustTransitionDuration
+            // 
+            this.ChkBoxAdjustTransitionDuration.AutoSize = true;
+            this.ChkBoxAdjustTransitionDuration.Location = new System.Drawing.Point(273, 8);
+            this.ChkBoxAdjustTransitionDuration.Name = "ChkBoxAdjustTransitionDuration";
+            this.ChkBoxAdjustTransitionDuration.Size = new System.Drawing.Size(147, 17);
+            this.ChkBoxAdjustTransitionDuration.TabIndex = 2;
+            this.ChkBoxAdjustTransitionDuration.Text = "Adjust Transition Duration";
+            this.ChkBoxAdjustTransitionDuration.UseVisualStyleBackColor = true;
             // 
             // ChkBoxAdjustVolume
             // 
@@ -1105,21 +1350,11 @@
             this.ChkCboBoxVolumeSlider.TabIndex = 1;
             this.ChkCboBoxVolumeSlider.ValueSeparator = ", ";
             // 
-            // ChkBoxAdjustTransitionDuration
-            // 
-            this.ChkBoxAdjustTransitionDuration.AutoSize = true;
-            this.ChkBoxAdjustTransitionDuration.Location = new System.Drawing.Point(273, 8);
-            this.ChkBoxAdjustTransitionDuration.Name = "ChkBoxAdjustTransitionDuration";
-            this.ChkBoxAdjustTransitionDuration.Size = new System.Drawing.Size(147, 17);
-            this.ChkBoxAdjustTransitionDuration.TabIndex = 2;
-            this.ChkBoxAdjustTransitionDuration.Text = "Adjust Transition Duration";
-            this.ChkBoxAdjustTransitionDuration.UseVisualStyleBackColor = true;
-            // 
             // EntryGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 546);
+            this.ClientSize = new System.Drawing.Size(594, 661);
             this.Controls.Add(this.GrpBoxKeySlider);
             this.Controls.Add(this.GrpBoxKeyRelease);
             this.Controls.Add(this.GrpBoxKeyPress);
@@ -1246,5 +1481,22 @@
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxMiscRelease;
         private System.Windows.Forms.CheckBox ChkBoxMiscRelease;
         private System.Windows.Forms.CheckBox ChkBoxAdjustTransitionDuration;
+        private System.Windows.Forms.CheckBox ChkBoxSlideTransition;
+        private System.Windows.Forms.ComboBox CboBoxPreviewScenePress;
+        private System.Windows.Forms.CheckBox ChkBoxPreviewScenePress;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaStopPress;
+        private System.Windows.Forms.CheckBox ChkBoxMediaStopPress;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaRestartPress;
+        private System.Windows.Forms.CheckBox ChkBoxMediaRestartPress;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaPlayPress;
+        private System.Windows.Forms.CheckBox ChkBoxMediaPlayPress;
+        private System.Windows.Forms.ComboBox CboBoxPreviewSceneRelease;
+        private System.Windows.Forms.CheckBox ChkBoxPreviewSceneRelease;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaStopRelease;
+        private System.Windows.Forms.CheckBox ChkBoxMediaStopRelease;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaRestartRelease;
+        private System.Windows.Forms.CheckBox ChkBoxMediaRestartRelease;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaPlayRelease;
+        private System.Windows.Forms.CheckBox ChkBoxMediaPlayRelease;
     }
 }

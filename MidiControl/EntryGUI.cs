@@ -90,6 +90,14 @@ namespace MidiControl
                                 CboBoxSwitchScenePress.SelectedItem = on.Args[0];
                             }
                             break;
+                        case "previewScene":
+                            if (on.Args[0] != null)
+                            {
+                                ChkBoxPreviewScenePress.Checked = true;
+                                CboBoxPreviewScenePress.Enabled = true;
+                                CboBoxPreviewScenePress.SelectedItem = on.Args[0];
+                            }
+                            break;
                         case "mute":
                             foreach (string arg in on.Args)
                             {
@@ -226,6 +234,48 @@ namespace MidiControl
                                 }
                             }
                             break;
+                        case "mediaplay":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMediaPlayPress.Checked = true;
+                                ChkCboBoxMediaPlayPress.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxMediaPlayPress.SetItemChecked(ChkCboBoxMediaPlayPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
+                        case "mediastop":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMediaStopPress.Checked = true;
+                                ChkCboBoxMediaStopPress.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxMediaStopPress.SetItemChecked(ChkCboBoxMediaStopPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
+                        case "mediarestart":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMediaRestartPress.Checked = true;
+                                ChkCboBoxMediaRestartPress.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxMediaRestartPress.SetItemChecked(ChkCboBoxMediaRestartPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
                         case "misc":
                             foreach (string arg in on.Args)
                             {
@@ -254,6 +304,14 @@ namespace MidiControl
                                 ChkBoxSwitchSceneRelease.Checked = true;
                                 CboBoxSwitchSceneRelease.Enabled = true;
                                 CboBoxSwitchSceneRelease.SelectedItem = on.Args[0];
+                            }
+                            break;
+                        case "previewScene":
+                            if (on.Args[0] != null)
+                            {
+                                ChkBoxPreviewSceneRelease.Checked = true;
+                                CboBoxPreviewSceneRelease.Enabled = true;
+                                CboBoxPreviewSceneRelease.SelectedItem = on.Args[0];
                             }
                             break;
                         case "mute":
@@ -392,6 +450,48 @@ namespace MidiControl
                                 }
                             }
                             break;
+                        case "mediaplay":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMediaPlayRelease.Checked = true;
+                                ChkCboBoxMediaPlayRelease.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxMediaPlayRelease.SetItemChecked(ChkCboBoxMediaPlayRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
+                        case "mediastop":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMediaStopRelease.Checked = true;
+                                ChkCboBoxMediaStopRelease.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxMediaStopRelease.SetItemChecked(ChkCboBoxMediaStopRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
+                        case "mediarestart":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxMediaRestartRelease.Checked = true;
+                                ChkCboBoxMediaRestartRelease.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxMediaRestartRelease.SetItemChecked(ChkCboBoxMediaRestartRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
                         case "misc":
                             foreach (string arg in on.Args)
                             {
@@ -430,6 +530,9 @@ namespace MidiControl
                         case "transition":
                             ChkBoxAdjustTransitionDuration.Checked = true;
                             break;
+                        case "transitionSlider":
+                            ChkBoxSlideTransition.Checked = true;
+                            break;
                         default:
                             break;
                     }
@@ -451,12 +554,16 @@ namespace MidiControl
         private void InitControls()
         {
             CheckToCombo.Add("ChkBoxSwitchScenePress", new string[] { "CboBoxSwitchScenePress" });
+            CheckToCombo.Add("ChkBoxPreviewScenePress", new string[] { "CboBoxPreviewScenePress" });
+            CheckToCombo.Add("ChkBoxSwitchSceneRelease", new string[] { "CboBoxSwitchSceneRelease" });
+            CheckToCombo.Add("ChkBoxPreviewSceneRelease", new string[] { "CboBoxPreviewSceneRelease" });
+
             CheckToCombo.Add("ChkBoxMutePress", new string[] { "ChkCboBoxMutePress" });
             CheckToCombo.Add("ChkBoxUnmutePress", new string[] { "ChkCboBoxUnMutePress" });
             CheckToCombo.Add("ChkBoxHideSourcePress", new string[] { "ChkCboBoxHidePress" });
             CheckToCombo.Add("ChkBoxShowSourcePress", new string[] { "ChkCboBoxShowPress" });
             CheckToCombo.Add("ChkBoxTransitionPress", new string[] { "CboBoxTransitionPress", "NumericTransitionPress" });
-            CheckToCombo.Add("ChkBoxSwitchSceneRelease", new string[] { "CboBoxSwitchSceneRelease" });
+
             CheckToCombo.Add("ChkBoxMuteRelease", new string[] { "ChkCboBoxMuteRelease" });
             CheckToCombo.Add("ChkBoxUnmuteRelease", new string[] { "ChkCboBoxUnMuteRelease" });
             CheckToCombo.Add("ChkBoxHideSourceRelease", new string[] { "ChkCboBoxHideRelease" });
@@ -476,15 +583,28 @@ namespace MidiControl
             CheckToCombo.Add("ChkBoxMiscRelease", new string[] { "ChkCboBoxMiscRelease" });
             CheckToCombo.Add("ChkBoxAdjustVolume", new string[] { "ChkCboBoxVolumeSlider" });
 
+            CheckToCombo.Add("ChkBoxMediaPlayPress", new string[] { "ChkCboBoxMediaPlayPress" });
+            CheckToCombo.Add("ChkBoxMediaStopPress", new string[] { "ChkCboBoxMediaStopPress" });
+            CheckToCombo.Add("ChkBoxMediaRestartPress", new string[] { "ChkCboBoxMediaRestartPress" });
+            CheckToCombo.Add("ChkBoxMediaPlayRelease", new string[] { "ChkCboBoxMediaPlayRelease" });
+            CheckToCombo.Add("ChkBoxMediaStopRelease", new string[] { "ChkCboBoxMediaStopRelease" });
+            CheckToCombo.Add("ChkBoxMediaRestartRelease", new string[] { "ChkCboBoxMediaRestartRelease" });
+
+
             CheckToCombo.Add("ChkBoxEnableAudio", new string[] { "CboBoxAudioDevice", "TxtBoxAudioFile", "BtnAudioSelect", "ChkBoxAudioStop" });
 
             List<string> scenes = obs.GetScenes();
             CboBoxSwitchScenePress.Items.Clear();
             CboBoxSwitchSceneRelease.Items.Clear();
+            CboBoxPreviewScenePress.Items.Clear();
+            CboBoxPreviewSceneRelease.Items.Clear();
+
             foreach (string scene in scenes)
             {
                 CboBoxSwitchScenePress.Items.Add(scene);
                 CboBoxSwitchSceneRelease.Items.Add(scene);
+                CboBoxPreviewScenePress.Items.Add(scene);
+                CboBoxPreviewSceneRelease.Items.Add(scene);
             }
 
             List<string> sources = obs.GetSources();
@@ -501,6 +621,13 @@ namespace MidiControl
             ChkCboBoxToggleSourceRelease.Items.Clear();
             ChkCboBoxToggleMuteRelease.Items.Clear();
             ChkCboBoxVolumeSlider.Items.Clear();
+
+            ChkCboBoxMediaPlayPress.Items.Clear();
+            ChkCboBoxMediaStopPress.Items.Clear();
+            ChkCboBoxMediaRestartPress.Items.Clear();
+            ChkCboBoxMediaPlayRelease.Items.Clear();
+            ChkCboBoxMediaStopRelease.Items.Clear();
+            ChkCboBoxMediaRestartRelease.Items.Clear();
             foreach (string source in sources)
             {
                 ChkCboBoxMutePress.Items.Add(source);
@@ -516,6 +643,13 @@ namespace MidiControl
                 ChkCboBoxToggleSourceRelease.Items.Add(source);
                 ChkCboBoxToggleMuteRelease.Items.Add(source);
                 ChkCboBoxVolumeSlider.Items.Add(source);
+
+                ChkCboBoxMediaPlayPress.Items.Add(source);
+                ChkCboBoxMediaStopPress.Items.Add(source);
+                ChkCboBoxMediaRestartPress.Items.Add(source);
+                ChkCboBoxMediaPlayRelease.Items.Add(source);
+                ChkCboBoxMediaStopRelease.Items.Add(source);
+                ChkCboBoxMediaRestartRelease.Items.Add(source);
             }
             List<string> transitions = obs.GetTransitions();
             CboBoxTransitionPress.Items.Clear();
@@ -595,6 +729,17 @@ namespace MidiControl
                 };
                 if ((string)CboBoxSwitchScenePress.SelectedItem == null) return;
                 callback.Args.Add((string)CboBoxSwitchScenePress.SelectedItem);
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxPreviewScenePress.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "previewScene"
+                };
+                if ((string)CboBoxPreviewScenePress.SelectedItem == null) return;
+                callback.Args.Add((string)CboBoxPreviewScenePress.SelectedItem);
                 key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxMutePress.Checked)
@@ -723,6 +868,48 @@ namespace MidiControl
                 }
                 key.OBSCallBacksON.Add(callback);
             }
+            if (ChkBoxMediaPlayPress.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediaplay"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaPlayPress.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaStopPress.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediastop"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaStopPress.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaRestartPress.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediarestart"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaRestartPress.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
             if (ChkBoxMiscPress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
@@ -762,6 +949,17 @@ namespace MidiControl
                 if ((string)CboBoxSwitchSceneRelease.SelectedItem == null) return;
                 callback.Args.Add((string)CboBoxSwitchSceneRelease.SelectedItem);
                 key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxPreviewSceneRelease.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "previewScene"
+                };
+                if ((string)CboBoxPreviewSceneRelease.SelectedItem == null) return;
+                callback.Args.Add((string)CboBoxPreviewSceneRelease.SelectedItem);
+                key.OBSCallBacksON.Add(callback);
             }
             if (ChkBoxMuteRelease.Checked)
             {
@@ -889,6 +1087,48 @@ namespace MidiControl
                 }
                 key.OBSCallBacksOFF.Add(callback);
             }
+            if (ChkBoxMediaPlayRelease.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediaplay"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaPlayRelease.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaStopRelease.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediastop"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaStopRelease.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaRestartRelease.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediarestart"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaRestartRelease.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
             if (ChkBoxMiscRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
@@ -926,7 +1166,14 @@ namespace MidiControl
                 };
                 key.OBSCallBacksSlider.Add(callback);
             }
-
+            if (ChkBoxSlideTransition.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Action = "transitionSlider"
+                };
+                key.OBSCallBacksSlider.Add(callback);
+            }
             if (ChkBoxEnableAudio.Checked)
             {
                 key.SoundCallBack = new SoundCallBack(TxtBoxAudioFile.Text, CboBoxAudioDevice.Text, ChkBoxAudioStop.Checked, chkBoxLoop.Checked, volumeSlider.Volume);
