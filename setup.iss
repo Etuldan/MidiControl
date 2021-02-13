@@ -25,7 +25,7 @@ Source: "{#Dir}NAudio.xml"; DestDir: "{app}";
 Source: "{#Dir}Newtonsoft.Json.dll"; DestDir: "{app}";
 Source: "{#Dir}Newtonsoft.Json.xml"; DestDir: "{app}";
 Source: "{#Dir}obs-websocket-dotnet.dll"; DestDir: "{app}";
-Source: "{#Dir}obs-websocket-dotnet.xml"; DestDir: "{app}";
+;Source: "{#Dir}obs-websocket-dotnet.xml"; DestDir: "{app}";
 Source: "{#Dir}websocket-sharp.dll"; DestDir: "{app}";
 Source: "{#Dir}websocket-sharp.xml"; DestDir: "{app}";
 
