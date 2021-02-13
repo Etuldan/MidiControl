@@ -740,7 +740,6 @@ namespace MidiControl
 
 
 
-
             if (ChkBoxTransitionRelease.Checked)
             {
                 OBSCallBack callback = new OBSCallBack

@@ -186,12 +186,6 @@ namespace MidiControl
                         obs.SetCurrentTransition(args[0]);
                         obs.SetTransitionDuration(Int32.Parse(args[1]));
                         break;
-                    case "transitionTo":
-                        if (obs.StudioModeEnabled() == true)
-                        {
-                            obs.TransitionToProgram();
-                        }
-                        break;
                     case "misc":
                         foreach (string arg in args)
                         {
