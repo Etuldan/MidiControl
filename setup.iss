@@ -25,16 +25,21 @@ Source: "{#Dir}NAudio.xml"; DestDir: "{app}";
 Source: "{#Dir}Newtonsoft.Json.dll"; DestDir: "{app}";
 Source: "{#Dir}Newtonsoft.Json.xml"; DestDir: "{app}";
 Source: "{#Dir}obs-websocket-dotnet.dll"; DestDir: "{app}";
-;Source: "{#Dir}obs-websocket-dotnet.xml"; DestDir: "{app}";
 Source: "{#Dir}websocket-sharp.dll"; DestDir: "{app}";
 Source: "{#Dir}websocket-sharp.xml"; DestDir: "{app}";
-
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\MidiControl.exe";
 
 [Registry]
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "MIDIControl"; ValueData: "{app}\MIDIControl.exe"; Tasks: RunStartup; Flags: uninsdeletevalue
+Root: HKCU; Subkey: "Software\Tobias Erichsen\loopMIDI\Ports"; ValueType: dword; ValueName: "MIDIControl Forward IN"; ValueData: 1; Tasks: loopMIDI; Flags: uninsdeletevalue
+Root: HKCU; Subkey: "Software\Tobias Erichsen\loopMIDI\Ports"; ValueType: dword; ValueName: "MIDIControl Forward OUT"; ValueData: 1; Tasks: loopMIDI; Flags: uninsdeletevalue
 
 [Tasks]
-Name: RunStartup; Description: Run MIDIControl at Windows startup (your MIDI device should be connected before);
+Name: RunStartup; Description: AutoStart : Run MIDIControl at Windows startup (your MIDI devices should be connected before);
+Name: loopMIDI; Description: Enable MIDI Forward : Visit loopMIDI WebPage (manual installation required) and Configure loopMIDI;
+
+[Run]
+Filename: "http://www.tobias-erichsen.de/software/loopmidi.html"; Tasks: loopMIDI; Flags: shellexec runasoriginaluser
+Filename: {app}\{#AppName}.exe; Description: {cm:LaunchProgram,{#AppName}}; Flags: nowait postinstall skipifsilent
