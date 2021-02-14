@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 
 namespace MidiControl
@@ -50,8 +49,6 @@ namespace MidiControl
                     Password = "password",
                     Autoconnect = false,
                     AutoReconnect = false,
-                    MIDIForwardInterface = "",
-                    MIDIForwardEnabled = false,
                     MIDIInterfaces = new List<string>(),
                     Delay = 0
                 };
@@ -70,8 +67,6 @@ namespace MidiControl
             public string Password { get; set; }
             public bool Autoconnect { get; set; }
             public bool AutoReconnect { get; set; }
-            public string MIDIForwardInterface { get; set; }
-            public bool MIDIForwardEnabled { get; set; }
             public int NoteNumberStopAllSounds { get; set; }
             public int ChannelStopAllSounds { get; set; }
             public string MidiDeviceStopAllSounds { get; set; }

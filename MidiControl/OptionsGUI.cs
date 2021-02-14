@@ -16,14 +16,6 @@ namespace MidiControl
             ChkBoxAutoConnectStart.Checked = options.options.Autoconnect;
             ChkBoxAutoReconnect.Checked = options.options.AutoReconnect;
 
-            CmbBoxMIDIForward.Text = options.options.MIDIForwardInterface;
-
-            List<string> midiOut = MIDIListener.GetInstance().midiOutStringOptions;
-            foreach (string outInterface in midiOut)
-            {
-                CmbBoxMIDIForward.Items.Add(outInterface);
-            }
-
             List<string> midiIn = MIDIListener.GetInstance().midiInStringOptions;
             foreach (string inInterface in midiIn)
             {
@@ -33,7 +25,6 @@ namespace MidiControl
                     ChkCmbBoxMIDI.SetItemChecked(ChkCmbBoxMIDI.Items.IndexOf(inInterface), true);
                 }
             }
-            ChkBoxMIDIForward.Checked = options.options.MIDIForwardEnabled;
 
             txtBoxStopAllSoundsDevice.Text = options.options.MidiDeviceStopAllSounds;
             txtBoxStopAllSoundsChannel.Text = options.options.ChannelStopAllSounds.ToString();
@@ -47,9 +38,6 @@ namespace MidiControl
             options.options.Password = TxtBoxOBSPassword.Text;
             options.options.Autoconnect = ChkBoxAutoConnectStart.Checked;
             options.options.AutoReconnect = ChkBoxAutoReconnect.Checked;
-
-            options.options.MIDIForwardInterface = CmbBoxMIDIForward.Text;
-            options.options.MIDIForwardEnabled = ChkBoxMIDIForward.Checked;
 
             options.options.MidiDeviceStopAllSounds = txtBoxStopAllSoundsDevice.Text;
             try

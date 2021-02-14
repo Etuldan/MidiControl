@@ -35,8 +35,6 @@
             this.TxtBoxOBSPassword = new System.Windows.Forms.TextBox();
             this.ChkBoxAutoConnectStart = new System.Windows.Forms.CheckBox();
             this.BtnSave = new System.Windows.Forms.Button();
-            this.ChkBoxMIDIForward = new System.Windows.Forms.CheckBox();
-            this.CmbBoxMIDIForward = new System.Windows.Forms.ComboBox();
             this.groupBoxOBS = new System.Windows.Forms.GroupBox();
             this.ChkBoxAutoReconnect = new System.Windows.Forms.CheckBox();
             this.groupBoxMIDI = new System.Windows.Forms.GroupBox();
@@ -100,31 +98,13 @@
             // 
             // BtnSave
             // 
-            this.BtnSave.Location = new System.Drawing.Point(167, 376);
+            this.BtnSave.Location = new System.Drawing.Point(167, 315);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
             this.BtnSave.TabIndex = 6;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
-            // 
-            // ChkBoxMIDIForward
-            // 
-            this.ChkBoxMIDIForward.AutoSize = true;
-            this.ChkBoxMIDIForward.Location = new System.Drawing.Point(6, 107);
-            this.ChkBoxMIDIForward.Name = "ChkBoxMIDIForward";
-            this.ChkBoxMIDIForward.Size = new System.Drawing.Size(140, 17);
-            this.ChkBoxMIDIForward.TabIndex = 7;
-            this.ChkBoxMIDIForward.Text = "Enable MIDI Forwarding";
-            this.ChkBoxMIDIForward.UseVisualStyleBackColor = true;
-            // 
-            // CmbBoxMIDIForward
-            // 
-            this.CmbBoxMIDIForward.FormattingEnabled = true;
-            this.CmbBoxMIDIForward.Location = new System.Drawing.Point(6, 130);
-            this.CmbBoxMIDIForward.Name = "CmbBoxMIDIForward";
-            this.CmbBoxMIDIForward.Size = new System.Drawing.Size(218, 21);
-            this.CmbBoxMIDIForward.TabIndex = 8;
             // 
             // groupBoxOBS
             // 
@@ -157,11 +137,9 @@
             this.groupBoxMIDI.Controls.Add(this.lblDelay);
             this.groupBoxMIDI.Controls.Add(this.label1);
             this.groupBoxMIDI.Controls.Add(this.ChkCmbBoxMIDI);
-            this.groupBoxMIDI.Controls.Add(this.ChkBoxMIDIForward);
-            this.groupBoxMIDI.Controls.Add(this.CmbBoxMIDIForward);
             this.groupBoxMIDI.Location = new System.Drawing.Point(12, 133);
             this.groupBoxMIDI.Name = "groupBoxMIDI";
-            this.groupBoxMIDI.Size = new System.Drawing.Size(230, 157);
+            this.groupBoxMIDI.Size = new System.Drawing.Size(230, 96);
             this.groupBoxMIDI.TabIndex = 10;
             this.groupBoxMIDI.TabStop = false;
             this.groupBoxMIDI.Text = "MIDI (Restart software after any change)";
@@ -212,7 +190,7 @@
             this.groupBoxStopAllSounds.Controls.Add(this.lvlStopAllSoundsChannel);
             this.groupBoxStopAllSounds.Controls.Add(this.lblStopAllSoundsDevice);
             this.groupBoxStopAllSounds.Controls.Add(this.txtBoxStopAllSoundsDevice);
-            this.groupBoxStopAllSounds.Location = new System.Drawing.Point(12, 296);
+            this.groupBoxStopAllSounds.Location = new System.Drawing.Point(12, 235);
             this.groupBoxStopAllSounds.Name = "groupBoxStopAllSounds";
             this.groupBoxStopAllSounds.Size = new System.Drawing.Size(230, 74);
             this.groupBoxStopAllSounds.TabIndex = 12;
@@ -271,14 +249,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(254, 411);
+            this.ClientSize = new System.Drawing.Size(254, 341);
             this.Controls.Add(this.groupBoxStopAllSounds);
             this.Controls.Add(this.groupBoxMIDI);
             this.Controls.Add(this.groupBoxOBS);
             this.Controls.Add(this.BtnSave);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(270, 450);
-            this.MinimumSize = new System.Drawing.Size(270, 450);
+            this.MaximumSize = new System.Drawing.Size(270, 380);
+            this.MinimumSize = new System.Drawing.Size(270, 380);
             this.Name = "OptionsGUI";
             this.Text = "Options";
             this.TopMost = true;
@@ -300,8 +278,6 @@
         private System.Windows.Forms.TextBox TxtBoxOBSPassword;
         private System.Windows.Forms.CheckBox ChkBoxAutoConnectStart;
         private System.Windows.Forms.Button BtnSave;
-        private System.Windows.Forms.CheckBox ChkBoxMIDIForward;
-        private System.Windows.Forms.ComboBox CmbBoxMIDIForward;
         private System.Windows.Forms.GroupBox groupBoxMIDI;
         private System.Windows.Forms.GroupBox groupBoxOBS;
         private System.Windows.Forms.Label label1;

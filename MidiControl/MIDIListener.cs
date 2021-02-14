@@ -8,7 +8,6 @@ namespace MidiControl
     class MIDIListener
     {
         private List<MidiIn> midiIn = new List<MidiIn>();
-        private List<string> midiInStringFeedback = new List<string>();
         public List<string> midiInStringOptions = new List<string>();
         private MidiOutCustom MidiOutdeviceForward;
         public MidiOutCustom MidiOutdeviceFeedback;
@@ -33,17 +32,26 @@ namespace MidiControl
             {
                 try
                 {
-                    if (!options.options.MIDIInterfaces.Contains(MidiIn.DeviceInfo(device).ProductName))
+                    if (MidiIn.DeviceInfo(device).ProductName == "MIDIControl Forward OUT")
+                    {
+                        MidiInCustom MidiInForward = new MidiInCustom(device);
+                        MidiInForward.MessageReceived += MidiIn_MessageReceivedForwardBack;
+                        MidiInForward.Start();
+                        midiIn.Add(MidiInForward);
+                        Debug.WriteLine("MIDI IN Forward Device " + MidiIn.DeviceInfo(device).ProductName);
+                    }
+                    else if (MidiIn.DeviceInfo(device).ProductName == "MIDIControl Forward IN")
+                    {
+                    }
+                    else if (!options.options.MIDIInterfaces.Contains(MidiIn.DeviceInfo(device).ProductName))
                     {
                         MidiInCustom MidiIndevice = new MidiInCustom(device);
                         midiInInterface.Add(MidiIn.DeviceInfo(device).ProductName, MidiIndevice);
-                        midiInStringFeedback.Add(MidiIn.DeviceInfo(device).ProductName);
-
                         MidiIndevice.Start();
                         midiIn.Add(MidiIndevice);
-
                         Debug.WriteLine("MIDI IN Device " + MidiIn.DeviceInfo(device).ProductName);
                     }
+
                     midiInStringOptions.Add(MidiIn.DeviceInfo(device).ProductName);
                 }
                 catch (NAudio.MmException)
@@ -54,48 +62,33 @@ namespace MidiControl
 
             for (int device = 0; device < MidiOut.NumberOfDevices; device++)
             {
-                midiOutStringOptions.Add(MidiOut.DeviceInfo(device).ProductName);
-
                 try
                 {
-                    if (midiInStringFeedback.Contains(MidiOut.DeviceInfo(device).ProductName) && FeedBackDevices.Contains(MidiOut.DeviceInfo(device).ProductName))
+                    if (MidiOut.DeviceInfo(device).ProductName == "MIDIControl Forward IN")
+                    {
+                        MidiOutdeviceForward = new MidiOutCustom(device);
+                        midiOut.Add(MidiOutdeviceForward);
+                        Debug.WriteLine("MIDI OUT Forward Device " + MidiOut.DeviceInfo(device).ProductName);
+                    }
+                    else if (MidiIn.DeviceInfo(device).ProductName == "MIDIControl Forward OUT")
+                    {
+                    }
+                    else if (FeedBackDevices.Contains(MidiOut.DeviceInfo(device).ProductName))
                     {
                         MidiOutdeviceFeedback = new MidiOutCustom(device);
                         midiOut.Add(MidiOutdeviceFeedback);
                         Debug.WriteLine("MIDI OUT Feedback Device " + MidiOut.DeviceInfo(device).ProductName);
                     }
 
-                    if (MidiOut.DeviceInfo(device).ProductName == options.options.MIDIForwardInterface)
-                    {
-                        MidiOutdeviceForward = new MidiOutCustom(device);
-                        midiOut.Add(MidiOutdeviceForward);
-                        Debug.WriteLine("MIDI OUT Forward Device " + MidiOut.DeviceInfo(device).ProductName);
-                    }
+
+
+                    midiOutStringOptions.Add(MidiOut.DeviceInfo(device).ProductName);
                 }
                 catch (NAudio.MmException)
                 {
                     // Device already Opened
                 }
             }
-
-            //for (int device = 0; device < MidiIn.NumberOfDevices; device++)
-            //{
-            //    try
-            //    {
-            //        if (MidiIn.DeviceInfo(device).ProductName == options.options.MIDIForwardInterface)
-            //        {
-            //            MidiInCustom MidiInForward = new MidiInCustom(device);
-            //            MidiInForward.MessageReceived += MidiIn_MessageReceivedForwardBack;
-            //            MidiInForward.Start();
-            //            midiIn.Add(MidiInForward);
-            //            Debug.WriteLine("MIDI IN Forward Device " + MidiIn.DeviceInfo(device).ProductName);
-            //        }
-            //    }
-            //    catch (NAudio.MmException)
-            //    {
-            //        // Device already Opened
-            //    }
-            //}
 
             EnableListening();
             _instance = this;
@@ -142,10 +135,16 @@ namespace MidiControl
             }
         }
 
+
+        private void MidiIn_MessageReceivedForwardBack(object sender, MidiInMessageEventArgs e)
+        {
+            Debug.WriteLine("MIDI IN ForwardBack Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
+            MidiOutdeviceFeedback.Send(e.RawMessage);
+        }
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
             Debug.WriteLine("MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-            if (options.options.MIDIForwardEnabled == true)
+            if(MidiOutdeviceForward != null)
             {
                 MidiOutdeviceForward.Send(e.RawMessage);
             }
