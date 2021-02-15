@@ -12,10 +12,7 @@ namespace MidiControl
         private MidiOutCustom MidiOutdeviceForward;
         public MidiOutCustom MidiOutdeviceFeedback;
         private List<MidiOut> midiOut = new List<MidiOut>();
-        public List<string> midiOutStringOptions = new List<string>();
         public Dictionary<string, MidiInCustom> midiInInterface = new Dictionary<string, MidiInCustom>();
-
-        private static readonly IEnumerable<string> FeedBackDevices = new List<string>{ "APC MINI" };
 
         private static MIDIListener _instance;
         private readonly Configuration conf;
@@ -70,19 +67,15 @@ namespace MidiControl
                         midiOut.Add(MidiOutdeviceForward);
                         Debug.WriteLine("MIDI OUT Forward Device " + MidiOut.DeviceInfo(device).ProductName);
                     }
-                    else if (MidiIn.DeviceInfo(device).ProductName == "MIDIControl Forward OUT")
+                    else if (MidiOut.DeviceInfo(device).ProductName == "MIDIControl Forward OUT")
                     {
                     }
-                    else if (FeedBackDevices.Contains(MidiOut.DeviceInfo(device).ProductName))
+                    else if (MIDIFeedback.FeedBackDevices.Contains(MidiOut.DeviceInfo(device).ProductName))
                     {
                         MidiOutdeviceFeedback = new MidiOutCustom(device);
                         midiOut.Add(MidiOutdeviceFeedback);
                         Debug.WriteLine("MIDI OUT Feedback Device " + MidiOut.DeviceInfo(device).ProductName);
                     }
-
-
-
-                    midiOutStringOptions.Add(MidiOut.DeviceInfo(device).ProductName);
                 }
                 catch (NAudio.MmException)
                 {
@@ -139,7 +132,10 @@ namespace MidiControl
         private void MidiIn_MessageReceivedForwardBack(object sender, MidiInMessageEventArgs e)
         {
             Debug.WriteLine("MIDI IN ForwardBack Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-            MidiOutdeviceFeedback.Send(e.RawMessage);
+            if(MidiOutdeviceFeedback != null)
+            {
+                MidiOutdeviceFeedback.Send(e.RawMessage);
+            }
         }
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
