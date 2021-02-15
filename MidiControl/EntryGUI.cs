@@ -1,4 +1,5 @@
-﻿using NAudio.Midi;
+﻿using NAudio.CoreAudioApi;
+using NAudio.Midi;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
