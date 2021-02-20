@@ -1,5 +1,6 @@
 ﻿using NAudio.Midi;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MidiControl
 {
@@ -30,6 +31,8 @@ namespace MidiControl
         }
         public void SendOn()
         {
+            Debug.WriteLine("MIDIFeedback : SendOn");
+
             MidiEvent me;
             switch (deviceType)
             {
@@ -43,8 +46,9 @@ namespace MidiControl
         }
 
         public void SendOff()
-
         {
+            Debug.WriteLine("MIDIFeedback : SendOff");
+
             MidiEvent me;
             switch(deviceType)
             {
@@ -58,6 +62,8 @@ namespace MidiControl
         }
         public void SendIn()
         {
+            Debug.WriteLine("MIDIFeedback : SendIn");
+
             MidiEvent me;
             switch (deviceType)
             {
@@ -72,7 +78,9 @@ namespace MidiControl
 
         private void Send(MidiEvent me)
         {
+            Debug.WriteLine("MIDIFeedback : Send " + me.GetAsShortMessage());
             MidiOutdeviceFeedback.Send(me.GetAsShortMessage());
+            Debug.WriteLine("MIDIFeedback : SendEnd");
         }
     }
 }

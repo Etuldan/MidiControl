@@ -164,6 +164,7 @@ namespace MidiControl
 
                 if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity != 0)
                 {
+                    Debug.WriteLine("KeyBind NoteON");
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksON)
                     {
                         callback.Start(entry.Value);
@@ -175,6 +176,7 @@ namespace MidiControl
                 }
                 else if ((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff && entry.Value.Input == Event.Note || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))
                 {
+                    Debug.WriteLine("KeyBind NoteOFF");
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksOFF)
                     {
                         callback.Start(entry.Value);
@@ -186,7 +188,8 @@ namespace MidiControl
                 }
                 else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider)
                 {
-                    if(((ControlChangeEvent)e.MidiEvent).ControllerValue != 0)
+                    Debug.WriteLine("KeyBind ControlChange");
+                    if (((ControlChangeEvent)e.MidiEvent).ControllerValue != 0)
                     {
                         foreach (OBSCallBack callback in entry.Value.OBSCallBacksON)
                         {
