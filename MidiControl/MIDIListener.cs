@@ -174,7 +174,7 @@ namespace MidiControl
                         audioControl.PlaySound(entry.Value, entry.Value.SoundCallBack.File, entry.Value.SoundCallBack.Device, entry.Value.SoundCallBack.Loop, entry.Value.SoundCallBack.Volume);
                     }
                 }
-                else if ((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff && entry.Value.Input == Event.Note || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))
+                else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn) && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity == 0))
                 {
                     Debug.WriteLine("KeyBind NoteOFF");
                     foreach (OBSCallBack callback in entry.Value.OBSCallBacksOFF)
