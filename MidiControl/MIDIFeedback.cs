@@ -25,10 +25,13 @@ namespace MidiControl
         {
             channel = keybind.Channel;
             note = keybind.NoteNumber;
-            MidiOutdeviceFeedback = MIDIListener.GetInstance().MidiOutdeviceFeedback;
-            if(MidiOut.DeviceInfo(MidiOutdeviceFeedback.device).ProductName == "APC MINI")
+            foreach (KeyValuePair<string, MidiOutCustom> entry in MIDIListener.GetInstance().midiOutInterface)
             {
-                deviceType = Devices.APC_MINI;
+                if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "APC MINI" && keybind.Mididevice == "APC MINI")
+                {
+                    MidiOutdeviceFeedback = entry.Value;
+                    deviceType = Devices.APC_MINI;
+                }
             }
         }
         public void SendOn()

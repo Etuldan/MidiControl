@@ -9,12 +9,11 @@ namespace MidiControl
 {
     class MIDIListener
     {
-        private List<MidiIn> midiIn = new List<MidiIn>();
         public List<string> midiInStringOptions = new List<string>();
-        private MidiOutCustom MidiOutdeviceForward;
-        public MidiOutCustom MidiOutdeviceFeedback;
-        private List<MidiOut> midiOut = new List<MidiOut>();
+        private MidiInCustom MidiInForward;
+        private MidiOutCustom MidiOutForward;
         public Dictionary<string, MidiInCustom> midiInInterface = new Dictionary<string, MidiInCustom>();
+        public Dictionary<string, MidiOutCustom> midiOutInterface = new Dictionary<string, MidiOutCustom>();
 
         private static MIDIListener _instance;
         private readonly Configuration conf;
@@ -33,10 +32,9 @@ namespace MidiControl
                 {
                     if (MidiIn.DeviceInfo(device).ProductName == "MIDIControl Forward OUT")
                     {
-                        MidiInCustom MidiInForward = new MidiInCustom(device);
+                        MidiInForward = new MidiInCustom(device);
                         MidiInForward.MessageReceived += MidiIn_MessageReceivedForwardBack;
                         MidiInForward.Start();
-                        midiIn.Add(MidiInForward);
 #if DEBUG
                         Debug.WriteLine("MIDI IN Forward Device " + MidiIn.DeviceInfo(device).ProductName);
 #endif
@@ -49,7 +47,6 @@ namespace MidiControl
                         MidiInCustom MidiIndevice = new MidiInCustom(device);
                         midiInInterface.Add(MidiIn.DeviceInfo(device).ProductName, MidiIndevice);
                         MidiIndevice.Start();
-                        midiIn.Add(MidiIndevice);
 #if DEBUG
                         Debug.WriteLine("MIDI IN Device " + MidiIn.DeviceInfo(device).ProductName);
 #endif
@@ -69,8 +66,7 @@ namespace MidiControl
                 {
                     if (MidiOut.DeviceInfo(device).ProductName == "MIDIControl Forward IN")
                     {
-                        MidiOutdeviceForward = new MidiOutCustom(device);
-                        midiOut.Add(MidiOutdeviceForward);
+                        MidiOutForward = new MidiOutCustom(device);
 #if DEBUG
                         Debug.WriteLine("MIDI OUT Forward Device " + MidiOut.DeviceInfo(device).ProductName);
 #endif
@@ -80,8 +76,7 @@ namespace MidiControl
                     }
                     else if (MIDIFeedback.FeedBackDevices.Contains(MidiOut.DeviceInfo(device).ProductName))
                     {
-                        MidiOutdeviceFeedback = new MidiOutCustom(device);
-                        midiOut.Add(MidiOutdeviceFeedback);
+                        midiOutInterface.Add(MidiOut.DeviceInfo(device).ProductName, new MidiOutCustom(device));
 #if DEBUG
                         Debug.WriteLine("MIDI OUT Feedback Device " + MidiOut.DeviceInfo(device).ProductName);
 #endif
@@ -99,22 +94,43 @@ namespace MidiControl
 
         public void ReleaseAll()
         {
-            foreach(MidiIn midi in midiIn)
+            if (MidiInForward != null)
             {
                 try
                 {
-                    midi.Stop();
-                    midi.Dispose();
+                    MidiInForward.Stop();
+                    MidiInForward.Dispose();
                 }
                 catch (NAudio.MmException)
                 {
                 }
             }
-            foreach (MidiOut midi in midiOut)
+            if (MidiOutForward != null)
             {
                 try
                 {
-                    midi.Dispose();
+                    MidiOutForward.Dispose();
+                }
+                catch (NAudio.MmException)
+                {
+                }
+            }
+            foreach (KeyValuePair<string, MidiInCustom> entry in midiInInterface)
+            {
+                try
+                {
+                    entry.Value.Stop();
+                    entry.Value.Dispose();
+                }
+                catch (NAudio.MmException)
+                {
+                }
+            }
+            foreach (KeyValuePair<string, MidiOutCustom> entry in midiOutInterface)
+            {
+                try
+                {
+                    entry.Value.Dispose();
                 }
                 catch (NAudio.MmException)
                 {
@@ -138,25 +154,24 @@ namespace MidiControl
             }
         }
 
-
         private void MidiIn_MessageReceivedForwardBack(object sender, MidiInMessageEventArgs e)
         {
 #if DEBUG
             Debug.WriteLine("MIDI IN ForwardBack Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-            if(MidiOutdeviceFeedback != null)
 #endif
+            foreach (KeyValuePair<string, MidiOutCustom> entry in midiOutInterface)
             {
-                MidiOutdeviceFeedback.Send(e.RawMessage);
+                entry.Value.Send(e.RawMessage);
             }
-        }
+        }   
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
 #if DEBUG
             Debug.WriteLine("MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-            if(MidiOutdeviceForward != null)
 #endif
+            if(MidiOutForward != null)
             {
-                MidiOutdeviceForward.Send(e.RawMessage);
+                MidiOutForward.Send(e.RawMessage);
             }
 
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity != 0 && 
@@ -169,11 +184,9 @@ namespace MidiControl
 
             foreach (KeyValuePair<string, KeyBindEntry> entry in conf.Config)
             {
-                var type = e.MidiEvent.GetType();
-                if (type.Name == "ControlChangeEvent" && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
+                if(e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
                     ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
-
-                if ((type.Name == "NoteEvent" || type.Name == "NoteOnEvent") && entry.Value.Input == Event.Note && (((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber ||
+                if ((e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff) && entry.Value.Input == Event.Note && (((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber ||
                     ((NoteEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
 
                 if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity != 0)
