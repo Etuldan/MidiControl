@@ -3,7 +3,9 @@ using OBSWebsocketDotNet;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
+#if DEBUG
 using System.Diagnostics;
+#endif
 using System.Linq;
 using System.Timers;
 
@@ -79,9 +81,9 @@ namespace MidiControl
         public void DoAction(KeyBindEntry keybind, string action, List<string> args)
         {
             if (!obs.IsConnected) return;
-
+#if DEBUG
             Debug.WriteLine("OBSControl : DoAction");
-
+#endif
             MIDIFeedback feedback = new MIDIFeedback(keybind);
             try
             {
@@ -262,7 +264,9 @@ namespace MidiControl
             }
             catch (ErrorResponseException e)
             {
+#if DEBUG
                 Debug.WriteLine("OBSControl : ErrorResponseException " + e);
+#endif
             }
         }
         public void DoAction(KeyBindEntry _, string action, List<string> args, float value)

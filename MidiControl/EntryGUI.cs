@@ -1,8 +1,10 @@
-﻿using NAudio.CoreAudioApi;
-using NAudio.Midi;
+﻿using NAudio.Midi;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+#if DEBUG
+using System.Diagnostics;
+#endif
 using System.Linq;
 using System.Windows.Forms;
 
@@ -1212,6 +1214,9 @@ namespace MidiControl
 
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+#if DEBUG
+            Debug.WriteLine("Setting : MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
+#endif
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
             {
                 int device = ((MidiInCustom)sender).device;
