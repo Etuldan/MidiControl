@@ -21,12 +21,9 @@ Source: "{#Dir}MidiControl.exe"; DestDir: "{app}";
 Source: "{#Dir}CheckComboBox.dll"; DestDir: "{app}";
 Source: "{#Dir}MidiControl.exe.config"; DestDir: "{app}";
 Source: "{#Dir}NAudio.dll"; DestDir: "{app}"; 
-Source: "{#Dir}NAudio.xml"; DestDir: "{app}"; 
 Source: "{#Dir}Newtonsoft.Json.dll"; DestDir: "{app}";
-Source: "{#Dir}Newtonsoft.Json.xml"; DestDir: "{app}";
 Source: "{#Dir}obs-websocket-dotnet.dll"; DestDir: "{app}";
 Source: "{#Dir}websocket-sharp.dll"; DestDir: "{app}";
-Source: "{#Dir}websocket-sharp.xml"; DestDir: "{app}";
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\MidiControl.exe";
