@@ -149,7 +149,6 @@ namespace MidiControl
                         break;
                     case "togglehide":
                         ToggleSources(feedback, args);
-                        // here FeedBack
                         break;
                     case "hidefilter":
                         foreach (string arg in args)

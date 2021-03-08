@@ -10,8 +10,8 @@ namespace MidiControl
     class MIDIListener
     {
         public List<string> midiInStringOptions = new List<string>();
-        private MidiInCustom MidiInForward;
-        private MidiOutCustom MidiOutForward;
+        private readonly MidiInCustom MidiInForward;
+        private readonly MidiOutCustom MidiOutForward;
         public Dictionary<string, MidiInCustom> midiInInterface = new Dictionary<string, MidiInCustom>();
         public Dictionary<string, MidiOutCustom> midiOutInterface = new Dictionary<string, MidiOutCustom>();
 
