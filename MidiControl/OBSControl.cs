@@ -300,6 +300,25 @@ namespace MidiControl
 
         private void ToggleFilter(MIDIFeedback feedback, string filter)
         {
+            bool state = false;
+
+            foreach (string scene in this.GetScenes())
+            {
+                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                {
+                    if (filtersetting.Name == filter)
+                    {
+                        FilterSettings setting = obs.GetSourceFilterInfo(scene, filter);
+                        bool currentVisibility = setting.IsEnabled;
+                        obs.SetSourceFilterVisibility(scene, filter, !currentVisibility);
+                        if (currentVisibility == false)
+                        {
+                            state = true;
+                        }
+                    }
+                }
+            }
+
             foreach (string source in this.GetSources())
             {
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
@@ -323,19 +342,24 @@ namespace MidiControl
         }
         private void ShowFilter(string filter, bool show)
         {
+            foreach (string scene in this.GetScenes())
+            {
+                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                {
+                    if (filtersetting.Name == filter)
+                    {
+                        obs.SetSourceFilterVisibility(scene, filter, show);
+                    }
+                }
+            }
+
             foreach (string source in this.GetSources())
             {
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
                 {
                     if (filtersetting.Name == filter)
                     {
-                        JObject o = JObject.FromObject(new
-                        {
-                            sourceName = source,
-                            filterName = filter,
-                            filterEnabled = show
-                        });
-                        obs.SendRequest("SetSourceFilterVisibility", o);
+                        obs.SetSourceFilterVisibility(source, filter, show);
                     }
                 }
             }
@@ -450,6 +474,14 @@ namespace MidiControl
         {
             List<string> filtersString = new List<string>();
             if (!obs.IsConnected) return filtersString;
+
+            foreach (string scene in this.GetScenes())
+            {
+                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                {
+                    filtersString.Add(filtersetting.Name);
+                }
+            }
 
             foreach (string source in this.GetSources())
             {
