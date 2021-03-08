@@ -8,7 +8,7 @@ namespace MidiControl
 {
     public class MIDIFeedback
     {
-        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI" };
+        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI", "Launchpad Mini" };
 
         private enum Devices
         {
@@ -17,10 +17,10 @@ namespace MidiControl
             Launchpad
         }
 
-        private Devices deviceType = Devices.NONE;
-        private int channel = 0;
-        private int note = 0;
-        private MidiOutCustom MidiOutdeviceFeedback;
+        private readonly Devices deviceType = Devices.NONE;
+        private readonly int channel = 0;
+        private readonly int note = 0;
+        private readonly MidiOutCustom MidiOutdeviceFeedback;
         public MIDIFeedback(KeyBindEntry keybind)
         {
             channel = keybind.Channel;
@@ -31,6 +31,11 @@ namespace MidiControl
                 {
                     MidiOutdeviceFeedback = entry.Value;
                     deviceType = Devices.APC_MINI;
+                }
+                else if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "Launchpad Mini" && keybind.Mididevice == "Launchpad Mini")
+                {
+                    MidiOutdeviceFeedback = entry.Value;
+                    deviceType = Devices.Launchpad;
                 }
             }
         }
@@ -44,6 +49,9 @@ namespace MidiControl
             {
                 case Devices.APC_MINI:
                     me = new NoteOnEvent(0, channel, note, 01, 0);
+                    break;
+                case Devices.Launchpad:
+                    me = new NoteOnEvent(0, channel, note, 60, 0);
                     break;
                 default:
                     return;
@@ -62,6 +70,9 @@ namespace MidiControl
                 case Devices.APC_MINI:
                     me = new NoteOnEvent(0, channel, note, 00, 0);
                     break;
+                case Devices.Launchpad:
+                    me = new NoteOnEvent(0, channel, note, 12, 0);
+                    break;
                 default:
                     return;
             }
@@ -77,6 +88,9 @@ namespace MidiControl
             {
                 case Devices.APC_MINI:
                     me = new NoteOnEvent(0, channel, note, 02, 0);
+                    break;
+                case Devices.Launchpad:
+                    me = new NoteOnEvent(0, channel, note, 56, 0);
                     break;
                 default:
                     return;
