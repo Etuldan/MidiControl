@@ -344,16 +344,20 @@ namespace MidiControl
                         FilterSettings setting = obs.GetSourceFilterInfo(source, filter);
                         bool currentVisibility = setting.IsEnabled;
                         obs.SetSourceFilterVisibility(source, filter, !currentVisibility);
-                        if(currentVisibility)
+                        if(currentVisibility == false)
                         {
-                            feedback.SendOff();
-                        }
-                        else
-                        {
-                            feedback.SendOn();
+                            state = true;
                         }
                     }
                 }
+            }
+            if (state == true)
+            {
+                feedback.SendOn();
+            }
+            else
+            {
+                feedback.SendOff();
             }
         }
         private void ShowFilter(string filter, bool show)
@@ -384,6 +388,7 @@ namespace MidiControl
         {
             Dictionary<SourceScene, bool> sourcesName = new Dictionary<SourceScene, bool>();
             List<OBSScene> scenes = obs.ListScenes();
+            bool state = false;
 
             foreach (OBSScene scene in scenes)
             {
@@ -415,14 +420,19 @@ namespace MidiControl
             foreach (KeyValuePair<SourceScene, bool> entry in sourcesName)
             {
                 obs.SetSourceRender(entry.Key.Source, !entry.Value, entry.Key.Scene);
-                if (entry.Value)
+                if (entry.Value == false)
                 {
-                    feedback.SendOff();
+                    state = true;
                 }
-                else
-                {
-                    feedback.SendOn(); 
-                }
+            }
+
+            if (state == true)
+            {
+                feedback.SendOn();
+            }
+            else
+            {
+                feedback.SendOff();
             }
 
             if (obs.StudioModeEnabled() == true)
