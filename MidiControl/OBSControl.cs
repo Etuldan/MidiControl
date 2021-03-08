@@ -18,6 +18,7 @@ namespace MidiControl
         private static OBSControl _instance;
         public readonly OptionsManagment options;
         private Timer timer;
+        private Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
 
         public OBSControl()
         {
@@ -90,7 +91,22 @@ namespace MidiControl
                 switch (action)
                 {
                     case "switchScene":
+                        if(!feedbackScenes.ContainsKey(args[0]))
+                        {
+                            feedbackScenes.Add(args[0], feedback);
+                        }
                         obs.SetCurrentScene(args[0]);
+                        foreach (KeyValuePair<string, MIDIFeedback> entry in feedbackScenes)
+                        {
+                            if(entry.Key == args[0])
+                            {
+                                entry.Value.SendOn();
+                            }
+                            else
+                            {
+                                entry.Value.SendOff();
+                            }
+                        }
                         break;
                     case "previewScene":
                         if(obs.StudioModeEnabled())
