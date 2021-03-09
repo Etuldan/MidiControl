@@ -254,7 +254,7 @@
             this.Controls.Add(this.groupBoxMIDI);
             this.Controls.Add(this.groupBoxOBS);
             this.Controls.Add(this.BtnSave);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             this.MaximumSize = new System.Drawing.Size(270, 380);
             this.MinimumSize = new System.Drawing.Size(270, 380);
             this.Name = "OptionsGUI";
