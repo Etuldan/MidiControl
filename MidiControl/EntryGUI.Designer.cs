@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EntryGUI));
             this.LblName = new System.Windows.Forms.Label();
             this.TxtBoxName = new System.Windows.Forms.TextBox();
             this.LblNote = new System.Windows.Forms.Label();
@@ -1417,7 +1416,6 @@
             this.Controls.Add(this.TxtBoxName);
             this.Controls.Add(this.LblName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EntryGUI";
             this.Text = "Add MIDI Keybind";
             this.TopMost = true;

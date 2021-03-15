@@ -1194,6 +1194,9 @@ namespace MidiControl
                 };
                 key.OBSCallBacksSlider.Add(callback);
             }
+
+
+            // Sounboard
             if (ChkBoxEnableAudio.Checked)
             {
                 key.SoundCallBack = new SoundCallBack(TxtBoxAudioFile.Text, CboBoxAudioDevice.Text, ChkBoxAudioStop.Checked, chkBoxLoop.Checked, volumeSlider.Volume);
@@ -1231,7 +1234,6 @@ namespace MidiControl
             {
                 conf.Config.Add(TxtBoxName.Text, key);
             }
-
 
             this.Close();
         }
