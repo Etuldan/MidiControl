@@ -202,6 +202,10 @@ namespace MidiControl
                     {
                         audioControl.PlaySound(entry.Value, entry.Value.SoundCallBack.File, entry.Value.SoundCallBack.Device, entry.Value.SoundCallBack.Loop, entry.Value.SoundCallBack.Volume);
                     }
+                    if(entry.Value.MediaCallBack != null)
+                    {
+                        audioControl.MediaKey(entry.Value.MediaCallBack.MediaType);
+                    }
                 }
                 else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn) && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity == 0))
                 {

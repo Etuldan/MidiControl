@@ -61,7 +61,35 @@ namespace MidiControl
 
     public class AudioControl : IExternalControl
     {
+        private const int VK_MEDIA_NEXT_TRACK = 0xB0;
+        private const int VK_MEDIA_PLAY_PAUSE = 0xB3;
+        private const int VK_MEDIA_PREV_TRACK = 0xB1;
+        [DllImport("user32.dll")]
+#pragma warning disable IDE1006 // Styles d'affectation de noms
+        private static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
+#pragma warning restore IDE1006 // Styles d'affectation de noms
+
         private readonly Dictionary<KeyBindEntry, List<WaveOut>> WaveOuts = new Dictionary<KeyBindEntry, List<WaveOut>>();
+
+        public void MediaKey(MediaType type)
+        {
+            byte key;
+            switch (type)
+            {
+                case MediaType.PLAY:
+                    key = VK_MEDIA_PLAY_PAUSE;
+                    break;
+                case MediaType.PREVIOUS:
+                    key = VK_MEDIA_PREV_TRACK;
+                    break;
+                case MediaType.NEXT:
+                    key = VK_MEDIA_NEXT_TRACK;
+                    break;
+                default:
+                    return;
+            }
+            keybd_event(key, 0, 1, IntPtr.Zero);
+        }
 
         public void PlaySound(KeyBindEntry keybind, string File, int Device, bool Loop, float volume = 1.0f)
         {

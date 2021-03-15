@@ -69,6 +69,24 @@ namespace MidiControl
         public List<OBSCallBack> OBSCallBacksOFF = new List<OBSCallBack>();
         public List<OBSCallBack> OBSCallBacksSlider = new List<OBSCallBack>();
         public SoundCallBack SoundCallBack;
+        public MediaCallBack MediaCallBack;
+    }
+
+    public enum MediaType
+    {
+        PLAY,
+        PREVIOUS,
+        NEXT
+    }
+
+    public class MediaCallBack
+    {
+        public MediaType MediaType { get; }
+
+        public MediaCallBack(MediaType type)
+        {
+            this.MediaType = type;
+        }
     }
 
     public class SoundCallBack

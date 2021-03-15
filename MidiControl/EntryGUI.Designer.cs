@@ -129,6 +129,10 @@
             this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
             this.ChkBoxAdjustVolume = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxVolumeSlider = new CheckComboBoxTest.CheckedComboBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ChkBoxMediaPlay = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaNext = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaPrevious = new System.Windows.Forms.CheckBox();
             this.GrpBoxKeyPress.SuspendLayout();
             this.TabKeyPress.SuspendLayout();
             this.TabOBSPress.SuspendLayout();
@@ -142,6 +146,7 @@
             this.GrpBoxKeySlider.SuspendLayout();
             this.TabKeySlider.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblName
@@ -235,7 +240,8 @@
             // 
             this.TabKeyPress.Controls.Add(this.TabOBSPress);
             this.TabKeyPress.Controls.Add(this.TabSoundPress);
-            this.TabKeyPress.Location = new System.Drawing.Point(7, 20);
+            this.TabKeyPress.Controls.Add(this.tabPage2);
+            this.TabKeyPress.Location = new System.Drawing.Point(6, 20);
             this.TabKeyPress.Name = "TabKeyPress";
             this.TabKeyPress.SelectedIndex = 0;
             this.TabKeyPress.Size = new System.Drawing.Size(568, 222);
@@ -1350,6 +1356,49 @@
             this.ChkCboBoxVolumeSlider.TabIndex = 1;
             this.ChkCboBoxVolumeSlider.ValueSeparator = ", ";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.ChkBoxMediaPrevious);
+            this.tabPage2.Controls.Add(this.ChkBoxMediaNext);
+            this.tabPage2.Controls.Add(this.ChkBoxMediaPlay);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(560, 196);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Media Keys";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaPlay
+            // 
+            this.ChkBoxMediaPlay.AutoSize = true;
+            this.ChkBoxMediaPlay.Location = new System.Drawing.Point(6, 6);
+            this.ChkBoxMediaPlay.Name = "ChkBoxMediaPlay";
+            this.ChkBoxMediaPlay.Size = new System.Drawing.Size(140, 17);
+            this.ChkBoxMediaPlay.TabIndex = 4;
+            this.ChkBoxMediaPlay.Text = "Play / Pause Media Key";
+            this.ChkBoxMediaPlay.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaNext
+            // 
+            this.ChkBoxMediaNext.AutoSize = true;
+            this.ChkBoxMediaNext.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxMediaNext.Name = "ChkBoxMediaNext";
+            this.ChkBoxMediaNext.Size = new System.Drawing.Size(101, 17);
+            this.ChkBoxMediaNext.TabIndex = 5;
+            this.ChkBoxMediaNext.Text = "Next Media Key";
+            this.ChkBoxMediaNext.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaPrevious
+            // 
+            this.ChkBoxMediaPrevious.AutoSize = true;
+            this.ChkBoxMediaPrevious.Location = new System.Drawing.Point(6, 52);
+            this.ChkBoxMediaPrevious.Name = "ChkBoxMediaPrevious";
+            this.ChkBoxMediaPrevious.Size = new System.Drawing.Size(120, 17);
+            this.ChkBoxMediaPrevious.TabIndex = 6;
+            this.ChkBoxMediaPrevious.Text = "Previous Media Key";
+            this.ChkBoxMediaPrevious.UseVisualStyleBackColor = true;
+            // 
             // EntryGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1391,6 +1440,8 @@
             this.TabKeySlider.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1498,5 +1549,9 @@
         private System.Windows.Forms.CheckBox ChkBoxMediaRestartRelease;
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaPlayRelease;
         private System.Windows.Forms.CheckBox ChkBoxMediaPlayRelease;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox ChkBoxMediaPlay;
+        private System.Windows.Forms.CheckBox ChkBoxMediaPrevious;
+        private System.Windows.Forms.CheckBox ChkBoxMediaNext;
     }
 }

@@ -68,6 +68,24 @@ namespace MidiControl
             TxtBoxDevice.Text = Device;
             TxtBoxChannel.Text = Channel.ToString();
 
+            if (keybind.MediaCallBack != null)
+            {
+                switch (keybind.MediaCallBack.MediaType)
+                {
+                    case MediaType.PLAY:
+                        ChkBoxMediaPlay.Checked = true;
+                        break;
+                    case MediaType.NEXT:
+                        ChkBoxMediaNext.Checked = true;
+                        break;
+                    case MediaType.PREVIOUS:
+                        ChkBoxMediaPrevious.Checked = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             if (keybind.SoundCallBack != null)
             {
                 ChkBoxEnableAudio.Checked = true;
@@ -1184,6 +1202,26 @@ namespace MidiControl
             {
                 key.SoundCallBack = null;
             }
+
+
+            // Media Keys
+            if (ChkBoxMediaPlay.Checked)
+            {
+                key.MediaCallBack = new MediaCallBack(MediaType.PLAY);
+            }
+            else if (ChkBoxMediaNext.Checked)
+            {
+                key.MediaCallBack = new MediaCallBack(MediaType.NEXT);
+            }
+            else if (ChkBoxMediaPrevious.Checked)
+            {
+                key.MediaCallBack = new MediaCallBack(MediaType.PREVIOUS);
+            }
+            else
+            {
+                key.MediaCallBack = null;
+            }
+
 
             if (conf.Config.ContainsKey(TxtBoxName.Text))
             {
