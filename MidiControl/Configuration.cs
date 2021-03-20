@@ -81,7 +81,7 @@ namespace MidiControl
 
     public class MediaCallBack
     {
-        public MediaType MediaType { get; }
+        public MediaType MediaType { get; set; }
 
         public MediaCallBack(MediaType type)
         {
