@@ -171,35 +171,19 @@ namespace MidiControl
                     case "mediaplay":
                         foreach (string arg in args)
                         {
-                            JObject o = JObject.FromObject(new
-                            {
-                                sourceName = arg,
-                                playPause = false
-                            });
-                            obs.SendRequest("PlayPauseMedia", o);
-                            //obs.PlayPauseMedia(arg, false);
+                            obs.PlayPauseMedia(arg, false);
                         }
                         break;
                     case "mediastop":
                         foreach (string arg in args)
                         {
-                            JObject o = JObject.FromObject(new
-                            {
-                                sourceName = arg
-                            });
-                            obs.SendRequest("StopMedia", o);
-                            //obs.StopMedia(arg);
+                            obs.StopMedia(arg);
                         }
                         break;
                     case "mediarestart":
                         foreach (string arg in args)
                         {
-                            JObject o = JObject.FromObject(new
-                            {
-                                sourceName = arg
-                            });
-                            obs.SendRequest("RestartMedia", o);
-                            //obs.RestartMedia(arg);
+                            obs.RestartMedia(arg);
                         }
                         break;
                     case "transition":
@@ -251,23 +235,23 @@ namespace MidiControl
                                 case "Play/Pause Record":
                                     try
                                     {
-                                        obs.SendRequest("PauseRecording");
+                                        obs.PauseRecording();
                                         feedback.SendIn();
                                     }
                                     catch (ErrorResponseException e)
                                     {
                                         if(e.Message.Equals("recording already paused"))
                                         {
-                                            obs.SendRequest("ResumeRecording");
+                                            obs.ResumeRecording();
                                             feedback.SendOff();
                                         }
                                     }
                                     break;
                                 case "Pause Record":
-                                    obs.SendRequest("PauseRecording");
+                                    obs.PauseRecording();
                                     break;
                                 case "Resume Record":
-                                    obs.SendRequest("ResumeRecording");
+                                    obs.ResumeRecording();
                                     break;
                                 case "Transition To Program (Studio)":
                                     obs.TransitionToProgram();
@@ -300,12 +284,7 @@ namespace MidiControl
                     }
                     break;
                 case "transitionSlider":
-                    JObject o = JObject.FromObject(new
-                    {
-                        position = value
-                    });
-                    obs.SendRequest("SetTBarPosition", o);
-                    //obs.SetTBarPosition(value);
+                    obs.SetTBarPosition(value);
                     break;
                 default:
                     break;
