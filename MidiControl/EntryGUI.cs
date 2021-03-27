@@ -553,6 +553,21 @@ namespace MidiControl
                         case "transitionSlider":
                             ChkBoxSlideTransition.Checked = true;
                             break;
+                        case "filterSettings":
+                            if(on.Args.Count == 2)
+                            {
+                                ChkBoxAdjustFilter.Checked = true;
+                                CboBoxFilterNameSlider.Enabled = true;
+                                CboBoxFilterNameSlider.SelectedItem = on.Args[0];
+                                CboBoxFilterSettingSlider.Items.Clear();
+                                List<string> listProperties = obs.GetFilterProperties(on.Args[0]);
+                                foreach (string property in listProperties)
+                                {
+                                    CboBoxFilterSettingSlider.Items.Add(property);
+                                }
+                                CboBoxFilterSettingSlider.SelectedItem = on.Args[1];
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -601,7 +616,9 @@ namespace MidiControl
             CheckToCombo.Add("ChkBoxToggleFilterRelease", new string[] { "ChkCboBoxToggleFilterRelease" });
             CheckToCombo.Add("ChkBoxMiscPress", new string[] { "ChkCboBoxMiscPress" });
             CheckToCombo.Add("ChkBoxMiscRelease", new string[] { "ChkCboBoxMiscRelease" });
+
             CheckToCombo.Add("ChkBoxAdjustVolume", new string[] { "ChkCboBoxVolumeSlider" });
+            CheckToCombo.Add("ChkBoxAdjustFilter", new string[] { "CboBoxFilterNameSlider", "CboBoxFilterSettingSlider"});
 
             CheckToCombo.Add("ChkBoxMediaPlayPress", new string[] { "ChkCboBoxMediaPlayPress" });
             CheckToCombo.Add("ChkBoxMediaStopPress", new string[] { "ChkCboBoxMediaStopPress" });
@@ -687,6 +704,7 @@ namespace MidiControl
             ChkCboBoxShowFilterRelease.Items.Clear();
             ChkCboBoxHideFilterRelease.Items.Clear();
             ChkCboBoxToggleFilterRelease.Items.Clear();
+            CboBoxFilterNameSlider.Items.Clear();
             foreach (string filter in filters)
             {
                 ChkCboBoxShowFilterPress.Items.Add(filter);
@@ -695,6 +713,7 @@ namespace MidiControl
                 ChkCboBoxShowFilterRelease.Items.Add(filter);
                 ChkCboBoxHideFilterRelease.Items.Add(filter);
                 ChkCboBoxToggleFilterRelease.Items.Add(filter);
+                CboBoxFilterNameSlider.Items.Add(filter);
             }
 
             ChkCboBoxMiscPress.Items.Clear();
@@ -1194,6 +1213,18 @@ namespace MidiControl
                 };
                 key.OBSCallBacksSlider.Add(callback);
             }
+            if (ChkBoxAdjustFilter.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "filterSettings"
+                };
+                if ((string)CboBoxFilterNameSlider.SelectedItem == null) return;
+                callback.Args.Add((string)CboBoxFilterNameSlider.SelectedItem);
+                callback.Args.Add((string)CboBoxFilterSettingSlider.SelectedItem);
+                key.OBSCallBacksSlider.Add(callback);
+            }
 
 
             // Sounboard
@@ -1308,6 +1339,18 @@ namespace MidiControl
             {
                 TxtBoxAudioFile.Text = fdlg.FileName;
             }
+        }
+
+        private void CboBoxFilterNameSlider_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string filterName = (string)CboBoxFilterNameSlider.SelectedItem;
+            CboBoxFilterSettingSlider.Items.Clear();
+            List<string> listProperties = obs.GetFilterProperties(filterName);
+            foreach (string property in listProperties)
+            {
+                CboBoxFilterSettingSlider.Items.Add(property);
+            }
+            CboBoxFilterSettingSlider.SelectedIndex = 0;
         }
     }
 }

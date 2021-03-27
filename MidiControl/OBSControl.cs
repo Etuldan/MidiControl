@@ -8,6 +8,7 @@ using System.Diagnostics;
 #endif
 using System.Linq;
 using System.Timers;
+using Microsoft.VisualBasic.FileIO;
 
 namespace MidiControl
 {
@@ -16,6 +17,7 @@ namespace MidiControl
         private readonly OBSWebsocket obs;
         private readonly MIDIControlGUI gui;
         private static OBSControl _instance;
+        private Dictionary<string, float[]> FiltersMinMaxValues = new Dictionary<string, float[]>();
         public readonly OptionsManagment options;
         private Timer timer;
         private Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
@@ -29,6 +31,26 @@ namespace MidiControl
 
             gui = MIDIControlGUI.GetInstance();
             options = OptionsManagment.GetInstance();
+
+            var path = @".\filterminmax.csv";
+            try
+            {
+                using (TextFieldParser csvParser = new TextFieldParser(path))
+                {
+                    csvParser.CommentTokens = new string[] { "#" };
+                    csvParser.SetDelimiters(new string[] { "," });
+                    csvParser.HasFieldsEnclosedInQuotes = true;
+
+                    while (!csvParser.EndOfData)
+                    {
+                        string[] fields = csvParser.ReadFields();
+                        FiltersMinMaxValues.Add(fields[0], new float[] { float.Parse(fields[1]), float.Parse(fields[2]) });
+                    }
+                }
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+            }
 
             InitTimer();
         }
@@ -286,6 +308,9 @@ namespace MidiControl
                 case "transitionSlider":
                     obs.SetTBarPosition(value);
                     break;
+                case "filterSettings":
+                    SetFilterProperties(args[0], args[1], value);
+                    break;
                 default:
                     break;
             }
@@ -474,6 +499,64 @@ namespace MidiControl
             }
         }
 
+        private void SetFilterProperties(string filterName, string property, float value)
+        {
+            List<FilterSettingsScene> filterSettings = GetFiltersSettings();
+            foreach (FilterSettingsScene filterSetting in filterSettings)
+            {
+                if (FiltersMinMaxValues.TryGetValue(filterSetting.FilterSettings.Type + "." + property, out float[] values) == true)
+                {
+                    float min = values[0];
+                    float max = values[1];
+                    value = value * (max - min) + min;
+
+                    if (filterSetting.FilterSettings.Name == filterName)
+                    {
+                        JObject o = new JObject(new JProperty(property, value));
+                        obs.SetSourceFilterSettings(filterSetting.Scene, filterName, o);
+                    }
+                }
+            }
+        }
+        public List<string> GetFilterProperties(string filterName)
+        {
+            List<string> listProperties = new List<string>();
+            List<FilterSettingsScene> list = GetFiltersSettings();
+            foreach (FilterSettingsScene item in list)
+            {         
+                if(item.FilterSettings.Name == filterName)
+                {
+                    foreach (var setting in item.FilterSettings.Settings)
+                    {
+                        listProperties.Add(setting.Key);
+                    }
+                }
+            }
+            return listProperties;
+        }
+
+        public List<FilterSettingsScene> GetFiltersSettings()
+        {
+            List<FilterSettingsScene> filters = new List<FilterSettingsScene>();
+            if (!obs.IsConnected) return filters;
+
+            foreach (string scene in this.GetScenes())
+            {
+                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                {
+                    filters.Add(new FilterSettingsScene() { Scene = scene, FilterSettings = filtersetting });
+                }
+            }
+
+            foreach (string source in this.GetSources())
+            {
+                foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
+                {
+                    filters.Add(new FilterSettingsScene() { Scene = source, FilterSettings = filtersetting });
+                }
+            }
+            return filters;
+        }
         public List<string> GetFilters()
         {
             List<string> filtersString = new List<string>();
@@ -574,6 +657,12 @@ namespace MidiControl
         {
             return obs.IsConnected;
         }
+    }
+
+    public class FilterSettingsScene
+    {
+        public string Scene { get; set; }
+        public FilterSettings FilterSettings { get; set; }
     }
 
     public class SourceScene

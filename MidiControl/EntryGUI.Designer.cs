@@ -84,6 +84,10 @@
             this.CboBoxAudioDevice = new System.Windows.Forms.ComboBox();
             this.BtnAudioSelect = new System.Windows.Forms.Button();
             this.TxtBoxAudioFile = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ChkBoxMediaPrevious = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaNext = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaPlay = new System.Windows.Forms.CheckBox();
             this.GrpBoxKeyRelease = new System.Windows.Forms.GroupBox();
             this.TabKeyRelease = new System.Windows.Forms.TabControl();
             this.TabOBSRelease = new System.Windows.Forms.TabPage();
@@ -125,19 +129,19 @@
             this.GrpBoxKeySlider = new System.Windows.Forms.GroupBox();
             this.TabKeySlider = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.CboBoxFilterSettingSlider = new System.Windows.Forms.ComboBox();
+            this.CboBoxFilterNameSlider = new System.Windows.Forms.ComboBox();
+            this.ChkBoxAdjustFilter = new System.Windows.Forms.CheckBox();
             this.ChkBoxSlideTransition = new System.Windows.Forms.CheckBox();
             this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
             this.ChkBoxAdjustVolume = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxVolumeSlider = new CheckComboBoxTest.CheckedComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ChkBoxMediaPlay = new System.Windows.Forms.CheckBox();
-            this.ChkBoxMediaNext = new System.Windows.Forms.CheckBox();
-            this.ChkBoxMediaPrevious = new System.Windows.Forms.CheckBox();
             this.GrpBoxKeyPress.SuspendLayout();
             this.TabKeyPress.SuspendLayout();
             this.TabOBSPress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).BeginInit();
             this.TabSoundPress.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.GrpBoxKeyRelease.SuspendLayout();
             this.TabKeyRelease.SuspendLayout();
             this.TabOBSRelease.SuspendLayout();
@@ -146,7 +150,6 @@
             this.GrpBoxKeySlider.SuspendLayout();
             this.TabKeySlider.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblName
@@ -201,7 +204,7 @@
             // 
             // BtnAdd
             // 
-            this.BtnAdd.Location = new System.Drawing.Point(513, 626);
+            this.BtnAdd.Location = new System.Drawing.Point(513, 656);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(75, 23);
             this.BtnAdd.TabIndex = 8;
@@ -792,6 +795,49 @@
             this.TxtBoxAudioFile.Size = new System.Drawing.Size(438, 20);
             this.TxtBoxAudioFile.TabIndex = 0;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.ChkBoxMediaPrevious);
+            this.tabPage2.Controls.Add(this.ChkBoxMediaNext);
+            this.tabPage2.Controls.Add(this.ChkBoxMediaPlay);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(560, 196);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Media Keys";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaPrevious
+            // 
+            this.ChkBoxMediaPrevious.AutoSize = true;
+            this.ChkBoxMediaPrevious.Location = new System.Drawing.Point(6, 52);
+            this.ChkBoxMediaPrevious.Name = "ChkBoxMediaPrevious";
+            this.ChkBoxMediaPrevious.Size = new System.Drawing.Size(120, 17);
+            this.ChkBoxMediaPrevious.TabIndex = 6;
+            this.ChkBoxMediaPrevious.Text = "Previous Media Key";
+            this.ChkBoxMediaPrevious.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaNext
+            // 
+            this.ChkBoxMediaNext.AutoSize = true;
+            this.ChkBoxMediaNext.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxMediaNext.Name = "ChkBoxMediaNext";
+            this.ChkBoxMediaNext.Size = new System.Drawing.Size(101, 17);
+            this.ChkBoxMediaNext.TabIndex = 5;
+            this.ChkBoxMediaNext.Text = "Next Media Key";
+            this.ChkBoxMediaNext.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaPlay
+            // 
+            this.ChkBoxMediaPlay.AutoSize = true;
+            this.ChkBoxMediaPlay.Location = new System.Drawing.Point(6, 6);
+            this.ChkBoxMediaPlay.Name = "ChkBoxMediaPlay";
+            this.ChkBoxMediaPlay.Size = new System.Drawing.Size(140, 17);
+            this.ChkBoxMediaPlay.TabIndex = 4;
+            this.ChkBoxMediaPlay.Text = "Play / Pause Media Key";
+            this.ChkBoxMediaPlay.UseVisualStyleBackColor = true;
+            // 
             // GrpBoxKeyRelease
             // 
             this.GrpBoxKeyRelease.Controls.Add(this.TabKeyRelease);
@@ -1280,9 +1326,9 @@
             // GrpBoxKeySlider
             // 
             this.GrpBoxKeySlider.Controls.Add(this.TabKeySlider);
-            this.GrpBoxKeySlider.Location = new System.Drawing.Point(16, 537);
+            this.GrpBoxKeySlider.Location = new System.Drawing.Point(9, 537);
             this.GrpBoxKeySlider.Name = "GrpBoxKeySlider";
-            this.GrpBoxKeySlider.Size = new System.Drawing.Size(575, 83);
+            this.GrpBoxKeySlider.Size = new System.Drawing.Size(579, 113);
             this.GrpBoxKeySlider.TabIndex = 13;
             this.GrpBoxKeySlider.TabStop = false;
             this.GrpBoxKeySlider.Text = "On Slider Change";
@@ -1293,11 +1339,14 @@
             this.TabKeySlider.Location = new System.Drawing.Point(6, 19);
             this.TabKeySlider.Name = "TabKeySlider";
             this.TabKeySlider.SelectedIndex = 0;
-            this.TabKeySlider.Size = new System.Drawing.Size(563, 58);
+            this.TabKeySlider.Size = new System.Drawing.Size(563, 88);
             this.TabKeySlider.TabIndex = 2;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.CboBoxFilterSettingSlider);
+            this.tabPage1.Controls.Add(this.CboBoxFilterNameSlider);
+            this.tabPage1.Controls.Add(this.ChkBoxAdjustFilter);
             this.tabPage1.Controls.Add(this.ChkBoxSlideTransition);
             this.tabPage1.Controls.Add(this.ChkBoxAdjustTransitionDuration);
             this.tabPage1.Controls.Add(this.ChkBoxAdjustVolume);
@@ -1305,10 +1354,41 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(555, 32);
+            this.tabPage1.Size = new System.Drawing.Size(555, 62);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "OBS";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // CboBoxFilterSettingSlider
+            // 
+            this.CboBoxFilterSettingSlider.Enabled = false;
+            this.CboBoxFilterSettingSlider.FormattingEnabled = true;
+            this.CboBoxFilterSettingSlider.IntegralHeight = false;
+            this.CboBoxFilterSettingSlider.Location = new System.Drawing.Point(290, 35);
+            this.CboBoxFilterSettingSlider.Name = "CboBoxFilterSettingSlider";
+            this.CboBoxFilterSettingSlider.Size = new System.Drawing.Size(259, 21);
+            this.CboBoxFilterSettingSlider.TabIndex = 41;
+            // 
+            // CboBoxFilterNameSlider
+            // 
+            this.CboBoxFilterNameSlider.Enabled = false;
+            this.CboBoxFilterNameSlider.FormattingEnabled = true;
+            this.CboBoxFilterNameSlider.Location = new System.Drawing.Point(98, 35);
+            this.CboBoxFilterNameSlider.Name = "CboBoxFilterNameSlider";
+            this.CboBoxFilterNameSlider.Size = new System.Drawing.Size(186, 21);
+            this.CboBoxFilterNameSlider.TabIndex = 40;
+            this.CboBoxFilterNameSlider.SelectionChangeCommitted += new System.EventHandler(this.CboBoxFilterNameSlider_SelectionChangeCommitted);
+            // 
+            // ChkBoxAdjustFilter
+            // 
+            this.ChkBoxAdjustFilter.AutoSize = true;
+            this.ChkBoxAdjustFilter.Location = new System.Drawing.Point(6, 37);
+            this.ChkBoxAdjustFilter.Name = "ChkBoxAdjustFilter";
+            this.ChkBoxAdjustFilter.Size = new System.Drawing.Size(80, 17);
+            this.ChkBoxAdjustFilter.TabIndex = 4;
+            this.ChkBoxAdjustFilter.Text = "Adjust Filter";
+            this.ChkBoxAdjustFilter.UseVisualStyleBackColor = true;
+            this.ChkBoxAdjustFilter.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkBoxSlideTransition
             // 
@@ -1356,54 +1436,11 @@
             this.ChkCboBoxVolumeSlider.TabIndex = 1;
             this.ChkCboBoxVolumeSlider.ValueSeparator = ", ";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.ChkBoxMediaPrevious);
-            this.tabPage2.Controls.Add(this.ChkBoxMediaNext);
-            this.tabPage2.Controls.Add(this.ChkBoxMediaPlay);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(560, 196);
-            this.tabPage2.TabIndex = 2;
-            this.tabPage2.Text = "Media Keys";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // ChkBoxMediaPlay
-            // 
-            this.ChkBoxMediaPlay.AutoSize = true;
-            this.ChkBoxMediaPlay.Location = new System.Drawing.Point(6, 6);
-            this.ChkBoxMediaPlay.Name = "ChkBoxMediaPlay";
-            this.ChkBoxMediaPlay.Size = new System.Drawing.Size(140, 17);
-            this.ChkBoxMediaPlay.TabIndex = 4;
-            this.ChkBoxMediaPlay.Text = "Play / Pause Media Key";
-            this.ChkBoxMediaPlay.UseVisualStyleBackColor = true;
-            // 
-            // ChkBoxMediaNext
-            // 
-            this.ChkBoxMediaNext.AutoSize = true;
-            this.ChkBoxMediaNext.Location = new System.Drawing.Point(6, 29);
-            this.ChkBoxMediaNext.Name = "ChkBoxMediaNext";
-            this.ChkBoxMediaNext.Size = new System.Drawing.Size(101, 17);
-            this.ChkBoxMediaNext.TabIndex = 5;
-            this.ChkBoxMediaNext.Text = "Next Media Key";
-            this.ChkBoxMediaNext.UseVisualStyleBackColor = true;
-            // 
-            // ChkBoxMediaPrevious
-            // 
-            this.ChkBoxMediaPrevious.AutoSize = true;
-            this.ChkBoxMediaPrevious.Location = new System.Drawing.Point(6, 52);
-            this.ChkBoxMediaPrevious.Name = "ChkBoxMediaPrevious";
-            this.ChkBoxMediaPrevious.Size = new System.Drawing.Size(120, 17);
-            this.ChkBoxMediaPrevious.TabIndex = 6;
-            this.ChkBoxMediaPrevious.Text = "Previous Media Key";
-            this.ChkBoxMediaPrevious.UseVisualStyleBackColor = true;
-            // 
             // EntryGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 661);
+            this.ClientSize = new System.Drawing.Size(594, 691);
             this.Controls.Add(this.GrpBoxKeySlider);
             this.Controls.Add(this.GrpBoxKeyRelease);
             this.Controls.Add(this.GrpBoxKeyPress);
@@ -1429,6 +1466,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).EndInit();
             this.TabSoundPress.ResumeLayout(false);
             this.TabSoundPress.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.GrpBoxKeyRelease.ResumeLayout(false);
             this.TabKeyRelease.ResumeLayout(false);
             this.TabOBSRelease.ResumeLayout(false);
@@ -1440,8 +1479,6 @@
             this.TabKeySlider.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1553,5 +1590,8 @@
         private System.Windows.Forms.CheckBox ChkBoxMediaPlay;
         private System.Windows.Forms.CheckBox ChkBoxMediaPrevious;
         private System.Windows.Forms.CheckBox ChkBoxMediaNext;
+        private System.Windows.Forms.CheckBox ChkBoxAdjustFilter;
+        private System.Windows.Forms.ComboBox CboBoxFilterSettingSlider;
+        private System.Windows.Forms.ComboBox CboBoxFilterNameSlider;
     }
 }
