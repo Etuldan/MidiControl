@@ -8,13 +8,14 @@ namespace MidiControl
 {
     public class MIDIFeedback
     {
-        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI", "Launchpad Mini" };
+        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI", "Akai APC40", "Launchpad Mini" };
 
         private enum Devices
         {
             NONE,
             APC_MINI,
-            Launchpad
+            Launchpad,
+            APC40
         }
 
         private readonly Devices deviceType = Devices.NONE;
@@ -32,6 +33,11 @@ namespace MidiControl
                     MidiOutdeviceFeedback = entry.Value;
                     deviceType = Devices.APC_MINI;
                 }
+                else if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "Akai APC40" && keybind.Mididevice == "Akai APC40")
+                {
+                    MidiOutdeviceFeedback = entry.Value;
+                    deviceType = Devices.APC40;
+                }
                 else if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "Launchpad Mini" && keybind.Mididevice == "Launchpad Mini")
                 {
                     MidiOutdeviceFeedback = entry.Value;
@@ -48,6 +54,7 @@ namespace MidiControl
             switch (deviceType)
             {
                 case Devices.APC_MINI:
+                case Devices.APC40:
                     me = new NoteOnEvent(0, channel, note, 01, 0);
                     break;
                 case Devices.Launchpad:
@@ -68,6 +75,7 @@ namespace MidiControl
             switch(deviceType)
             {
                 case Devices.APC_MINI:
+                case Devices.APC40:
                     me = new NoteOnEvent(0, channel, note, 00, 0);
                     break;
                 case Devices.Launchpad:
@@ -87,6 +95,7 @@ namespace MidiControl
             switch (deviceType)
             {
                 case Devices.APC_MINI:
+                case Devices.APC40:
                     me = new NoteOnEvent(0, channel, note, 02, 0);
                     break;
                 case Devices.Launchpad:
