@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsGUI));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             this.LblOBSIP = new System.Windows.Forms.Label();
             this.LblOBSPassword = new System.Windows.Forms.Label();
             this.TxtBoxOBSIP = new System.Windows.Forms.TextBox();
@@ -254,7 +254,6 @@
             this.Controls.Add(this.groupBoxMIDI);
             this.Controls.Add(this.groupBoxOBS);
             this.Controls.Add(this.BtnSave);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             this.MaximumSize = new System.Drawing.Size(270, 380);
             this.MinimumSize = new System.Drawing.Size(270, 380);
             this.Name = "OptionsGUI";
@@ -266,6 +265,7 @@
             this.groupBoxMIDI.PerformLayout();
             this.groupBoxStopAllSounds.ResumeLayout(false);
             this.groupBoxStopAllSounds.PerformLayout();
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             this.ResumeLayout(false);
 
         }

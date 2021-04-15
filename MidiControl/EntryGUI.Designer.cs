@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EntryGUI));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             this.LblName = new System.Windows.Forms.Label();
             this.TxtBoxName = new System.Windows.Forms.TextBox();
             this.LblNote = new System.Windows.Forms.Label();
@@ -1454,7 +1454,6 @@
             this.Controls.Add(this.TxtBoxName);
             this.Controls.Add(this.LblName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             this.Name = "EntryGUI";
             this.Text = "Add MIDI Keybind";
             this.TopMost = true;
@@ -1479,6 +1478,7 @@
             this.TabKeySlider.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             this.ResumeLayout(false);
             this.PerformLayout();
 
