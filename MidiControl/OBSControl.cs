@@ -275,6 +275,9 @@ namespace MidiControl
                                 case "Resume Record":
                                     obs.ResumeRecording();
                                     break;
+                                case "Save Record":
+                                    obs.SaveReplayBuffer();
+                                    break;
                                 case "Transition To Program (Studio)":
                                     obs.TransitionToProgram();
                                     break;
