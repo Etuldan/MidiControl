@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             this.LblName = new System.Windows.Forms.Label();
             this.TxtBoxName = new System.Windows.Forms.TextBox();
             this.LblNote = new System.Windows.Forms.Label();
@@ -1478,7 +1477,6 @@
             this.TabKeySlider.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             this.ResumeLayout(false);
             this.PerformLayout();
 

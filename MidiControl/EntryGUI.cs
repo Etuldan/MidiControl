@@ -32,7 +32,9 @@ namespace MidiControl
         {
             this.obs = OBSControl.GetInstance();
 
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             InitControls();
 
             MIDIDelegate = new MIDIDelegateHandler(UpdateNote);
@@ -50,8 +52,9 @@ namespace MidiControl
         public EntryGUI(string name, KeyBindEntry keybind)
         {
             this.obs = OBSControl.GetInstance();
-
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             InitControls();
 
             BtnAdd.Text = "Modify";

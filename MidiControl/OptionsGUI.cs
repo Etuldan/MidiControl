@@ -10,7 +10,9 @@ namespace MidiControl
         public OptionsGUI(OptionsManagment options)
         {
             this.options = options;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
             TxtBoxOBSIP.Text = options.options.Ip;
             TxtBoxOBSPassword.Text = options.options.Password;
             ChkBoxAutoConnectStart.Checked = options.options.Autoconnect;
