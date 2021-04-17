@@ -17,13 +17,11 @@ OutputBaseFilename={#AppName} {#AppVersion} Setup
 VersionInfoVersion={#AppVersion}
 
 [Files]
-Source: "{#Dir}MidiControl.exe"; DestDir: "{app}"; 
-Source: "{#Dir}CheckComboBox.dll"; DestDir: "{app}";
+Source: "{#Dir}MidiControl.exe"; DestDir: "{app}";
+Source: "{#Dir}*.dll"; DestDir: "{app}";
+Source: "{#Dir}runtimes\*"; DestDir: "{app}\runtimes";  Flags: recursesubdirs
 Source: "{#Dir}MidiControl.exe.config"; DestDir: "{app}";
-Source: "{#Dir}NAudio.dll"; DestDir: "{app}"; 
-Source: "{#Dir}Newtonsoft.Json.dll"; DestDir: "{app}";
-Source: "{#Dir}obs-websocket-dotnet.dll"; DestDir: "{app}";
-Source: "{#Dir}websocket-sharp.dll"; DestDir: "{app}";
+Source: "license.txt"; DestDir: "{app}";
 Source: "MIDIControl.VisualElementsManifest.xml"; DestDir: "{app}";
 Source: "filterminmax.csv"; DestDir: "{app}";
 Source: "icon.png"; DestDir: "{app}";
