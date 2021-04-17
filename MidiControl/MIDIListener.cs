@@ -18,12 +18,15 @@ namespace MidiControl
         private static MIDIListener _instance;
         private readonly Configuration conf;
         private readonly AudioControl audioControl;
+        private readonly TwitchChatControl twitchControl;
+
         private readonly OptionsManagment options = OptionsManagment.GetInstance();
 
         public MIDIListener(Configuration conf)
         {
             new OBSControl();
             audioControl = new AudioControl();
+            twitchControl = new TwitchChatControl(options.options, conf.Config);
 
             this.conf = conf;
             for (int device = 0; device < MidiIn.NumberOfDevices; device++)
@@ -206,6 +209,10 @@ namespace MidiControl
                     {
                         audioControl.MediaKey(entry.Value.MediaCallBack.MediaType);
                     }
+                    if (entry.Value.TwitchCallBackON != null)
+                    {
+                        twitchControl.SendMessage(entry.Value.TwitchCallBackON.Channel, entry.Value.TwitchCallBackON.Messsage);
+                    }
                 }
                 else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn) && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity == 0))
                 {
@@ -216,9 +223,17 @@ namespace MidiControl
                     {
                         callback.Start(entry.Value);
                     }
+                    if (entry.Value.MediaCallBackOFF != null)
+                    {
+                        audioControl.MediaKey(entry.Value.MediaCallBackOFF.MediaType);
+                    }
                     if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased == true)
                     {
                         audioControl.StopSound(entry.Value);
+                    }
+                    if (entry.Value.TwitchCallBackOFF != null)
+                    {
+                        twitchControl.SendMessage(entry.Value.TwitchCallBackOFF.Channel, entry.Value.TwitchCallBackOFF.Messsage);
                     }
                 }
                 else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider)

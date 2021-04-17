@@ -83,10 +83,10 @@
             this.CboBoxAudioDevice = new System.Windows.Forms.ComboBox();
             this.BtnAudioSelect = new System.Windows.Forms.Button();
             this.TxtBoxAudioFile = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ChkBoxMediaPrevious = new System.Windows.Forms.CheckBox();
-            this.ChkBoxMediaNext = new System.Windows.Forms.CheckBox();
-            this.ChkBoxMediaPlay = new System.Windows.Forms.CheckBox();
+            this.TabMediaKeyPress = new System.Windows.Forms.TabPage();
+            this.ChkBoxMediaKeyPreviousPress = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaKeyNextPress = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaKeyPlayPress = new System.Windows.Forms.CheckBox();
             this.GrpBoxKeyRelease = new System.Windows.Forms.GroupBox();
             this.TabKeyRelease = new System.Windows.Forms.TabControl();
             this.TabOBSRelease = new System.Windows.Forms.TabPage();
@@ -125,9 +125,13 @@
             this.ChkBoxUnmuteRelease = new System.Windows.Forms.CheckBox();
             this.TabSoundRelease = new System.Windows.Forms.TabPage();
             this.ChkBoxAudioStop = new System.Windows.Forms.CheckBox();
+            this.TabMediaKeyRelease = new System.Windows.Forms.TabPage();
+            this.ChkBoxMediaKeyPreviousRelease = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaKeyNextRelease = new System.Windows.Forms.CheckBox();
+            this.ChkBoxMediaKeyPlayRelease = new System.Windows.Forms.CheckBox();
             this.GrpBoxKeySlider = new System.Windows.Forms.GroupBox();
             this.TabKeySlider = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.TabOBSSlider = new System.Windows.Forms.TabPage();
             this.CboBoxFilterSettingSlider = new System.Windows.Forms.ComboBox();
             this.CboBoxFilterNameSlider = new System.Windows.Forms.ComboBox();
             this.ChkBoxAdjustFilter = new System.Windows.Forms.CheckBox();
@@ -135,20 +139,33 @@
             this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
             this.ChkBoxAdjustVolume = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxVolumeSlider = new CheckComboBoxTest.CheckedComboBox();
+            this.TabTwitchPress = new System.Windows.Forms.TabPage();
+            this.TabTwitchRelease = new System.Windows.Forms.TabPage();
+            this.LblChannelTwitchPress = new System.Windows.Forms.Label();
+            this.TxtBoxTwitchChannelPress = new System.Windows.Forms.TextBox();
+            this.TxtBoxTwitchMessagePress = new System.Windows.Forms.TextBox();
+            this.LblTwitchMessagePress = new System.Windows.Forms.Label();
+            this.LblTwitchMessageRelease = new System.Windows.Forms.Label();
+            this.TxtBoxTwitchMessageRelease = new System.Windows.Forms.TextBox();
+            this.TxtBoxTwitchChannelRelease = new System.Windows.Forms.TextBox();
+            this.LblChannelTwitchRelease = new System.Windows.Forms.Label();
             this.GrpBoxKeyPress.SuspendLayout();
             this.TabKeyPress.SuspendLayout();
             this.TabOBSPress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).BeginInit();
             this.TabSoundPress.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.TabMediaKeyPress.SuspendLayout();
             this.GrpBoxKeyRelease.SuspendLayout();
             this.TabKeyRelease.SuspendLayout();
             this.TabOBSRelease.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionRelease)).BeginInit();
             this.TabSoundRelease.SuspendLayout();
+            this.TabMediaKeyRelease.SuspendLayout();
             this.GrpBoxKeySlider.SuspendLayout();
             this.TabKeySlider.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.TabOBSSlider.SuspendLayout();
+            this.TabTwitchPress.SuspendLayout();
+            this.TabTwitchRelease.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblName
@@ -242,7 +259,8 @@
             // 
             this.TabKeyPress.Controls.Add(this.TabOBSPress);
             this.TabKeyPress.Controls.Add(this.TabSoundPress);
-            this.TabKeyPress.Controls.Add(this.tabPage2);
+            this.TabKeyPress.Controls.Add(this.TabMediaKeyPress);
+            this.TabKeyPress.Controls.Add(this.TabTwitchPress);
             this.TabKeyPress.Location = new System.Drawing.Point(6, 20);
             this.TabKeyPress.Name = "TabKeyPress";
             this.TabKeyPress.SelectedIndex = 0;
@@ -794,48 +812,48 @@
             this.TxtBoxAudioFile.Size = new System.Drawing.Size(438, 20);
             this.TxtBoxAudioFile.TabIndex = 0;
             // 
-            // tabPage2
+            // TabMediaKeyPress
             // 
-            this.tabPage2.Controls.Add(this.ChkBoxMediaPrevious);
-            this.tabPage2.Controls.Add(this.ChkBoxMediaNext);
-            this.tabPage2.Controls.Add(this.ChkBoxMediaPlay);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(560, 196);
-            this.tabPage2.TabIndex = 2;
-            this.tabPage2.Text = "Media Keys";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.TabMediaKeyPress.Controls.Add(this.ChkBoxMediaKeyPreviousPress);
+            this.TabMediaKeyPress.Controls.Add(this.ChkBoxMediaKeyNextPress);
+            this.TabMediaKeyPress.Controls.Add(this.ChkBoxMediaKeyPlayPress);
+            this.TabMediaKeyPress.Location = new System.Drawing.Point(4, 22);
+            this.TabMediaKeyPress.Name = "TabMediaKeyPress";
+            this.TabMediaKeyPress.Padding = new System.Windows.Forms.Padding(3);
+            this.TabMediaKeyPress.Size = new System.Drawing.Size(560, 196);
+            this.TabMediaKeyPress.TabIndex = 2;
+            this.TabMediaKeyPress.Text = "Media Keys";
+            this.TabMediaKeyPress.UseVisualStyleBackColor = true;
             // 
-            // ChkBoxMediaPrevious
+            // ChkBoxMediaKeyPreviousPress
             // 
-            this.ChkBoxMediaPrevious.AutoSize = true;
-            this.ChkBoxMediaPrevious.Location = new System.Drawing.Point(6, 52);
-            this.ChkBoxMediaPrevious.Name = "ChkBoxMediaPrevious";
-            this.ChkBoxMediaPrevious.Size = new System.Drawing.Size(120, 17);
-            this.ChkBoxMediaPrevious.TabIndex = 6;
-            this.ChkBoxMediaPrevious.Text = "Previous Media Key";
-            this.ChkBoxMediaPrevious.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaKeyPreviousPress.AutoSize = true;
+            this.ChkBoxMediaKeyPreviousPress.Location = new System.Drawing.Point(6, 52);
+            this.ChkBoxMediaKeyPreviousPress.Name = "ChkBoxMediaKeyPreviousPress";
+            this.ChkBoxMediaKeyPreviousPress.Size = new System.Drawing.Size(120, 17);
+            this.ChkBoxMediaKeyPreviousPress.TabIndex = 6;
+            this.ChkBoxMediaKeyPreviousPress.Text = "Previous Media Key";
+            this.ChkBoxMediaKeyPreviousPress.UseVisualStyleBackColor = true;
             // 
-            // ChkBoxMediaNext
+            // ChkBoxMediaKeyNextPress
             // 
-            this.ChkBoxMediaNext.AutoSize = true;
-            this.ChkBoxMediaNext.Location = new System.Drawing.Point(6, 29);
-            this.ChkBoxMediaNext.Name = "ChkBoxMediaNext";
-            this.ChkBoxMediaNext.Size = new System.Drawing.Size(101, 17);
-            this.ChkBoxMediaNext.TabIndex = 5;
-            this.ChkBoxMediaNext.Text = "Next Media Key";
-            this.ChkBoxMediaNext.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaKeyNextPress.AutoSize = true;
+            this.ChkBoxMediaKeyNextPress.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxMediaKeyNextPress.Name = "ChkBoxMediaKeyNextPress";
+            this.ChkBoxMediaKeyNextPress.Size = new System.Drawing.Size(101, 17);
+            this.ChkBoxMediaKeyNextPress.TabIndex = 5;
+            this.ChkBoxMediaKeyNextPress.Text = "Next Media Key";
+            this.ChkBoxMediaKeyNextPress.UseVisualStyleBackColor = true;
             // 
-            // ChkBoxMediaPlay
+            // ChkBoxMediaKeyPlayPress
             // 
-            this.ChkBoxMediaPlay.AutoSize = true;
-            this.ChkBoxMediaPlay.Location = new System.Drawing.Point(6, 6);
-            this.ChkBoxMediaPlay.Name = "ChkBoxMediaPlay";
-            this.ChkBoxMediaPlay.Size = new System.Drawing.Size(140, 17);
-            this.ChkBoxMediaPlay.TabIndex = 4;
-            this.ChkBoxMediaPlay.Text = "Play / Pause Media Key";
-            this.ChkBoxMediaPlay.UseVisualStyleBackColor = true;
+            this.ChkBoxMediaKeyPlayPress.AutoSize = true;
+            this.ChkBoxMediaKeyPlayPress.Location = new System.Drawing.Point(6, 6);
+            this.ChkBoxMediaKeyPlayPress.Name = "ChkBoxMediaKeyPlayPress";
+            this.ChkBoxMediaKeyPlayPress.Size = new System.Drawing.Size(140, 17);
+            this.ChkBoxMediaKeyPlayPress.TabIndex = 4;
+            this.ChkBoxMediaKeyPlayPress.Text = "Play / Pause Media Key";
+            this.ChkBoxMediaKeyPlayPress.UseVisualStyleBackColor = true;
             // 
             // GrpBoxKeyRelease
             // 
@@ -851,6 +869,8 @@
             // 
             this.TabKeyRelease.Controls.Add(this.TabOBSRelease);
             this.TabKeyRelease.Controls.Add(this.TabSoundRelease);
+            this.TabKeyRelease.Controls.Add(this.TabMediaKeyRelease);
+            this.TabKeyRelease.Controls.Add(this.TabTwitchRelease);
             this.TabKeyRelease.Location = new System.Drawing.Point(7, 20);
             this.TabKeyRelease.Name = "TabKeyRelease";
             this.TabKeyRelease.SelectedIndex = 0;
@@ -1322,6 +1342,49 @@
             this.ChkBoxAudioStop.Text = "Stop Sound when Released";
             this.ChkBoxAudioStop.UseVisualStyleBackColor = true;
             // 
+            // TabMediaKeyRelease
+            // 
+            this.TabMediaKeyRelease.Controls.Add(this.ChkBoxMediaKeyPreviousRelease);
+            this.TabMediaKeyRelease.Controls.Add(this.ChkBoxMediaKeyNextRelease);
+            this.TabMediaKeyRelease.Controls.Add(this.ChkBoxMediaKeyPlayRelease);
+            this.TabMediaKeyRelease.Location = new System.Drawing.Point(4, 22);
+            this.TabMediaKeyRelease.Name = "TabMediaKeyRelease";
+            this.TabMediaKeyRelease.Padding = new System.Windows.Forms.Padding(3);
+            this.TabMediaKeyRelease.Size = new System.Drawing.Size(560, 189);
+            this.TabMediaKeyRelease.TabIndex = 3;
+            this.TabMediaKeyRelease.Text = "Media Keys";
+            this.TabMediaKeyRelease.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaKeyPreviousRelease
+            // 
+            this.ChkBoxMediaKeyPreviousRelease.AutoSize = true;
+            this.ChkBoxMediaKeyPreviousRelease.Location = new System.Drawing.Point(6, 52);
+            this.ChkBoxMediaKeyPreviousRelease.Name = "ChkBoxMediaKeyPreviousRelease";
+            this.ChkBoxMediaKeyPreviousRelease.Size = new System.Drawing.Size(120, 17);
+            this.ChkBoxMediaKeyPreviousRelease.TabIndex = 6;
+            this.ChkBoxMediaKeyPreviousRelease.Text = "Previous Media Key";
+            this.ChkBoxMediaKeyPreviousRelease.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaKeyNextRelease
+            // 
+            this.ChkBoxMediaKeyNextRelease.AutoSize = true;
+            this.ChkBoxMediaKeyNextRelease.Location = new System.Drawing.Point(6, 29);
+            this.ChkBoxMediaKeyNextRelease.Name = "ChkBoxMediaKeyNextRelease";
+            this.ChkBoxMediaKeyNextRelease.Size = new System.Drawing.Size(101, 17);
+            this.ChkBoxMediaKeyNextRelease.TabIndex = 5;
+            this.ChkBoxMediaKeyNextRelease.Text = "Next Media Key";
+            this.ChkBoxMediaKeyNextRelease.UseVisualStyleBackColor = true;
+            // 
+            // ChkBoxMediaKeyPlayRelease
+            // 
+            this.ChkBoxMediaKeyPlayRelease.AutoSize = true;
+            this.ChkBoxMediaKeyPlayRelease.Location = new System.Drawing.Point(6, 6);
+            this.ChkBoxMediaKeyPlayRelease.Name = "ChkBoxMediaKeyPlayRelease";
+            this.ChkBoxMediaKeyPlayRelease.Size = new System.Drawing.Size(140, 17);
+            this.ChkBoxMediaKeyPlayRelease.TabIndex = 4;
+            this.ChkBoxMediaKeyPlayRelease.Text = "Play / Pause Media Key";
+            this.ChkBoxMediaKeyPlayRelease.UseVisualStyleBackColor = true;
+            // 
             // GrpBoxKeySlider
             // 
             this.GrpBoxKeySlider.Controls.Add(this.TabKeySlider);
@@ -1334,29 +1397,29 @@
             // 
             // TabKeySlider
             // 
-            this.TabKeySlider.Controls.Add(this.tabPage1);
+            this.TabKeySlider.Controls.Add(this.TabOBSSlider);
             this.TabKeySlider.Location = new System.Drawing.Point(6, 19);
             this.TabKeySlider.Name = "TabKeySlider";
             this.TabKeySlider.SelectedIndex = 0;
             this.TabKeySlider.Size = new System.Drawing.Size(563, 88);
             this.TabKeySlider.TabIndex = 2;
             // 
-            // tabPage1
+            // TabOBSSlider
             // 
-            this.tabPage1.Controls.Add(this.CboBoxFilterSettingSlider);
-            this.tabPage1.Controls.Add(this.CboBoxFilterNameSlider);
-            this.tabPage1.Controls.Add(this.ChkBoxAdjustFilter);
-            this.tabPage1.Controls.Add(this.ChkBoxSlideTransition);
-            this.tabPage1.Controls.Add(this.ChkBoxAdjustTransitionDuration);
-            this.tabPage1.Controls.Add(this.ChkBoxAdjustVolume);
-            this.tabPage1.Controls.Add(this.ChkCboBoxVolumeSlider);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(555, 62);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "OBS";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.TabOBSSlider.Controls.Add(this.CboBoxFilterSettingSlider);
+            this.TabOBSSlider.Controls.Add(this.CboBoxFilterNameSlider);
+            this.TabOBSSlider.Controls.Add(this.ChkBoxAdjustFilter);
+            this.TabOBSSlider.Controls.Add(this.ChkBoxSlideTransition);
+            this.TabOBSSlider.Controls.Add(this.ChkBoxAdjustTransitionDuration);
+            this.TabOBSSlider.Controls.Add(this.ChkBoxAdjustVolume);
+            this.TabOBSSlider.Controls.Add(this.ChkCboBoxVolumeSlider);
+            this.TabOBSSlider.Location = new System.Drawing.Point(4, 22);
+            this.TabOBSSlider.Name = "TabOBSSlider";
+            this.TabOBSSlider.Padding = new System.Windows.Forms.Padding(3);
+            this.TabOBSSlider.Size = new System.Drawing.Size(555, 62);
+            this.TabOBSSlider.TabIndex = 0;
+            this.TabOBSSlider.Text = "OBS";
+            this.TabOBSSlider.UseVisualStyleBackColor = true;
             // 
             // CboBoxFilterSettingSlider
             // 
@@ -1435,6 +1498,100 @@
             this.ChkCboBoxVolumeSlider.TabIndex = 1;
             this.ChkCboBoxVolumeSlider.ValueSeparator = ", ";
             // 
+            // TabTwitchPress
+            // 
+            this.TabTwitchPress.Controls.Add(this.LblTwitchMessagePress);
+            this.TabTwitchPress.Controls.Add(this.TxtBoxTwitchMessagePress);
+            this.TabTwitchPress.Controls.Add(this.TxtBoxTwitchChannelPress);
+            this.TabTwitchPress.Controls.Add(this.LblChannelTwitchPress);
+            this.TabTwitchPress.Location = new System.Drawing.Point(4, 22);
+            this.TabTwitchPress.Name = "TabTwitchPress";
+            this.TabTwitchPress.Padding = new System.Windows.Forms.Padding(3);
+            this.TabTwitchPress.Size = new System.Drawing.Size(560, 196);
+            this.TabTwitchPress.TabIndex = 3;
+            this.TabTwitchPress.Text = "Twitch Chat";
+            this.TabTwitchPress.UseVisualStyleBackColor = true;
+            // 
+            // TabTwitchRelease
+            // 
+            this.TabTwitchRelease.Controls.Add(this.LblTwitchMessageRelease);
+            this.TabTwitchRelease.Controls.Add(this.TxtBoxTwitchMessageRelease);
+            this.TabTwitchRelease.Controls.Add(this.TxtBoxTwitchChannelRelease);
+            this.TabTwitchRelease.Controls.Add(this.LblChannelTwitchRelease);
+            this.TabTwitchRelease.Location = new System.Drawing.Point(4, 22);
+            this.TabTwitchRelease.Name = "TabTwitchRelease";
+            this.TabTwitchRelease.Padding = new System.Windows.Forms.Padding(3);
+            this.TabTwitchRelease.Size = new System.Drawing.Size(560, 189);
+            this.TabTwitchRelease.TabIndex = 4;
+            this.TabTwitchRelease.Text = "Twitch Chat";
+            this.TabTwitchRelease.UseVisualStyleBackColor = true;
+            // 
+            // LblChannelTwitchPress
+            // 
+            this.LblChannelTwitchPress.AutoSize = true;
+            this.LblChannelTwitchPress.Location = new System.Drawing.Point(324, 9);
+            this.LblChannelTwitchPress.Name = "LblChannelTwitchPress";
+            this.LblChannelTwitchPress.Size = new System.Drawing.Size(81, 13);
+            this.LblChannelTwitchPress.TabIndex = 0;
+            this.LblChannelTwitchPress.Text = "Twitch Channel";
+            // 
+            // TxtBoxTwitchChannelPress
+            // 
+            this.TxtBoxTwitchChannelPress.Location = new System.Drawing.Point(411, 6);
+            this.TxtBoxTwitchChannelPress.Name = "TxtBoxTwitchChannelPress";
+            this.TxtBoxTwitchChannelPress.Size = new System.Drawing.Size(143, 20);
+            this.TxtBoxTwitchChannelPress.TabIndex = 1;
+            // 
+            // TxtBoxTwitchMessagePress
+            // 
+            this.TxtBoxTwitchMessagePress.Location = new System.Drawing.Point(4, 46);
+            this.TxtBoxTwitchMessagePress.Multiline = true;
+            this.TxtBoxTwitchMessagePress.Name = "TxtBoxTwitchMessagePress";
+            this.TxtBoxTwitchMessagePress.Size = new System.Drawing.Size(550, 144);
+            this.TxtBoxTwitchMessagePress.TabIndex = 2;
+            // 
+            // LblTwitchMessagePress
+            // 
+            this.LblTwitchMessagePress.AutoSize = true;
+            this.LblTwitchMessagePress.Location = new System.Drawing.Point(6, 30);
+            this.LblTwitchMessagePress.Name = "LblTwitchMessagePress";
+            this.LblTwitchMessagePress.Size = new System.Drawing.Size(50, 13);
+            this.LblTwitchMessagePress.TabIndex = 3;
+            this.LblTwitchMessagePress.Text = "Message";
+            // 
+            // LblTwitchMessageRelease
+            // 
+            this.LblTwitchMessageRelease.AutoSize = true;
+            this.LblTwitchMessageRelease.Location = new System.Drawing.Point(7, 26);
+            this.LblTwitchMessageRelease.Name = "LblTwitchMessageRelease";
+            this.LblTwitchMessageRelease.Size = new System.Drawing.Size(50, 13);
+            this.LblTwitchMessageRelease.TabIndex = 7;
+            this.LblTwitchMessageRelease.Text = "Message";
+            // 
+            // TxtBoxTwitchMessageRelease
+            // 
+            this.TxtBoxTwitchMessageRelease.Location = new System.Drawing.Point(6, 42);
+            this.TxtBoxTwitchMessageRelease.Multiline = true;
+            this.TxtBoxTwitchMessageRelease.Name = "TxtBoxTwitchMessageRelease";
+            this.TxtBoxTwitchMessageRelease.Size = new System.Drawing.Size(548, 141);
+            this.TxtBoxTwitchMessageRelease.TabIndex = 6;
+            // 
+            // TxtBoxTwitchChannelRelease
+            // 
+            this.TxtBoxTwitchChannelRelease.Location = new System.Drawing.Point(411, 6);
+            this.TxtBoxTwitchChannelRelease.Name = "TxtBoxTwitchChannelRelease";
+            this.TxtBoxTwitchChannelRelease.Size = new System.Drawing.Size(143, 20);
+            this.TxtBoxTwitchChannelRelease.TabIndex = 5;
+            // 
+            // LblChannelTwitchRelease
+            // 
+            this.LblChannelTwitchRelease.AutoSize = true;
+            this.LblChannelTwitchRelease.Location = new System.Drawing.Point(324, 9);
+            this.LblChannelTwitchRelease.Name = "LblChannelTwitchRelease";
+            this.LblChannelTwitchRelease.Size = new System.Drawing.Size(81, 13);
+            this.LblChannelTwitchRelease.TabIndex = 4;
+            this.LblChannelTwitchRelease.Text = "Twitch Channel";
+            // 
             // EntryGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1464,8 +1621,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).EndInit();
             this.TabSoundPress.ResumeLayout(false);
             this.TabSoundPress.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.TabMediaKeyPress.ResumeLayout(false);
+            this.TabMediaKeyPress.PerformLayout();
             this.GrpBoxKeyRelease.ResumeLayout(false);
             this.TabKeyRelease.ResumeLayout(false);
             this.TabOBSRelease.ResumeLayout(false);
@@ -1473,10 +1630,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionRelease)).EndInit();
             this.TabSoundRelease.ResumeLayout(false);
             this.TabSoundRelease.PerformLayout();
+            this.TabMediaKeyRelease.ResumeLayout(false);
+            this.TabMediaKeyRelease.PerformLayout();
             this.GrpBoxKeySlider.ResumeLayout(false);
             this.TabKeySlider.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.TabOBSSlider.ResumeLayout(false);
+            this.TabOBSSlider.PerformLayout();
+            this.TabTwitchPress.ResumeLayout(false);
+            this.TabTwitchPress.PerformLayout();
+            this.TabTwitchRelease.ResumeLayout(false);
+            this.TabTwitchRelease.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1547,7 +1710,7 @@
         private System.Windows.Forms.CheckBox ChkBoxTogglemuteRelease;
         private System.Windows.Forms.GroupBox GrpBoxKeySlider;
         private System.Windows.Forms.TabControl TabKeySlider;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage TabOBSSlider;
         private System.Windows.Forms.CheckBox ChkBoxAdjustVolume;
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxVolumeSlider;
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxToggleFilterPress;
@@ -1584,12 +1747,26 @@
         private System.Windows.Forms.CheckBox ChkBoxMediaRestartRelease;
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaPlayRelease;
         private System.Windows.Forms.CheckBox ChkBoxMediaPlayRelease;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.CheckBox ChkBoxMediaPlay;
-        private System.Windows.Forms.CheckBox ChkBoxMediaPrevious;
-        private System.Windows.Forms.CheckBox ChkBoxMediaNext;
+        private System.Windows.Forms.TabPage TabMediaKeyPress;
+        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPlayPress;
+        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPreviousPress;
+        private System.Windows.Forms.CheckBox ChkBoxMediaKeyNextPress;
         private System.Windows.Forms.CheckBox ChkBoxAdjustFilter;
         private System.Windows.Forms.ComboBox CboBoxFilterSettingSlider;
         private System.Windows.Forms.ComboBox CboBoxFilterNameSlider;
+        private System.Windows.Forms.TabPage TabMediaKeyRelease;
+        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPreviousRelease;
+        private System.Windows.Forms.CheckBox ChkBoxMediaKeyNextRelease;
+        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPlayRelease;
+        private System.Windows.Forms.TabPage TabTwitchPress;
+        private System.Windows.Forms.TabPage TabTwitchRelease;
+        private System.Windows.Forms.TextBox TxtBoxTwitchChannelPress;
+        private System.Windows.Forms.Label LblChannelTwitchPress;
+        private System.Windows.Forms.Label LblTwitchMessagePress;
+        private System.Windows.Forms.TextBox TxtBoxTwitchMessagePress;
+        private System.Windows.Forms.Label LblTwitchMessageRelease;
+        private System.Windows.Forms.TextBox TxtBoxTwitchMessageRelease;
+        private System.Windows.Forms.TextBox TxtBoxTwitchChannelRelease;
+        private System.Windows.Forms.Label LblChannelTwitchRelease;
     }
 }

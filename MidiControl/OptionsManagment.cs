@@ -50,7 +50,9 @@ namespace MidiControl
                     Autoconnect = false,
                     AutoReconnect = false,
                     MIDIInterfaces = new List<string>(),
-                    Delay = 0
+                    Delay = 0,
+                    TwitchLogin = "",
+                    TwitchToken = ""
                 };
             }
         }
@@ -72,6 +74,9 @@ namespace MidiControl
             public string MidiDeviceStopAllSounds { get; set; }
             public List<string> MIDIInterfaces { get; set; }
             public int Delay { get; set; }
+            public string TwitchLogin { get; set; }
+            public string TwitchToken { get; set; }
+
         }
     }
 }

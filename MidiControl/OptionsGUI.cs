@@ -32,6 +32,9 @@ namespace MidiControl
             txtBoxStopAllSoundsChannel.Text = options.options.ChannelStopAllSounds.ToString();
             txtBoxStopAllSoundsNote.Text = options.options.NoteNumberStopAllSounds.ToString();
             txtBoxDelay.Text = options.options.Delay.ToString();
+
+            txtBoxTwitchLogin.Text = options.options.TwitchLogin;
+            txtBoxTwitchToken.Text = options.options.TwitchToken;
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -68,8 +71,24 @@ namespace MidiControl
             {
                 options.options.Delay = 0;
             }
+            options.options.TwitchLogin = txtBoxTwitchLogin.Text;
+            options.options.TwitchToken = txtBoxTwitchToken.Text;
+
             options.Save();
             this.Close();
+            this.Dispose();
+        }
+
+        private void BtnRquestTwitchLogin_Click(object sender, EventArgs e)
+        {
+            WebViewLoginTwitch login = new WebViewLoginTwitch(options.options);
+            login.ShowDialog();
+            if (options.options.TwitchLogin != "" && options.options.TwitchToken != "")
+            {
+                txtBoxTwitchLogin.Text = options.options.TwitchLogin;
+                txtBoxTwitchToken.Text = options.options.TwitchToken;
+                TwitchChatControl.GetInstance().Connect();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MidiControl
     {
         public delegate void OBSControlDelegateHandler(bool connect);
         public OBSControlDelegateHandler OBSControlDelegate;
-        public OptionsManagment options;
+        private readonly OptionsManagment options;
         private readonly Configuration conf;
         private readonly MIDIListener midi;
 
@@ -26,6 +26,7 @@ namespace MidiControl
             options = new OptionsManagment();
             conf = new Configuration();
             midi = new MIDIListener(conf);
+            
 
             notifyIcon.Visible = true;
             notifyIcon.ShowBalloonTip(500);

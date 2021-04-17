@@ -76,17 +76,45 @@ namespace MidiControl
                 switch (keybind.MediaCallBack.MediaType)
                 {
                     case MediaType.PLAY:
-                        ChkBoxMediaPlay.Checked = true;
+                        ChkBoxMediaKeyPlayPress.Checked = true;
                         break;
                     case MediaType.NEXT:
-                        ChkBoxMediaNext.Checked = true;
+                        ChkBoxMediaKeyNextPress.Checked = true;
                         break;
                     case MediaType.PREVIOUS:
-                        ChkBoxMediaPrevious.Checked = true;
+                        ChkBoxMediaKeyPreviousPress.Checked = true;
                         break;
                     default:
                         break;
                 }
+            }
+            if (keybind.MediaCallBackOFF != null)
+            {
+                switch (keybind.MediaCallBackOFF.MediaType)
+                {
+                    case MediaType.PLAY:
+                        ChkBoxMediaKeyPlayRelease.Checked = true;
+                        break;
+                    case MediaType.NEXT:
+                        ChkBoxMediaKeyNextRelease.Checked = true;
+                        break;
+                    case MediaType.PREVIOUS:
+                        ChkBoxMediaKeyPreviousRelease.Checked = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (keybind.TwitchCallBackON != null)
+            {
+                TxtBoxTwitchChannelPress.Text = keybind.TwitchCallBackON.Channel;
+                TxtBoxTwitchMessagePress.Text = keybind.TwitchCallBackON.Messsage;
+            }
+            if (keybind.TwitchCallBackOFF != null)
+            {
+                TxtBoxTwitchChannelRelease.Text = keybind.TwitchCallBackOFF.Channel;
+                TxtBoxTwitchMessageRelease.Text = keybind.TwitchCallBackOFF.Messsage;
             }
 
             if (keybind.SoundCallBack != null)
@@ -1242,23 +1270,55 @@ namespace MidiControl
 
 
             // Media Keys
-            if (ChkBoxMediaPlay.Checked)
+            if (ChkBoxMediaKeyPlayPress.Checked)
             {
                 key.MediaCallBack = new MediaCallBack(MediaType.PLAY);
             }
-            else if (ChkBoxMediaNext.Checked)
+            else if (ChkBoxMediaKeyNextPress.Checked)
             {
                 key.MediaCallBack = new MediaCallBack(MediaType.NEXT);
             }
-            else if (ChkBoxMediaPrevious.Checked)
+            else if (ChkBoxMediaKeyPreviousPress.Checked)
             {
                 key.MediaCallBack = new MediaCallBack(MediaType.PREVIOUS);
             }
             else
             {
-                key.MediaCallBack = null;
+                key.MediaCallBackOFF = null;
+            }
+            if (ChkBoxMediaKeyPlayRelease.Checked)
+            {
+                key.MediaCallBackOFF = new MediaCallBack(MediaType.PLAY);
+            }
+            else if (ChkBoxMediaKeyNextRelease.Checked)
+            {
+                key.MediaCallBackOFF = new MediaCallBack(MediaType.NEXT);
+            }
+            else if (ChkBoxMediaKeyPreviousRelease.Checked)
+            {
+                key.MediaCallBackOFF = new MediaCallBack(MediaType.PREVIOUS);
+            }
+            else
+            {
+                key.MediaCallBackOFF = null;
             }
 
+            if (TxtBoxTwitchChannelPress.Text != "" && TxtBoxTwitchMessagePress.Text != "")
+            {
+                key.TwitchCallBackON = new TwitchCallBack
+                {
+                    Channel = TxtBoxTwitchChannelPress.Text,
+                    Messsage = TxtBoxTwitchMessagePress.Text
+                };
+            }
+            if (TxtBoxTwitchChannelRelease.Text != "" && TxtBoxTwitchMessageRelease.Text != "")
+            {
+                key.TwitchCallBackOFF = new TwitchCallBack
+                {
+                    Channel = TxtBoxTwitchChannelRelease.Text,
+                    Messsage = TxtBoxTwitchMessageRelease.Text
+                };
+            }
 
             if (conf.Config.ContainsKey(TxtBoxName.Text))
             {
@@ -1270,6 +1330,7 @@ namespace MidiControl
             }
 
             this.Close();
+            this.Dispose();
         }
 
         private void ChkBox_State(object sender, EventArgs e)

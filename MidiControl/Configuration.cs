@@ -70,6 +70,9 @@ namespace MidiControl
         public List<OBSCallBack> OBSCallBacksSlider = new List<OBSCallBack>();
         public SoundCallBack SoundCallBack;
         public MediaCallBack MediaCallBack;
+        public MediaCallBack MediaCallBackOFF;
+        public TwitchCallBack TwitchCallBackON;
+        public TwitchCallBack TwitchCallBackOFF;
     }
 
     public enum MediaType
@@ -88,6 +91,13 @@ namespace MidiControl
             this.MediaType = type;
         }
     }
+
+    public class TwitchCallBack
+    {
+        public string Channel { get; set; }
+        public string Messsage { get; set; }
+    }
+
 
     public class SoundCallBack
     {

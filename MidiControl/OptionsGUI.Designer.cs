@@ -48,9 +48,14 @@
             this.lvlStopAllSoundsChannel = new System.Windows.Forms.Label();
             this.lblStopAllSoundsDevice = new System.Windows.Forms.Label();
             this.txtBoxStopAllSoundsDevice = new System.Windows.Forms.TextBox();
+            this.groupBoxTwitch = new System.Windows.Forms.GroupBox();
+            this.txtBoxTwitchToken = new System.Windows.Forms.TextBox();
+            this.BtnRquestTwitchLogin = new System.Windows.Forms.Button();
+            this.txtBoxTwitchLogin = new System.Windows.Forms.TextBox();
             this.groupBoxOBS.SuspendLayout();
             this.groupBoxMIDI.SuspendLayout();
             this.groupBoxStopAllSounds.SuspendLayout();
+            this.groupBoxTwitch.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblOBSIP
@@ -97,7 +102,7 @@
             // 
             // BtnSave
             // 
-            this.BtnSave.Location = new System.Drawing.Point(167, 315);
+            this.BtnSave.Location = new System.Drawing.Point(167, 396);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
             this.BtnSave.TabIndex = 6;
@@ -244,17 +249,58 @@
             this.txtBoxStopAllSoundsDevice.Size = new System.Drawing.Size(144, 20);
             this.txtBoxStopAllSoundsDevice.TabIndex = 0;
             // 
+            // groupBoxTwitch
+            // 
+            this.groupBoxTwitch.Controls.Add(this.txtBoxTwitchToken);
+            this.groupBoxTwitch.Controls.Add(this.BtnRquestTwitchLogin);
+            this.groupBoxTwitch.Controls.Add(this.txtBoxTwitchLogin);
+            this.groupBoxTwitch.Location = new System.Drawing.Point(12, 315);
+            this.groupBoxTwitch.Name = "groupBoxTwitch";
+            this.groupBoxTwitch.Size = new System.Drawing.Size(230, 75);
+            this.groupBoxTwitch.TabIndex = 13;
+            this.groupBoxTwitch.TabStop = false;
+            this.groupBoxTwitch.Text = "Twitch Authentication";
+            // 
+            // txtBoxTwitchToken
+            // 
+            this.txtBoxTwitchToken.Enabled = false;
+            this.txtBoxTwitchToken.Location = new System.Drawing.Point(9, 43);
+            this.txtBoxTwitchToken.Name = "txtBoxTwitchToken";
+            this.txtBoxTwitchToken.ReadOnly = true;
+            this.txtBoxTwitchToken.Size = new System.Drawing.Size(215, 20);
+            this.txtBoxTwitchToken.TabIndex = 8;
+            // 
+            // BtnRquestTwitchLogin
+            // 
+            this.BtnRquestTwitchLogin.Location = new System.Drawing.Point(9, 15);
+            this.BtnRquestTwitchLogin.Name = "BtnRquestTwitchLogin";
+            this.BtnRquestTwitchLogin.Size = new System.Drawing.Size(55, 23);
+            this.BtnRquestTwitchLogin.TabIndex = 7;
+            this.BtnRquestTwitchLogin.Text = "Login";
+            this.BtnRquestTwitchLogin.UseVisualStyleBackColor = true;
+            this.BtnRquestTwitchLogin.Click += new System.EventHandler(this.BtnRquestTwitchLogin_Click);
+            // 
+            // txtBoxTwitchLogin
+            // 
+            this.txtBoxTwitchLogin.Enabled = false;
+            this.txtBoxTwitchLogin.Location = new System.Drawing.Point(67, 17);
+            this.txtBoxTwitchLogin.Name = "txtBoxTwitchLogin";
+            this.txtBoxTwitchLogin.ReadOnly = true;
+            this.txtBoxTwitchLogin.Size = new System.Drawing.Size(157, 20);
+            this.txtBoxTwitchLogin.TabIndex = 0;
+            // 
             // OptionsGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(254, 341);
+            this.ClientSize = new System.Drawing.Size(254, 431);
+            this.Controls.Add(this.groupBoxTwitch);
             this.Controls.Add(this.groupBoxStopAllSounds);
             this.Controls.Add(this.groupBoxMIDI);
             this.Controls.Add(this.groupBoxOBS);
             this.Controls.Add(this.BtnSave);
-            this.MaximumSize = new System.Drawing.Size(270, 380);
-            this.MinimumSize = new System.Drawing.Size(270, 380);
+            this.MaximumSize = new System.Drawing.Size(270, 470);
+            this.MinimumSize = new System.Drawing.Size(270, 470);
             this.Name = "OptionsGUI";
             this.Text = "Options";
             this.TopMost = true;
@@ -264,6 +310,8 @@
             this.groupBoxMIDI.PerformLayout();
             this.groupBoxStopAllSounds.ResumeLayout(false);
             this.groupBoxStopAllSounds.PerformLayout();
+            this.groupBoxTwitch.ResumeLayout(false);
+            this.groupBoxTwitch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -290,5 +338,9 @@
         private System.Windows.Forms.TextBox txtBoxStopAllSoundsDevice;
         private System.Windows.Forms.TextBox txtBoxDelay;
         private System.Windows.Forms.Label lblDelay;
+        private System.Windows.Forms.GroupBox groupBoxTwitch;
+        private System.Windows.Forms.TextBox txtBoxTwitchLogin;
+        private System.Windows.Forms.Button BtnRquestTwitchLogin;
+        private System.Windows.Forms.TextBox txtBoxTwitchToken;
     }
 }
