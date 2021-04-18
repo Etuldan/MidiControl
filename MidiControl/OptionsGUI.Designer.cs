@@ -50,8 +50,9 @@
             this.txtBoxStopAllSoundsDevice = new System.Windows.Forms.TextBox();
             this.groupBoxTwitch = new System.Windows.Forms.GroupBox();
             this.txtBoxTwitchToken = new System.Windows.Forms.TextBox();
-            this.BtnRquestTwitchLogin = new System.Windows.Forms.Button();
+            this.BtnRequestTwitchLogin = new System.Windows.Forms.Button();
             this.txtBoxTwitchLogin = new System.Windows.Forms.TextBox();
+            this.BtnRequestTwitchLogout = new System.Windows.Forms.Button();
             this.groupBoxOBS.SuspendLayout();
             this.groupBoxMIDI.SuspendLayout();
             this.groupBoxStopAllSounds.SuspendLayout();
@@ -251,8 +252,9 @@
             // 
             // groupBoxTwitch
             // 
+            this.groupBoxTwitch.Controls.Add(this.BtnRequestTwitchLogout);
             this.groupBoxTwitch.Controls.Add(this.txtBoxTwitchToken);
-            this.groupBoxTwitch.Controls.Add(this.BtnRquestTwitchLogin);
+            this.groupBoxTwitch.Controls.Add(this.BtnRequestTwitchLogin);
             this.groupBoxTwitch.Controls.Add(this.txtBoxTwitchLogin);
             this.groupBoxTwitch.Location = new System.Drawing.Point(12, 315);
             this.groupBoxTwitch.Name = "groupBoxTwitch";
@@ -270,24 +272,34 @@
             this.txtBoxTwitchToken.Size = new System.Drawing.Size(215, 20);
             this.txtBoxTwitchToken.TabIndex = 8;
             // 
-            // BtnRquestTwitchLogin
+            // BtnRequestTwitchLogin
             // 
-            this.BtnRquestTwitchLogin.Location = new System.Drawing.Point(9, 15);
-            this.BtnRquestTwitchLogin.Name = "BtnRquestTwitchLogin";
-            this.BtnRquestTwitchLogin.Size = new System.Drawing.Size(55, 23);
-            this.BtnRquestTwitchLogin.TabIndex = 7;
-            this.BtnRquestTwitchLogin.Text = "Login";
-            this.BtnRquestTwitchLogin.UseVisualStyleBackColor = true;
-            this.BtnRquestTwitchLogin.Click += new System.EventHandler(this.BtnRquestTwitchLogin_Click);
+            this.BtnRequestTwitchLogin.Location = new System.Drawing.Point(9, 15);
+            this.BtnRequestTwitchLogin.Name = "BtnRequestTwitchLogin";
+            this.BtnRequestTwitchLogin.Size = new System.Drawing.Size(43, 23);
+            this.BtnRequestTwitchLogin.TabIndex = 7;
+            this.BtnRequestTwitchLogin.Text = "Login";
+            this.BtnRequestTwitchLogin.UseVisualStyleBackColor = true;
+            this.BtnRequestTwitchLogin.Click += new System.EventHandler(this.BtnRequestTwitchLogin_Click);
             // 
             // txtBoxTwitchLogin
             // 
             this.txtBoxTwitchLogin.Enabled = false;
-            this.txtBoxTwitchLogin.Location = new System.Drawing.Point(67, 17);
+            this.txtBoxTwitchLogin.Location = new System.Drawing.Point(115, 17);
             this.txtBoxTwitchLogin.Name = "txtBoxTwitchLogin";
             this.txtBoxTwitchLogin.ReadOnly = true;
-            this.txtBoxTwitchLogin.Size = new System.Drawing.Size(157, 20);
+            this.txtBoxTwitchLogin.Size = new System.Drawing.Size(109, 20);
             this.txtBoxTwitchLogin.TabIndex = 0;
+            // 
+            // BtnRequestTwitchLogout
+            // 
+            this.BtnRequestTwitchLogout.Location = new System.Drawing.Point(58, 15);
+            this.BtnRequestTwitchLogout.Name = "BtnRequestTwitchLogout";
+            this.BtnRequestTwitchLogout.Size = new System.Drawing.Size(51, 23);
+            this.BtnRequestTwitchLogout.TabIndex = 9;
+            this.BtnRequestTwitchLogout.Text = "Logout";
+            this.BtnRequestTwitchLogout.UseVisualStyleBackColor = true;
+            this.BtnRequestTwitchLogout.Click += new System.EventHandler(this.BtnRequestTwitchLogout_Click);
             // 
             // OptionsGUI
             // 
@@ -340,7 +352,8 @@
         private System.Windows.Forms.Label lblDelay;
         private System.Windows.Forms.GroupBox groupBoxTwitch;
         private System.Windows.Forms.TextBox txtBoxTwitchLogin;
-        private System.Windows.Forms.Button BtnRquestTwitchLogin;
+        private System.Windows.Forms.Button BtnRequestTwitchLogin;
         private System.Windows.Forms.TextBox txtBoxTwitchToken;
+        private System.Windows.Forms.Button BtnRequestTwitchLogout;
     }
 }

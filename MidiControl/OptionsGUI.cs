@@ -79,7 +79,7 @@ namespace MidiControl
             this.Dispose();
         }
 
-        private void BtnRquestTwitchLogin_Click(object sender, EventArgs e)
+        private void BtnRequestTwitchLogin_Click(object sender, EventArgs e)
         {
             WebViewLoginTwitch login = new WebViewLoginTwitch(options.options);
             login.ShowDialog();
@@ -89,6 +89,13 @@ namespace MidiControl
                 txtBoxTwitchToken.Text = options.options.TwitchToken;
                 TwitchChatControl.GetInstance().Connect();
             }
+        }
+
+        private void BtnRequestTwitchLogout_Click(object sender, EventArgs e)
+        {
+            txtBoxTwitchLogin.Text = "";
+            txtBoxTwitchToken.Text = "";
+            TwitchChatControl.GetInstance().Disconnect();
         }
     }
 }

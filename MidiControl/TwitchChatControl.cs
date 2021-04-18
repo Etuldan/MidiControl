@@ -28,6 +28,12 @@ namespace MidiControl
             return _instance;
         }
 
+        public void Disconnect()
+        {
+            if (!isReady) return;
+            client.Disconnect();
+        }
+
         public void Connect()
         {
             try
