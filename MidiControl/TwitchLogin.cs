@@ -20,7 +20,10 @@ namespace MidiControl
 
         public WebViewLoginTwitch(OptionsManagment.Options options)
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+
             string baseURL = "https://id.twitch.tv/oauth2/authorize?response_type=code";
             string clientId = "client_id=" + WebServer.ClientID;
             string redirectUri = "redirect_uri=" + WebServer.URL;
