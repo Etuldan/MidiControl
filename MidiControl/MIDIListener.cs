@@ -214,7 +214,7 @@ namespace MidiControl
                         twitchControl.SendMessage(entry.Value.TwitchCallBackON.Channel, entry.Value.TwitchCallBackON.Messsage);
                     }
                 }
-                else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || e.MidiEvent.CommandCode == MidiCommandCode.NoteOn) && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity == 0))
+                else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))) && entry.Value.Input == Event.Note )
                 {
 #if DEBUG
                     Debug.WriteLine("KeyBind NoteOFF");
