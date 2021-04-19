@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if DEBUG
+using System.Diagnostics;
+#endif
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -62,7 +65,7 @@ namespace MidiControl
 #if DEBUG
         private void Client_OnLog(object sender, OnLogArgs e)
         {
-            Console.WriteLine($"{e.DateTime.ToString()}: {e.BotUsername} - {e.Data}");
+            Debug.WriteLine($"{e.DateTime.ToString()}: {e.BotUsername} - {e.Data}");
         }
 #endif
 
