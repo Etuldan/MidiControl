@@ -65,7 +65,7 @@ namespace MidiControl
 #if DEBUG
         private void Client_OnLog(object sender, OnLogArgs e)
         {
-            Debug.WriteLine($"{e.DateTime.ToString()}: {e.BotUsername} - {e.Data}");
+            Debug.WriteLine($"{e.DateTime}: {e.BotUsername} - {e.Data}");
         }
 #endif
 
