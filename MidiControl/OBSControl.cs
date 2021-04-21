@@ -21,6 +21,7 @@ namespace MidiControl
         public readonly OptionsManagment options;
         private Timer timer;
         private Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
+        private List<FilterSettingsScene> filterSettings;
 
         public OBSControl()
         {
@@ -28,6 +29,8 @@ namespace MidiControl
             obs = new OBSWebsocket();
             obs.Connected += Obs_Connected;
             obs.Disconnected += Obs_Disconnected;
+            obs.SourceFilterAdded += Obs_SourceFilterAdded;
+            obs.SourceFilterRemoved += Obs_SourceFilteRemoved;
 
             gui = MIDIControlGUI.GetInstance();
             options = OptionsManagment.GetInstance();
@@ -88,6 +91,8 @@ namespace MidiControl
                         {
                             throw new ErrorResponseException("Incompatible plugin Version. Please update your OBS-Websocket plugin");
                         }
+                        filterSettings = GetFiltersSettings();
+
                     }
                 }
                 catch (AuthFailureException)
@@ -99,6 +104,15 @@ namespace MidiControl
             {
                 obs.Disconnect();
             }
+        }
+
+        private void Obs_SourceFilterAdded(OBSWebsocket sender, string sourceName, string filterName, string filterType, JObject _filterSettings)
+        {
+            filterSettings = GetFiltersSettings();
+        }
+        private void Obs_SourceFilteRemoved(OBSWebsocket sender, string sourceName, string filterName)
+        {
+            filterSettings = GetFiltersSettings();
         }
 
         public void DoAction(KeyBindEntry keybind, string action, List<string> args)
@@ -504,7 +518,6 @@ namespace MidiControl
 
         private void SetFilterProperties(string filterName, string property, float value)
         {
-            List<FilterSettingsScene> filterSettings = GetFiltersSettings();
             foreach (FilterSettingsScene filterSetting in filterSettings)
             {
                 if (FiltersMinMaxValues.TryGetValue(filterSetting.FilterSettings.Type + "." + property, out float[] values) == true)
@@ -537,7 +550,6 @@ namespace MidiControl
             }
             return listProperties;
         }
-
         public List<FilterSettingsScene> GetFiltersSettings()
         {
             List<FilterSettingsScene> filters = new List<FilterSettingsScene>();
