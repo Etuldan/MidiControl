@@ -22,7 +22,7 @@ namespace MidiControl
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 
             string baseURL = "https://id.twitch.tv/oauth2/authorize?response_type=code";
             string clientId = "client_id=" + WebServer.ClientID;

@@ -155,7 +155,7 @@ namespace MidiControl
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notifyIcon.BalloonTipText = "MIDIControl";
             this.notifyIcon.BalloonTipTitle = "MIDIControl";
-            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.notifyIcon.Text = "MIDIControl";
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseClick);
@@ -167,7 +167,7 @@ namespace MidiControl
             this.ClientSize = new System.Drawing.Size(384, 261);
             this.Controls.Add(this.mainpanel);
             this.Controls.Add(this.BottomPanel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(400, 5000);
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "MIDIControlGUI";

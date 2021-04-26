@@ -34,7 +34,7 @@ namespace MidiControl
 
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             InitControls();
 
             MIDIDelegate = new MIDIDelegateHandler(UpdateNote);
@@ -54,7 +54,7 @@ namespace MidiControl
             this.obs = OBSControl.GetInstance();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             InitControls();
 
             BtnAdd.Text = "Modify";
