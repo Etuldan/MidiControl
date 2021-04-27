@@ -7,6 +7,7 @@ using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Clients;
+using TwitchLib.Communication.Events;
 using TwitchLib.Communication.Models;
 
 namespace MidiControl
@@ -14,6 +15,7 @@ namespace MidiControl
     class TwitchChatControl : IExternalControl
     {
         private static TwitchChatControl _instance;
+        private readonly MIDIControlGUI gui;
         private TwitchClient client;
         private readonly Dictionary<string, KeyBindEntry> config;
         private readonly OptionsManagment.Options options;
@@ -21,6 +23,7 @@ namespace MidiControl
         public TwitchChatControl(OptionsManagment.Options options, Dictionary<string, KeyBindEntry> config)
         {
             _instance = this;
+            gui = MIDIControlGUI.GetInstance();
             this.config = config;
             this.options = options;
             this.Connect();
@@ -35,6 +38,18 @@ namespace MidiControl
         {
             if (!isReady) return;
             client.Disconnect();
+        }
+
+        public void ConnectDisconnect()
+        {
+            if(isReady)
+            {
+                Disconnect();
+            }
+            else
+            {
+                Connect();
+            }
         }
 
         public void Connect()
@@ -55,6 +70,7 @@ namespace MidiControl
                 client.OnLog += Client_OnLog;
 #endif
                 client.OnConnected += Client_OnConnected;
+                client.OnDisconnected += Client_OnDisconnected;
                 client.Connect();
             }
             catch (Exception)
@@ -62,6 +78,7 @@ namespace MidiControl
 
             }
         }
+
 #if DEBUG
         private void Client_OnLog(object sender, OnLogArgs e)
         {
@@ -106,7 +123,18 @@ namespace MidiControl
                     client.JoinChannel(entry.Value.TwitchCallBackOFF.Channel);
                 }
             }
+            gui.Invoke(gui.TwitchControlDelegate, new object[] {
+                    true
+                });
             isReady = true;
+        }
+
+        private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
+        {
+            isReady = false;
+            gui.Invoke(gui.TwitchControlDelegate, new object[] {
+                    false
+                });
         }
 
         public bool IsEnabled()
