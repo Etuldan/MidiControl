@@ -47,8 +47,6 @@ namespace MidiControl
                 {
                     Ip = "127.0.0.1:4444",
                     Password = "password",
-                    Autoconnect = false,
-                    AutoReconnect = false,
                     MIDIInterfaces = new List<string>(),
                     Delay = 0,
                     TwitchLogin = "",
@@ -69,9 +67,6 @@ namespace MidiControl
             public string Password { get; set; }
             public bool Autoconnect { get; set; }
             public bool AutoReconnect { get; set; }
-            public int NoteNumberStopAllSounds { get; set; }
-            public int ChannelStopAllSounds { get; set; }
-            public string MidiDeviceStopAllSounds { get; set; }
             public List<string> MIDIInterfaces { get; set; }
             public int Delay { get; set; }
             public string TwitchLogin { get; set; }

@@ -177,14 +177,6 @@ namespace MidiControl
                 MidiOutForward.Send(e.RawMessage);
             }
 
-            if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity != 0 && 
-                options.options.MidiDeviceStopAllSounds == MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName && 
-                options.options.NoteNumberStopAllSounds == ((NoteEvent)e.MidiEvent).NoteNumber && 
-                options.options.ChannelStopAllSounds == ((NoteEvent)e.MidiEvent).Channel)
-            {
-                this.StopAllSounds();
-            }
-
             foreach (KeyValuePair<string, KeyBindEntry> entry in conf.Config)
             {
                 if(e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||

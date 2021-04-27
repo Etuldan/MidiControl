@@ -15,8 +15,6 @@ namespace MidiControl
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             TxtBoxOBSIP.Text = options.options.Ip;
             TxtBoxOBSPassword.Text = options.options.Password;
-            ChkBoxAutoConnectStart.Checked = options.options.Autoconnect;
-            ChkBoxAutoReconnect.Checked = options.options.AutoReconnect;
 
             List<string> midiIn = MIDIListener.GetInstance().midiInStringOptions;
             foreach (string inInterface in midiIn)
@@ -28,9 +26,6 @@ namespace MidiControl
                 }
             }
 
-            txtBoxStopAllSoundsDevice.Text = options.options.MidiDeviceStopAllSounds;
-            txtBoxStopAllSoundsChannel.Text = options.options.ChannelStopAllSounds.ToString();
-            txtBoxStopAllSoundsNote.Text = options.options.NoteNumberStopAllSounds.ToString();
             txtBoxDelay.Text = options.options.Delay.ToString();
 
             txtBoxTwitchLogin.Text = options.options.TwitchLogin;
@@ -41,21 +36,6 @@ namespace MidiControl
         {
             options.options.Ip = TxtBoxOBSIP.Text;
             options.options.Password = TxtBoxOBSPassword.Text;
-            options.options.Autoconnect = ChkBoxAutoConnectStart.Checked;
-            options.options.AutoReconnect = ChkBoxAutoReconnect.Checked;
-
-            options.options.MidiDeviceStopAllSounds = txtBoxStopAllSoundsDevice.Text;
-            try
-            {
-                options.options.ChannelStopAllSounds = Int32.Parse(txtBoxStopAllSoundsChannel.Text);
-                options.options.NoteNumberStopAllSounds = Int32.Parse(txtBoxStopAllSoundsNote.Text);
-            }
-            catch (FormatException)
-            {
-                options.options.ChannelStopAllSounds = 0;
-                options.options.NoteNumberStopAllSounds = 0;
-            }
-
 
             CheckedListBox.CheckedItemCollection items = ChkCmbBoxMIDI.CheckedItems;
             options.options.MIDIInterfaces.Clear();
