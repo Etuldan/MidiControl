@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace MidiControl
 {
@@ -35,12 +36,16 @@ namespace MidiControl
             this.mainpanel = new System.Windows.Forms.Panel();
             this.container = new System.Windows.Forms.TableLayoutPanel();
             this.BottomPanel = new System.Windows.Forms.Panel();
+            this.BtnRemove = new System.Windows.Forms.Button();
+            this.ComboBoxProfile = new System.Windows.Forms.ComboBox();
             this.BtnStopSounds = new System.Windows.Forms.Button();
             this.BtnOptions = new System.Windows.Forms.Button();
             this.statusBar = new System.Windows.Forms.StatusStrip();
+            this.obsButton = new System.Windows.Forms.ToolStripButton();
             this.obsStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.twitchButton = new System.Windows.Forms.ToolStripButton();
+            this.twitchStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.BtnAdd = new System.Windows.Forms.Button();
-            this.BtnConnect = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.mainpanel.SuspendLayout();
@@ -56,7 +61,7 @@ namespace MidiControl
             this.mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainpanel.Location = new System.Drawing.Point(0, 0);
             this.mainpanel.Name = "mainpanel";
-            this.mainpanel.Size = new System.Drawing.Size(384, 206);
+            this.mainpanel.Size = new System.Drawing.Size(384, 196);
             this.mainpanel.TabIndex = 0;
             // 
             // container
@@ -72,46 +77,96 @@ namespace MidiControl
             // 
             // BottomPanel
             // 
+            this.BottomPanel.Controls.Add(this.BtnRemove);
+            this.BottomPanel.Controls.Add(this.ComboBoxProfile);
             this.BottomPanel.Controls.Add(this.BtnStopSounds);
             this.BottomPanel.Controls.Add(this.BtnOptions);
             this.BottomPanel.Controls.Add(this.statusBar);
             this.BottomPanel.Controls.Add(this.BtnAdd);
-            this.BottomPanel.Controls.Add(this.BtnConnect);
             this.BottomPanel.Controls.Add(this.BtnSave);
             this.BottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BottomPanel.Location = new System.Drawing.Point(0, 206);
+            this.BottomPanel.Location = new System.Drawing.Point(0, 196);
             this.BottomPanel.Name = "BottomPanel";
             this.BottomPanel.Size = new System.Drawing.Size(384, 55);
             this.BottomPanel.TabIndex = 2;
             // 
+            // BtnRemove
+            // 
+            this.BtnRemove.BackgroundImage = global::MidiControl.Properties.Resources.rubbish;
+            this.BtnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnRemove.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.BtnRemove.FlatAppearance.BorderSize = 0;
+            this.BtnRemove.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.BtnRemove.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemove.Location = new System.Drawing.Point(335, 9);
+            this.BtnRemove.Name = "BtnRemove";
+            this.BtnRemove.Size = new System.Drawing.Size(20, 20);
+            this.BtnRemove.TabIndex = 4;
+            this.BtnRemove.UseVisualStyleBackColor = true;
+            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
+            // 
+            // ComboBoxProfile
+            // 
+            this.ComboBoxProfile.FormattingEnabled = true;
+            this.ComboBoxProfile.Location = new System.Drawing.Point(55, 9);
+            this.ComboBoxProfile.Name = "ComboBoxProfile";
+            this.ComboBoxProfile.Size = new System.Drawing.Size(248, 21);
+            this.ComboBoxProfile.TabIndex = 2;
+            this.ComboBoxProfile.SelectedValueChanged += new System.EventHandler(this.ComboBoxProfile_SelectedValueChanged);
+            this.ComboBoxProfile.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ComboBoxProfile_KeyDown);
+            // 
             // BtnStopSounds
             // 
-            this.BtnStopSounds.Location = new System.Drawing.Point(172, 6);
+            this.BtnStopSounds.BackgroundImage = global::MidiControl.Properties.Resources.mute;
+            this.BtnStopSounds.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnStopSounds.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.BtnStopSounds.FlatAppearance.BorderSize = 0;
+            this.BtnStopSounds.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.BtnStopSounds.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.BtnStopSounds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnStopSounds.Location = new System.Drawing.Point(29, 10);
             this.BtnStopSounds.Name = "BtnStopSounds";
-            this.BtnStopSounds.Size = new System.Drawing.Size(90, 23);
-            this.BtnStopSounds.TabIndex = 4;
-            this.BtnStopSounds.Text = "Stop All Sounds";
+            this.BtnStopSounds.Size = new System.Drawing.Size(20, 20);
+            this.BtnStopSounds.TabIndex = 1;
             this.BtnStopSounds.UseVisualStyleBackColor = true;
             this.BtnStopSounds.Click += new System.EventHandler(this.BtnStopSounds_Click);
             // 
             // BtnOptions
             // 
-            this.BtnOptions.Location = new System.Drawing.Point(268, 6);
+            this.BtnOptions.BackgroundImage = global::MidiControl.Properties.Resources.settings;
+            this.BtnOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnOptions.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.BtnOptions.FlatAppearance.BorderSize = 0;
+            this.BtnOptions.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.BtnOptions.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.BtnOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnOptions.Location = new System.Drawing.Point(361, 10);
             this.BtnOptions.Name = "BtnOptions";
-            this.BtnOptions.Size = new System.Drawing.Size(56, 23);
-            this.BtnOptions.TabIndex = 3;
-            this.BtnOptions.Text = "Options";
+            this.BtnOptions.Size = new System.Drawing.Size(20, 20);
+            this.BtnOptions.TabIndex = 5;
             this.BtnOptions.UseVisualStyleBackColor = true;
             this.BtnOptions.Click += new System.EventHandler(this.BtnOptions_Click);
             // 
             // statusBar
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.obsStatus});
+            this.obsButton,
+            this.obsStatus,
+            this.twitchButton,
+            this.twitchStatus});
             this.statusBar.Location = new System.Drawing.Point(0, 33);
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(384, 22);
             this.statusBar.TabIndex = 2;
+            // 
+            // obsButton
+            // 
+            this.obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obs;
+            this.obsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.obsButton.Name = "obsButton";
+            this.obsButton.Size = new System.Drawing.Size(23, 20);
+            this.obsButton.Click += new System.EventHandler(this.ConnectOBS);
             // 
             // obsStatus
             // 
@@ -120,33 +175,50 @@ namespace MidiControl
             this.obsStatus.Size = new System.Drawing.Size(79, 17);
             this.obsStatus.Text = "Disconnected";
             // 
+            // twitchButton
+            // 
+            this.twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitch;
+            this.twitchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.twitchButton.Name = "twitchButton";
+            this.twitchButton.Size = new System.Drawing.Size(23, 20);
+            this.twitchButton.Click += new System.EventHandler(this.ConnectTwitch);
+            // 
+            // twitchStatus
+            // 
+            this.twitchStatus.ForeColor = System.Drawing.Color.Red;
+            this.twitchStatus.Name = "twitchStatus";
+            this.twitchStatus.Size = new System.Drawing.Size(79, 17);
+            this.twitchStatus.Text = "Disconnected";
+            // 
             // BtnAdd
             // 
-            this.BtnAdd.Location = new System.Drawing.Point(12, 6);
+            this.BtnAdd.BackgroundImage = global::MidiControl.Properties.Resources.plus;
+            this.BtnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnAdd.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.BtnAdd.FlatAppearance.BorderSize = 0;
+            this.BtnAdd.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.BtnAdd.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAdd.Location = new System.Drawing.Point(3, 10);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(47, 23);
-            this.BtnAdd.TabIndex = 1;
-            this.BtnAdd.Text = "Add";
+            this.BtnAdd.Size = new System.Drawing.Size(20, 20);
+            this.BtnAdd.TabIndex = 0;
             this.BtnAdd.UseVisualStyleBackColor = true;
             this.BtnAdd.Click += new System.EventHandler(this.Add_Click);
             // 
-            // BtnConnect
-            // 
-            this.BtnConnect.Location = new System.Drawing.Point(65, 6);
-            this.BtnConnect.Name = "BtnConnect";
-            this.BtnConnect.Size = new System.Drawing.Size(100, 23);
-            this.BtnConnect.TabIndex = 1;
-            this.BtnConnect.Text = "Connect to OBS";
-            this.BtnConnect.UseVisualStyleBackColor = true;
-            this.BtnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
-            // 
             // BtnSave
             // 
-            this.BtnSave.Location = new System.Drawing.Point(330, 6);
+            this.BtnSave.BackgroundImage = global::MidiControl.Properties.Resources.floppy_disk;
+            this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnSave.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.BtnSave.FlatAppearance.BorderSize = 0;
+            this.BtnSave.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.BtnSave.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSave.Location = new System.Drawing.Point(309, 9);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(42, 23);
-            this.BtnSave.TabIndex = 0;
-            this.BtnSave.Text = "Save";
+            this.BtnSave.Size = new System.Drawing.Size(20, 20);
+            this.BtnSave.TabIndex = 3;
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.Save_Click);
             // 
@@ -164,12 +236,12 @@ namespace MidiControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 261);
+            this.ClientSize = new System.Drawing.Size(384, 251);
             this.Controls.Add(this.mainpanel);
             this.Controls.Add(this.BottomPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(400, 5000);
-            this.MinimumSize = new System.Drawing.Size(400, 300);
+            this.MinimumSize = new System.Drawing.Size(400, 290);
             this.Name = "MIDIControlGUI";
             this.ShowInTaskbar = false;
             this.Text = "MIDIControl";
@@ -194,13 +266,17 @@ namespace MidiControl
         private Panel mainpanel;
         private Panel BottomPanel;
         private Button BtnAdd;
-        private Button BtnConnect;
         private Button BtnSave;
         private StatusStrip statusBar;
+        private ToolStripButton obsButton;
         private ToolStripStatusLabel obsStatus;
+        private ToolStripButton twitchButton;
+        private ToolStripStatusLabel twitchStatus;
         private Button BtnOptions;
         private Button BtnStopSounds;
         private NotifyIcon notifyIcon;
+        private ComboBox ComboBoxProfile;
+        private Button BtnRemove;
     }
 }
 

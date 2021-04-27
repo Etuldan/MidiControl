@@ -9,6 +9,8 @@ namespace MidiControl
     {
         public delegate void OBSControlDelegateHandler(bool connect);
         public OBSControlDelegateHandler OBSControlDelegate;
+        public delegate void TwitchControlDelegateHandler(bool connect);
+        public TwitchControlDelegateHandler TwitchControlDelegate;
         private readonly OptionsManagment options;
         private readonly Configuration conf;
         private readonly MIDIListener midi;
@@ -22,6 +24,7 @@ namespace MidiControl
 
             InitializeComponent();
             OBSControlDelegate = new OBSControlDelegateHandler(UpdateOBSStatus);
+            TwitchControlDelegate = new TwitchControlDelegateHandler(UpdateTwitchStatus);
 
             options = new OptionsManagment();
             conf = new Configuration();
@@ -48,13 +51,24 @@ namespace MidiControl
             {
                 obsStatus.Text = "Connected";
                 this.obsStatus.ForeColor = Color.Green;
-                BtnConnect.Text = "Disconnect";
             }
             else
             {
                 obsStatus.Text = "Disconnected";
                 this.obsStatus.ForeColor = Color.Red;
-                BtnConnect.Text = "Connect to OBS";
+            }
+        }
+        private void UpdateTwitchStatus(bool connect)
+        {
+            if (connect)
+            {
+                twitchStatus.Text = "Connected";
+                twitchStatus.ForeColor = Color.Green;
+            }
+            else
+            {
+                twitchStatus.Text = "Disconnected";
+                twitchStatus.ForeColor = Color.Red;
             }
         }
 
@@ -75,48 +89,51 @@ namespace MidiControl
                 Label nameUI = new Label
                 {
                     AutoSize = true,
-                    Location = new Point(3, 9),
+                    Location = new Point(50, 9),
                     Name = "LblName",
                     Size = new Size(35, 13),
-                    TabIndex = 0,
+                    TabIndex = 2,
                     Text = entry.Key
-                };
-
-                Label keyUI = new Label
-                {
-                    AutoSize = true,
-                    Location = new Point(172, 9),
-                    Name = "LblKey",
-                    Size = new Size(35, 13),
-                    TabIndex = 2
                 };
 
                 ButtonCustom editUI = new ButtonCustom
                 {
                     index = entry.Key,
-                    Location = new Point(200, 4),
+                    BackgroundImage = global::MidiControl.Properties.Resources.edit,
+                    BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch,
+                    FlatStyle = System.Windows.Forms.FlatStyle.Flat,
+
+                    Location = new Point(3, 4),
                     Name = "BtnEdit",
-                    Size = new Size(75, 23),
-                    TabIndex = 3,
-                    Text = "Edit",
+                    Size = new Size(20, 20),
+                    TabIndex = 0,
                     UseVisualStyleBackColor = true
                 };
+                editUI.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+                editUI.FlatAppearance.BorderSize = 0;
+                editUI.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+                editUI.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
                 editUI.Click += new EventHandler(this.EditEntry_Click);
 
                 ButtonCustom deleteUI = new ButtonCustom
                 {
                     index = entry.Key,
-                    Location = new Point(280, 4),
+                    BackgroundImage = global::MidiControl.Properties.Resources.minus,
+                    BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch,
+                    FlatStyle = System.Windows.Forms.FlatStyle.Flat,
+                    Location = new Point(27, 4),
                     Name = "BtnDelete",
-                    Size = new Size(75, 23),
+                    Size = new Size(20, 20),
                     TabIndex = 1,
-                    Text = "Delete",
                     UseVisualStyleBackColor = true
                 };
+                deleteUI.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+                deleteUI.FlatAppearance.BorderSize = 0;
+                deleteUI.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+                deleteUI.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
                 deleteUI.Click += new EventHandler(this.DeleteEntry_Click);
 
                 entryUI.Controls.Add(nameUI);
-                entryUI.Controls.Add(keyUI);
                 entryUI.Controls.Add(editUI);
                 entryUI.Controls.Add(deleteUI);
                 entryUI.Location = new Point(3, 3);
@@ -167,9 +184,13 @@ namespace MidiControl
             midi.EnableListening();
         }
 
-        private void BtnConnect_Click(object sender, EventArgs e)
+        private void ConnectOBS(object sender, EventArgs e)
         {
-            OBSControl.GetInstance().Connect();
+            OBSControl.GetInstance().ConnectDisconnect();
+        }
+        private void ConnectTwitch(object sender, EventArgs e)
+        {
+            TwitchChatControl.GetInstance().ConnectDisconnect();
         }
 
         private void BtnOptions_Click(object sender, EventArgs e)
