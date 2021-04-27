@@ -66,9 +66,9 @@ namespace MidiControl
         }
         public void Timer_Tick(Object source, ElapsedEventArgs e)
         {
-            if(options.options.AutoReconnect && !obs.IsConnected)
+            if(!obs.IsConnected)
             {
-                Connect();
+                ConnectDisconnect();
             }
         }
 
@@ -77,7 +77,7 @@ namespace MidiControl
             return _instance;
         }
 
-        public void Connect()
+        public void ConnectDisconnect()
         {
             if (!obs.IsConnected)
             {
