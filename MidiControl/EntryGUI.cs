@@ -31,6 +31,7 @@ namespace MidiControl
         public EntryGUI()
         {
             this.obs = OBSControl.GetInstance();
+            conf = Configuration.GetInstance();
 
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
@@ -46,12 +47,13 @@ namespace MidiControl
                 entry.Value.MessageReceived += MidiIn_MessageReceived;
                 midiDevice.Add(entry.Value);
             }
-            conf = Configuration.GetInstance();
         }
 
         public EntryGUI(string name, KeyBindEntry keybind)
         {
             this.obs = OBSControl.GetInstance();
+            conf = Configuration.GetInstance();
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -125,6 +127,31 @@ namespace MidiControl
                 ChkBoxAudioStop.Checked = keybind.SoundCallBack.StopWhenReleased;
                 chkBoxLoop.Checked = keybind.SoundCallBack.Loop;
                 volumeSlider.Volume = keybind.SoundCallBack.Volume == 0.0f ? 1.0f : keybind.SoundCallBack.Volume;
+            }
+
+            if (keybind.MIDIControlCallBackON != null)
+            {
+                if(keybind.MIDIControlCallBackON.StopAllSound == true)
+                {
+                    ChkBoxStopAllSoundPress.Checked = true;
+                }
+                if(keybind.MIDIControlCallBackON.SwitchToProfile != "")
+                {
+                    ChkBoxSwitchToProfilePress.Checked = true;
+                    CboBoxProfilePress.SelectedItem = keybind.MIDIControlCallBackON.SwitchToProfile;
+                }
+            }
+            if (keybind.MIDIControlCallBackOFF != null)
+            {
+                if (keybind.MIDIControlCallBackOFF.StopAllSound == true)
+                {
+                    ChkBoxStopAllSoundRelease.Checked = true;
+                }
+                if (keybind.MIDIControlCallBackOFF.SwitchToProfile != "")
+                {
+                    ChkBoxSwitchToProfileRelease.Checked = true;
+                    CboBoxProfileRelease.SelectedItem = keybind.MIDIControlCallBackOFF.SwitchToProfile;
+                }
             }
 
             if (obs.IsEnabled())
@@ -614,7 +641,6 @@ namespace MidiControl
                 entry.Value.MessageReceived += MidiIn_MessageReceived;
                 midiDevice.Add(entry.Value);
             }
-            conf = Configuration.GetInstance();
         }
 
         private void InitControls()
@@ -660,6 +686,14 @@ namespace MidiControl
 
 
             CheckToCombo.Add("ChkBoxEnableAudio", new string[] { "CboBoxAudioDevice", "TxtBoxAudioFile", "BtnAudioSelect", "ChkBoxAudioStop" });
+
+            CheckToCombo.Add("ChkBoxSwitchToProfilePress", new string[] { "CboBoxProfilePress" });
+            CheckToCombo.Add("ChkBoxSwitchToProfileRelease", new string[] { "CboBoxProfileRelease" });
+
+            CboBoxProfilePress.Items.Clear();
+            CboBoxProfileRelease.Items.Clear();
+            CboBoxProfilePress.Items.AddRange(conf.GetAllProfiles());
+            CboBoxProfileRelease.Items.AddRange(conf.GetAllProfiles());
 
             List<string> scenes = obs.GetScenes();
             CboBoxSwitchScenePress.Items.Clear();
@@ -1268,6 +1302,31 @@ namespace MidiControl
                 key.SoundCallBack = null;
             }
 
+            // MIDIControl
+            if(ChkBoxStopAllSoundPress.Checked || ChkBoxSwitchToProfilePress.Checked)
+            {
+                key.MIDIControlCallBackON = new MIDIControlCallBack();
+                if (ChkBoxStopAllSoundPress.Checked)
+                {
+                    key.MIDIControlCallBackON.StopAllSound = true;
+                }
+                if (ChkBoxSwitchToProfilePress.Checked)
+                {
+                    key.MIDIControlCallBackON.SwitchToProfile = CboBoxProfilePress.SelectedItem.ToString();
+                }
+            }
+            if (ChkBoxStopAllSoundRelease.Checked || ChkBoxSwitchToProfileRelease.Checked)
+            {
+                key.MIDIControlCallBackOFF = new MIDIControlCallBack();
+                if (ChkBoxStopAllSoundRelease.Checked)
+                {
+                    key.MIDIControlCallBackOFF.StopAllSound = true;
+                }
+                if (ChkBoxSwitchToProfileRelease.Checked)
+                {
+                    key.MIDIControlCallBackOFF.SwitchToProfile = CboBoxProfileRelease.SelectedItem.ToString();
+                }
+            }
 
             // Media Keys
             if (ChkBoxMediaKeyPlayPress.Checked)
@@ -1303,6 +1362,8 @@ namespace MidiControl
                 key.MediaCallBackOFF = null;
             }
 
+
+            // Twitch
             if (TxtBoxTwitchChannelPress.Text != "" && TxtBoxTwitchMessagePress.Text != "")
             {
                 key.TwitchCallBackON = new TwitchCallBack

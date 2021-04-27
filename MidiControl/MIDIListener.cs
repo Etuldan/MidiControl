@@ -205,6 +205,17 @@ namespace MidiControl
                     {
                         twitchControl.SendMessage(entry.Value.TwitchCallBackON.Channel, entry.Value.TwitchCallBackON.Messsage);
                     }
+                    if (entry.Value.MIDIControlCallBackON != null)
+                    {
+                        if(entry.Value.MIDIControlCallBackON.StopAllSound == true)
+                        {
+                            audioControl.StopAll();
+                        }
+                        if(entry.Value.MIDIControlCallBackON.SwitchToProfile != "")
+                        {
+                            conf.LoadProfile(entry.Value.MIDIControlCallBackON.SwitchToProfile);
+                        }
+                    }
                 }
                 else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))) && entry.Value.Input == Event.Note )
                 {
@@ -226,6 +237,17 @@ namespace MidiControl
                     if (entry.Value.TwitchCallBackOFF != null)
                     {
                         twitchControl.SendMessage(entry.Value.TwitchCallBackOFF.Channel, entry.Value.TwitchCallBackOFF.Messsage);
+                    }
+                    if (entry.Value.MIDIControlCallBackOFF != null)
+                    {
+                        if (entry.Value.MIDIControlCallBackOFF.StopAllSound == true)
+                        {
+                            audioControl.StopAll();
+                        }
+                        if (entry.Value.MIDIControlCallBackOFF.SwitchToProfile != "")
+                        {
+                            conf.LoadProfile(entry.Value.MIDIControlCallBackOFF.SwitchToProfile);
+                        }
                     }
                 }
                 else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider)

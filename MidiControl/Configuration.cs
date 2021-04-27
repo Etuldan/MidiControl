@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MidiControl
@@ -11,16 +13,23 @@ namespace MidiControl
     {
         public Dictionary<string, KeyBindEntry> Config { get; set; }
         private static Configuration _instance;
-        private readonly string ConfFile;
+        private readonly string ConfFolder;
+        private string ConfFile;
+        public string CurrentProfile;
+        private MIDIControlGUI gui;
+        private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
+            RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        public Configuration()
+        public Configuration(MIDIControlGUI gui)
         {
             _instance = this;
+            this.gui = gui;
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string ConfFolder = Path.Combine(folder, "MIDIControl");
+            ConfFolder = Path.Combine(folder, "MIDIControl");
+            CurrentProfile = "Default";
             ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
             Directory.CreateDirectory(ConfFolder);
-            Load();
+            LoadCurrentProfile();
         }
 
         public static Configuration GetInstance()
@@ -28,7 +37,31 @@ namespace MidiControl
             return _instance;
         }
 
-        private void Load()
+        public string[] GetAllProfiles()
+        {
+            List<string> output = new List<string>
+            {
+                "Default"
+            };
+
+            var filesEndingIn = Directory.EnumerateFiles(ConfFolder).Where(f => f.EndsWith(".json") && f.Contains("keybinds-"));
+            foreach(var item in filesEndingIn)
+            {
+                string test = Path.GetFileNameWithoutExtension(item).Substring("keybinds-".Length);
+                output.Add(test);
+            }
+
+            return output.ToArray();
+        }
+
+        public string[] RemoveProfile(string ProfileToRemove)
+        {
+            string FileToDelete = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(ProfileToRemove, "_") + ".json"));
+            File.Delete(FileToDelete);
+            return GetAllProfiles();
+        }
+
+        private void LoadCurrentProfile()
         {
             try
             {
@@ -46,7 +79,28 @@ namespace MidiControl
             }
         }
 
-        public void Save()
+        public void LoadProfile(string profile = null)
+        {
+            CurrentProfile = profile;
+            if (profile == null || profile == "Default")
+            {
+                ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+            } 
+            else
+            {
+                ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(profile, "_") + ".json"));
+            }
+            LoadCurrentProfile();
+            try
+            {
+                gui.Invoke(gui.SwitchProfileControlDelegate);
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
+
+        public void SaveCurrentProfile()
         {
             string json = JsonConvert.SerializeObject(Config);
             File.WriteAllText(ConfFile, json);
@@ -73,6 +127,8 @@ namespace MidiControl
         public MediaCallBack MediaCallBackOFF;
         public TwitchCallBack TwitchCallBackON;
         public TwitchCallBack TwitchCallBackOFF;
+        public MIDIControlCallBack MIDIControlCallBackON;
+        public MIDIControlCallBack MIDIControlCallBackOFF;
     }
 
     public enum MediaType
@@ -98,6 +154,11 @@ namespace MidiControl
         public string Messsage { get; set; }
     }
 
+    public class MIDIControlCallBack
+    {
+        public bool StopAllSound { get; set; }
+        public string SwitchToProfile { get; set; }
+    }
 
     public class SoundCallBack
     {

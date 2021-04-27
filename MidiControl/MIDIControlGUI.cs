@@ -11,6 +11,8 @@ namespace MidiControl
         public OBSControlDelegateHandler OBSControlDelegate;
         public delegate void TwitchControlDelegateHandler(bool connect);
         public TwitchControlDelegateHandler TwitchControlDelegate;
+        public delegate void SwitchProfileControlDelegateHandler();
+        public SwitchProfileControlDelegateHandler SwitchProfileControlDelegate;
         private readonly OptionsManagment options;
         private readonly Configuration conf;
         private readonly MIDIListener midi;
@@ -25,15 +27,24 @@ namespace MidiControl
             InitializeComponent();
             OBSControlDelegate = new OBSControlDelegateHandler(UpdateOBSStatus);
             TwitchControlDelegate = new TwitchControlDelegateHandler(UpdateTwitchStatus);
+            SwitchProfileControlDelegate = new SwitchProfileControlDelegateHandler(UpdateProfile);
 
             options = new OptionsManagment();
-            conf = new Configuration();
+            conf = new Configuration(this);
             midi = new MIDIListener(conf);
-            
+
+            this.ComboBoxProfile.Items.AddRange(conf.GetAllProfiles());
+            this.ComboBoxProfile.SelectedItem = "Default";
 
             notifyIcon.Visible = true;
             notifyIcon.ShowBalloonTip(500);
             this.Hide();
+        }
+
+        private void UpdateProfile()
+        {
+            ReloadEntries();
+            this.ComboBoxProfile.SelectedItem = conf.CurrentProfile;
         }
 
         private void MIDIControlGUI_FormClosing(Object sender, FormClosedEventArgs e)
@@ -168,12 +179,12 @@ namespace MidiControl
         private void MIDIControl_Load(object sender, EventArgs e)
         {
             ReloadEntries();
-            if (options.options.Autoconnect) OBSControl.GetInstance().Connect();
+            OBSControl.GetInstance().ConnectDisconnect();
         }
 
         private void Save_Click(object sender, EventArgs e)
         {
-            conf.Save();
+            conf.SaveCurrentProfile();
         }
 
         private void Add_Click(object sender, EventArgs e)
@@ -223,6 +234,37 @@ namespace MidiControl
         {
             this.WindowState = FormWindowState.Normal;
             this.Show();
+        }
+
+        private void ComboBoxProfile_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if(! this.ComboBoxProfile.Items.Contains(this.ComboBoxProfile.Text))
+                {
+                    this.ComboBoxProfile.Items.Add(this.ComboBoxProfile.Text);
+                }
+                this.ComboBoxProfile.SelectedItem = this.ComboBoxProfile.Text;
+                conf.LoadProfile(this.ComboBoxProfile.SelectedItem.ToString());
+            }
+        }
+
+        private void ComboBoxProfile_SelectedValueChanged(object sender, EventArgs e)
+        {
+            conf.LoadProfile(this.ComboBoxProfile.SelectedItem.ToString());
+        }
+
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            if(this.ComboBoxProfile.SelectedItem.ToString() == "Default")
+            {
+                return;
+            }
+
+            string currProfile = this.ComboBoxProfile.SelectedItem.ToString();
+            this.ComboBoxProfile.Items.Clear();
+            this.ComboBoxProfile.Items.AddRange(conf.RemoveProfile(currProfile));
+            this.ComboBoxProfile.SelectedItem = "Default";
         }
     }
 }
