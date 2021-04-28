@@ -1708,6 +1708,8 @@
             this.Controls.Add(this.TxtBoxName);
             this.Controls.Add(this.LblName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EntryGUI";
             this.Text = "Add MIDI Keybind";
             this.TopMost = true;
