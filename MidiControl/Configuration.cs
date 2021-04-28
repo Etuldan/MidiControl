@@ -16,7 +16,7 @@ namespace MidiControl
         private readonly string ConfFolder;
         private string ConfFile;
         public string CurrentProfile;
-        private MIDIControlGUI gui;
+        private readonly MIDIControlGUI gui;
         private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 

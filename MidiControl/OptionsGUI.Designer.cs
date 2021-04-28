@@ -216,7 +216,10 @@
             this.Controls.Add(this.groupBoxMIDI);
             this.Controls.Add(this.groupBoxOBS);
             this.Controls.Add(this.BtnSave);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(270, 340);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(270, 340);
             this.Name = "OptionsGUI";
             this.Text = "Options";
