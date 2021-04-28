@@ -207,6 +207,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\MIDIRed.png" />
+    <None Include="Resources\MIDI.png" />
+    <None Include="Resources\obsRed.png" />
+    <None Include="Resources\twitchRed.png" />
     <None Include="Resources\minus.png" />
     <None Include="Resources\edit.png" />
     <None Include="Resources\obs.png" />

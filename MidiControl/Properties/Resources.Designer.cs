@@ -83,6 +83,26 @@ namespace MidiControl.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MIDI {
+            get {
+                object obj = ResourceManager.GetObject("MIDI", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MIDIRed {
+            get {
+                object obj = ResourceManager.GetObject("MIDIRed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap minus {
             get {
                 object obj = ResourceManager.GetObject("minus", resourceCulture);
@@ -106,6 +126,16 @@ namespace MidiControl.Properties {
         internal static System.Drawing.Bitmap obs {
             get {
                 object obj = ResourceManager.GetObject("obs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap obsRed {
+            get {
+                object obj = ResourceManager.GetObject("obsRed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,6 +176,16 @@ namespace MidiControl.Properties {
         internal static System.Drawing.Bitmap twitch {
             get {
                 object obj = ResourceManager.GetObject("twitch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap twitchRed {
+            get {
+                object obj = ResourceManager.GetObject("twitchRed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -60,26 +60,22 @@ namespace MidiControl
         {
             if (connect)
             {
-                obsStatus.Text = "Connected";
-                this.obsStatus.ForeColor = Color.Green;
+                obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obs;
             }
             else
             {
-                obsStatus.Text = "Disconnected";
-                this.obsStatus.ForeColor = Color.Red;
+                obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obsRed;
             }
         }
         private void UpdateTwitchStatus(bool connect)
         {
             if (connect)
             {
-                twitchStatus.Text = "Connected";
-                twitchStatus.ForeColor = Color.Green;
+                twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitch;
             }
             else
             {
-                twitchStatus.Text = "Disconnected";
-                twitchStatus.ForeColor = Color.Red;
+                twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitchRed;
             }
         }
 
