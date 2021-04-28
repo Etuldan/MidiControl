@@ -43,6 +43,8 @@ namespace MidiControl
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.obsButton = new System.Windows.Forms.ToolStripButton();
             this.twitchButton = new System.Windows.Forms.ToolStripButton();
+            this.midiButton = new System.Windows.Forms.ToolStripButton();
+            this.midiStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.BtnAdd = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -150,9 +152,9 @@ namespace MidiControl
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.obsButton,
-            this.obsStatus,
             this.twitchButton,
-            this.twitchStatus});
+            this.midiButton,
+            this.midiStatus});
             this.statusBar.Location = new System.Drawing.Point(0, 33);
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(384, 22);
@@ -174,7 +176,19 @@ namespace MidiControl
             this.twitchButton.Size = new System.Drawing.Size(23, 20);
             this.twitchButton.Click += new System.EventHandler(this.ConnectTwitch);
             // 
+            // midiButton
             // 
+            this.midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDI;
+            this.midiButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.midiButton.Name = "midiButton";
+            this.midiButton.Size = new System.Drawing.Size(23, 20);
+            this.midiButton.Click += new System.EventHandler(this.ConnectMIDI);
+            // 
+            // midiStatus
+            // 
+            this.midiStatus.ForeColor = System.Drawing.Color.Red;
+            this.midiStatus.Name = "midiStatus";
+            this.midiStatus.Size = new System.Drawing.Size(79, 17);
             // 
             // BtnAdd
             // 
@@ -256,6 +270,8 @@ namespace MidiControl
         private StatusStrip statusBar;
         private ToolStripButton obsButton;
         private ToolStripButton twitchButton;
+        private ToolStripButton midiButton;
+        private ToolStripStatusLabel midiStatus;
         private Button BtnOptions;
         private Button BtnStopSounds;
         private NotifyIcon notifyIcon;

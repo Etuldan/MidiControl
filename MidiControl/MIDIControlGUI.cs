@@ -36,6 +36,8 @@ namespace MidiControl
             this.ComboBoxProfile.Items.AddRange(conf.GetAllProfiles());
             this.ComboBoxProfile.SelectedItem = "Default";
 
+            UpdateMIDIStatus();
+
             notifyIcon.Visible = true;
             notifyIcon.ShowBalloonTip(500);
             this.Hide();
@@ -54,6 +56,27 @@ namespace MidiControl
         public static MIDIControlGUI GetInstance()
         {
             return _instance;
+        }
+
+        private void UpdateMIDIStatus()
+        {
+            midiStatus.Text = "";
+            foreach (string device in midi.GetMIDIINDevices())
+            {
+                midiStatus.Text += " " + device + ",";
+            }
+            midiStatus.Text = midiStatus.Text.Trim(',').Trim();
+            if (midiStatus.Text == "")
+            {
+                midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDIRed;
+                midiStatus.Text = "N/A";
+                midiStatus.ForeColor = Color.Red;
+            }
+            else
+            {
+                midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDI;
+                midiStatus.ForeColor = Color.Green;
+            }
         }
 
         private void UpdateOBSStatus(bool connect)
@@ -198,6 +221,11 @@ namespace MidiControl
         private void ConnectTwitch(object sender, EventArgs e)
         {
             TwitchChatControl.GetInstance().ConnectDisconnect();
+        }
+        private void ConnectMIDI(object sender, EventArgs e)
+        {
+            midi.RefeshMIDIDevices();
+            UpdateMIDIStatus();
         }
 
         private void BtnOptions_Click(object sender, EventArgs e)
