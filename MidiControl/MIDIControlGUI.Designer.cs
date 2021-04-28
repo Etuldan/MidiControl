@@ -42,9 +42,7 @@ namespace MidiControl
             this.BtnOptions = new System.Windows.Forms.Button();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.obsButton = new System.Windows.Forms.ToolStripButton();
-            this.obsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.twitchButton = new System.Windows.Forms.ToolStripButton();
-            this.twitchStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.BtnAdd = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -168,13 +166,6 @@ namespace MidiControl
             this.obsButton.Size = new System.Drawing.Size(23, 20);
             this.obsButton.Click += new System.EventHandler(this.ConnectOBS);
             // 
-            // obsStatus
-            // 
-            this.obsStatus.ForeColor = System.Drawing.Color.Red;
-            this.obsStatus.Name = "obsStatus";
-            this.obsStatus.Size = new System.Drawing.Size(79, 17);
-            this.obsStatus.Text = "Disconnected";
-            // 
             // twitchButton
             // 
             this.twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitch;
@@ -183,12 +174,7 @@ namespace MidiControl
             this.twitchButton.Size = new System.Drawing.Size(23, 20);
             this.twitchButton.Click += new System.EventHandler(this.ConnectTwitch);
             // 
-            // twitchStatus
             // 
-            this.twitchStatus.ForeColor = System.Drawing.Color.Red;
-            this.twitchStatus.Name = "twitchStatus";
-            this.twitchStatus.Size = new System.Drawing.Size(79, 17);
-            this.twitchStatus.Text = "Disconnected";
             // 
             // BtnAdd
             // 
@@ -269,9 +255,7 @@ namespace MidiControl
         private Button BtnSave;
         private StatusStrip statusBar;
         private ToolStripButton obsButton;
-        private ToolStripStatusLabel obsStatus;
         private ToolStripButton twitchButton;
-        private ToolStripStatusLabel twitchStatus;
         private Button BtnOptions;
         private Button BtnStopSounds;
         private NotifyIcon notifyIcon;
