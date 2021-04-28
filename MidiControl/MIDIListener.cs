@@ -10,8 +10,8 @@ namespace MidiControl
     class MIDIListener
     {
         public List<string> midiInStringOptions = new List<string>();
-        private readonly MidiInCustom MidiInForward;
-        private readonly MidiOutCustom MidiOutForward;
+        private MidiInCustom MidiInForward;
+        private MidiOutCustom MidiOutForward;
         public Dictionary<string, MidiInCustom> midiInInterface = new Dictionary<string, MidiInCustom>();
         public Dictionary<string, MidiOutCustom> midiOutInterface = new Dictionary<string, MidiOutCustom>();
 
@@ -29,6 +29,18 @@ namespace MidiControl
             twitchControl = new TwitchChatControl(options.options, conf.Config);
 
             this.conf = conf;
+
+            RefeshMIDIDevices();
+
+            _instance = this;
+        }
+
+        public void RefeshMIDIDevices()
+        {
+            ReleaseAll();
+            midiInStringOptions.Clear();
+            midiInInterface.Clear();
+            midiOutInterface.Clear();
             for (int device = 0; device < MidiIn.NumberOfDevices; device++)
             {
                 try
@@ -90,9 +102,17 @@ namespace MidiControl
                     // Device already Opened
                 }
             }
-
             EnableListening();
-            _instance = this;
+        }
+
+        public List<string> GetMIDIINDevices()
+        {
+            List<string> list = new List<string>();
+            foreach (KeyValuePair<string, MidiInCustom> entry in midiInInterface)
+            {
+                list.Add(entry.Key);
+            }
+            return list;
         }
 
         public void ReleaseAll()
