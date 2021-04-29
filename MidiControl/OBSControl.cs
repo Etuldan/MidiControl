@@ -22,10 +22,12 @@ namespace MidiControl
         private Timer timer;
         private readonly Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
         private List<FilterSettingsScene> filterSettings;
+        private bool isConnected = true;
 
         public OBSControl()
         {
             _instance = this;
+            isConnected = false;
             obs = new OBSWebsocket();
             obs.Connected += Obs_Connected;
             obs.Disconnected += Obs_Disconnected;
@@ -79,7 +81,7 @@ namespace MidiControl
 
         public void ConnectDisconnect()
         {
-            if (!obs.IsConnected)
+            if (!isConnected)
             {
                 try
                 {
@@ -91,18 +93,17 @@ namespace MidiControl
                         {
                             throw new ErrorResponseException("Incompatible plugin Version. Please update your OBS-Websocket plugin");
                         }
-                        filterSettings = GetFiltersSettings();
-
                     }
                 }
                 catch (AuthFailureException)
                 {
-
+                    isConnected = false;
                 }
             }
             else
             {
                 obs.Disconnect();
+                isConnected = false;
             }
         }
 
@@ -117,7 +118,7 @@ namespace MidiControl
 
         public void DoAction(KeyBindEntry keybind, string action, List<string> args)
         {
-            if (!obs.IsConnected) return;
+            if (!isConnected) return;
 #if DEBUG
             Debug.WriteLine("OBSControl : DoAction");
 #endif
@@ -309,7 +310,7 @@ namespace MidiControl
         }
         public void DoAction(KeyBindEntry _, string action, List<string> args, float value)
         {
-            if (!obs.IsConnected) return;
+            if (!isConnected) return;
 
             switch (action)
             {
@@ -336,6 +337,8 @@ namespace MidiControl
 
         private void ToggleFilter(MIDIFeedback feedback, string filter)
         {
+            if (!isConnected) return;
+
             bool state = false;
 
             foreach (string scene in this.GetScenes())
@@ -382,6 +385,8 @@ namespace MidiControl
         }
         private void ShowFilter(string filter, bool show)
         {
+            if (!isConnected) return;
+
             foreach (string scene in this.GetScenes())
             {
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
@@ -406,6 +411,8 @@ namespace MidiControl
         }
         private void ToggleSources(MIDIFeedback feedback, List<string> sources)
         {
+            if (!isConnected) return;
+
             Dictionary<SourceScene, bool> sourcesName = new Dictionary<SourceScene, bool>();
             List<OBSScene> scenes = obs.ListScenes();
             bool state = false;
@@ -469,6 +476,8 @@ namespace MidiControl
         }
         private void ShowSources(List<string> sources, bool show)
         {
+            if (!isConnected) return;
+
             List<SourceScene> sourcesName = new List<SourceScene>();
             List<OBSScene> scenes = obs.ListScenes();
             foreach (OBSScene scene in scenes)
@@ -518,6 +527,8 @@ namespace MidiControl
 
         private void SetFilterProperties(string filterName, string property, float value)
         {
+            if (!isConnected) return;
+
             foreach (FilterSettingsScene filterSetting in filterSettings)
             {
                 if (FiltersMinMaxValues.TryGetValue(filterSetting.FilterSettings.Type + "." + property, out float[] values) == true)
@@ -537,6 +548,8 @@ namespace MidiControl
         public List<string> GetFilterProperties(string filterName)
         {
             List<string> listProperties = new List<string>();
+            if (!isConnected) return listProperties;
+
             List<FilterSettingsScene> list = GetFiltersSettings();
             foreach (FilterSettingsScene item in list)
             {         
@@ -553,7 +566,7 @@ namespace MidiControl
         public List<FilterSettingsScene> GetFiltersSettings()
         {
             List<FilterSettingsScene> filters = new List<FilterSettingsScene>();
-            if (!obs.IsConnected) return filters;
+            if (!isConnected) return filters;
 
             foreach (string scene in this.GetScenes())
             {
@@ -575,7 +588,7 @@ namespace MidiControl
         public List<string> GetFilters()
         {
             List<string> filtersString = new List<string>();
-            if (!obs.IsConnected) return filtersString;
+            if (!isConnected) return filtersString;
 
             foreach (string scene in this.GetScenes())
             {
@@ -597,7 +610,7 @@ namespace MidiControl
         public List<string> GetScenes()
         {
             List<string> scenesString = new List<string>();
-            if (!obs.IsConnected) return scenesString;
+            if (!isConnected) return scenesString;
 
             List<OBSScene> scenes = obs.ListScenes();
             foreach (OBSScene scene in scenes)
@@ -610,7 +623,7 @@ namespace MidiControl
         public List<string> GetSources()
         {
             List<string> sourceString = new List<string>();
-            if (!obs.IsConnected) return sourceString;
+            if (!isConnected) return sourceString;
 
             List<OBSScene> scenes = obs.ListScenes();
             foreach (OBSScene scene in scenes)
@@ -638,13 +651,15 @@ namespace MidiControl
         }
         public List<string> GetTransitions()
         {
-            if (!obs.IsConnected) return new List<string>();
+            if (!isConnected) return new List<string>();
             return obs.ListTransitions();
         }
         public List<string> GetFilters(string source)
         {
-            List<FilterSettings> listFilters = obs.GetSourceFilters(source);
             List<string> filters = new List<string>();
+            if (!isConnected) return filters;
+
+            List<FilterSettings> listFilters = obs.GetSourceFilters(source);
             foreach (FilterSettings filter in listFilters)
             {
                 filters.Add(filter.Name);
@@ -656,6 +671,8 @@ namespace MidiControl
 
         private void Obs_Connected(object sender, EventArgs e)
         {
+            filterSettings = GetFiltersSettings();
+            isConnected = true;
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     true
                 });
@@ -666,11 +683,12 @@ namespace MidiControl
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     false
                 });
+            isConnected = false;
             timer.Enabled = true;
         }
         public bool IsEnabled()
         {
-            return obs.IsConnected;
+            return isConnected;
         }
     }
 
