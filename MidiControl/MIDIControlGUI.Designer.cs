@@ -162,7 +162,7 @@ namespace MidiControl
             // 
             // obsButton
             // 
-            this.obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obs;
+            this.obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obsRed;
             this.obsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.obsButton.Name = "obsButton";
             this.obsButton.Size = new System.Drawing.Size(23, 20);
@@ -170,7 +170,7 @@ namespace MidiControl
             // 
             // twitchButton
             // 
-            this.twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitch;
+            this.twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitchRed;
             this.twitchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.twitchButton.Name = "twitchButton";
             this.twitchButton.Size = new System.Drawing.Size(23, 20);
@@ -178,7 +178,7 @@ namespace MidiControl
             // 
             // midiButton
             // 
-            this.midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDI;
+            this.midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDIRed;
             this.midiButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.midiButton.Name = "midiButton";
             this.midiButton.Size = new System.Drawing.Size(23, 20);
