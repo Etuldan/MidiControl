@@ -1,7 +1,9 @@
-﻿using Microsoft.Web.WebView2.WinForms;
+﻿using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,6 +25,12 @@ namespace MidiControl
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string ConfFolder = Path.Combine(folder, "MIDIControl");
+            CoreWebView2EnvironmentOptions optionsWebView = new CoreWebView2EnvironmentOptions();
+            CoreWebView2Environment env = CoreWebView2Environment.CreateAsync("", ConfFolder, optionsWebView).GetAwaiter().GetResult();
+            webview.EnsureCoreWebView2Async(env);
 
             string baseURL = "https://id.twitch.tv/oauth2/authorize?response_type=code";
             string clientId = "client_id=" + WebServer.ClientID;
