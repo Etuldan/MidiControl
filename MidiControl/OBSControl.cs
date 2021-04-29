@@ -17,10 +17,10 @@ namespace MidiControl
         private readonly OBSWebsocket obs;
         private readonly MIDIControlGUI gui;
         private static OBSControl _instance;
-        private Dictionary<string, float[]> FiltersMinMaxValues = new Dictionary<string, float[]>();
+        private readonly Dictionary<string, float[]> FiltersMinMaxValues = new Dictionary<string, float[]>();
         public readonly OptionsManagment options;
         private Timer timer;
-        private Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
+        private readonly Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
         private List<FilterSettingsScene> filterSettings;
 
         public OBSControl()
