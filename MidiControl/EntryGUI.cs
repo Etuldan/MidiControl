@@ -27,6 +27,7 @@ namespace MidiControl
         private int Note;
         private Event Input;
 
+        private string EntryName;
 
         public EntryGUI()
         {
@@ -53,6 +54,7 @@ namespace MidiControl
         {
             this.obs = OBSControl.GetInstance();
             conf = Configuration.GetInstance();
+            this.EntryName = name;
 
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
@@ -61,7 +63,6 @@ namespace MidiControl
 
             BtnAdd.Text = "Modify";
             Text = "Edit MIDI Keybind";
-            TxtBoxName.Enabled = false;
 
             Device = keybind.Mididevice;
             Note = keybind.NoteNumber;
@@ -1381,13 +1382,23 @@ namespace MidiControl
                 };
             }
 
-            if (conf.Config.ContainsKey(TxtBoxName.Text))
-            {
-                conf.Config[TxtBoxName.Text] = key;
-            }
-            else
+
+
+            if(this.EntryName == null) // New
             {
                 conf.Config.Add(TxtBoxName.Text, key);
+            }
+            else // Edit
+            {
+                if (conf.Config.ContainsKey(TxtBoxName.Text)) // Same Name
+                {
+                    conf.Config[TxtBoxName.Text] = key;
+                }
+                else // Name Modified
+                {
+                    conf.Config.Remove(this.EntryName);
+                    conf.Config.Add(TxtBoxName.Text, key);
+                }
             }
 
             this.Close();
