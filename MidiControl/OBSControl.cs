@@ -296,6 +296,9 @@ namespace MidiControl
                                 case "Transition To Program (Studio)":
                                     obs.TransitionToProgram();
                                     break;
+                                case "Toggle Studio Mode":
+                                    obs.ToggleStudioMode();
+                                    break;
                             }
                         }
                         break;
