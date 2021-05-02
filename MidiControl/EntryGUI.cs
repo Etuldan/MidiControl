@@ -27,7 +27,7 @@ namespace MidiControl
         private int Note;
         private Event Input;
 
-        private string EntryName;
+        private readonly string EntryName;
 
         public EntryGUI()
         {
