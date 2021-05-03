@@ -57,6 +57,8 @@ namespace MidiControl
             try
             {
                 isReady = false;
+                WebServer.RefreshTwitchToken(options);
+
                 ConnectionCredentials credentials = new ConnectionCredentials(options.TwitchLogin, options.TwitchToken);
                 var clientOptions = new ClientOptions
                 {

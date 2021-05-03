@@ -51,7 +51,6 @@ namespace MidiControl
             {
                 options.options.Delay = 0;
             }
-            options.options.TwitchLogin = txtBoxTwitchLogin.Text;
             options.options.TwitchToken = txtBoxTwitchToken.Text;
 
             options.Save();
@@ -75,6 +74,10 @@ namespace MidiControl
         {
             txtBoxTwitchLogin.Text = "";
             txtBoxTwitchToken.Text = "";
+
+            options.options.TwitchLogin = "";
+            options.options.TwitchToken = "";
+            options.options.TwitchRefreshToken = "";
             TwitchChatControl.GetInstance().Disconnect();
         }
     }

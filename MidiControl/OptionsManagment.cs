@@ -71,6 +71,7 @@ namespace MidiControl
             public int Delay { get; set; }
             public string TwitchLogin { get; set; }
             public string TwitchToken { get; set; }
+            public string TwitchRefreshToken { get; set; }
 
         }
     }

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MidiControl.OptionsManagment;
 
 namespace MidiControl
 {
@@ -44,10 +45,11 @@ namespace MidiControl
             {
                 BeginInvoke(new Action(() =>
                 {
-                    if (server.Login != "" && server.OAuthCode != "")
+                    if (server.Login != "" && server.OAuthCode != "" && server.RefreshToken != "")
                     {
                         options.TwitchLogin = server.Login;
                         options.TwitchToken = server.OAuthCode;
+                        options.TwitchRefreshToken = server.RefreshToken;
                     }
                     this.Close();
                     this.Dispose();
@@ -134,8 +136,9 @@ namespace MidiControl
         public HttpListener listener;
         public readonly static string URL = "http://localhost:65432";
         public readonly static string ClientID = "gvhpl3qeui9p0n1eih18569fds7z5n";
-        private readonly string ClientSecret = "8l6vjaj31w60hbsyqlul0l90wi34wt";
+        private static readonly string ClientSecret = "8l6vjaj31w60hbsyqlul0l90wi34wt";
         public string OAuthCode = "";
+        public string RefreshToken = "";
         public string Login = "";
         public WebServer()
         {
@@ -162,6 +165,22 @@ namespace MidiControl
             var index = url.IndexOf(parameter);
             return url.Substring(index + parameter.Length, url.IndexOf("&", index) - index - parameter.Length);
         }
+
+        public static void RefreshTwitchToken(Options options)
+        {
+            HttpClient httpclient = new HttpClient();
+            Dictionary<string, string> parameters = new Dictionary<string, string> { { "client_id", WebServer.ClientID }, { "client_secret", WebServer.ClientSecret }, { "grant_type", "refresh_token" }, { "refresh_token", options.TwitchRefreshToken } };
+            var encodedContent = new FormUrlEncodedContent(parameters);
+            HttpResponseMessage response = httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).Result;
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+                var _json = JObject.Parse(responseBody);
+                options.TwitchToken = _json["access_token"].ToString();
+                options.TwitchRefreshToken = _json["refresh_token"].ToString();
+            }
+        }
+
         public async Task HandleIncomingConnections()
         {
             HttpListenerContext ctx = await listener.GetContextAsync();
@@ -180,6 +199,7 @@ namespace MidiControl
                     string responseBody = await response.Content.ReadAsStringAsync();
                     var _json = JObject.Parse(responseBody);
                     OAuthCode = _json["access_token"].ToString();
+                    RefreshToken = _json["refresh_token"].ToString();
 
                     httpclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", OAuthCode);
                     response = await httpclient.GetAsync("https://id.twitch.tv/oauth2/validate");
