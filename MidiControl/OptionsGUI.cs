@@ -29,7 +29,6 @@ namespace MidiControl
             txtBoxDelay.Text = options.options.Delay.ToString();
 
             txtBoxTwitchLogin.Text = options.options.TwitchLogin;
-            txtBoxTwitchToken.Text = options.options.TwitchToken;
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -51,7 +50,6 @@ namespace MidiControl
             {
                 options.options.Delay = 0;
             }
-            options.options.TwitchToken = txtBoxTwitchToken.Text;
 
             options.Save();
             this.Close();
@@ -65,7 +63,6 @@ namespace MidiControl
             if (options.options.TwitchLogin != "" && options.options.TwitchToken != "")
             {
                 txtBoxTwitchLogin.Text = options.options.TwitchLogin;
-                txtBoxTwitchToken.Text = options.options.TwitchToken;
                 TwitchChatControl.GetInstance().Connect();
             }
         }
@@ -73,7 +70,6 @@ namespace MidiControl
         private void BtnRequestTwitchLogout_Click(object sender, EventArgs e)
         {
             txtBoxTwitchLogin.Text = "";
-            txtBoxTwitchToken.Text = "";
 
             options.options.TwitchLogin = "";
             options.options.TwitchToken = "";

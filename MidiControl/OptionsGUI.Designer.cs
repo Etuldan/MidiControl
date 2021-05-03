@@ -41,7 +41,6 @@
             this.ChkCmbBoxMIDI = new CheckComboBoxTest.CheckedComboBox();
             this.groupBoxTwitch = new System.Windows.Forms.GroupBox();
             this.BtnRequestTwitchLogout = new System.Windows.Forms.Button();
-            this.txtBoxTwitchToken = new System.Windows.Forms.TextBox();
             this.BtnRequestTwitchLogin = new System.Windows.Forms.Button();
             this.txtBoxTwitchLogin = new System.Windows.Forms.TextBox();
             this.groupBoxOBS.SuspendLayout();
@@ -84,7 +83,7 @@
             // 
             // BtnSave
             // 
-            this.BtnSave.Location = new System.Drawing.Point(167, 267);
+            this.BtnSave.Location = new System.Drawing.Point(167, 238);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
             this.BtnSave.TabIndex = 6;
@@ -159,12 +158,11 @@
             // groupBoxTwitch
             // 
             this.groupBoxTwitch.Controls.Add(this.BtnRequestTwitchLogout);
-            this.groupBoxTwitch.Controls.Add(this.txtBoxTwitchToken);
             this.groupBoxTwitch.Controls.Add(this.BtnRequestTwitchLogin);
             this.groupBoxTwitch.Controls.Add(this.txtBoxTwitchLogin);
             this.groupBoxTwitch.Location = new System.Drawing.Point(12, 186);
             this.groupBoxTwitch.Name = "groupBoxTwitch";
-            this.groupBoxTwitch.Size = new System.Drawing.Size(230, 75);
+            this.groupBoxTwitch.Size = new System.Drawing.Size(230, 46);
             this.groupBoxTwitch.TabIndex = 13;
             this.groupBoxTwitch.TabStop = false;
             this.groupBoxTwitch.Text = "Twitch Authentication";
@@ -178,15 +176,6 @@
             this.BtnRequestTwitchLogout.Text = "Logout";
             this.BtnRequestTwitchLogout.UseVisualStyleBackColor = true;
             this.BtnRequestTwitchLogout.Click += new System.EventHandler(this.BtnRequestTwitchLogout_Click);
-            // 
-            // txtBoxTwitchToken
-            // 
-            this.txtBoxTwitchToken.Enabled = false;
-            this.txtBoxTwitchToken.Location = new System.Drawing.Point(9, 43);
-            this.txtBoxTwitchToken.Name = "txtBoxTwitchToken";
-            this.txtBoxTwitchToken.ReadOnly = true;
-            this.txtBoxTwitchToken.Size = new System.Drawing.Size(215, 20);
-            this.txtBoxTwitchToken.TabIndex = 8;
             // 
             // BtnRequestTwitchLogin
             // 
@@ -211,16 +200,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(254, 301);
+            this.ClientSize = new System.Drawing.Size(254, 271);
             this.Controls.Add(this.groupBoxTwitch);
             this.Controls.Add(this.groupBoxMIDI);
             this.Controls.Add(this.groupBoxOBS);
             this.Controls.Add(this.BtnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(270, 340);
+            this.MaximumSize = new System.Drawing.Size(270, 310);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(270, 340);
+            this.MinimumSize = new System.Drawing.Size(270, 310);
             this.Name = "OptionsGUI";
             this.Text = "Options";
             this.TopMost = true;
@@ -250,7 +239,6 @@
         private System.Windows.Forms.GroupBox groupBoxTwitch;
         private System.Windows.Forms.TextBox txtBoxTwitchLogin;
         private System.Windows.Forms.Button BtnRequestTwitchLogin;
-        private System.Windows.Forms.TextBox txtBoxTwitchToken;
         private System.Windows.Forms.Button BtnRequestTwitchLogout;
     }
 }
