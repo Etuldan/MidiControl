@@ -659,8 +659,8 @@ namespace MidiControl
 
         private void Obs_Connected(object sender, EventArgs e)
         {
-            filterSettings = GetFiltersSettings();
             isConnected = true;
+            filterSettings = GetFiltersSettings();
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     true
                 });
