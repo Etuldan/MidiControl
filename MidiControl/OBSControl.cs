@@ -19,6 +19,7 @@ namespace MidiControl
         private static OBSControl _instance;
         private readonly Dictionary<string, float[]> FiltersMinMaxValues = new Dictionary<string, float[]>();
         public readonly OptionsManagment options;
+        private Timer timer;
         private readonly Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
         private List<FilterSettingsScene> filterSettings;
         private bool isConnected = true;
@@ -56,7 +57,21 @@ namespace MidiControl
             {
             }
 
-            ConnectDisconnect();
+            InitTimer();
+        }
+
+        public void InitTimer()
+        {
+            timer = new Timer();
+            timer.Elapsed += new ElapsedEventHandler(Timer_Tick);
+            timer.Interval = 10000;
+        }
+        public void Timer_Tick(Object source, ElapsedEventArgs e)
+        {
+            if(!obs.IsConnected)
+            {
+                ConnectDisconnect();
+            }
         }
 
         public static OBSControl GetInstance()
@@ -664,6 +679,7 @@ namespace MidiControl
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     true
                 });
+            timer.Enabled = false;
         }
         private void Obs_Disconnected(object sender, EventArgs e)
         {
@@ -671,6 +687,7 @@ namespace MidiControl
                     false
                 });
             isConnected = false;
+            timer.Enabled = true;
         }
         public bool IsEnabled()
         {
