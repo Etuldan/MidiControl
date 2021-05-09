@@ -8,15 +8,16 @@ namespace MidiControl
 {
     public class MIDIFeedback
     {
-        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI", "Akai APC40", "Launchpad Mini", "Launchpad MK2" };
+        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI", "Akai APC40", "Launchpad Mini", "Launchpad MK2", "Launchpad" };
 
         private enum Devices
         {
             NONE,
             APC_MINI,
-            Launchpad,
+            Launchpad_Mini,
             APC40,
-            Launchpad_MK2
+            Launchpad_MK2,
+            Launchpad
         }
 
         private readonly Devices deviceType = Devices.NONE;
@@ -42,12 +43,17 @@ namespace MidiControl
                 else if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "Launchpad Mini" && keybind.Mididevice == "Launchpad Mini")
                 {
                     MidiOutdeviceFeedback = entry.Value;
-                    deviceType = Devices.Launchpad;
+                    deviceType = Devices.Launchpad_Mini;
                 }
                 else if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "Launchpad MK2" && keybind.Mididevice == "Launchpad MK2")
                 {
                     MidiOutdeviceFeedback = entry.Value;
                     deviceType = Devices.Launchpad_MK2;
+                }
+                else if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "Launchpad" && keybind.Mididevice == "Launchpad")
+                {
+                    MidiOutdeviceFeedback = entry.Value;
+                    deviceType = Devices.Launchpad;
                 }
             }
         }
@@ -63,6 +69,7 @@ namespace MidiControl
                 case Devices.APC40:
                     me = new NoteOnEvent(0, channel, note, 01, 0);
                     break;
+                case Devices.Launchpad_Mini:
                 case Devices.Launchpad:
                     me = new NoteOnEvent(0, channel, note, 60, 0);
                     break;
@@ -87,6 +94,7 @@ namespace MidiControl
                 case Devices.APC40:
                     me = new NoteOnEvent(0, channel, note, 00, 0);
                     break;
+                case Devices.Launchpad_Mini:
                 case Devices.Launchpad:
                     me = new NoteOnEvent(0, channel, note, 12, 0);
                     break;
@@ -110,6 +118,7 @@ namespace MidiControl
                 case Devices.APC40:
                     me = new NoteOnEvent(0, channel, note, 02, 0);
                     break;
+                case Devices.Launchpad_Mini:
                 case Devices.Launchpad:
                     me = new NoteOnEvent(0, channel, note, 56, 0);
                     break;
