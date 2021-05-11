@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using Microsoft.VisualBasic.FileIO;
+using System.Threading.Tasks;
 
 namespace MidiControl
 {
@@ -109,11 +110,17 @@ namespace MidiControl
 
         private void Obs_SourceFilterAdded(OBSWebsocket sender, string sourceName, string filterName, string filterType, JObject _filterSettings)
         {
-            filterSettings = GetFiltersSettings();
+            Task.Run(() =>
+            {
+                filterSettings = GetFiltersSettings();
+            });            
         }
         private void Obs_SourceFilteRemoved(OBSWebsocket sender, string sourceName, string filterName)
         {
-            filterSettings = GetFiltersSettings();
+            Task.Run(() =>
+            {
+                filterSettings = GetFiltersSettings();
+            });
         }
 
         public void DoAction(KeyBindEntry keybind, string action, List<string> args)
@@ -675,7 +682,10 @@ namespace MidiControl
         private void Obs_Connected(object sender, EventArgs e)
         {
             isConnected = true;
-            filterSettings = GetFiltersSettings();
+            Task.Run(() =>
+            {
+                filterSettings = GetFiltersSettings();
+            });
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     true
                 });
