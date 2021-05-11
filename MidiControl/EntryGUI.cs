@@ -259,7 +259,7 @@ namespace MidiControl
                                     catch (ArgumentOutOfRangeException)
                                 {
                                 }
-                    }
+                            }
                             break;
                         case "transition":
                             foreach (string arg in on.Args)
@@ -1482,6 +1482,7 @@ namespace MidiControl
             string filterName = (string)CboBoxFilterNameSlider.SelectedItem;
             CboBoxFilterSettingSlider.Items.Clear();
             List<string> listProperties = obs.GetFilterProperties(filterName);
+            CboBoxFilterSettingSlider.Items.Add("");
             foreach (string property in listProperties)
             {
                 CboBoxFilterSettingSlider.Items.Add(property);
