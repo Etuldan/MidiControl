@@ -563,7 +563,7 @@ namespace MidiControl
                 {
                     using (StreamWriter w = File.AppendText(FilterLog))
                     {
-                        w.WriteLine("FilterName Missing: " + filterSetting.FilterSettings.Name + ". Add new line in filterminmax.csv (replace MinValue and MaxValue)'" + filterSetting.FilterSettings.Type + "." + property + ",MinValue,MaxValue'");
+                        w.WriteLine(filterSetting.FilterSettings.Name + " is missing. Add a new line in filterminmax.csv (replace MinValue and MaxValue)'" + filterSetting.FilterSettings.Type + "." + property + ",MinValue,MaxValue'");
                     }
                 }
             }
