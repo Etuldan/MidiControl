@@ -23,7 +23,7 @@ Source: "{#Dir}runtimes\*"; DestDir: "{app}\runtimes";  Flags: recursesubdirs
 Source: "{#Dir}MidiControl.exe.config"; DestDir: "{app}";
 Source: "license.txt"; DestDir: "{app}";
 Source: "MIDIControl.VisualElementsManifest.xml"; DestDir: "{app}";
-Source: "filterminmax.csv"; DestDir: "{app}";
+Source: "filterminmax.csv"; DestDir: "{userappdata}\{#AppName}";
 Source: "icon.png"; DestDir: "{app}";
 Source: "Redist\MicrosoftEdgeWebview2Setup.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 Source: "Redist\ndp472-kb4054531-web.exe"; DestDir: {tmp}; Flags: deleteafterinstall

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Timers;
 using Microsoft.VisualBasic.FileIO;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MidiControl
 {
@@ -24,6 +25,7 @@ namespace MidiControl
         private readonly Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
         private List<FilterSettingsScene> filterSettings;
         private bool isConnected = true;
+        private readonly string FilterLog;
 
         public OBSControl()
         {
@@ -38,7 +40,11 @@ namespace MidiControl
             gui = MIDIControlGUI.GetInstance();
             options = OptionsManagment.GetInstance();
 
-            var path = @".\filterminmax.csv";
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string ConfFolder = Path.Combine(folder, "MIDIControl");
+            FilterLog = Path.Combine(ConfFolder, Path.GetFileName("FilterLog.log"));
+
+            string path = Path.Combine(ConfFolder, Path.GetFileName("filterminmax.csv"));
             try
             {
                 using (TextFieldParser csvParser = new TextFieldParser(path))
@@ -551,6 +557,13 @@ namespace MidiControl
                     {
                         JObject o = new JObject(new JProperty(property, value));
                         obs.SetSourceFilterSettings(filterSetting.Scene, filterName, o);
+                    }
+                }
+                else if(filterSetting.FilterSettings.Name == filterName)
+                {
+                    using (StreamWriter w = File.AppendText(FilterLog))
+                    {
+                        w.WriteLine("FilterName Missing: " + filterSetting.FilterSettings.Name + ". Add new line in filterminmax.csv (replace MinValue and MaxValue)'" + filterSetting.FilterSettings.Type + "." + property + ",MinValue,MaxValue'");
                     }
                 }
             }
