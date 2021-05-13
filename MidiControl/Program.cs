@@ -1,6 +1,7 @@
 ﻿using System;
 #if DEBUG
 using System.Diagnostics;
+using System.IO;
 #endif
 using System.Windows.Forms;
 
@@ -15,7 +16,9 @@ namespace MidiControl
         static void Main()
         {
 #if DEBUG
-            Debug.Listeners.Add(new TextWriterTraceListener("./debug.log"));
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string ConfFolder = Path.Combine(folder, "MIDIControl");
+            Debug.Listeners.Add(new TextWriterTraceListener(Path.Combine(ConfFolder, Path.GetFileName("debug.log"))));
             Debug.AutoFlush = true;
 #endif
             Application.EnableVisualStyles();
