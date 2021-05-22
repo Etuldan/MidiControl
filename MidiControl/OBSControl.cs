@@ -44,10 +44,10 @@ namespace MidiControl
             string ConfFolder = Path.Combine(folder, "MIDIControl");
             FilterLog = Path.Combine(ConfFolder, Path.GetFileName("FilterLog.log"));
 
-            string path = Path.Combine(ConfFolder, Path.GetFileName("filterminmax.csv"));
+            string pathFilters = Path.Combine(ConfFolder, Path.GetFileName("filterminmax.csv"));
             try
             {
-                using (TextFieldParser csvParser = new TextFieldParser(path))
+                using (TextFieldParser csvParser = new TextFieldParser(pathFilters))
                 {
                     csvParser.CommentTokens = new string[] { "#" };
                     csvParser.SetDelimiters(new string[] { "," });
