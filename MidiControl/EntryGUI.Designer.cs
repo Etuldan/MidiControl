@@ -40,6 +40,8 @@
             this.GrpBoxKeyPress = new System.Windows.Forms.GroupBox();
             this.TabKeyPress = new System.Windows.Forms.TabControl();
             this.TabOBSPress = new System.Windows.Forms.TabPage();
+            this.ChkCboBoxHotkeyPress = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxHotkeyPress = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxMediaStopPress = new CheckComboBoxTest.CheckedComboBox();
             this.ChkBoxMediaStopPress = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxMediaRestartPress = new CheckComboBoxTest.CheckedComboBox();
@@ -99,6 +101,8 @@
             this.GrpBoxKeyRelease = new System.Windows.Forms.GroupBox();
             this.TabKeyRelease = new System.Windows.Forms.TabControl();
             this.TabOBSRelease = new System.Windows.Forms.TabPage();
+            this.ChkCboBoxHotkeyRelease = new CheckComboBoxTest.CheckedComboBox();
+            this.ChkBoxHotkeyRelease = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxMediaStopRelease = new CheckComboBoxTest.CheckedComboBox();
             this.CboBoxPreviewSceneRelease = new System.Windows.Forms.ComboBox();
             this.ChkBoxMediaStopRelease = new System.Windows.Forms.CheckBox();
@@ -230,7 +234,7 @@
             // 
             // BtnAdd
             // 
-            this.BtnAdd.Location = new System.Drawing.Point(513, 656);
+            this.BtnAdd.Location = new System.Drawing.Point(513, 696);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(75, 23);
             this.BtnAdd.TabIndex = 8;
@@ -260,7 +264,7 @@
             this.GrpBoxKeyPress.Controls.Add(this.TabKeyPress);
             this.GrpBoxKeyPress.Location = new System.Drawing.Point(9, 36);
             this.GrpBoxKeyPress.Name = "GrpBoxKeyPress";
-            this.GrpBoxKeyPress.Size = new System.Drawing.Size(579, 248);
+            this.GrpBoxKeyPress.Size = new System.Drawing.Size(579, 271);
             this.GrpBoxKeyPress.TabIndex = 11;
             this.GrpBoxKeyPress.TabStop = false;
             this.GrpBoxKeyPress.Text = "On Key Press";
@@ -275,11 +279,13 @@
             this.TabKeyPress.Location = new System.Drawing.Point(6, 20);
             this.TabKeyPress.Name = "TabKeyPress";
             this.TabKeyPress.SelectedIndex = 0;
-            this.TabKeyPress.Size = new System.Drawing.Size(568, 222);
+            this.TabKeyPress.Size = new System.Drawing.Size(568, 245);
             this.TabKeyPress.TabIndex = 0;
             // 
             // TabOBSPress
             // 
+            this.TabOBSPress.Controls.Add(this.ChkCboBoxHotkeyPress);
+            this.TabOBSPress.Controls.Add(this.ChkBoxHotkeyPress);
             this.TabOBSPress.Controls.Add(this.ChkCboBoxMediaStopPress);
             this.TabOBSPress.Controls.Add(this.ChkBoxMediaStopPress);
             this.TabOBSPress.Controls.Add(this.ChkCboBoxMediaRestartPress);
@@ -316,10 +322,35 @@
             this.TabOBSPress.Location = new System.Drawing.Point(4, 22);
             this.TabOBSPress.Name = "TabOBSPress";
             this.TabOBSPress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabOBSPress.Size = new System.Drawing.Size(560, 196);
+            this.TabOBSPress.Size = new System.Drawing.Size(560, 219);
             this.TabOBSPress.TabIndex = 0;
             this.TabOBSPress.Text = "OBS";
             this.TabOBSPress.UseVisualStyleBackColor = true;
+            // 
+            // ChkCboBoxHotkeyPress
+            // 
+            this.ChkCboBoxHotkeyPress.CheckOnClick = true;
+            this.ChkCboBoxHotkeyPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxHotkeyPress.DropDownHeight = 1;
+            this.ChkCboBoxHotkeyPress.Enabled = false;
+            this.ChkCboBoxHotkeyPress.FormattingEnabled = true;
+            this.ChkCboBoxHotkeyPress.IntegralHeight = false;
+            this.ChkCboBoxHotkeyPress.Location = new System.Drawing.Point(363, 192);
+            this.ChkCboBoxHotkeyPress.Name = "ChkCboBoxHotkeyPress";
+            this.ChkCboBoxHotkeyPress.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxHotkeyPress.TabIndex = 35;
+            this.ChkCboBoxHotkeyPress.ValueSeparator = ", ";
+            // 
+            // ChkBoxHotkeyPress
+            // 
+            this.ChkBoxHotkeyPress.AutoSize = true;
+            this.ChkBoxHotkeyPress.Location = new System.Drawing.Point(276, 194);
+            this.ChkBoxHotkeyPress.Name = "ChkBoxHotkeyPress";
+            this.ChkBoxHotkeyPress.Size = new System.Drawing.Size(60, 17);
+            this.ChkBoxHotkeyPress.TabIndex = 34;
+            this.ChkBoxHotkeyPress.Text = "Hotkey";
+            this.ChkBoxHotkeyPress.UseVisualStyleBackColor = true;
+            this.ChkBoxHotkeyPress.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkCboBoxMediaStopPress
             // 
@@ -735,7 +766,7 @@
             this.TabSoundPress.Location = new System.Drawing.Point(4, 22);
             this.TabSoundPress.Name = "TabSoundPress";
             this.TabSoundPress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabSoundPress.Size = new System.Drawing.Size(560, 196);
+            this.TabSoundPress.Size = new System.Drawing.Size(560, 219);
             this.TabSoundPress.TabIndex = 1;
             this.TabSoundPress.Text = "SoundBoard";
             this.TabSoundPress.UseVisualStyleBackColor = true;
@@ -831,7 +862,7 @@
             this.TabMediaKeyPress.Location = new System.Drawing.Point(4, 22);
             this.TabMediaKeyPress.Name = "TabMediaKeyPress";
             this.TabMediaKeyPress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabMediaKeyPress.Size = new System.Drawing.Size(560, 196);
+            this.TabMediaKeyPress.Size = new System.Drawing.Size(560, 219);
             this.TabMediaKeyPress.TabIndex = 2;
             this.TabMediaKeyPress.Text = "Media Keys";
             this.TabMediaKeyPress.UseVisualStyleBackColor = true;
@@ -875,7 +906,7 @@
             this.TabTwitchPress.Location = new System.Drawing.Point(4, 22);
             this.TabTwitchPress.Name = "TabTwitchPress";
             this.TabTwitchPress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabTwitchPress.Size = new System.Drawing.Size(560, 196);
+            this.TabTwitchPress.Size = new System.Drawing.Size(560, 219);
             this.TabTwitchPress.TabIndex = 3;
             this.TabTwitchPress.Text = "Twitch Chat";
             this.TabTwitchPress.UseVisualStyleBackColor = true;
@@ -921,7 +952,7 @@
             this.TabMIDIControlPress.Location = new System.Drawing.Point(4, 22);
             this.TabMIDIControlPress.Name = "TabMIDIControlPress";
             this.TabMIDIControlPress.Padding = new System.Windows.Forms.Padding(3);
-            this.TabMIDIControlPress.Size = new System.Drawing.Size(560, 196);
+            this.TabMIDIControlPress.Size = new System.Drawing.Size(560, 219);
             this.TabMIDIControlPress.TabIndex = 4;
             this.TabMIDIControlPress.Text = "MIDIControl";
             this.TabMIDIControlPress.UseVisualStyleBackColor = true;
@@ -959,9 +990,9 @@
             // GrpBoxKeyRelease
             // 
             this.GrpBoxKeyRelease.Controls.Add(this.TabKeyRelease);
-            this.GrpBoxKeyRelease.Location = new System.Drawing.Point(9, 290);
+            this.GrpBoxKeyRelease.Location = new System.Drawing.Point(9, 312);
             this.GrpBoxKeyRelease.Name = "GrpBoxKeyRelease";
-            this.GrpBoxKeyRelease.Size = new System.Drawing.Size(579, 241);
+            this.GrpBoxKeyRelease.Size = new System.Drawing.Size(579, 259);
             this.GrpBoxKeyRelease.TabIndex = 12;
             this.GrpBoxKeyRelease.TabStop = false;
             this.GrpBoxKeyRelease.Text = "On Key Release";
@@ -976,11 +1007,13 @@
             this.TabKeyRelease.Location = new System.Drawing.Point(7, 20);
             this.TabKeyRelease.Name = "TabKeyRelease";
             this.TabKeyRelease.SelectedIndex = 0;
-            this.TabKeyRelease.Size = new System.Drawing.Size(568, 215);
+            this.TabKeyRelease.Size = new System.Drawing.Size(568, 237);
             this.TabKeyRelease.TabIndex = 0;
             // 
             // TabOBSRelease
             // 
+            this.TabOBSRelease.Controls.Add(this.ChkCboBoxHotkeyRelease);
+            this.TabOBSRelease.Controls.Add(this.ChkBoxHotkeyRelease);
             this.TabOBSRelease.Controls.Add(this.ChkCboBoxMediaStopRelease);
             this.TabOBSRelease.Controls.Add(this.CboBoxPreviewSceneRelease);
             this.TabOBSRelease.Controls.Add(this.ChkBoxMediaStopRelease);
@@ -1017,10 +1050,35 @@
             this.TabOBSRelease.Location = new System.Drawing.Point(4, 22);
             this.TabOBSRelease.Name = "TabOBSRelease";
             this.TabOBSRelease.Padding = new System.Windows.Forms.Padding(3);
-            this.TabOBSRelease.Size = new System.Drawing.Size(560, 189);
+            this.TabOBSRelease.Size = new System.Drawing.Size(560, 211);
             this.TabOBSRelease.TabIndex = 0;
             this.TabOBSRelease.Text = "OBS";
             this.TabOBSRelease.UseVisualStyleBackColor = true;
+            // 
+            // ChkCboBoxHotkeyRelease
+            // 
+            this.ChkCboBoxHotkeyRelease.CheckOnClick = true;
+            this.ChkCboBoxHotkeyRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ChkCboBoxHotkeyRelease.DropDownHeight = 1;
+            this.ChkCboBoxHotkeyRelease.Enabled = false;
+            this.ChkCboBoxHotkeyRelease.FormattingEnabled = true;
+            this.ChkCboBoxHotkeyRelease.IntegralHeight = false;
+            this.ChkCboBoxHotkeyRelease.Location = new System.Drawing.Point(363, 187);
+            this.ChkCboBoxHotkeyRelease.Name = "ChkCboBoxHotkeyRelease";
+            this.ChkCboBoxHotkeyRelease.Size = new System.Drawing.Size(191, 21);
+            this.ChkCboBoxHotkeyRelease.TabIndex = 41;
+            this.ChkCboBoxHotkeyRelease.ValueSeparator = ", ";
+            // 
+            // ChkBoxHotkeyRelease
+            // 
+            this.ChkBoxHotkeyRelease.AutoSize = true;
+            this.ChkBoxHotkeyRelease.Location = new System.Drawing.Point(276, 189);
+            this.ChkBoxHotkeyRelease.Name = "ChkBoxHotkeyRelease";
+            this.ChkBoxHotkeyRelease.Size = new System.Drawing.Size(60, 17);
+            this.ChkBoxHotkeyRelease.TabIndex = 40;
+            this.ChkBoxHotkeyRelease.Text = "Hotkey";
+            this.ChkBoxHotkeyRelease.UseVisualStyleBackColor = true;
+            this.ChkBoxHotkeyRelease.CheckedChanged += new System.EventHandler(this.ChkBox_State);
             // 
             // ChkCboBoxMediaStopRelease
             // 
@@ -1428,7 +1486,7 @@
             this.TabSoundRelease.Location = new System.Drawing.Point(4, 22);
             this.TabSoundRelease.Name = "TabSoundRelease";
             this.TabSoundRelease.Padding = new System.Windows.Forms.Padding(3);
-            this.TabSoundRelease.Size = new System.Drawing.Size(560, 189);
+            this.TabSoundRelease.Size = new System.Drawing.Size(560, 211);
             this.TabSoundRelease.TabIndex = 1;
             this.TabSoundRelease.Text = "SoundBoard";
             this.TabSoundRelease.UseVisualStyleBackColor = true;
@@ -1452,7 +1510,7 @@
             this.TabMediaKeyRelease.Location = new System.Drawing.Point(4, 22);
             this.TabMediaKeyRelease.Name = "TabMediaKeyRelease";
             this.TabMediaKeyRelease.Padding = new System.Windows.Forms.Padding(3);
-            this.TabMediaKeyRelease.Size = new System.Drawing.Size(560, 189);
+            this.TabMediaKeyRelease.Size = new System.Drawing.Size(560, 211);
             this.TabMediaKeyRelease.TabIndex = 3;
             this.TabMediaKeyRelease.Text = "Media Keys";
             this.TabMediaKeyRelease.UseVisualStyleBackColor = true;
@@ -1496,7 +1554,7 @@
             this.TabTwitchRelease.Location = new System.Drawing.Point(4, 22);
             this.TabTwitchRelease.Name = "TabTwitchRelease";
             this.TabTwitchRelease.Padding = new System.Windows.Forms.Padding(3);
-            this.TabTwitchRelease.Size = new System.Drawing.Size(560, 189);
+            this.TabTwitchRelease.Size = new System.Drawing.Size(560, 211);
             this.TabTwitchRelease.TabIndex = 4;
             this.TabTwitchRelease.Text = "Twitch Chat";
             this.TabTwitchRelease.UseVisualStyleBackColor = true;
@@ -1542,7 +1600,7 @@
             this.TabMIDIControlRelease.Location = new System.Drawing.Point(4, 22);
             this.TabMIDIControlRelease.Name = "TabMIDIControlRelease";
             this.TabMIDIControlRelease.Padding = new System.Windows.Forms.Padding(3);
-            this.TabMIDIControlRelease.Size = new System.Drawing.Size(560, 189);
+            this.TabMIDIControlRelease.Size = new System.Drawing.Size(560, 211);
             this.TabMIDIControlRelease.TabIndex = 5;
             this.TabMIDIControlRelease.Text = "MIDIControl";
             this.TabMIDIControlRelease.UseVisualStyleBackColor = true;
@@ -1580,7 +1638,7 @@
             // GrpBoxKeySlider
             // 
             this.GrpBoxKeySlider.Controls.Add(this.TabKeySlider);
-            this.GrpBoxKeySlider.Location = new System.Drawing.Point(9, 537);
+            this.GrpBoxKeySlider.Location = new System.Drawing.Point(9, 577);
             this.GrpBoxKeySlider.Name = "GrpBoxKeySlider";
             this.GrpBoxKeySlider.Size = new System.Drawing.Size(579, 113);
             this.GrpBoxKeySlider.TabIndex = 13;
@@ -1694,7 +1752,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 691);
+            this.ClientSize = new System.Drawing.Size(594, 731);
             this.Controls.Add(this.GrpBoxKeySlider);
             this.Controls.Add(this.GrpBoxKeyRelease);
             this.Controls.Add(this.GrpBoxKeyPress);
@@ -1880,5 +1938,9 @@
         private System.Windows.Forms.CheckBox ChkBoxSwitchToProfileRelease;
         private System.Windows.Forms.ComboBox CboBoxProfilePress;
         private System.Windows.Forms.ComboBox CboBoxProfileRelease;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHotkeyPress;
+        private System.Windows.Forms.CheckBox ChkBoxHotkeyPress;
+        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHotkeyRelease;
+        private System.Windows.Forms.CheckBox ChkBoxHotkeyRelease;
     }
 }

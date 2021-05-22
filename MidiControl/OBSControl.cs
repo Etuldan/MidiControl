@@ -20,6 +20,7 @@ namespace MidiControl
         private readonly MIDIControlGUI gui;
         private static OBSControl _instance;
         private readonly Dictionary<string, float[]> FiltersMinMaxValues = new Dictionary<string, float[]>();
+        public readonly Dictionary<string, string> Hotkeys = new Dictionary<string, string>();
         public readonly OptionsManagment options;
         private Timer timer;
         private readonly Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
@@ -57,6 +58,26 @@ namespace MidiControl
                     {
                         string[] fields = csvParser.ReadFields();
                         FiltersMinMaxValues.Add(fields[0], new float[] { float.Parse(fields[1]), float.Parse(fields[2]) });
+                    }
+                }
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+            }
+
+            string pathHotkeys = Path.Combine(ConfFolder, Path.GetFileName("hotkeys.csv"));
+            try
+            {
+                using (TextFieldParser csvParser = new TextFieldParser(pathHotkeys))
+                {
+                    csvParser.CommentTokens = new string[] { "#" };
+                    csvParser.SetDelimiters(new string[] { "," });
+                    csvParser.HasFieldsEnclosedInQuotes = true;
+
+                    while (!csvParser.EndOfData)
+                    {
+                        string[] fields = csvParser.ReadFields();
+                        Hotkeys.Add(fields[0], fields[1]);
                     }
                 }
             }
@@ -239,6 +260,15 @@ namespace MidiControl
                     case "transition":
                         obs.SetCurrentTransition(args[0]);
                         obs.SetTransitionDuration(Int32.Parse(args[1]));
+                        break;
+                    case "hotkey":
+                        foreach (string arg in args)
+                        {
+                            if (Hotkeys.TryGetValue(arg, out string value) == true)
+                            {
+                                obs.TriggerHotkeyByName(value);
+                            }
+                        }
                         break;
                     case "misc":
                         foreach (string arg in args)

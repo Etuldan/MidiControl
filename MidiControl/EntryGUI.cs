@@ -355,6 +355,20 @@ namespace MidiControl
                                 }
                             }
                             break;
+                        case "hotkey":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxHotkeyPress.Checked = true;
+                                ChkCboBoxHotkeyPress.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxHotkeyPress.SetItemChecked(ChkCboBoxHotkeyPress.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
                         case "misc":
                             foreach (string arg in on.Args)
                             {
@@ -571,6 +585,20 @@ namespace MidiControl
                                 }
                             }
                             break;
+                        case "hotkey":
+                            foreach (string arg in on.Args)
+                            {
+                                ChkBoxHotkeyRelease.Checked = true;
+                                ChkCboBoxHotkeyRelease.Enabled = true;
+                                try
+                                {
+                                    ChkCboBoxHotkeyRelease.SetItemChecked(ChkCboBoxHotkeyRelease.Items.IndexOf(arg), true);
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                }
+                            }
+                            break;
                         case "misc":
                             foreach (string arg in on.Args)
                             {
@@ -671,6 +699,9 @@ namespace MidiControl
             CheckToCombo.Add("ChkBoxHideFilterRelease", new string[] { "ChkCboBoxHideFilterRelease" });
             CheckToCombo.Add("ChkBoxToggleFilterPress", new string[] { "ChkCboBoxToggleFilterPress" });
             CheckToCombo.Add("ChkBoxToggleFilterRelease", new string[] { "ChkCboBoxToggleFilterRelease" });
+
+            CheckToCombo.Add("ChkBoxHotkeyPress", new string[] { "ChkCboBoxHotkeyPress" });
+            CheckToCombo.Add("ChkBoxHotkeyRelease", new string[] { "ChkCboBoxHotkeyRelease" });
             CheckToCombo.Add("ChkBoxMiscPress", new string[] { "ChkCboBoxMiscPress" });
             CheckToCombo.Add("ChkBoxMiscRelease", new string[] { "ChkCboBoxMiscRelease" });
 
@@ -694,6 +725,14 @@ namespace MidiControl
             CboBoxProfileRelease.Items.Clear();
             CboBoxProfilePress.Items.AddRange(conf.GetAllProfiles());
             CboBoxProfileRelease.Items.AddRange(conf.GetAllProfiles());
+
+            ChkCboBoxHotkeyPress.Items.Clear();
+            ChkCboBoxHotkeyRelease.Items.Clear();
+            foreach (KeyValuePair<string,string> hotkey in obs.Hotkeys)
+            {
+                ChkCboBoxHotkeyPress.Items.Add(hotkey.Key);
+                ChkCboBoxHotkeyRelease.Items.Add(hotkey.Key);
+            }
 
             List<string> scenes = obs.GetScenes();
             CboBoxSwitchScenePress.Items.Clear();
@@ -1014,6 +1053,20 @@ namespace MidiControl
                 }
                 key.OBSCallBacksON.Add(callback);
             }
+            if (ChkBoxHotkeyPress.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hotkey"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxHotkeyPress.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
             if (ChkBoxMiscPress.Checked)
             {
                 OBSCallBack callback = new OBSCallBack
@@ -1232,6 +1285,20 @@ namespace MidiControl
                     callback.Args.Add(item.ToString());
                 }
                 key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxHotkeyRelease.Checked)
+            {
+                OBSCallBack callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hotkey"
+                };
+                CheckedListBox.CheckedItemCollection items = ChkCboBoxHotkeyRelease.CheckedItems;
+                foreach (object item in items)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
             }
             if (ChkBoxMiscRelease.Checked)
             {

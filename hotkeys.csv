@@ -1,0 +1,45 @@
+Main Switch,A_SWITCH_0_main
+Lower Third Switch #1,A_SWITCH_1
+Lower Third Switch #2,A_SWITCH_2
+Lower Third Switch #3,A_SWITCH_3
+Lower Third Switch #4,A_SWITCH_4
+Load Slot #1 on LT#1,LT1_SLT01
+Load Slot #2 on LT#1,LT1_SLT02
+Load Slot #3 on LT#1,LT1_SLT03
+Load Slot #4 on LT#1,LT1_SLT04
+Load Slot #5 on LT#1,LT1_SLT05
+Load Slot #6 on LT#1,LT1_SLT06
+Load Slot #7 on LT#1,LT1_SLT07
+Load Slot #8 on LT#1,LT1_SLT08
+Load Slot #9 on LT#1,LT1_SLT09
+Load Slot #10 on LT#1,LT1_SLT10 
+Load Slot #1 on LT#2,LT2_SLT01
+Load Slot #2 on LT#2,LT2_SLT02
+Load Slot #3 on LT#2,LT2_SLT03
+Load Slot #4 on LT#2,LT2_SLT04
+Load Slot #5 on LT#2,LT2_SLT05
+Load Slot #6 on LT#2,LT2_SLT06
+Load Slot #7 on LT#2,LT2_SLT07
+Load Slot #8 on LT#2,LT2_SLT08
+Load Slot #9 on LT#2,LT2_SLT09
+Load Slot #10 on LT#2,LT2_SLT10 
+Load Slot #1 on LT#3,LT3_SLT01
+Load Slot #2 on LT#3,LT3_SLT02
+Load Slot #3 on LT#3,LT3_SLT03
+Load Slot #4 on LT#3,LT3_SLT04
+Load Slot #5 on LT#3,LT3_SLT05
+Load Slot #6 on LT#3,LT3_SLT06
+Load Slot #7 on LT#3,LT3_SLT07
+Load Slot #8 on LT#3,LT3_SLT08
+Load Slot #9 on LT#3,LT3_SLT09
+Load Slot #10 on LT#3,LT3_SLT10 
+Load Slot #1 on LT#4,LT4_SLT01
+Load Slot #2 on LT#4,LT4_SLT02
+Load Slot #3 on LT#4,LT4_SLT03
+Load Slot #4 on LT#4,LT4_SLT04
+Load Slot #5 on LT#4,LT4_SLT05
+Load Slot #6 on LT#4,LT4_SLT06
+Load Slot #7 on LT#4,LT4_SLT07
+Load Slot #8 on LT#4,LT4_SLT08
+Load Slot #9 on LT#4,LT4_SLT09
+Load Slot #10 on LT#4,LT4_SLT10 
