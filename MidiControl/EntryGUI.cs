@@ -678,10 +678,10 @@ namespace MidiControl
             CheckToCombo.Add("ChkBoxAdjustFilter", new string[] { "CboBoxFilterNameSlider", "CboBoxFilterSettingSlider"});
 
             CheckToCombo.Add("ChkBoxMediaPlayPress", new string[] { "ChkCboBoxMediaPlayPress" });
-            CheckToCombo.Add("ChkBoxMediaStopPress", new string[] { "ChkCboBoxMediaStopPress" });
-            CheckToCombo.Add("ChkBoxMediaRestartPress", new string[] { "ChkCboBoxMediaRestartPress" });
             CheckToCombo.Add("ChkBoxMediaPlayRelease", new string[] { "ChkCboBoxMediaPlayRelease" });
+            CheckToCombo.Add("ChkBoxMediaStopPress", new string[] { "ChkCboBoxMediaStopPress" });
             CheckToCombo.Add("ChkBoxMediaStopRelease", new string[] { "ChkCboBoxMediaStopRelease" });
+            CheckToCombo.Add("ChkBoxMediaRestartPress", new string[] { "ChkCboBoxMediaRestartPress" });
             CheckToCombo.Add("ChkBoxMediaRestartRelease", new string[] { "ChkCboBoxMediaRestartRelease" });
 
 
