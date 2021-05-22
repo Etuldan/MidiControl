@@ -41,7 +41,7 @@ Root: HKCU; Subkey: "Software\Tobias Erichsen\loopMIDI\Ports"; ValueType: dword;
 Root: HKCU; Subkey: "Software\Tobias Erichsen\loopMIDI\Ports"; ValueType: dword; ValueName: "MIDIControl Forward OUT"; ValueData: 1; Tasks: loopMIDI; Flags: uninsdeletevalue
 
 [Tasks]
-Name: RunStartup; Description: AutoStart : Run MIDIControl at Windows startup (your MIDI devices should be connected before);
+Name: RunStartup; Description: AutoStart : Run MIDIControl at Windows startup;
 Name: loopMIDI; Description: Enable MIDI Forward : Visit loopMIDI WebPage (manual installation required) and Configure loopMIDI;
 
 [Run]
