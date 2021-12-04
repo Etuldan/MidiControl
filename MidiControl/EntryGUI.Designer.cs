@@ -76,15 +76,6 @@
             this.CboBoxSwitchScenePress = new System.Windows.Forms.ComboBox();
             this.ChkBoxSwitchScenePress = new System.Windows.Forms.CheckBox();
             this.TabSoundPress = new System.Windows.Forms.TabPage();
-            this.LblVolume = new System.Windows.Forms.Label();
-            this.volumeSlider = new NAudio.Gui.VolumeSlider();
-            this.chkBoxLoop = new System.Windows.Forms.CheckBox();
-            this.LblAudioFile = new System.Windows.Forms.Label();
-            this.LblAudioDevice = new System.Windows.Forms.Label();
-            this.ChkBoxEnableAudio = new System.Windows.Forms.CheckBox();
-            this.CboBoxAudioDevice = new System.Windows.Forms.ComboBox();
-            this.BtnAudioSelect = new System.Windows.Forms.Button();
-            this.TxtBoxAudioFile = new System.Windows.Forms.TextBox();
             this.TabMediaKeyPress = new System.Windows.Forms.TabPage();
             this.ChkBoxMediaKeyPreviousPress = new System.Windows.Forms.CheckBox();
             this.ChkBoxMediaKeyNextPress = new System.Windows.Forms.CheckBox();
@@ -98,6 +89,22 @@
             this.CboBoxProfilePress = new System.Windows.Forms.ComboBox();
             this.ChkBoxSwitchToProfilePress = new System.Windows.Forms.CheckBox();
             this.ChkBoxStopAllSoundPress = new System.Windows.Forms.CheckBox();
+            this.TabGoXLRControlPress = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.RadioButtonUnMuteXLRPress = new System.Windows.Forms.RadioButton();
+            this.RadioButtonMuteXLRPress = new System.Windows.Forms.RadioButton();
+            this.RadioButtonToggleXLRPress = new System.Windows.Forms.RadioButton();
+            this.RadioButtonDisabledXLRPress = new System.Windows.Forms.RadioButton();
+            this.CboBoxXLROutputPress = new System.Windows.Forms.ComboBox();
+            this.CboBoxXLRInputPress = new System.Windows.Forms.ComboBox();
+            this.LblVolume = new System.Windows.Forms.Label();
+            this.chkBoxLoop = new System.Windows.Forms.CheckBox();
+            this.LblAudioFile = new System.Windows.Forms.Label();
+            this.LblAudioDevice = new System.Windows.Forms.Label();
+            this.ChkBoxEnableAudio = new System.Windows.Forms.CheckBox();
+            this.CboBoxAudioDevice = new System.Windows.Forms.ComboBox();
+            this.BtnAudioSelect = new System.Windows.Forms.Button();
+            this.TxtBoxAudioFile = new System.Windows.Forms.TextBox();
             this.GrpBoxKeyRelease = new System.Windows.Forms.GroupBox();
             this.TabKeyRelease = new System.Windows.Forms.TabControl();
             this.TabOBSRelease = new System.Windows.Forms.TabPage();
@@ -151,6 +158,9 @@
             this.CboBoxProfileRelease = new System.Windows.Forms.ComboBox();
             this.ChkBoxSwitchToProfileRelease = new System.Windows.Forms.CheckBox();
             this.ChkBoxStopAllSoundRelease = new System.Windows.Forms.CheckBox();
+            this.TabGoXLRControlRelease = new System.Windows.Forms.TabPage();
+            this.CboBoxXLROutputRelease = new System.Windows.Forms.ComboBox();
+            this.CboBoxXLRInputRelease = new System.Windows.Forms.ComboBox();
             this.GrpBoxKeySlider = new System.Windows.Forms.GroupBox();
             this.TabKeySlider = new System.Windows.Forms.TabControl();
             this.TabOBSSlider = new System.Windows.Forms.TabPage();
@@ -161,14 +171,20 @@
             this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
             this.ChkBoxAdjustVolume = new System.Windows.Forms.CheckBox();
             this.ChkCboBoxVolumeSlider = new CheckComboBoxTest.CheckedComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.RadioButtonUnMuteXLRRelease = new System.Windows.Forms.RadioButton();
+            this.RadioButtonMuteXLRRelease = new System.Windows.Forms.RadioButton();
+            this.RadioButtonToggleXLRRelease = new System.Windows.Forms.RadioButton();
+            this.RadioButtonDisabledXLRRelease = new System.Windows.Forms.RadioButton();
             this.GrpBoxKeyPress.SuspendLayout();
             this.TabKeyPress.SuspendLayout();
             this.TabOBSPress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).BeginInit();
-            this.TabSoundPress.SuspendLayout();
             this.TabMediaKeyPress.SuspendLayout();
             this.TabTwitchPress.SuspendLayout();
             this.TabMIDIControlPress.SuspendLayout();
+            this.TabGoXLRControlPress.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.GrpBoxKeyRelease.SuspendLayout();
             this.TabKeyRelease.SuspendLayout();
             this.TabOBSRelease.SuspendLayout();
@@ -177,9 +193,11 @@
             this.TabMediaKeyRelease.SuspendLayout();
             this.TabTwitchRelease.SuspendLayout();
             this.TabMIDIControlRelease.SuspendLayout();
+            this.TabGoXLRControlRelease.SuspendLayout();
             this.GrpBoxKeySlider.SuspendLayout();
             this.TabKeySlider.SuspendLayout();
             this.TabOBSSlider.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblName
@@ -276,6 +294,7 @@
             this.TabKeyPress.Controls.Add(this.TabMediaKeyPress);
             this.TabKeyPress.Controls.Add(this.TabTwitchPress);
             this.TabKeyPress.Controls.Add(this.TabMIDIControlPress);
+            this.TabKeyPress.Controls.Add(this.TabGoXLRControlPress);
             this.TabKeyPress.Location = new System.Drawing.Point(6, 20);
             this.TabKeyPress.Name = "TabKeyPress";
             this.TabKeyPress.SelectedIndex = 0;
@@ -754,15 +773,6 @@
             // 
             // TabSoundPress
             // 
-            this.TabSoundPress.Controls.Add(this.LblVolume);
-            this.TabSoundPress.Controls.Add(this.volumeSlider);
-            this.TabSoundPress.Controls.Add(this.chkBoxLoop);
-            this.TabSoundPress.Controls.Add(this.LblAudioFile);
-            this.TabSoundPress.Controls.Add(this.LblAudioDevice);
-            this.TabSoundPress.Controls.Add(this.ChkBoxEnableAudio);
-            this.TabSoundPress.Controls.Add(this.CboBoxAudioDevice);
-            this.TabSoundPress.Controls.Add(this.BtnAudioSelect);
-            this.TabSoundPress.Controls.Add(this.TxtBoxAudioFile);
             this.TabSoundPress.Location = new System.Drawing.Point(4, 22);
             this.TabSoundPress.Name = "TabSoundPress";
             this.TabSoundPress.Padding = new System.Windows.Forms.Padding(3);
@@ -770,89 +780,6 @@
             this.TabSoundPress.TabIndex = 1;
             this.TabSoundPress.Text = "SoundBoard";
             this.TabSoundPress.UseVisualStyleBackColor = true;
-            // 
-            // LblVolume
-            // 
-            this.LblVolume.AutoSize = true;
-            this.LblVolume.Location = new System.Drawing.Point(99, 54);
-            this.LblVolume.Name = "LblVolume";
-            this.LblVolume.Size = new System.Drawing.Size(42, 13);
-            this.LblVolume.TabIndex = 8;
-            this.LblVolume.Text = "Volume";
-            // 
-            // volumeSlider
-            // 
-            this.volumeSlider.Location = new System.Drawing.Point(147, 51);
-            this.volumeSlider.Name = "volumeSlider";
-            this.volumeSlider.Size = new System.Drawing.Size(96, 19);
-            this.volumeSlider.TabIndex = 7;
-            // 
-            // chkBoxLoop
-            // 
-            this.chkBoxLoop.AutoSize = true;
-            this.chkBoxLoop.Location = new System.Drawing.Point(6, 53);
-            this.chkBoxLoop.Name = "chkBoxLoop";
-            this.chkBoxLoop.Size = new System.Drawing.Size(50, 17);
-            this.chkBoxLoop.TabIndex = 6;
-            this.chkBoxLoop.Text = "Loop";
-            this.chkBoxLoop.UseVisualStyleBackColor = true;
-            // 
-            // LblAudioFile
-            // 
-            this.LblAudioFile.AutoSize = true;
-            this.LblAudioFile.Location = new System.Drawing.Point(3, 28);
-            this.LblAudioFile.Name = "LblAudioFile";
-            this.LblAudioFile.Size = new System.Drawing.Size(23, 13);
-            this.LblAudioFile.TabIndex = 5;
-            this.LblAudioFile.Text = "File";
-            // 
-            // LblAudioDevice
-            // 
-            this.LblAudioDevice.AutoSize = true;
-            this.LblAudioDevice.Location = new System.Drawing.Point(282, 54);
-            this.LblAudioDevice.Name = "LblAudioDevice";
-            this.LblAudioDevice.Size = new System.Drawing.Size(71, 13);
-            this.LblAudioDevice.TabIndex = 4;
-            this.LblAudioDevice.Text = "Audio Device";
-            // 
-            // ChkBoxEnableAudio
-            // 
-            this.ChkBoxEnableAudio.AutoSize = true;
-            this.ChkBoxEnableAudio.Location = new System.Drawing.Point(6, 6);
-            this.ChkBoxEnableAudio.Name = "ChkBoxEnableAudio";
-            this.ChkBoxEnableAudio.Size = new System.Drawing.Size(59, 17);
-            this.ChkBoxEnableAudio.TabIndex = 3;
-            this.ChkBoxEnableAudio.Text = "Enable";
-            this.ChkBoxEnableAudio.UseVisualStyleBackColor = true;
-            this.ChkBoxEnableAudio.CheckedChanged += new System.EventHandler(this.ChkBox_State);
-            // 
-            // CboBoxAudioDevice
-            // 
-            this.CboBoxAudioDevice.Enabled = false;
-            this.CboBoxAudioDevice.FormattingEnabled = true;
-            this.CboBoxAudioDevice.Location = new System.Drawing.Point(366, 51);
-            this.CboBoxAudioDevice.Name = "CboBoxAudioDevice";
-            this.CboBoxAudioDevice.Size = new System.Drawing.Size(188, 21);
-            this.CboBoxAudioDevice.TabIndex = 2;
-            // 
-            // BtnAudioSelect
-            // 
-            this.BtnAudioSelect.Enabled = false;
-            this.BtnAudioSelect.Location = new System.Drawing.Point(479, 23);
-            this.BtnAudioSelect.Name = "BtnAudioSelect";
-            this.BtnAudioSelect.Size = new System.Drawing.Size(75, 23);
-            this.BtnAudioSelect.TabIndex = 1;
-            this.BtnAudioSelect.Text = "Browse ...";
-            this.BtnAudioSelect.UseVisualStyleBackColor = true;
-            this.BtnAudioSelect.Click += new System.EventHandler(this.BtnAudioSelect_Click);
-            // 
-            // TxtBoxAudioFile
-            // 
-            this.TxtBoxAudioFile.Enabled = false;
-            this.TxtBoxAudioFile.Location = new System.Drawing.Point(35, 25);
-            this.TxtBoxAudioFile.Name = "TxtBoxAudioFile";
-            this.TxtBoxAudioFile.Size = new System.Drawing.Size(438, 20);
-            this.TxtBoxAudioFile.TabIndex = 0;
             // 
             // TabMediaKeyPress
             // 
@@ -987,6 +914,164 @@
             this.ChkBoxStopAllSoundPress.Text = "Stop All Sounds";
             this.ChkBoxStopAllSoundPress.UseVisualStyleBackColor = true;
             // 
+            // TabGoXLRControlPress
+            // 
+            this.TabGoXLRControlPress.Controls.Add(this.panel1);
+            this.TabGoXLRControlPress.Controls.Add(this.CboBoxXLROutputPress);
+            this.TabGoXLRControlPress.Controls.Add(this.CboBoxXLRInputPress);
+            this.TabGoXLRControlPress.Location = new System.Drawing.Point(4, 22);
+            this.TabGoXLRControlPress.Name = "TabGoXLRControlPress";
+            this.TabGoXLRControlPress.Padding = new System.Windows.Forms.Padding(3);
+            this.TabGoXLRControlPress.Size = new System.Drawing.Size(560, 219);
+            this.TabGoXLRControlPress.TabIndex = 5;
+            this.TabGoXLRControlPress.Text = "Go XLR";
+            this.TabGoXLRControlPress.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.RadioButtonUnMuteXLRPress);
+            this.panel1.Controls.Add(this.RadioButtonMuteXLRPress);
+            this.panel1.Controls.Add(this.RadioButtonToggleXLRPress);
+            this.panel1.Controls.Add(this.RadioButtonDisabledXLRPress);
+            this.panel1.Location = new System.Drawing.Point(7, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(71, 97);
+            this.panel1.TabIndex = 8;
+            // 
+            // RadioButtonUnMuteXLRPress
+            // 
+            this.RadioButtonUnMuteXLRPress.AutoSize = true;
+            this.RadioButtonUnMuteXLRPress.Location = new System.Drawing.Point(3, 72);
+            this.RadioButtonUnMuteXLRPress.Name = "RadioButtonUnMuteXLRPress";
+            this.RadioButtonUnMuteXLRPress.Size = new System.Drawing.Size(63, 17);
+            this.RadioButtonUnMuteXLRPress.TabIndex = 10;
+            this.RadioButtonUnMuteXLRPress.Text = "UnMute";
+            this.RadioButtonUnMuteXLRPress.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonMuteXLRPress
+            // 
+            this.RadioButtonMuteXLRPress.AutoSize = true;
+            this.RadioButtonMuteXLRPress.Location = new System.Drawing.Point(3, 49);
+            this.RadioButtonMuteXLRPress.Name = "RadioButtonMuteXLRPress";
+            this.RadioButtonMuteXLRPress.Size = new System.Drawing.Size(49, 17);
+            this.RadioButtonMuteXLRPress.TabIndex = 9;
+            this.RadioButtonMuteXLRPress.Text = "Mute";
+            this.RadioButtonMuteXLRPress.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonToggleXLRPress
+            // 
+            this.RadioButtonToggleXLRPress.AutoSize = true;
+            this.RadioButtonToggleXLRPress.Location = new System.Drawing.Point(3, 26);
+            this.RadioButtonToggleXLRPress.Name = "RadioButtonToggleXLRPress";
+            this.RadioButtonToggleXLRPress.Size = new System.Drawing.Size(58, 17);
+            this.RadioButtonToggleXLRPress.TabIndex = 8;
+            this.RadioButtonToggleXLRPress.Text = "Toggle";
+            this.RadioButtonToggleXLRPress.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonDisabledXLRPress
+            // 
+            this.RadioButtonDisabledXLRPress.AutoSize = true;
+            this.RadioButtonDisabledXLRPress.Checked = true;
+            this.RadioButtonDisabledXLRPress.Location = new System.Drawing.Point(3, 3);
+            this.RadioButtonDisabledXLRPress.Name = "RadioButtonDisabledXLRPress";
+            this.RadioButtonDisabledXLRPress.Size = new System.Drawing.Size(66, 17);
+            this.RadioButtonDisabledXLRPress.TabIndex = 7;
+            this.RadioButtonDisabledXLRPress.TabStop = true;
+            this.RadioButtonDisabledXLRPress.Text = "Disabled";
+            this.RadioButtonDisabledXLRPress.UseVisualStyleBackColor = true;
+            // 
+            // CboBoxXLROutputPress
+            // 
+            this.CboBoxXLROutputPress.FormattingEnabled = true;
+            this.CboBoxXLROutputPress.Location = new System.Drawing.Point(124, 51);
+            this.CboBoxXLROutputPress.Name = "CboBoxXLROutputPress";
+            this.CboBoxXLROutputPress.Size = new System.Drawing.Size(121, 21);
+            this.CboBoxXLROutputPress.TabIndex = 2;
+            // 
+            // CboBoxXLRInputPress
+            // 
+            this.CboBoxXLRInputPress.FormattingEnabled = true;
+            this.CboBoxXLRInputPress.Location = new System.Drawing.Point(124, 19);
+            this.CboBoxXLRInputPress.Name = "CboBoxXLRInputPress";
+            this.CboBoxXLRInputPress.Size = new System.Drawing.Size(121, 21);
+            this.CboBoxXLRInputPress.TabIndex = 1;
+            // 
+            // LblVolume
+            // 
+            this.LblVolume.AutoSize = true;
+            this.LblVolume.Location = new System.Drawing.Point(99, 54);
+            this.LblVolume.Name = "LblVolume";
+            this.LblVolume.Size = new System.Drawing.Size(42, 13);
+            this.LblVolume.TabIndex = 8;
+            this.LblVolume.Text = "Volume";
+            // 
+            // chkBoxLoop
+            // 
+            this.chkBoxLoop.AutoSize = true;
+            this.chkBoxLoop.Location = new System.Drawing.Point(6, 53);
+            this.chkBoxLoop.Name = "chkBoxLoop";
+            this.chkBoxLoop.Size = new System.Drawing.Size(50, 17);
+            this.chkBoxLoop.TabIndex = 6;
+            this.chkBoxLoop.Text = "Loop";
+            this.chkBoxLoop.UseVisualStyleBackColor = true;
+            // 
+            // LblAudioFile
+            // 
+            this.LblAudioFile.AutoSize = true;
+            this.LblAudioFile.Location = new System.Drawing.Point(3, 28);
+            this.LblAudioFile.Name = "LblAudioFile";
+            this.LblAudioFile.Size = new System.Drawing.Size(23, 13);
+            this.LblAudioFile.TabIndex = 5;
+            this.LblAudioFile.Text = "File";
+            // 
+            // LblAudioDevice
+            // 
+            this.LblAudioDevice.AutoSize = true;
+            this.LblAudioDevice.Location = new System.Drawing.Point(282, 54);
+            this.LblAudioDevice.Name = "LblAudioDevice";
+            this.LblAudioDevice.Size = new System.Drawing.Size(71, 13);
+            this.LblAudioDevice.TabIndex = 4;
+            this.LblAudioDevice.Text = "Audio Device";
+            // 
+            // ChkBoxEnableAudio
+            // 
+            this.ChkBoxEnableAudio.AutoSize = true;
+            this.ChkBoxEnableAudio.Location = new System.Drawing.Point(6, 6);
+            this.ChkBoxEnableAudio.Name = "ChkBoxEnableAudio";
+            this.ChkBoxEnableAudio.Size = new System.Drawing.Size(59, 17);
+            this.ChkBoxEnableAudio.TabIndex = 3;
+            this.ChkBoxEnableAudio.Text = "Enable";
+            this.ChkBoxEnableAudio.UseVisualStyleBackColor = true;
+            this.ChkBoxEnableAudio.CheckedChanged += new System.EventHandler(this.ChkBox_State);
+            // 
+            // CboBoxAudioDevice
+            // 
+            this.CboBoxAudioDevice.Enabled = false;
+            this.CboBoxAudioDevice.FormattingEnabled = true;
+            this.CboBoxAudioDevice.Location = new System.Drawing.Point(366, 51);
+            this.CboBoxAudioDevice.Name = "CboBoxAudioDevice";
+            this.CboBoxAudioDevice.Size = new System.Drawing.Size(188, 21);
+            this.CboBoxAudioDevice.TabIndex = 2;
+            // 
+            // BtnAudioSelect
+            // 
+            this.BtnAudioSelect.Enabled = false;
+            this.BtnAudioSelect.Location = new System.Drawing.Point(479, 23);
+            this.BtnAudioSelect.Name = "BtnAudioSelect";
+            this.BtnAudioSelect.Size = new System.Drawing.Size(75, 23);
+            this.BtnAudioSelect.TabIndex = 1;
+            this.BtnAudioSelect.Text = "Browse ...";
+            this.BtnAudioSelect.UseVisualStyleBackColor = true;
+            this.BtnAudioSelect.Click += new System.EventHandler(this.BtnAudioSelect_Click);
+            // 
+            // TxtBoxAudioFile
+            // 
+            this.TxtBoxAudioFile.Enabled = false;
+            this.TxtBoxAudioFile.Location = new System.Drawing.Point(35, 25);
+            this.TxtBoxAudioFile.Name = "TxtBoxAudioFile";
+            this.TxtBoxAudioFile.Size = new System.Drawing.Size(438, 20);
+            this.TxtBoxAudioFile.TabIndex = 0;
+            // 
             // GrpBoxKeyRelease
             // 
             this.GrpBoxKeyRelease.Controls.Add(this.TabKeyRelease);
@@ -1004,6 +1089,7 @@
             this.TabKeyRelease.Controls.Add(this.TabMediaKeyRelease);
             this.TabKeyRelease.Controls.Add(this.TabTwitchRelease);
             this.TabKeyRelease.Controls.Add(this.TabMIDIControlRelease);
+            this.TabKeyRelease.Controls.Add(this.TabGoXLRControlRelease);
             this.TabKeyRelease.Location = new System.Drawing.Point(7, 20);
             this.TabKeyRelease.Name = "TabKeyRelease";
             this.TabKeyRelease.SelectedIndex = 0;
@@ -1635,6 +1721,35 @@
             this.ChkBoxStopAllSoundRelease.Text = "Stop All Sounds";
             this.ChkBoxStopAllSoundRelease.UseVisualStyleBackColor = true;
             // 
+            // TabGoXLRControlRelease
+            // 
+            this.TabGoXLRControlRelease.Controls.Add(this.panel2);
+            this.TabGoXLRControlRelease.Controls.Add(this.CboBoxXLROutputRelease);
+            this.TabGoXLRControlRelease.Controls.Add(this.CboBoxXLRInputRelease);
+            this.TabGoXLRControlRelease.Location = new System.Drawing.Point(4, 22);
+            this.TabGoXLRControlRelease.Name = "TabGoXLRControlRelease";
+            this.TabGoXLRControlRelease.Padding = new System.Windows.Forms.Padding(3);
+            this.TabGoXLRControlRelease.Size = new System.Drawing.Size(560, 211);
+            this.TabGoXLRControlRelease.TabIndex = 6;
+            this.TabGoXLRControlRelease.Text = "Go XLR";
+            this.TabGoXLRControlRelease.UseVisualStyleBackColor = true;
+            // 
+            // CboBoxXLROutputRelease
+            // 
+            this.CboBoxXLROutputRelease.FormattingEnabled = true;
+            this.CboBoxXLROutputRelease.Location = new System.Drawing.Point(123, 54);
+            this.CboBoxXLROutputRelease.Name = "CboBoxXLROutputRelease";
+            this.CboBoxXLROutputRelease.Size = new System.Drawing.Size(121, 21);
+            this.CboBoxXLROutputRelease.TabIndex = 11;
+            // 
+            // CboBoxXLRInputRelease
+            // 
+            this.CboBoxXLRInputRelease.FormattingEnabled = true;
+            this.CboBoxXLRInputRelease.Location = new System.Drawing.Point(123, 27);
+            this.CboBoxXLRInputRelease.Name = "CboBoxXLRInputRelease";
+            this.CboBoxXLRInputRelease.Size = new System.Drawing.Size(121, 21);
+            this.CboBoxXLRInputRelease.TabIndex = 10;
+            // 
             // GrpBoxKeySlider
             // 
             this.GrpBoxKeySlider.Controls.Add(this.TabKeySlider);
@@ -1748,6 +1863,59 @@
             this.ChkCboBoxVolumeSlider.TabIndex = 1;
             this.ChkCboBoxVolumeSlider.ValueSeparator = ", ";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.RadioButtonUnMuteXLRRelease);
+            this.panel2.Controls.Add(this.RadioButtonMuteXLRRelease);
+            this.panel2.Controls.Add(this.RadioButtonToggleXLRRelease);
+            this.panel2.Controls.Add(this.RadioButtonDisabledXLRRelease);
+            this.panel2.Location = new System.Drawing.Point(6, 6);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(71, 97);
+            this.panel2.TabIndex = 16;
+            // 
+            // RadioButtonUnMuteXLRRelease
+            // 
+            this.RadioButtonUnMuteXLRRelease.AutoSize = true;
+            this.RadioButtonUnMuteXLRRelease.Location = new System.Drawing.Point(3, 72);
+            this.RadioButtonUnMuteXLRRelease.Name = "RadioButtonUnMuteXLRRelease";
+            this.RadioButtonUnMuteXLRRelease.Size = new System.Drawing.Size(63, 17);
+            this.RadioButtonUnMuteXLRRelease.TabIndex = 10;
+            this.RadioButtonUnMuteXLRRelease.Text = "UnMute";
+            this.RadioButtonUnMuteXLRRelease.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonMuteXLRRelease
+            // 
+            this.RadioButtonMuteXLRRelease.AutoSize = true;
+            this.RadioButtonMuteXLRRelease.Location = new System.Drawing.Point(3, 49);
+            this.RadioButtonMuteXLRRelease.Name = "RadioButtonMuteXLRRelease";
+            this.RadioButtonMuteXLRRelease.Size = new System.Drawing.Size(49, 17);
+            this.RadioButtonMuteXLRRelease.TabIndex = 9;
+            this.RadioButtonMuteXLRRelease.Text = "Mute";
+            this.RadioButtonMuteXLRRelease.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonToggleXLRRelease
+            // 
+            this.RadioButtonToggleXLRRelease.AutoSize = true;
+            this.RadioButtonToggleXLRRelease.Location = new System.Drawing.Point(3, 26);
+            this.RadioButtonToggleXLRRelease.Name = "RadioButtonToggleXLRRelease";
+            this.RadioButtonToggleXLRRelease.Size = new System.Drawing.Size(58, 17);
+            this.RadioButtonToggleXLRRelease.TabIndex = 8;
+            this.RadioButtonToggleXLRRelease.Text = "Toggle";
+            this.RadioButtonToggleXLRRelease.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonDisabledXLRRelease
+            // 
+            this.RadioButtonDisabledXLRRelease.AutoSize = true;
+            this.RadioButtonDisabledXLRRelease.Checked = true;
+            this.RadioButtonDisabledXLRRelease.Location = new System.Drawing.Point(3, 3);
+            this.RadioButtonDisabledXLRRelease.Name = "RadioButtonDisabledXLRRelease";
+            this.RadioButtonDisabledXLRRelease.Size = new System.Drawing.Size(66, 17);
+            this.RadioButtonDisabledXLRRelease.TabIndex = 7;
+            this.RadioButtonDisabledXLRRelease.TabStop = true;
+            this.RadioButtonDisabledXLRRelease.Text = "Disabled";
+            this.RadioButtonDisabledXLRRelease.UseVisualStyleBackColor = true;
+            // 
             // EntryGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1777,14 +1945,15 @@
             this.TabOBSPress.ResumeLayout(false);
             this.TabOBSPress.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).EndInit();
-            this.TabSoundPress.ResumeLayout(false);
-            this.TabSoundPress.PerformLayout();
             this.TabMediaKeyPress.ResumeLayout(false);
             this.TabMediaKeyPress.PerformLayout();
             this.TabTwitchPress.ResumeLayout(false);
             this.TabTwitchPress.PerformLayout();
             this.TabMIDIControlPress.ResumeLayout(false);
             this.TabMIDIControlPress.PerformLayout();
+            this.TabGoXLRControlPress.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.GrpBoxKeyRelease.ResumeLayout(false);
             this.TabKeyRelease.ResumeLayout(false);
             this.TabOBSRelease.ResumeLayout(false);
@@ -1798,10 +1967,13 @@
             this.TabTwitchRelease.PerformLayout();
             this.TabMIDIControlRelease.ResumeLayout(false);
             this.TabMIDIControlRelease.PerformLayout();
+            this.TabGoXLRControlRelease.ResumeLayout(false);
             this.GrpBoxKeySlider.ResumeLayout(false);
             this.TabKeySlider.ResumeLayout(false);
             this.TabOBSSlider.ResumeLayout(false);
             this.TabOBSSlider.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1942,5 +2114,21 @@
         private System.Windows.Forms.CheckBox ChkBoxHotkeyPress;
         private CheckComboBoxTest.CheckedComboBox ChkCboBoxHotkeyRelease;
         private System.Windows.Forms.CheckBox ChkBoxHotkeyRelease;
+        private System.Windows.Forms.TabPage TabGoXLRControlPress;
+        private System.Windows.Forms.ComboBox CboBoxXLROutputPress;
+        private System.Windows.Forms.ComboBox CboBoxXLRInputPress;
+        private System.Windows.Forms.TabPage TabGoXLRControlRelease;
+        private System.Windows.Forms.ComboBox CboBoxXLROutputRelease;
+        private System.Windows.Forms.ComboBox CboBoxXLRInputRelease;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton RadioButtonDisabledXLRPress;
+        private System.Windows.Forms.RadioButton RadioButtonUnMuteXLRPress;
+        private System.Windows.Forms.RadioButton RadioButtonMuteXLRPress;
+        private System.Windows.Forms.RadioButton RadioButtonToggleXLRPress;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton RadioButtonUnMuteXLRRelease;
+        private System.Windows.Forms.RadioButton RadioButtonMuteXLRRelease;
+        private System.Windows.Forms.RadioButton RadioButtonToggleXLRRelease;
+        private System.Windows.Forms.RadioButton RadioButtonDisabledXLRRelease;
     }
 }

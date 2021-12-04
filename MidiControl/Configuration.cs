@@ -129,6 +129,8 @@ namespace MidiControl
         public TwitchCallBack TwitchCallBackOFF;
         public MIDIControlCallBack MIDIControlCallBackON;
         public MIDIControlCallBack MIDIControlCallBackOFF;
+        public GoXLRCallBack GoXLRCallBackON;
+        public GoXLRCallBack GoXLRCallBackOFF;
     }
 
     public enum MediaType
@@ -152,6 +154,13 @@ namespace MidiControl
     {
         public string Channel { get; set; }
         public string Messsage { get; set; }
+    }
+
+    public class GoXLRCallBack
+    {
+        public int Action { get; set; }
+        public string Input { get; set; }
+        public string Output { get; set; }
     }
 
     public class MIDIControlCallBack

@@ -1,4 +1,5 @@
-﻿using NAudio.Midi;
+﻿using MidiControl.Control;
+using NAudio.Midi;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
@@ -106,6 +107,49 @@ namespace MidiControl
                         break;
                     default:
                         break;
+                }
+            }
+
+            if (keybind.GoXLRCallBackON != null)
+            {
+                if (keybind.GoXLRCallBackON.Action == (int)GoXLRControl.Action.Toggle)
+                {
+                    RadioButtonToggleXLRPress.Checked = true;
+                    CboBoxXLRInputPress.SelectedItem = keybind.GoXLRCallBackON.Input;
+                    CboBoxXLROutputPress.SelectedItem = keybind.GoXLRCallBackON.Output;
+                }
+                if (keybind.GoXLRCallBackON.Action == (int)GoXLRControl.Action.Mute)
+                {
+                    RadioButtonMuteXLRPress.Checked = true;
+                    CboBoxXLRInputPress.SelectedItem = keybind.GoXLRCallBackON.Input;
+                    CboBoxXLROutputPress.SelectedItem = keybind.GoXLRCallBackON.Output;
+                }
+                if (keybind.GoXLRCallBackON.Action == (int)GoXLRControl.Action.UnMute)
+                {
+                    RadioButtonUnMuteXLRPress.Checked = true;
+                    CboBoxXLRInputPress.SelectedItem = keybind.GoXLRCallBackON.Input;
+                    CboBoxXLROutputPress.SelectedItem = keybind.GoXLRCallBackON.Output;
+                }
+            }
+            if (keybind.GoXLRCallBackOFF != null)
+            {
+                if (keybind.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.Toggle)
+                {
+                    RadioButtonToggleXLRRelease.Checked = true;
+                    CboBoxXLRInputRelease.SelectedItem = keybind.GoXLRCallBackOFF.Input;
+                    CboBoxXLROutputRelease.SelectedItem = keybind.GoXLRCallBackOFF.Output;
+                }
+                if (keybind.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.Mute)
+                {
+                    RadioButtonMuteXLRRelease.Checked = true;
+                    CboBoxXLRInputRelease.SelectedItem = keybind.GoXLRCallBackOFF.Input;
+                    CboBoxXLROutputRelease.SelectedItem = keybind.GoXLRCallBackOFF.Output;
+                }
+                if (keybind.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.UnMute)
+                {
+                    RadioButtonUnMuteXLRRelease.Checked = true;
+                    CboBoxXLRInputRelease.SelectedItem = keybind.GoXLRCallBackOFF.Input;
+                    CboBoxXLROutputRelease.SelectedItem = keybind.GoXLRCallBackOFF.Output;
                 }
             }
 
@@ -721,6 +765,23 @@ namespace MidiControl
             CheckToCombo.Add("ChkBoxSwitchToProfilePress", new string[] { "CboBoxProfilePress" });
             CheckToCombo.Add("ChkBoxSwitchToProfileRelease", new string[] { "CboBoxProfileRelease" });
 
+            CboBoxXLRInputPress.Items.Clear();
+            CboBoxXLRInputRelease.Items.Clear();
+
+            CboBoxXLROutputPress.Items.Clear();
+            CboBoxXLROutputRelease.Items.Clear();
+
+            foreach (string input in GoXLRControl.inputs)
+            {
+                CboBoxXLRInputPress.Items.Add(input);
+                CboBoxXLRInputRelease.Items.Add(input);
+            }
+            foreach (string output in GoXLRControl.outputs)
+            {
+                CboBoxXLROutputPress.Items.Add(output);
+                CboBoxXLROutputRelease.Items.Add(output);
+            }
+
             CboBoxProfilePress.Items.Clear();
             CboBoxProfileRelease.Items.Clear();
             CboBoxProfilePress.Items.AddRange(conf.GetAllProfiles());
@@ -1081,7 +1142,6 @@ namespace MidiControl
                 }
                 key.OBSCallBacksON.Add(callback);
             }
-
 
 
             if (ChkBoxTransitionRelease.Checked)
@@ -1448,9 +1508,63 @@ namespace MidiControl
                 };
             }
 
+            // Go XLR
+            if (RadioButtonToggleXLRPress.Checked)
+            {
+                key.GoXLRCallBackON = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Toggle,
+                    Input = CboBoxXLRInputPress.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputPress.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonMuteXLRPress.Checked)
+            {
+                key.GoXLRCallBackON = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Mute,
+                    Input = CboBoxXLRInputPress.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputPress.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonUnMuteXLRPress.Checked)
+            {
+                key.GoXLRCallBackON = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.UnMute,
+                    Input = CboBoxXLRInputPress.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputPress.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonToggleXLRRelease.Checked)
+            {
+                key.GoXLRCallBackOFF = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Toggle,
+                    Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputRelease.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonMuteXLRRelease.Checked)
+            {
+                key.GoXLRCallBackOFF = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Mute,
+                    Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputRelease.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonUnMuteXLRRelease.Checked)
+            {
+                key.GoXLRCallBackOFF = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.UnMute,
+                    Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputRelease.SelectedItem.ToString()
+                };
+            }
 
-
-            if(this.EntryName == null) // New
+            if (this.EntryName == null) // New
             {
                 conf.Config.Add(TxtBoxName.Text, key);
             }

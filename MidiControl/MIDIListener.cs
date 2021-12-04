@@ -1,4 +1,5 @@
-﻿using NAudio.Midi;
+﻿using MidiControl.Control;
+using NAudio.Midi;
 using System.Collections.Generic;
 #if DEBUG
 using System.Diagnostics;
@@ -19,6 +20,7 @@ namespace MidiControl
         private readonly Configuration conf;
         private readonly AudioControl audioControl;
         private readonly TwitchChatControl twitchControl;
+        private readonly GoXLRControl goXLRControl;
 
         private readonly OptionsManagment options = OptionsManagment.GetInstance();
 
@@ -26,6 +28,7 @@ namespace MidiControl
         {
             new OBSControl();
             audioControl = new AudioControl();
+            goXLRControl = new GoXLRControl();
             twitchControl = new TwitchChatControl(options.options, conf.Config);
 
             this.conf = conf;
@@ -236,6 +239,21 @@ namespace MidiControl
                             conf.LoadProfile(entry.Value.MIDIControlCallBackON.SwitchToProfile);
                         }
                     }
+                    if (entry.Value.GoXLRCallBackON != null)
+                    {
+                        if (entry.Value.GoXLRCallBackON.Action == (int)GoXLRControl.Action.Mute)
+                        {
+                            goXLRControl.Mute(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output);
+                        }
+                        if (entry.Value.GoXLRCallBackON.Action == (int)GoXLRControl.Action.UnMute)
+                        {
+                            goXLRControl.UnMute(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output);
+                        }
+                        if (entry.Value.GoXLRCallBackON.Action == (int)GoXLRControl.Action.Toggle)
+                        {
+                            goXLRControl.Toggle(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output);
+                        }
+                    }
                 }
                 else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))) && entry.Value.Input == Event.Note )
                 {
@@ -267,6 +285,21 @@ namespace MidiControl
                         if (entry.Value.MIDIControlCallBackOFF.SwitchToProfile != "")
                         {
                             conf.LoadProfile(entry.Value.MIDIControlCallBackOFF.SwitchToProfile);
+                        }
+                    }
+                    if (entry.Value.GoXLRCallBackOFF != null)
+                    {
+                        if (entry.Value.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.Mute)
+                        {
+                            goXLRControl.Mute(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output);
+                        }
+                        if (entry.Value.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.UnMute)
+                        {
+                            goXLRControl.UnMute(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output);
+                        }
+                        if (entry.Value.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.Toggle)
+                        {
+                            goXLRControl.Toggle(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output);
                         }
                     }
                 }
