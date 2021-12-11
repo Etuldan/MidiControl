@@ -136,7 +136,7 @@ namespace MidiControl
         public HttpListener listener;
         public readonly static string URL = "http://localhost:65432";
         public readonly static string ClientID = "gvhpl3qeui9p0n1eih18569fds7z5n";
-        private static readonly string ClientSecret = "8l6vjaj31w60hbsyqlul0l90wi34wt";
+        private static readonly string ClientSecret = "[REDACTED]";
         public string OAuthCode = "";
         public string RefreshToken = "";
         public string Login = "";
