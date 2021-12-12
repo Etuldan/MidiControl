@@ -27,7 +27,8 @@ Source: "{#Dir}MidiControl.exe"; DestDir: "{app}";
 Source: "{#Dir}*.dll"; DestDir: "{app}";
 Source: "{#Dir}runtimes\*"; DestDir: "{app}\runtimes";  Flags: recursesubdirs
 Source: "{#Dir}MidiControl.exe.config"; DestDir: "{app}";
-Source: "license.txt"; DestDir: "{app}";
+Source: "3rd-party-licenses.txt"; DestDir: "{app}";
+Source: "LICENSE"; DestDir: "{app}";
 Source: "MIDIControl.VisualElementsManifest.xml"; DestDir: "{app}";
 Source: "filterminmax.csv"; DestDir: "{userappdata}\{#AppName}";
 Source: "hotkeys.csv"; DestDir: "{userappdata}\{#AppName}";
