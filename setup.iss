@@ -11,7 +11,7 @@
 [Setup]
 AppName={#AppName}
 AppVersion={#AppVersion}
-WizardStyle=modern
+LicenseFile=LICENSE
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 UninstallDisplayIcon={app}\MidiControl.exe
