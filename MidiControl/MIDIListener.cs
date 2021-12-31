@@ -99,6 +99,16 @@ namespace MidiControl
                         Debug.WriteLine("MIDI OUT Feedback Device " + MidiOut.DeviceInfo(device).ProductName);
 #endif
                     }
+                    if (MidiOut.DeviceInfo(device).ProductName == "MIDIOUT2 (Launchkey Mini)")
+                    {
+                        Debug.WriteLine("Yo, found the midiout2, wake up incontrol");
+                        //MidiOut m = new MidiOut(midiOutInterface.ElementAt(device));
+                        MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
+                        MidiEvent me;
+                        me = new NoteOnEvent(0, 1, 12, 127, 0);
+                        m.Send(me.GetAsShortMessage());
+                    }
+                       
                 }
                 catch (NAudio.MmException)
                 {
@@ -154,6 +164,15 @@ namespace MidiControl
             }
             foreach (KeyValuePair<string, MidiOutCustom> entry in midiOutInterface)
             {
+                if (entry.Key == "MIDIOUT2 (Launchkey Mini)")
+                {
+                    Debug.WriteLine("Yo, found the midiout2, stop incontrol");
+                    //MidiOut m = new MidiOut(midiOutInterface.ElementAt(device));
+                    MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
+                    MidiEvent me;
+                    me = new NoteOnEvent(0, 1, 12, 0, 0);
+                    m.Send(me.GetAsShortMessage());
+                }
                 try
                 {
                     entry.Value.Dispose();
