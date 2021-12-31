@@ -101,7 +101,9 @@ namespace MidiControl
                     }
                     if (MidiOut.DeviceInfo(device).ProductName == "MIDIOUT2 (Launchkey Mini)")
                     {
+#if DEBUG
                         Debug.WriteLine("Yo, found the midiout2, wake up incontrol");
+#endif
                         //MidiOut m = new MidiOut(midiOutInterface.ElementAt(device));
                         MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
                         MidiEvent me;
@@ -166,7 +168,9 @@ namespace MidiControl
             {
                 if (entry.Key == "MIDIOUT2 (Launchkey Mini)")
                 {
+#if DEBUG
                     Debug.WriteLine("Yo, found the midiout2, stop incontrol");
+#endif
                     //MidiOut m = new MidiOut(midiOutInterface.ElementAt(device));
                     MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
                     MidiEvent me;
