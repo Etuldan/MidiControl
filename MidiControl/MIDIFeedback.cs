@@ -8,7 +8,7 @@ namespace MidiControl
 {
     public class MIDIFeedback
     {
-        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI", "Akai APC40", "Launchpad Mini", "Launchpad MK2", "Launchpad" };
+        public static readonly IEnumerable<string> FeedBackDevices = new List<string> { "APC MINI", "Akai APC40", "Launchpad Mini", "Launchpad MK2", "Launchpad", "MIDIOUT2 (Launchkey Mini)"};
 
         private enum Devices
         {
@@ -17,7 +17,8 @@ namespace MidiControl
             Launchpad_Mini,
             APC40,
             Launchpad_MK2,
-            Launchpad
+            Launchpad,
+            Launchkey_Mini
         }
 
         private readonly Devices deviceType = Devices.NONE;
@@ -30,6 +31,10 @@ namespace MidiControl
             note = keybind.NoteNumber;
             foreach (KeyValuePair<string, MidiOutCustom> entry in MIDIListener.GetInstance().midiOutInterface)
             {
+#if DEBUG
+                Debug.WriteLine("MIDIFeedback : Device "+ MidiOut.DeviceInfo(entry.Value.device).ProductName);
+                Debug.WriteLine("MIDIFeedback : Device " + keybind.Mididevice);
+#endif
                 if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "APC MINI" && keybind.Mididevice == "APC MINI")
                 {
                     MidiOutdeviceFeedback = entry.Value;
@@ -55,6 +60,11 @@ namespace MidiControl
                     MidiOutdeviceFeedback = entry.Value;
                     deviceType = Devices.Launchpad;
                 }
+                else if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "MIDIOUT2 (Launchkey Mini)" && keybind.Mididevice == "MIDIIN2 (Launchkey Mini)")
+                {
+                    MidiOutdeviceFeedback = entry.Value;
+                    deviceType = Devices.Launchkey_Mini;
+                }
             }
         }
         public void SendOn()
@@ -75,6 +85,9 @@ namespace MidiControl
                     break;
                 case Devices.Launchpad_MK2:
                     me = new NoteOnEvent(0, 1, note, 72, 0);
+                    break;
+                case Devices.Launchkey_Mini:
+                    me = new NoteOnEvent(0, 1, note, 127, 0);
                     break;
                 default:
                     return;
@@ -101,6 +114,9 @@ namespace MidiControl
                 case Devices.Launchpad_MK2:
                     me = new NoteOnEvent(0, 1, note, 0, 0);
                     break;
+                case Devices.Launchkey_Mini:
+                    me = new NoteOnEvent(0, 1, note, 0, 0);
+                    break;
                 default:
                     return;
             }
@@ -125,6 +141,10 @@ namespace MidiControl
                 case Devices.Launchpad_MK2:
                     this.SendOn();
                     me = new NoteOnEvent(0, 2, note, 0, 0);
+                    break;
+                case Devices.Launchkey_Mini:
+                    this.SendOn();
+                    me = new NoteOnEvent(0, 1, note, 127, 0);
                     break;
                 default:
                     return;
