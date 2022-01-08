@@ -266,15 +266,15 @@ namespace MidiControl
                     {
                         if (entry.Value.GoXLRCallBackON.Action == (int)GoXLRControl.Action.Mute)
                         {
-                            goXLRControl.Mute(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output);
+                            goXLRControl.Mute(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output, entry.Value);
                         }
                         if (entry.Value.GoXLRCallBackON.Action == (int)GoXLRControl.Action.UnMute)
                         {
-                            goXLRControl.UnMute(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output);
+                            goXLRControl.UnMute(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output, entry.Value);
                         }
                         if (entry.Value.GoXLRCallBackON.Action == (int)GoXLRControl.Action.Toggle)
                         {
-                            goXLRControl.Toggle(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output);
+                            goXLRControl.Toggle(entry.Value.GoXLRCallBackON.Input, entry.Value.GoXLRCallBackON.Output, entry.Value);
                         }
                     }
                 }
@@ -314,15 +314,15 @@ namespace MidiControl
                     {
                         if (entry.Value.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.Mute)
                         {
-                            goXLRControl.Mute(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output);
+                            goXLRControl.Mute(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output, entry.Value);
                         }
                         if (entry.Value.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.UnMute)
                         {
-                            goXLRControl.UnMute(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output);
+                            goXLRControl.UnMute(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output, entry.Value);
                         }
                         if (entry.Value.GoXLRCallBackOFF.Action == (int)GoXLRControl.Action.Toggle)
                         {
-                            goXLRControl.Toggle(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output);
+                            goXLRControl.Toggle(entry.Value.GoXLRCallBackOFF.Input, entry.Value.GoXLRCallBackOFF.Output, entry.Value);
                         }
                     }
                 }

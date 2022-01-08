@@ -24,6 +24,7 @@ namespace MidiControl
         private readonly Devices deviceType = Devices.NONE;
         private readonly int channel = 0;
         private readonly int note = 0;
+        public bool state = false;
         private readonly MidiOutCustom MidiOutdeviceFeedback;
         public MIDIFeedback(KeyBindEntry keybind)
         {
@@ -72,6 +73,7 @@ namespace MidiControl
 #if DEBUG
             Debug.WriteLine("MIDIFeedback : SendOn");
 #endif
+            state = true;
             MidiEvent me;
             switch (deviceType)
             {
@@ -100,6 +102,7 @@ namespace MidiControl
 #if DEBUG
             Debug.WriteLine("MIDIFeedback : SendOff");
 #endif
+            state = false;
             MidiEvent me;
             switch(deviceType)
             {
@@ -127,6 +130,7 @@ namespace MidiControl
 #if DEBUG
             Debug.WriteLine("MIDIFeedback : SendIn");
 #endif
+            state = true;
             MidiEvent me;
             switch (deviceType)
             {

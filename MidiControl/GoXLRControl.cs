@@ -11,6 +11,8 @@ namespace MidiControl.Control
         private IWebSocketConnection socket;
         public static List<string> inputs = new List<string>(new string[] { "Mic", "Chat", "Music", "Game", "Console", "Line In", "System", "Samples" });
         public static List<string> outputs = new List<string>(new string[] { "Headphones", "Broadcast Mix", "Line Out", "Chat Mic", "Sampler"});
+        private readonly Dictionary<string, MIDIFeedback> feedbackToggle = new Dictionary<string, MIDIFeedback>();
+
         public enum Action : int
         {
             Mute = 0,
@@ -68,17 +70,40 @@ namespace MidiControl.Control
             socket.Send(json);
         }
 
-        public void Mute(string input, string output)
+        public void Mute(string input, string output, KeyBindEntry keybind)
         {
             Send("Turn Off", input, output);
+            MIDIFeedback feedback = new MIDIFeedback(keybind);
+            feedback.SendOff();
         }
-        public void UnMute(string input, string output)
+        public void UnMute(string input, string output, KeyBindEntry keybind)
         {
             Send("Turn On", input, output);
+            MIDIFeedback feedback = new MIDIFeedback(keybind);
+            feedback.SendOn();
         }
-        public void Toggle(string input, string output)
+        public void Toggle(string input, string output, KeyBindEntry keybind)
         {
             Send("Toggle", input, output);
+            MIDIFeedback feedback = new MIDIFeedback(keybind);
+            if (!feedbackToggle.ContainsKey(input + "-" + output))
+            {
+                feedbackToggle.Add(input + "-" + output, feedback);
+            }
+            foreach (KeyValuePair<string, MIDIFeedback> entry in feedbackToggle)
+            {
+                if (entry.Key == input + "-" + output)
+                {
+                    if (entry.Value.state == true)
+                    {
+                        entry.Value.SendOff();
+                    }
+                    else
+                    {
+                        entry.Value.SendOn();
+                    }
+                }
+            };
         }
 
         public bool IsEnabled()
