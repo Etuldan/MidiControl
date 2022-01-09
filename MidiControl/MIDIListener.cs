@@ -104,7 +104,6 @@ namespace MidiControl
 #if DEBUG
                         Debug.WriteLine("Yo, found the midiout2, wake up incontrol");
 #endif
-                        //MidiOut m = new MidiOut(midiOutInterface.ElementAt(device));
                         MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
                         MidiEvent me;
                         me = new NoteOnEvent(0, 1, 12, 127, 0);
@@ -171,7 +170,6 @@ namespace MidiControl
 #if DEBUG
                     Debug.WriteLine("Yo, found the midiout2, stop incontrol");
 #endif
-                    //MidiOut m = new MidiOut(midiOutInterface.ElementAt(device));
                     MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
                     MidiEvent me;
                     me = new NoteOnEvent(0, 1, 12, 0, 0);
