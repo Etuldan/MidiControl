@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MidiControl
 {
@@ -102,9 +103,29 @@ namespace MidiControl
 
         public void SaveCurrentProfile()
         {
-            string json = JsonConvert.SerializeObject(Config);
-            File.WriteAllText(ConfFile, json);
+			try {
+				string json = JsonConvert.SerializeObject(Config);
+				File.WriteAllText(ConfFile, json);
+
+				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
+			} catch(Exception ex) {
+				MessageBox.Show("Error occurred while saving: " + ex.ToString());
+			}
         }
+
+		public void SaveCurrentProfileAs(string newname)
+		{
+			ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(newname, "_") + ".json"));
+			try {
+				string json = JsonConvert.SerializeObject(Config);
+				File.WriteAllText(ConfFile, json);
+
+				CurrentProfile = newname;
+				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
+			} catch(Exception ex) {
+				MessageBox.Show("Error occurred while saving: " + ex.ToString());
+			}
+		}
     }
 
     public enum Event
