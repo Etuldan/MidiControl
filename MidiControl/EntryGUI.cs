@@ -180,8 +180,8 @@ namespace MidiControl
                 {
                     ChkBoxStopAllSoundPress.Checked = true;
                 }
-                if(keybind.MIDIControlCallBackON.SwitchToProfile != "" &&
-					keybind.MIDIControlCallBackON.SwitchToProfile != null)
+                if(keybind.MIDIControlCallBackON.SwitchToProfile != null &&
+					keybind.MIDIControlCallBackON.SwitchToProfile != "")
                 {
                     ChkBoxSwitchToProfilePress.Checked = true;
                     CboBoxProfilePress.SelectedItem = keybind.MIDIControlCallBackON.SwitchToProfile;
@@ -193,8 +193,8 @@ namespace MidiControl
                 {
                     ChkBoxStopAllSoundRelease.Checked = true;
                 }
-                if (keybind.MIDIControlCallBackOFF.SwitchToProfile != "" &&
-					keybind.MIDIControlCallBackOFF.SwitchToProfile != null)
+                if (keybind.MIDIControlCallBackOFF.SwitchToProfile != null &&
+					keybind.MIDIControlCallBackOFF.SwitchToProfile != "")
                 {
                     ChkBoxSwitchToProfileRelease.Checked = true;
                     CboBoxProfileRelease.SelectedItem = keybind.MIDIControlCallBackOFF.SwitchToProfile;
