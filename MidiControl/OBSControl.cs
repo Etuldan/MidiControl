@@ -347,7 +347,11 @@ namespace MidiControl
                         break;
                 }
             }
-            catch (ErrorResponseException e)
+            catch (ErrorResponseException
+#if DEBUG
+e
+#endif
+            )
             {
 #if DEBUG
                 Debug.WriteLine("OBSControl : ErrorResponseException " + e);

@@ -65,9 +65,7 @@ namespace MidiControl
         private const int VK_MEDIA_PLAY_PAUSE = 0xB3;
         private const int VK_MEDIA_PREV_TRACK = 0xB1;
         [DllImport("user32.dll")]
-#pragma warning disable IDE1006 // Styles d'affectation de noms
         private static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
-#pragma warning restore IDE1006 // Styles d'affectation de noms
 
         private readonly Dictionary<KeyBindEntry, List<WaveOut>> WaveOuts = new Dictionary<KeyBindEntry, List<WaveOut>>();
 
@@ -105,8 +103,11 @@ namespace MidiControl
                     EnableLooping = Loop
                 };
 
-                WaveChannel32 channel = new WaveChannel32(loop) { PadWithZeroes = false };
-                channel.Volume = volume;
+                WaveChannel32 channel = new WaveChannel32(loop)
+                {
+                    PadWithZeroes = false,
+                    Volume = volume
+                };
 
                 WaveOut waveOut = new WaveOut();
 
@@ -141,13 +142,21 @@ namespace MidiControl
 #endif
 
             }
-            catch (COMException e)
+            catch (COMException
+#if DEBUG
+e
+#endif
+            )
             {
 #if DEBUG
                 Debug.WriteLine("AudioControl : COMException" + e);
 #endif
             }
-            catch (ArgumentException e)
+            catch (ArgumentException
+#if DEBUG
+e
+#endif
+            )
             {
 #if DEBUG
                 Debug.WriteLine("AudioControl : ArgumentException" + e);
