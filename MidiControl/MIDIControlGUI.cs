@@ -264,16 +264,7 @@ namespace MidiControl
         {
             if (e.KeyCode == Keys.Enter)
             {
-				bool createNew = false;
-				bool copyToNew = false;
-
-                if(! this.ComboBoxProfile.Items.Contains(this.ComboBoxProfile.Text))
-                {
-					//this.ComboBoxProfile.Items.Add(this.ComboBoxProfile.Text);
-					createNew = true;
-                }
-
-				if(createNew)
+				if(!this.ComboBoxProfile.Items.Contains(this.ComboBoxProfile.Text))
 					{
 					switch(MessageBox.Show("This profile doesn't exist (yet).  Do you want to copy your current settings for profile '" + conf.CurrentProfile + "' into new profile '" + this.ComboBoxProfile.Text + "?", "New profile", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
 					{
