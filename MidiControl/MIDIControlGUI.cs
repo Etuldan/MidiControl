@@ -264,12 +264,40 @@ namespace MidiControl
         {
             if (e.KeyCode == Keys.Enter)
             {
+				bool createNew = false;
+				bool copyToNew = false;
+
                 if(! this.ComboBoxProfile.Items.Contains(this.ComboBoxProfile.Text))
                 {
-                    this.ComboBoxProfile.Items.Add(this.ComboBoxProfile.Text);
+					//this.ComboBoxProfile.Items.Add(this.ComboBoxProfile.Text);
+					createNew = true;
                 }
-                this.ComboBoxProfile.SelectedItem = this.ComboBoxProfile.Text;
-                conf.LoadProfile(this.ComboBoxProfile.SelectedItem.ToString());
+
+				if(createNew)
+					{
+					switch(MessageBox.Show("This profile doesn't exist (yet).  Do you want to copy your current settings for profile '" + conf.CurrentProfile + "' into new profile '" + this.ComboBoxProfile.Text + "?", "New profile", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+					{
+						case DialogResult.Yes:
+							conf.CurrentProfile = this.ComboBoxProfile.Text;
+							this.ComboBoxProfile.Items.Add(this.ComboBoxProfile.Text);
+							conf.SaveCurrentProfileAs(this.ComboBoxProfile.Text);
+							this.ComboBoxProfile.SelectedItem = this.ComboBoxProfile.Text;
+							break;
+						case DialogResult.No:
+							// original behavior
+							this.ComboBoxProfile.Items.Add(this.ComboBoxProfile.Text);
+							this.ComboBoxProfile.SelectedItem = this.ComboBoxProfile.Text;
+							conf.LoadProfile(this.ComboBoxProfile.SelectedItem.ToString());
+							break;
+						case DialogResult.Cancel:
+							break;
+					}
+				}
+				else
+				{
+					this.ComboBoxProfile.SelectedItem = this.ComboBoxProfile.Text;
+					conf.LoadProfile(this.ComboBoxProfile.SelectedItem.ToString());
+				}
             }
         }
 
@@ -285,10 +313,13 @@ namespace MidiControl
                 return;
             }
 
-            string currProfile = this.ComboBoxProfile.SelectedItem.ToString();
-            this.ComboBoxProfile.Items.Clear();
-            this.ComboBoxProfile.Items.AddRange(conf.RemoveProfile(currProfile));
-            this.ComboBoxProfile.SelectedItem = "Default";
+			if(MessageBox.Show("You are about to delete the profile '" + conf.CurrentProfile + "'.  Are you sure you want to do this?", "Confirm profile delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+			{
+				string currProfile = this.ComboBoxProfile.SelectedItem.ToString();
+				this.ComboBoxProfile.Items.Clear();
+				this.ComboBoxProfile.Items.AddRange(conf.RemoveProfile(currProfile));
+				this.ComboBoxProfile.SelectedItem = "Default";
+			}
         }
     }
 }
