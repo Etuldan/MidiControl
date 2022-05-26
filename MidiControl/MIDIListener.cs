@@ -255,7 +255,8 @@ namespace MidiControl
                         {
                             audioControl.StopAll();
                         }
-                        if(entry.Value.MIDIControlCallBackON.SwitchToProfile != "")
+                        if(entry.Value.MIDIControlCallBackON.SwitchToProfile != "" &&
+							entry.Value.MIDIControlCallBackON.SwitchToProfile != null)
                         {
                             conf.LoadProfile(entry.Value.MIDIControlCallBackON.SwitchToProfile);
                         }
@@ -303,7 +304,8 @@ namespace MidiControl
                         {
                             audioControl.StopAll();
                         }
-                        if (entry.Value.MIDIControlCallBackOFF.SwitchToProfile != "")
+                        if (entry.Value.MIDIControlCallBackOFF.SwitchToProfile != "" &&
+							entry.Value.MIDIControlCallBackOFF.SwitchToProfile != null)
                         {
                             conf.LoadProfile(entry.Value.MIDIControlCallBackOFF.SwitchToProfile);
                         }
