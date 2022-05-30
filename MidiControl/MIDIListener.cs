@@ -239,6 +239,9 @@ namespace MidiControl
                     }
                     if(entry.Value.SoundCallBack != null)
                     {
+						if(entry.Value.SoundCallBack.StopAllOtherSounds)
+							audioControl.StopAll();
+
                         audioControl.PlaySound(entry.Value, entry.Value.SoundCallBack.File, entry.Value.SoundCallBack.Device, entry.Value.SoundCallBack.Loop, entry.Value.SoundCallBack.Volume);
                     }
                     if(entry.Value.MediaCallBack != null)

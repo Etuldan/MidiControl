@@ -197,17 +197,20 @@ namespace MidiControl
         public bool StopWhenReleased { get; }
         public bool Loop { get; }
         public float Volume { get; }
+		public bool StopAllOtherSounds { get; }
 
         public int Device { get; }
 
         [JsonConstructor]
-        public SoundCallBack(string File, string DeviceName, bool StopWhenReleased, bool Loop, float Volume)
+        public SoundCallBack(string File, string DeviceName, bool StopWhenReleased, bool Loop, float Volume, bool StopAllOtherSounds)
         {
             this.File = File;
             this.DeviceName = DeviceName;
             this.StopWhenReleased = StopWhenReleased;
             this.Loop = Loop;
             this.Volume = Volume;
+			this.StopAllOtherSounds = StopAllOtherSounds;
+
             for (int i = 0; i < WaveOut.DeviceCount; i++)
             {
                 WaveOutCapabilities WOC = WaveOut.GetCapabilities(i);

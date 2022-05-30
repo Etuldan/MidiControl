@@ -172,6 +172,7 @@ namespace MidiControl
                 ChkBoxAudioStop.Checked = keybind.SoundCallBack.StopWhenReleased;
                 chkBoxLoop.Checked = keybind.SoundCallBack.Loop;
                 volumeSlider.Volume = keybind.SoundCallBack.Volume == 0.0f ? 1.0f : keybind.SoundCallBack.Volume;
+				chkStopAllOthers.Checked = keybind.SoundCallBack.StopAllOtherSounds;
             }
 
             if (keybind.MIDIControlCallBackON != null)
@@ -1424,7 +1425,7 @@ namespace MidiControl
             // Sounboard
             if (ChkBoxEnableAudio.Checked)
             {
-                key.SoundCallBack = new SoundCallBack(TxtBoxAudioFile.Text, CboBoxAudioDevice.Text, ChkBoxAudioStop.Checked, chkBoxLoop.Checked, volumeSlider.Volume);
+                key.SoundCallBack = new SoundCallBack(TxtBoxAudioFile.Text, CboBoxAudioDevice.Text, ChkBoxAudioStop.Checked, chkBoxLoop.Checked, volumeSlider.Volume, chkStopAllOthers.Checked);
             }
             else
             {
@@ -1671,5 +1672,5 @@ namespace MidiControl
             }
             CboBoxFilterSettingSlider.SelectedIndex = 0;
         }
-    }
+	}
 }
