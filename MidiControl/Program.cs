@@ -26,7 +26,9 @@ namespace MidiControl
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 			//Application.Run(new MIDIControlGUI());
-			
+
+			var mainForm = new MIDIControlGUI2();
+			//
 			Application.Run(new MIDIControlGUI2());
         }
     }

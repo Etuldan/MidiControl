@@ -27,38 +27,48 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI2));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.btnAddKeybind = new System.Windows.Forms.ToolStripButton();
-			this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.trayMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.createFromCurrentProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
 			this.mIDIControlOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
 			this.closeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.btnSaveCurrentProfile = new System.Windows.Forms.ToolStripButton();
+			this.btnDeleteCurrentProfile = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.btnAddKeybind = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.trayMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.showMainWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+			this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusBar = new System.Windows.Forms.StatusStrip();
 			this.obsButton = new System.Windows.Forms.ToolStripButton();
 			this.twitchButton = new System.Windows.Forms.ToolStripButton();
 			this.midiButton = new System.Windows.Forms.ToolStripButton();
 			this.midiStatus = new System.Windows.Forms.ToolStripStatusLabel();
-			this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.createFromCurrentProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-			this.btnDeleteCurrentProfile = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-			this.listView1 = new System.Windows.Forms.ListView();
+			this.listKeybinds = new System.Windows.Forms.ListView();
 			this.itemContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-			this.showMainWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-			this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+			this.iconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addKeybindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveCurrentProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.deleteCurrentProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+			this.profileListHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip1.SuspendLayout();
 			this.trayMenuStrip.SuspendLayout();
 			this.statusBar.SuspendLayout();
@@ -74,7 +84,9 @@
             this.btnDeleteCurrentProfile,
             this.toolStripSeparator2,
             this.btnAddKeybind,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripSeparator3,
+            this.toolStripDropDownButton2});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(534, 25);
@@ -86,6 +98,7 @@
 			this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.profilesToolStripMenuItem,
+            this.addKeybindToolStripMenuItem,
             this.toolStripMenuItem5,
             this.mIDIControlOptionsToolStripMenuItem,
             this.settingsToolStripMenuItem,
@@ -98,10 +111,103 @@
 			this.toolStripDropDownButton1.Size = new System.Drawing.Size(51, 22);
 			this.toolStripDropDownButton1.Text = "Menu";
 			// 
+			// profilesToolStripMenuItem
+			// 
+			this.profilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createNewToolStripMenuItem,
+            this.createFromCurrentProfileToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.saveCurrentProfileToolStripMenuItem,
+            this.deleteCurrentProfileToolStripMenuItem,
+            this.toolStripMenuItem6,
+            this.profileListHereToolStripMenuItem});
+			this.profilesToolStripMenuItem.Name = "profilesToolStripMenuItem";
+			this.profilesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.profilesToolStripMenuItem.Text = "Profiles";
+			// 
+			// createNewToolStripMenuItem
+			// 
+			this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
+			this.createNewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.N)));
+			this.createNewToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+			this.createNewToolStripMenuItem.Text = "Create new";
+			// 
+			// createFromCurrentProfileToolStripMenuItem
+			// 
+			this.createFromCurrentProfileToolStripMenuItem.Name = "createFromCurrentProfileToolStripMenuItem";
+			this.createFromCurrentProfileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D)));
+			this.createFromCurrentProfileToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+			this.createFromCurrentProfileToolStripMenuItem.Text = "Create from current profile";
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(286, 6);
+			// 
+			// toolStripMenuItem5
+			// 
+			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+			this.toolStripMenuItem5.Size = new System.Drawing.Size(190, 6);
+			// 
+			// mIDIControlOptionsToolStripMenuItem
+			// 
+			this.mIDIControlOptionsToolStripMenuItem.Image = global::MidiControl.Properties.Resources.settings;
+			this.mIDIControlOptionsToolStripMenuItem.Name = "mIDIControlOptionsToolStripMenuItem";
+			this.mIDIControlOptionsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.mIDIControlOptionsToolStripMenuItem.Text = "MIDIControl options...";
+			// 
+			// settingsToolStripMenuItem
+			// 
+			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.settingsToolStripMenuItem.Text = "Interface options...";
+			// 
+			// toolStripMenuItem3
+			// 
+			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(190, 6);
+			// 
+			// closeToTrayToolStripMenuItem
+			// 
+			this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
+			this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.closeToTrayToolStripMenuItem.Text = "Close to tray";
+			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.exitToolStripMenuItem.Text = "Exit";
+			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// btnSaveCurrentProfile
+			// 
+			this.btnSaveCurrentProfile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.btnSaveCurrentProfile.Image = global::MidiControl.Properties.Resources.floppy_disk;
+			this.btnSaveCurrentProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnSaveCurrentProfile.Name = "btnSaveCurrentProfile";
+			this.btnSaveCurrentProfile.Size = new System.Drawing.Size(23, 22);
+			this.btnSaveCurrentProfile.Text = "toolStripButton3";
+			// 
+			// btnDeleteCurrentProfile
+			// 
+			this.btnDeleteCurrentProfile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.btnDeleteCurrentProfile.Image = global::MidiControl.Properties.Resources.rubbish;
+			this.btnDeleteCurrentProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnDeleteCurrentProfile.Name = "btnDeleteCurrentProfile";
+			this.btnDeleteCurrentProfile.Size = new System.Drawing.Size(23, 22);
+			this.btnDeleteCurrentProfile.Text = "toolStripButton2";
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
 			// 
 			// btnAddKeybind
 			// 
@@ -110,6 +216,16 @@
 			this.btnAddKeybind.Name = "btnAddKeybind";
 			this.btnAddKeybind.Size = new System.Drawing.Size(94, 22);
 			this.btnAddKeybind.Text = "Add keybind";
+			// 
+			// toolStripButton1
+			// 
+			this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButton1.Image = global::MidiControl.Properties.Resources.mute;
+			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton1.Name = "toolStripButton1";
+			this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButton1.Text = "Stop all sounds";
 			// 
 			// trayIcon
 			// 
@@ -129,49 +245,22 @@
 			this.trayMenuStrip.Name = "trayMenuStrip";
 			this.trayMenuStrip.Size = new System.Drawing.Size(179, 54);
 			// 
-			// mIDIControlOptionsToolStripMenuItem
+			// showMainWindowToolStripMenuItem
 			// 
-			this.mIDIControlOptionsToolStripMenuItem.Image = global::MidiControl.Properties.Resources.settings;
-			this.mIDIControlOptionsToolStripMenuItem.Name = "mIDIControlOptionsToolStripMenuItem";
-			this.mIDIControlOptionsToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-			this.mIDIControlOptionsToolStripMenuItem.Text = "MIDIControl options...";
+			this.showMainWindowToolStripMenuItem.Name = "showMainWindowToolStripMenuItem";
+			this.showMainWindowToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+			this.showMainWindowToolStripMenuItem.Text = "Show main window";
 			// 
-			// settingsToolStripMenuItem
+			// toolStripMenuItem4
 			// 
-			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-			this.settingsToolStripMenuItem.Text = "Interface options...";
+			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(175, 6);
 			// 
-			// toolStripMenuItem3
+			// exitToolStripMenuItem1
 			// 
-			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(188, 6);
-			// 
-			// closeToTrayToolStripMenuItem
-			// 
-			this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
-			this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-			this.closeToTrayToolStripMenuItem.Text = "Close to tray";
-			// 
-			// exitToolStripMenuItem
-			// 
-			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-			this.exitToolStripMenuItem.Text = "Exit";
-			// 
-			// btnSaveCurrentProfile
-			// 
-			this.btnSaveCurrentProfile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.btnSaveCurrentProfile.Image = global::MidiControl.Properties.Resources.floppy_disk;
-			this.btnSaveCurrentProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.btnSaveCurrentProfile.Name = "btnSaveCurrentProfile";
-			this.btnSaveCurrentProfile.Size = new System.Drawing.Size(23, 22);
-			this.btnSaveCurrentProfile.Text = "toolStripButton3";
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(178, 22);
+			this.exitToolStripMenuItem1.Text = "Exit";
 			// 
 			// statusBar
 			// 
@@ -212,61 +301,15 @@
 			this.midiStatus.Name = "midiStatus";
 			this.midiStatus.Size = new System.Drawing.Size(0, 17);
 			// 
-			// profilesToolStripMenuItem
+			// listKeybinds
 			// 
-			this.profilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createNewToolStripMenuItem,
-            this.createFromCurrentProfileToolStripMenuItem,
-            this.toolStripMenuItem1});
-			this.profilesToolStripMenuItem.Name = "profilesToolStripMenuItem";
-			this.profilesToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-			this.profilesToolStripMenuItem.Text = "Profiles";
-			// 
-			// createNewToolStripMenuItem
-			// 
-			this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
-			this.createNewToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-			this.createNewToolStripMenuItem.Text = "Create new";
-			// 
-			// createFromCurrentProfileToolStripMenuItem
-			// 
-			this.createFromCurrentProfileToolStripMenuItem.Name = "createFromCurrentProfileToolStripMenuItem";
-			this.createFromCurrentProfileToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-			this.createFromCurrentProfileToolStripMenuItem.Text = "Create from current profile";
-			// 
-			// toolStripMenuItem1
-			// 
-			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(212, 6);
-			// 
-			// btnDeleteCurrentProfile
-			// 
-			this.btnDeleteCurrentProfile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.btnDeleteCurrentProfile.Image = global::MidiControl.Properties.Resources.rubbish;
-			this.btnDeleteCurrentProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.btnDeleteCurrentProfile.Name = "btnDeleteCurrentProfile";
-			this.btnDeleteCurrentProfile.Size = new System.Drawing.Size(23, 22);
-			this.btnDeleteCurrentProfile.Text = "toolStripButton2";
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton1.Image = global::MidiControl.Properties.Resources.mute;
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton1.Text = "Stop all sounds";
-			// 
-			// listView1
-			// 
-			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listView1.HideSelection = false;
-			this.listView1.Location = new System.Drawing.Point(0, 25);
-			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(534, 420);
-			this.listView1.TabIndex = 4;
-			this.listView1.UseCompatibleStateImageBehavior = false;
+			this.listKeybinds.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listKeybinds.HideSelection = false;
+			this.listKeybinds.Location = new System.Drawing.Point(0, 25);
+			this.listKeybinds.Name = "listKeybinds";
+			this.listKeybinds.Size = new System.Drawing.Size(534, 420);
+			this.listKeybinds.TabIndex = 4;
+			this.listKeybinds.UseCompatibleStateImageBehavior = false;
 			// 
 			// itemContextMenu
 			// 
@@ -285,13 +328,6 @@
 			this.editToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.editToolStripMenuItem.Text = "Edit...";
 			// 
-			// deleteToolStripMenuItem
-			// 
-			this.deleteToolStripMenuItem.Image = global::MidiControl.Properties.Resources.minus;
-			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.deleteToolStripMenuItem.Text = "Delete...";
-			// 
 			// duplicateToolStripMenuItem
 			// 
 			this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
@@ -303,34 +339,90 @@
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
 			this.toolStripMenuItem2.Size = new System.Drawing.Size(121, 6);
 			// 
-			// showMainWindowToolStripMenuItem
+			// deleteToolStripMenuItem
 			// 
-			this.showMainWindowToolStripMenuItem.Name = "showMainWindowToolStripMenuItem";
-			this.showMainWindowToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-			this.showMainWindowToolStripMenuItem.Text = "Show main window";
+			this.deleteToolStripMenuItem.Image = global::MidiControl.Properties.Resources.minus;
+			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+			this.deleteToolStripMenuItem.Text = "Delete...";
 			// 
-			// toolStripMenuItem4
+			// toolStripSeparator3
 			// 
-			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-			this.toolStripMenuItem4.Size = new System.Drawing.Size(175, 6);
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
 			// 
-			// exitToolStripMenuItem1
+			// toolStripDropDownButton2
 			// 
-			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(178, 22);
-			this.exitToolStripMenuItem1.Text = "Exit";
+			this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iconsToolStripMenuItem,
+            this.listToolStripMenuItem,
+            this.detailsToolStripMenuItem});
+			this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
+			this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+			this.toolStripDropDownButton2.Size = new System.Drawing.Size(93, 22);
+			this.toolStripDropDownButton2.Text = "View as: Icons";
 			// 
-			// toolStripMenuItem5
+			// iconsToolStripMenuItem
 			// 
-			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-			this.toolStripMenuItem5.Size = new System.Drawing.Size(188, 6);
+			this.iconsToolStripMenuItem.Name = "iconsToolStripMenuItem";
+			this.iconsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.iconsToolStripMenuItem.Text = "Icons";
+			// 
+			// listToolStripMenuItem
+			// 
+			this.listToolStripMenuItem.Name = "listToolStripMenuItem";
+			this.listToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.listToolStripMenuItem.Text = "List";
+			// 
+			// detailsToolStripMenuItem
+			// 
+			this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+			this.detailsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.detailsToolStripMenuItem.Text = "Details";
+			// 
+			// addKeybindToolStripMenuItem
+			// 
+			this.addKeybindToolStripMenuItem.Image = global::MidiControl.Properties.Resources.plus;
+			this.addKeybindToolStripMenuItem.Name = "addKeybindToolStripMenuItem";
+			this.addKeybindToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+			this.addKeybindToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.addKeybindToolStripMenuItem.Text = "Add keybind...";
+			// 
+			// saveCurrentProfileToolStripMenuItem
+			// 
+			this.saveCurrentProfileToolStripMenuItem.Image = global::MidiControl.Properties.Resources.floppy_disk;
+			this.saveCurrentProfileToolStripMenuItem.Name = "saveCurrentProfileToolStripMenuItem";
+			this.saveCurrentProfileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.saveCurrentProfileToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+			this.saveCurrentProfileToolStripMenuItem.Text = "Save current profile";
+			// 
+			// deleteCurrentProfileToolStripMenuItem
+			// 
+			this.deleteCurrentProfileToolStripMenuItem.Image = global::MidiControl.Properties.Resources.rubbish;
+			this.deleteCurrentProfileToolStripMenuItem.Name = "deleteCurrentProfileToolStripMenuItem";
+			this.deleteCurrentProfileToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+			this.deleteCurrentProfileToolStripMenuItem.Text = "Delete current profile";
+			// 
+			// toolStripMenuItem6
+			// 
+			this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+			this.toolStripMenuItem6.Size = new System.Drawing.Size(286, 6);
+			// 
+			// profileListHereToolStripMenuItem
+			// 
+			this.profileListHereToolStripMenuItem.Enabled = false;
+			this.profileListHereToolStripMenuItem.Name = "profileListHereToolStripMenuItem";
+			this.profileListHereToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
+			this.profileListHereToolStripMenuItem.Text = "(profile list here)";
 			// 
 			// MIDIControlGUI2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(534, 467);
-			this.Controls.Add(this.listView1);
+			this.Controls.Add(this.listKeybinds);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.toolStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -372,7 +464,7 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
 		private System.Windows.Forms.ToolStripButton btnDeleteCurrentProfile;
 		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.ListView listView1;
+		private System.Windows.Forms.ListView listKeybinds;
 		private System.Windows.Forms.ToolStripMenuItem showMainWindowToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
@@ -382,5 +474,15 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+		private System.Windows.Forms.ToolStripMenuItem iconsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveCurrentProfileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem deleteCurrentProfileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+		private System.Windows.Forms.ToolStripMenuItem profileListHereToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem addKeybindToolStripMenuItem;
 	}
 }
