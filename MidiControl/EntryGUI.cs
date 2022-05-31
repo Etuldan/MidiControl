@@ -1584,6 +1584,8 @@ namespace MidiControl
                 }
             }
 
+			conf.Unsaved = true;
+
             this.Close();
             this.Dispose();
         }

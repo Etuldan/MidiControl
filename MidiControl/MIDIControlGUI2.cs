@@ -193,6 +193,18 @@ namespace MidiControl {
 			midi.StopAllSounds();
 		}
 
+		// processing
+		private void EditEntry(string index) {
+			if(conf.Config.TryGetValue(index, out KeyBindEntry value)) {
+				using(EntryGUI addEntry = new EntryGUI(index, value)) {
+					addEntry.StartPosition = FormStartPosition.CenterParent;
+					addEntry.ShowDialog();
+					ReloadEntries();
+					midi.EnableListening();
+				}
+			}
+		}
+
 		// ui events
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
 			var profile = ((ToolStripMenuItem)sender).Text;
@@ -202,11 +214,63 @@ namespace MidiControl {
 
 		public void ReloadEntries() {
 			// display all keybinds for current profile in listview
-			// ...
+			listKeybinds.Items.Clear();
+
+			foreach(KeyValuePair<string, KeyBindEntry> entry in conf.Config) {
+				var item = new ListViewItem(entry.Key);
+				
+				// generate overview for details view
+				// ...
+
+				listKeybinds.Items.Add(item);
+			}
 
 			RefreshWindowTitle();
 		}
 
-		
+		private void ListViewDisplayModeChanged(object sender, EventArgs e) {
+			string mode = (sender as ToolStripMenuItem).Tag as string;
+			string label = (sender as ToolStripMenuItem).Text;
+
+			menuViewAsIcons.Checked = menuViewAsList.Checked = menuViewAsDetails.Checked = false;
+
+			switch(mode) {
+				case "icons":
+					listKeybinds.View = View.Tile;
+					menuViewAsIcons.Checked = true;
+					break;
+				case "list":
+					listKeybinds.View = View.List;
+					menuViewAsList.Checked = true;
+					break;
+				case "details":
+					listKeybinds.View = View.Details;
+					menuViewAsDetails.Checked = true;
+					break;
+			}
+
+			menuViewAsDropdown.Text = "View as: " + label;
+		}
+
+		private void listKeybinds_MouseClick(object sender, MouseEventArgs e) {
+			if(e.Button == MouseButtons.Right) {
+				if(listKeybinds.SelectedItems.Count == 1) {
+					itemContextMenu.Show(listKeybinds, e.Location);
+				}
+			}
+		}
+
+		private void listKeybinds_MouseDoubleClick(object sender, MouseEventArgs e) {
+			if(e.Button == MouseButtons.Left) {
+				editToolStripMenuItem_Click(sender, EventArgs.Empty);
+			}
+		}
+
+		private void editToolStripMenuItem_Click(object sender, EventArgs e) {
+			if(listKeybinds.SelectedIndices.Count == 1) {
+				var index = listKeybinds.SelectedIndices[0];
+				EditEntry(listKeybinds.Items[index].Text);
+			}
+		}
 	}
 }
