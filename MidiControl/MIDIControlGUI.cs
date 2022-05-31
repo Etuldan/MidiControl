@@ -39,6 +39,7 @@ namespace MidiControl
             UpdateMIDIStatus();
 
             notifyIcon.Visible = true;
+			notifyIcon.BalloonTipText = "Click the MIDIControl icon in your system tray to open the main window.";
             notifyIcon.ShowBalloonTip(500);
             this.Hide();
         }
