@@ -122,7 +122,7 @@ namespace MidiControl
 
 				Unsaved = false;
 
-				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
+				//MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
 			} catch(Exception ex) {
 				MessageBox.Show("Error occurred while saving: " + ex.ToString());
 			}
@@ -143,7 +143,7 @@ namespace MidiControl
 				Unsaved = false;
 
 				CurrentProfile = newname;
-				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
+				//MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
 			} catch(Exception ex) {
 				MessageBox.Show("Error occurred while saving: " + ex.ToString());
 			}

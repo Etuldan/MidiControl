@@ -149,6 +149,10 @@ namespace MidiControl {
 
 			// set selected profile in menu
 			CheckCurrentProfileMenuItem();
+
+			// remember this as the last opened profile
+			options.options.LastUsedProfile = conf.CurrentProfile;
+			options.Save();
 		}
 
 		private void UpdateMIDIStatus() {
@@ -319,6 +323,9 @@ namespace MidiControl {
 			conf.SaveCurrentProfileAs("Default");
 			ReloadProfilesList();
 			RefreshWindowTitle();
+
+			options.options.LastUsedProfile = conf.CurrentProfile;
+			options.Save();
 		}
 
 		private void DeleteCurrentProfileClicked(object sender, EventArgs e) {
@@ -336,9 +343,40 @@ namespace MidiControl {
 			}
 
 			ReloadProfilesList();
+			ReloadEntries();
 			RefreshWindowTitle();
+
+			options.options.LastUsedProfile = conf.CurrentProfile;
+			options.Save();
 		}
 
-		
+		private void NewProfileMenuItem_Click(object sender, EventArgs e) {
+			var newProfileResponse = TextInputGUI.ShowPrompt("Enter a new profile name (no special characters):", "Name new profile");
+
+			if(newProfileResponse.Accepted) {
+				conf.Config.Clear();
+				conf.SaveCurrentProfileAs(newProfileResponse.Text);
+				ReloadProfilesList();
+				ReloadEntries();
+				RefreshWindowTitle();
+
+				options.options.LastUsedProfile = conf.CurrentProfile;
+				options.Save();
+			}
+		}
+
+		private void DuplicateProfileMenuItem_Click(object sender, EventArgs e) {
+			var dupProfileResponse = TextInputGUI.ShowPrompt("Enter a new name for the duplicate of '" + conf.CurrentProfile + "' (no special characters):", "Name duplicate of '" + conf.CurrentProfile + "'");
+
+			if(dupProfileResponse.Accepted) {
+				conf.SaveCurrentProfileAs(dupProfileResponse.Text);
+				ReloadProfilesList();
+				ReloadEntries();
+				RefreshWindowTitle();
+
+				options.options.LastUsedProfile = conf.CurrentProfile;
+				options.Save();
+			}
+		}
 	}
 }
