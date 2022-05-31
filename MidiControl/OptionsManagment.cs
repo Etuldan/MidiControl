@@ -50,7 +50,8 @@ namespace MidiControl
                     MIDIInterfaces = new List<string>(),
                     Delay = 0,
                     TwitchLogin = "",
-                    TwitchToken = ""
+                    TwitchToken = "",
+					ConfirmKeybindDeletion = false
                 };
             }
         }
@@ -72,7 +73,7 @@ namespace MidiControl
             public string TwitchLogin { get; set; }
             public string TwitchToken { get; set; }
             public string TwitchRefreshToken { get; set; }
-
+			public bool ConfirmKeybindDeletion { get; set; }
         }
     }
 }

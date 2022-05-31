@@ -192,9 +192,18 @@ namespace MidiControl
 
         private void DeleteEntry_Click(object sender, EventArgs e)
         {
-            conf.Config.Remove(((ButtonCustom)sender).index);
-            ReloadEntries();
-        }
+			//conf.Config.Remove(((ButtonCustom)sender).index);
+			//ReloadEntries();
+
+			if(options.options.ConfirmKeybindDeletion) {
+				var index = ((ButtonCustom)sender).index;
+
+				if(MessageBox.Show("Delete the keybind named '" + index + "'?", "Confirm delete keybind", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+					conf.Config.Remove(index);
+					ReloadEntries();
+				}
+			}
+		}
 
         private void MIDIControl_Load(object sender, EventArgs e)
         {
