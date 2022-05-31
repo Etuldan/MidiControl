@@ -17,18 +17,30 @@ namespace MidiControl
         private readonly string ConfFolder;
         private string ConfFile;
         public string CurrentProfile;
-        private readonly MIDIControlGUI gui;
+        private readonly MIDIControlGUI2 gui;
         private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        public Configuration(MIDIControlGUI gui)
+        public Configuration(MIDIControlGUI2 gui, string initialProfile)
         {
             _instance = this;
             this.gui = gui;
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             ConfFolder = Path.Combine(folder, "MIDIControl");
-            CurrentProfile = "Default";
-            ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+
+			CurrentProfile = initialProfile; // "Default";
+			if(initialProfile == "Default" || initialProfile == null) {
+				CurrentProfile = "Default";
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+			} else {
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(initialProfile, "_") + ".json"));
+
+				if(!File.Exists(ConfFile)) {
+					CurrentProfile = "Default";
+					ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+				}
+			}
+
             Directory.CreateDirectory(ConfFolder);
             LoadCurrentProfile();
         }

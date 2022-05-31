@@ -17,6 +17,8 @@ namespace MidiControl {
 
 		private bool actuallyClosing = false;
 
+		private const string STATIC_PROFILEMENU_TAG = "#STATIC_PROFILE_MENU_ITEM#";
+
 		private static MIDIControlGUI2 _inst;
 		public static MIDIControlGUI2 GetInstance() {
 			return _inst;
@@ -25,16 +27,28 @@ namespace MidiControl {
 		// window constructor
 		public MIDIControlGUI2() {
 			_inst = this;
-			InitializeComponent();
+			InitializeComponent();			
 
-			// ...
+			OBSControlDelegate = new OBSControlDelegateHandler(UpdateOBSStatus);
+			TwitchControlDelegate = new TwitchControlDelegateHandler(UpdateTwitchStatus);
+			SwitchProfileControlDelegate = new SwitchProfileControlDelegateHandler(UpdateProfile);
+
+			options = new OptionsManagment();
+			conf = new Configuration(this, options.options.LastUsedProfile);
+			this.Text = "MIDIControl - [" + conf.CurrentProfile + "]";
+
+			midi = new MIDIListener(conf);
+			UpdateMIDIStatus();
+
+			ReloadProfilesList();
 
 			trayIcon.BalloonTipText = "MIDIControl is now running.  Double-click the tray icon to open the main window.";
 		}
 
 		// form, tray icon, close window events
 		private void MIDIControlGUI2_Load(object sender, EventArgs e) {
-
+			ReloadEntries();
+			OBSControl.GetInstance().ConnectDisconnect();
 		}
 
 		private void MIDIControlGUI2_FormClosing(object sender, FormClosingEventArgs e) {
@@ -81,10 +95,92 @@ namespace MidiControl {
 			this.Close();
 		}
 
-		// delegate handlers
-		//
+		// delegate handlers; from MIDIControlGUI; config/profiles/keybind refresh
+		private void ReloadProfilesList() {
+			for(var i = 0; i < menuProfiles.DropDownItems.Count; i++) {
+				var item = menuProfiles.DropDownItems[i];
+
+				if(item is ToolStripSeparator) {
+					continue;
+				}
+				if(item is ToolStripMenuItem) {
+					if((string)item.Tag == STATIC_PROFILEMENU_TAG) {
+						continue;
+					} else {
+						item.Click -= ProfileMenuItemClicked;
+						menuProfiles.DropDownItems.RemoveAt(i);
+						i--;
+					}
+				}
+			}
+
+			foreach(var profile in conf.GetAllProfiles()) {
+				var newitem = new ToolStripMenuItem(profile) {
+					Tag = profile
+				};
+				newitem.Click += ProfileMenuItemClicked;
+
+				menuProfiles.DropDownItems.Add(newitem);
+			}
+
+			CheckCurrentProfileMenuItem();
+		}
+
+		private void CheckCurrentProfileMenuItem() {
+			foreach(ToolStripItem item in menuProfiles.DropDownItems) {
+				if(item is ToolStripMenuItem) {
+					((ToolStripMenuItem)item).Checked = (item.Text == conf.CurrentProfile);
+				}
+			}
+		}
+
+		private void UpdateProfile() {
+			ReloadEntries();
+
+			// set selected profile in menu
+			// ...
+		}
+
+		private void UpdateMIDIStatus() {
+			midiStatus.Text = "";
+			foreach(string device in midi.GetMIDIINDevices()) {
+				midiStatus.Text += " " + device + ",";
+			}
+			midiStatus.Text = midiStatus.Text.Trim(',').Trim();
+			if(midiStatus.Text == "") {
+				midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDIRed;
+				midiStatus.Text = "N/A";
+				midiStatus.ForeColor = Color.Red;
+			} else {
+				midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDI;
+				midiStatus.ForeColor = Color.Green;
+			}
+		}
+
+		private void UpdateOBSStatus(bool connect) {
+			if(connect) {
+				obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obs;
+			} else {
+				obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obsRed;
+			}
+		}
+		private void UpdateTwitchStatus(bool connect) {
+			if(connect) {
+				twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitch;
+			} else {
+				twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitchRed;
+			}
+		}
+
+		public void ReloadEntries() {
+			// display all keybinds for current profile in listview
+			// ...
+		}
+
 
 		// ui events
-		//
+		private void ProfileMenuItemClicked(object sender, EventArgs e) {
+
+		}
 	}
 }

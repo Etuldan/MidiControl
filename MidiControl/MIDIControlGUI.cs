@@ -30,7 +30,7 @@ namespace MidiControl
             SwitchProfileControlDelegate = new SwitchProfileControlDelegateHandler(UpdateProfile);
 
             options = new OptionsManagment();
-            conf = new Configuration(this);
+            //conf = new Configuration(this);
             midi = new MIDIListener(conf);
 
             this.ComboBoxProfile.Items.AddRange(conf.GetAllProfiles());

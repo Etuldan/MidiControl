@@ -53,7 +53,8 @@ namespace MidiControl
                     TwitchToken = "",
 					StartToTray = false,
 					AlwaysOnTop = false,
-					ConfirmKeybindDeletion = false
+					ConfirmKeybindDeletion = false,
+					LastUsedProfile = "Default"
                 };
             }
         }
@@ -78,6 +79,7 @@ namespace MidiControl
 			public bool StartToTray { get; set; }
 			public bool AlwaysOnTop { get; set; }
 			public bool ConfirmKeybindDeletion { get; set; }
+			public string LastUsedProfile { get; set; }
         }
     }
 }
