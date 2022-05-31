@@ -136,6 +136,12 @@ namespace MidiControl {
 					((ToolStripMenuItem)item).Checked = (item.Text == conf.CurrentProfile);
 				}
 			}
+
+			if(conf.CurrentProfile == "Default") {
+				btnDeleteCurrentProfile.Text = deleteCurrentProfileToolStripMenuItem.Text = "Clear default profile";
+			} else {
+				btnDeleteCurrentProfile.Text = deleteCurrentProfileToolStripMenuItem.Text = "Delete current profile";
+			}
 		}
 
 		private void UpdateProfile() {
@@ -206,6 +212,11 @@ namespace MidiControl {
 		}
 
 		// ui events
+		private void MidiControlOptionsToolStripMenuItem_Click(object sender, EventArgs e) {
+			using(OptionsGUI optionGUI = new OptionsGUI(options))
+				optionGUI.ShowDialog();
+		}
+
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
 			var profile = ((ToolStripMenuItem)sender).Text;
 
@@ -274,7 +285,60 @@ namespace MidiControl {
 		}
 
 		private void AddKeybindItemClicked(object sender, EventArgs e) {
-
+			using(EntryGUI addEntry = new EntryGUI()) {
+				addEntry.ShowDialog();
+				ReloadEntries();
+				midi.EnableListening();
+			}
 		}
+
+		private void DeleteKeybindMenuItem_Click(object sender, EventArgs e) {
+			if(listKeybinds.SelectedIndices.Count == 1) {
+				var index = listKeybinds.SelectedIndices[0];
+				string key = listKeybinds.Items[index].Text;
+				bool delete = true;
+
+				if(options.options.ConfirmKeybindDeletion) {
+					delete = (MessageBox.Show("Delete the keybind named '" + key + "'?", "Confirm delete keybind", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
+				}
+
+				if(delete) {
+					conf.Config.Remove(key);
+					conf.Unsaved = true;
+					ReloadEntries();
+				}
+			}
+		}
+
+		private void btnSaveCurrentProfile_Click(object sender, EventArgs e) {
+			conf.SaveCurrentProfile();
+			RefreshWindowTitle();
+		}
+
+		private void saveCurrentProfileAsDefaultToolStripMenuItem_Click(object sender, EventArgs e) {
+			conf.SaveCurrentProfileAs("Default");
+			ReloadProfilesList();
+			RefreshWindowTitle();
+		}
+
+		private void DeleteCurrentProfileClicked(object sender, EventArgs e) {
+			if(conf.CurrentProfile == "Default") {
+				// can't delete default, but offer to clear it
+				if(MessageBox.Show("You are about to clear the default profile.  Are you sure you want to do this?", "Confirm default profile delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+					conf.Config.Clear();
+					conf.SaveCurrentProfile();
+				}
+			} else {
+				if(MessageBox.Show("You are about to delete the profile '" + conf.CurrentProfile + "'.  Are you sure you want to do this?", "Confirm profile delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+					conf.RemoveProfile(conf.CurrentProfile);
+					conf.LoadProfile("Default");
+				}
+			}
+
+			ReloadProfilesList();
+			RefreshWindowTitle();
+		}
+
+		
 	}
 }

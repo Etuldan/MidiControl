@@ -130,7 +130,12 @@ namespace MidiControl
 
 		public void SaveCurrentProfileAs(string newname)
 		{
-			ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(newname, "_") + ".json"));
+			if(newname == "Default") {
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+			} else {
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(newname, "_") + ".json"));
+			}
+			
 			try {
 				string json = JsonConvert.SerializeObject(Config);
 				File.WriteAllText(ConfFile, json);
