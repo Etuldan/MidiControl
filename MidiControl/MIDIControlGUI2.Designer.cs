@@ -49,10 +49,10 @@
 			this.btnAddKeybind = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-			this.iconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuViewAsDropdown = new System.Windows.Forms.ToolStripDropDownButton();
+			this.menuViewAsIcons = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuViewAsList = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuViewAsDetails = new System.Windows.Forms.ToolStripMenuItem();
 			this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.trayMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.trayMenuShowMainWindow = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +69,8 @@
 			this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.toolStrip1.SuspendLayout();
 			this.trayMenuStrip.SuspendLayout();
 			this.statusBar.SuspendLayout();
@@ -86,7 +88,7 @@
             this.btnAddKeybind,
             this.toolStripButton1,
             this.toolStripSeparator3,
-            this.toolStripDropDownButton2});
+            this.menuViewAsDropdown});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(534, 25);
@@ -186,6 +188,7 @@
 			this.addKeybindToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
 			this.addKeybindToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.addKeybindToolStripMenuItem.Text = "Add keybind...";
+			this.addKeybindToolStripMenuItem.Click += new System.EventHandler(this.AddKeybindItemClicked);
 			// 
 			// toolStripMenuItem5
 			// 
@@ -259,6 +262,7 @@
 			this.btnAddKeybind.Name = "btnAddKeybind";
 			this.btnAddKeybind.Size = new System.Drawing.Size(94, 22);
 			this.btnAddKeybind.Text = "Add keybind";
+			this.btnAddKeybind.Click += new System.EventHandler(this.AddKeybindItemClicked);
 			// 
 			// toolStripButton1
 			// 
@@ -276,36 +280,44 @@
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
 			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
 			// 
-			// toolStripDropDownButton2
+			// menuViewAsDropdown
 			// 
-			this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iconsToolStripMenuItem,
-            this.listToolStripMenuItem,
-            this.detailsToolStripMenuItem});
-			this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
-			this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-			this.toolStripDropDownButton2.Size = new System.Drawing.Size(93, 22);
-			this.toolStripDropDownButton2.Text = "View as: Icons";
+			this.menuViewAsDropdown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.menuViewAsDropdown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuViewAsIcons,
+            this.menuViewAsList,
+            this.menuViewAsDetails});
+			this.menuViewAsDropdown.Image = ((System.Drawing.Image)(resources.GetObject("menuViewAsDropdown.Image")));
+			this.menuViewAsDropdown.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.menuViewAsDropdown.Name = "menuViewAsDropdown";
+			this.menuViewAsDropdown.Size = new System.Drawing.Size(93, 22);
+			this.menuViewAsDropdown.Text = "View as: Icons";
 			// 
-			// iconsToolStripMenuItem
+			// menuViewAsIcons
 			// 
-			this.iconsToolStripMenuItem.Name = "iconsToolStripMenuItem";
-			this.iconsToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.iconsToolStripMenuItem.Text = "Icons";
+			this.menuViewAsIcons.Checked = true;
+			this.menuViewAsIcons.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.menuViewAsIcons.Name = "menuViewAsIcons";
+			this.menuViewAsIcons.Size = new System.Drawing.Size(180, 22);
+			this.menuViewAsIcons.Tag = "icons";
+			this.menuViewAsIcons.Text = "Icons";
+			this.menuViewAsIcons.Click += new System.EventHandler(this.ListViewDisplayModeChanged);
 			// 
-			// listToolStripMenuItem
+			// menuViewAsList
 			// 
-			this.listToolStripMenuItem.Name = "listToolStripMenuItem";
-			this.listToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.listToolStripMenuItem.Text = "List";
+			this.menuViewAsList.Name = "menuViewAsList";
+			this.menuViewAsList.Size = new System.Drawing.Size(180, 22);
+			this.menuViewAsList.Tag = "list";
+			this.menuViewAsList.Text = "List";
+			this.menuViewAsList.Click += new System.EventHandler(this.ListViewDisplayModeChanged);
 			// 
-			// detailsToolStripMenuItem
+			// menuViewAsDetails
 			// 
-			this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-			this.detailsToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.detailsToolStripMenuItem.Text = "Details";
+			this.menuViewAsDetails.Name = "menuViewAsDetails";
+			this.menuViewAsDetails.Size = new System.Drawing.Size(180, 22);
+			this.menuViewAsDetails.Tag = "details";
+			this.menuViewAsDetails.Text = "Details";
+			this.menuViewAsDetails.Click += new System.EventHandler(this.ListViewDisplayModeChanged);
 			// 
 			// trayIcon
 			// 
@@ -390,6 +402,9 @@
 			// 
 			// listKeybinds
 			// 
+			this.listKeybinds.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
 			this.listKeybinds.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listKeybinds.HideSelection = false;
 			this.listKeybinds.Location = new System.Drawing.Point(0, 25);
@@ -397,6 +412,9 @@
 			this.listKeybinds.Size = new System.Drawing.Size(534, 420);
 			this.listKeybinds.TabIndex = 4;
 			this.listKeybinds.UseCompatibleStateImageBehavior = false;
+			this.listKeybinds.View = System.Windows.Forms.View.Tile;
+			this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseClick);
+			this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseDoubleClick);
 			// 
 			// itemContextMenu
 			// 
@@ -414,6 +432,7 @@
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
 			this.editToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.editToolStripMenuItem.Text = "Edit...";
+			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
 			// 
 			// duplicateToolStripMenuItem
 			// 
@@ -432,6 +451,16 @@
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.deleteToolStripMenuItem.Text = "Delete...";
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Keybind Name";
+			this.columnHeader1.Width = 156;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Overview";
+			this.columnHeader2.Width = 355;
 			// 
 			// MIDIControlGUI2
 			// 
@@ -494,14 +523,16 @@
 		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
-		private System.Windows.Forms.ToolStripMenuItem iconsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripDropDownButton menuViewAsDropdown;
+		private System.Windows.Forms.ToolStripMenuItem menuViewAsIcons;
+		private System.Windows.Forms.ToolStripMenuItem menuViewAsList;
+		private System.Windows.Forms.ToolStripMenuItem menuViewAsDetails;
 		private System.Windows.Forms.ToolStripMenuItem saveCurrentProfileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem deleteCurrentProfileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
 		private System.Windows.Forms.ToolStripMenuItem profileListHereToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addKeybindToolStripMenuItem;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
+		private System.Windows.Forms.ColumnHeader columnHeader2;
 	}
 }
