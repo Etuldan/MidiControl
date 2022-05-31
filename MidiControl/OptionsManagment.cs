@@ -51,6 +51,8 @@ namespace MidiControl
                     Delay = 0,
                     TwitchLogin = "",
                     TwitchToken = "",
+					StartToTray = false,
+					AlwaysOnTop = false,
 					ConfirmKeybindDeletion = false
                 };
             }
@@ -73,6 +75,8 @@ namespace MidiControl
             public string TwitchLogin { get; set; }
             public string TwitchToken { get; set; }
             public string TwitchRefreshToken { get; set; }
+			public bool StartToTray { get; set; }
+			public bool AlwaysOnTop { get; set; }
 			public bool ConfirmKeybindDeletion { get; set; }
         }
     }

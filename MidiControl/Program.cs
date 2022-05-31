@@ -28,8 +28,13 @@ namespace MidiControl
 			//Application.Run(new MIDIControlGUI());
 
 			var mainForm = new MIDIControlGUI2();
-			//
-			Application.Run(new MIDIControlGUI2());
+			var options = (new OptionsManagment()).options;
+			
+			if(options.StartToTray) {
+				Application.Run();
+			} else {
+				Application.Run(mainForm);
+			}
         }
     }
 }
