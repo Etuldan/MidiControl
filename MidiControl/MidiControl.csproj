@@ -169,6 +169,12 @@
     <Compile Include="EntryGUI.Designer.cs">
       <DependentUpon>EntryGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="MIDIControlGUI2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MIDIControlGUI2.Designer.cs">
+      <DependentUpon>MIDIControlGUI2.cs</DependentUpon>
+    </Compile>
     <Compile Include="MIDIFeedback.cs" />
     <Compile Include="MidiInCustom.cs" />
     <Compile Include="OBSControl.cs" />
@@ -199,6 +205,9 @@
     <EmbeddedResource Include="MIDIControlGUI.resx">
       <DependentUpon>MIDIControlGUI.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MIDIControlGUI2.resx">
+      <DependentUpon>MIDIControlGUI2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsGUI.resx">
       <DependentUpon>OptionsGUI.cs</DependentUpon>

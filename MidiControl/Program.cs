@@ -21,9 +21,13 @@ namespace MidiControl
             Debug.Listeners.Add(new TextWriterTraceListener(Path.Combine(ConfFolder, Path.GetFileName("debug.log"))));
             Debug.AutoFlush = true;
 #endif
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MIDIControlGUI());
+			//Application.Run(new MIDIControlGUI());
+			
+			Application.Run(new MIDIControlGUI2());
         }
     }
 }
