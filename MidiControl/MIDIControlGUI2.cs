@@ -35,12 +35,12 @@ namespace MidiControl {
 
 			options = new OptionsManagment();
 			conf = new Configuration(this, options.options.LastUsedProfile);
-			this.Text = "MIDIControl - [" + conf.CurrentProfile + "]";
 
 			midi = new MIDIListener(conf);
 			UpdateMIDIStatus();
 
 			ReloadProfilesList();
+			RefreshWindowTitle();
 
 			trayIcon.BalloonTipText = "MIDIControl is now running.  Double-click the tray icon to open the main window.";
 		}
@@ -95,6 +95,10 @@ namespace MidiControl {
 			this.Close();
 		}
 
+		private void RefreshWindowTitle() {
+			this.Text = "MIDIControl - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
+		}
+
 		// delegate handlers; from MIDIControlGUI; config/profiles/keybind refresh
 		private void ReloadProfilesList() {
 			for(var i = 0; i < menuProfiles.DropDownItems.Count; i++) {
@@ -138,7 +142,7 @@ namespace MidiControl {
 			ReloadEntries();
 
 			// set selected profile in menu
-			// ...
+			CheckCurrentProfileMenuItem();
 		}
 
 		private void UpdateMIDIStatus() {
@@ -172,15 +176,37 @@ namespace MidiControl {
 			}
 		}
 
-		public void ReloadEntries() {
-			// display all keybinds for current profile in listview
-			// ...
+		private void OBSStatusButtonClicked(object sender, EventArgs e) {
+			OBSControl.GetInstance().ConnectDisconnect();
 		}
 
+		private void TwitchStatusButtonClicked(object sender, EventArgs e) {
+			TwitchChatControl.GetInstance().ConnectDisconnect();
+		}
+
+		private void MidiStatusButtonClicked(object sender, EventArgs e) {
+			midi.RefeshMIDIDevices();
+			UpdateMIDIStatus();
+		}
+
+		private void StopAllSoundsClicked(object sender, EventArgs e) {
+			midi.StopAllSounds();
+		}
 
 		// ui events
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
+			var profile = ((ToolStripMenuItem)sender).Text;
 
+			conf.LoadProfile(profile);
 		}
+
+		public void ReloadEntries() {
+			// display all keybinds for current profile in listview
+			// ...
+
+			RefreshWindowTitle();
+		}
+
+		
 	}
 }

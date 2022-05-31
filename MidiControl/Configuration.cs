@@ -17,6 +17,7 @@ namespace MidiControl
         private readonly string ConfFolder;
         private string ConfFile;
         public string CurrentProfile;
+		public bool Unsaved = false;
         private readonly MIDIControlGUI2 gui;
         private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -119,6 +120,8 @@ namespace MidiControl
 				string json = JsonConvert.SerializeObject(Config);
 				File.WriteAllText(ConfFile, json);
 
+				Unsaved = false;
+
 				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
 			} catch(Exception ex) {
 				MessageBox.Show("Error occurred while saving: " + ex.ToString());
@@ -131,6 +134,8 @@ namespace MidiControl
 			try {
 				string json = JsonConvert.SerializeObject(Config);
 				File.WriteAllText(ConfFile, json);
+
+				Unsaved = false;
 
 				CurrentProfile = newname;
 				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");

@@ -269,6 +269,7 @@
 			this.toolStripButton1.Name = "toolStripButton1";
 			this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton1.Text = "Stop all sounds";
+			this.toolStripButton1.Click += new System.EventHandler(this.StopAllSoundsClicked);
 			// 
 			// toolStripSeparator3
 			// 
@@ -323,24 +324,25 @@
             this.toolStripMenuItem4,
             this.trayMenuExit});
 			this.trayMenuStrip.Name = "trayMenuStrip";
-			this.trayMenuStrip.Size = new System.Drawing.Size(179, 54);
+			this.trayMenuStrip.Size = new System.Drawing.Size(183, 54);
 			// 
 			// trayMenuShowMainWindow
 			// 
+			this.trayMenuShowMainWindow.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.trayMenuShowMainWindow.Name = "trayMenuShowMainWindow";
-			this.trayMenuShowMainWindow.Size = new System.Drawing.Size(178, 22);
+			this.trayMenuShowMainWindow.Size = new System.Drawing.Size(182, 22);
 			this.trayMenuShowMainWindow.Text = "Show main window";
 			this.trayMenuShowMainWindow.Click += new System.EventHandler(this.trayMenuShowMainWindow_Click);
 			// 
 			// toolStripMenuItem4
 			// 
 			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-			this.toolStripMenuItem4.Size = new System.Drawing.Size(175, 6);
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(179, 6);
 			// 
 			// trayMenuExit
 			// 
 			this.trayMenuExit.Name = "trayMenuExit";
-			this.trayMenuExit.Size = new System.Drawing.Size(178, 22);
+			this.trayMenuExit.Size = new System.Drawing.Size(182, 22);
 			this.trayMenuExit.Text = "Exit";
 			this.trayMenuExit.Click += new System.EventHandler(this.trayMenuExit_Click);
 			// 
@@ -362,6 +364,7 @@
 			this.obsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.obsButton.Name = "obsButton";
 			this.obsButton.Size = new System.Drawing.Size(23, 20);
+			this.obsButton.Click += new System.EventHandler(this.OBSStatusButtonClicked);
 			// 
 			// twitchButton
 			// 
@@ -369,6 +372,7 @@
 			this.twitchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.twitchButton.Name = "twitchButton";
 			this.twitchButton.Size = new System.Drawing.Size(23, 20);
+			this.twitchButton.Click += new System.EventHandler(this.TwitchStatusButtonClicked);
 			// 
 			// midiButton
 			// 
@@ -376,6 +380,7 @@
 			this.midiButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.midiButton.Name = "midiButton";
 			this.midiButton.Size = new System.Drawing.Size(23, 20);
+			this.midiButton.Click += new System.EventHandler(this.MidiStatusButtonClicked);
 			// 
 			// midiStatus
 			// 
