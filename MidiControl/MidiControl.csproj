@@ -257,6 +257,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\control-knob-icon.png" />
+    <None Include="Resources\control-button-icon.png" />
     <None Include="Resources\MIDIRed.png" />
     <None Include="Resources\MIDI.png" />
     <None Include="Resources\obsRed.png" />

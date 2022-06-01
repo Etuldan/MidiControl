@@ -19,6 +19,8 @@ namespace MidiControl {
 
 		private const string STATIC_PROFILEMENU_TAG = "#STATIC_PROFILE_MENU_ITEM#";
 
+		private ImageList keybindIconList;
+
 		private static MIDIControlGUI2 _inst;
 		public static MIDIControlGUI2 GetInstance() {
 			return _inst;
@@ -43,6 +45,16 @@ namespace MidiControl {
 			RefreshWindowTitle();
 
 			trayIcon.BalloonTipText = "MIDIControl is now running.  Double-click the tray icon to open the main window.";
+
+			keybindIconList = new ImageList() {
+				ColorDepth = ColorDepth.Depth32Bit,
+				ImageSize = new Size(48, 48)
+			};
+			keybindIconList.Images.Add("button", Properties.Resources.control_button_icon);
+			keybindIconList.Images.Add("knob", Properties.Resources.control_knob_icon);
+
+			listKeybinds.LargeImageList = keybindIconList;
+			//listKeybinds.SmallImageList = keybindIconList;
 		}
 
 		// form, tray icon, close window events
@@ -235,7 +247,12 @@ namespace MidiControl {
 
 			foreach(KeyValuePair<string, KeyBindEntry> entry in conf.Config) {
 				var item = new ListViewItem(entry.Key);
-				
+
+				if(entry.Value.Input == Event.Note)
+					item.ImageKey = "button";
+				else if(entry.Value.Input == Event.Slider)
+					item.ImageKey = "knob";
+
 				// generate overview for details view
 				// ...
 
