@@ -222,8 +222,8 @@ namespace MidiControl {
 			if(conf.Config.TryGetValue(index, out KeyBindEntry value)) {
 				using(EntryGUI addEntry = new EntryGUI(index, value)) {
 					addEntry.StartPosition = FormStartPosition.CenterParent;
-					addEntry.ShowDialog();
-					ReloadEntries();
+					if(addEntry.ShowDialog() == DialogResult.OK)
+						ReloadEntries();
 					midi.EnableListening();
 				}
 			}
@@ -309,8 +309,9 @@ namespace MidiControl {
 
 		private void AddKeybindItemClicked(object sender, EventArgs e) {
 			using(EntryGUI addEntry = new EntryGUI()) {
-				addEntry.ShowDialog();
-				ReloadEntries();
+				addEntry.StartPosition = FormStartPosition.CenterParent;
+				if(addEntry.ShowDialog() == DialogResult.OK)
+					ReloadEntries();
 				midi.EnableListening();
 			}
 		}

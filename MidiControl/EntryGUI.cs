@@ -49,6 +49,8 @@ namespace MidiControl
                 entry.Value.MessageReceived += MidiIn_MessageReceived;
                 midiDevice.Add(entry.Value);
             }
+
+			DialogResult = DialogResult.Cancel;
         }
 
         public EntryGUI(string name, KeyBindEntry keybind)
@@ -75,7 +77,12 @@ namespace MidiControl
             TxtBoxDevice.Text = Device;
             TxtBoxChannel.Text = Channel.ToString();
 
-            if (keybind.MediaCallBack != null)
+			if(Input == Event.Note)
+				LblNote.Text = "Note";
+			else if(Input == Event.Slider)
+				LblNote.Text = "CC";
+
+			if (keybind.MediaCallBack != null)
             {
                 switch (keybind.MediaCallBack.MediaType)
                 {
@@ -717,7 +724,9 @@ namespace MidiControl
                 entry.Value.MessageReceived += MidiIn_MessageReceived;
                 midiDevice.Add(entry.Value);
             }
-        }
+
+			DialogResult = DialogResult.Cancel;
+		}
 
         private void InitControls()
         {
@@ -1586,6 +1595,8 @@ namespace MidiControl
 
 			conf.Unsaved = true;
 
+			DialogResult = DialogResult.OK;
+
             this.Close();
             this.Dispose();
         }
@@ -1645,6 +1656,11 @@ namespace MidiControl
             TxtBoxNote.Text = note;
             TxtBoxDevice.Text = device;
             TxtBoxChannel.Text = channel;
+
+			if(Input == Event.Note)
+				LblNote.Text = "Note";
+			else if(Input == Event.Slider)
+				LblNote.Text = "CC";
         }
 
         private void BtnAudioSelect_Click(object sender, EventArgs e)
