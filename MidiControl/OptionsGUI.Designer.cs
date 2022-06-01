@@ -43,9 +43,24 @@
 			this.BtnRequestTwitchLogout = new System.Windows.Forms.Button();
 			this.BtnRequestTwitchLogin = new System.Windows.Forms.Button();
 			this.txtBoxTwitchLogin = new System.Windows.Forms.TextBox();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.chkStartToTray = new System.Windows.Forms.CheckBox();
+			this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
+			this.chkConfirmDeleteKeybind = new System.Windows.Forms.CheckBox();
+			this.chkConfirmDeleteProfile = new System.Windows.Forms.CheckBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.chkLoadLastProfileOnStart = new System.Windows.Forms.CheckBox();
 			this.groupBoxOBS.SuspendLayout();
 			this.groupBoxMIDI.SuspendLayout();
 			this.groupBoxTwitch.SuspendLayout();
+			this.tabControl1.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// LblOBSIP
@@ -83,7 +98,8 @@
 			// 
 			// BtnSave
 			// 
-			this.BtnSave.Location = new System.Drawing.Point(167, 238);
+			this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtnSave.Location = new System.Drawing.Point(167, 264);
 			this.BtnSave.Name = "BtnSave";
 			this.BtnSave.Size = new System.Drawing.Size(75, 23);
 			this.BtnSave.TabIndex = 6;
@@ -97,7 +113,7 @@
 			this.groupBoxOBS.Controls.Add(this.TxtBoxOBSIP);
 			this.groupBoxOBS.Controls.Add(this.LblOBSPassword);
 			this.groupBoxOBS.Controls.Add(this.TxtBoxOBSPassword);
-			this.groupBoxOBS.Location = new System.Drawing.Point(12, 12);
+			this.groupBoxOBS.Location = new System.Drawing.Point(6, 6);
 			this.groupBoxOBS.Name = "groupBoxOBS";
 			this.groupBoxOBS.Size = new System.Drawing.Size(230, 66);
 			this.groupBoxOBS.TabIndex = 9;
@@ -110,7 +126,7 @@
 			this.groupBoxMIDI.Controls.Add(this.lblDelay);
 			this.groupBoxMIDI.Controls.Add(this.label1);
 			this.groupBoxMIDI.Controls.Add(this.ChkCmbBoxMIDI);
-			this.groupBoxMIDI.Location = new System.Drawing.Point(12, 84);
+			this.groupBoxMIDI.Location = new System.Drawing.Point(6, 78);
 			this.groupBoxMIDI.Name = "groupBoxMIDI";
 			this.groupBoxMIDI.Size = new System.Drawing.Size(230, 96);
 			this.groupBoxMIDI.TabIndex = 10;
@@ -160,7 +176,7 @@
 			this.groupBoxTwitch.Controls.Add(this.BtnRequestTwitchLogout);
 			this.groupBoxTwitch.Controls.Add(this.BtnRequestTwitchLogin);
 			this.groupBoxTwitch.Controls.Add(this.txtBoxTwitchLogin);
-			this.groupBoxTwitch.Location = new System.Drawing.Point(12, 186);
+			this.groupBoxTwitch.Location = new System.Drawing.Point(6, 180);
 			this.groupBoxTwitch.Name = "groupBoxTwitch";
 			this.groupBoxTwitch.Size = new System.Drawing.Size(230, 46);
 			this.groupBoxTwitch.TabIndex = 13;
@@ -196,18 +212,123 @@
 			this.txtBoxTwitchLogin.Size = new System.Drawing.Size(109, 20);
 			this.txtBoxTwitchLogin.TabIndex = 0;
 			// 
+			// tabControl1
+			// 
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(255, 259);
+			this.tabControl1.TabIndex = 14;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.groupBoxOBS);
+			this.tabPage1.Controls.Add(this.groupBoxTwitch);
+			this.tabPage1.Controls.Add(this.groupBoxMIDI);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(247, 233);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "MIDIControl";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.groupBox2);
+			this.tabPage2.Controls.Add(this.groupBox1);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage2.Size = new System.Drawing.Size(247, 233);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "Interface";
+			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// chkStartToTray
+			// 
+			this.chkStartToTray.AutoSize = true;
+			this.chkStartToTray.Location = new System.Drawing.Point(6, 19);
+			this.chkStartToTray.Name = "chkStartToTray";
+			this.chkStartToTray.Size = new System.Drawing.Size(115, 17);
+			this.chkStartToTray.TabIndex = 0;
+			this.chkStartToTray.Text = "Start to system tray";
+			this.chkStartToTray.UseVisualStyleBackColor = true;
+			// 
+			// chkAlwaysOnTop
+			// 
+			this.chkAlwaysOnTop.AutoSize = true;
+			this.chkAlwaysOnTop.Location = new System.Drawing.Point(6, 42);
+			this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
+			this.chkAlwaysOnTop.Size = new System.Drawing.Size(148, 17);
+			this.chkAlwaysOnTop.TabIndex = 1;
+			this.chkAlwaysOnTop.Text = "Keep main window on top";
+			this.chkAlwaysOnTop.UseVisualStyleBackColor = true;
+			// 
+			// chkConfirmDeleteKeybind
+			// 
+			this.chkConfirmDeleteKeybind.AutoSize = true;
+			this.chkConfirmDeleteKeybind.Location = new System.Drawing.Point(6, 19);
+			this.chkConfirmDeleteKeybind.Name = "chkConfirmDeleteKeybind";
+			this.chkConfirmDeleteKeybind.Size = new System.Drawing.Size(179, 17);
+			this.chkConfirmDeleteKeybind.TabIndex = 2;
+			this.chkConfirmDeleteKeybind.Text = "Confirm before deleting keybinds";
+			this.chkConfirmDeleteKeybind.UseVisualStyleBackColor = true;
+			// 
+			// chkConfirmDeleteProfile
+			// 
+			this.chkConfirmDeleteProfile.AutoSize = true;
+			this.chkConfirmDeleteProfile.Location = new System.Drawing.Point(6, 42);
+			this.chkConfirmDeleteProfile.Name = "chkConfirmDeleteProfile";
+			this.chkConfirmDeleteProfile.Size = new System.Drawing.Size(170, 17);
+			this.chkConfirmDeleteProfile.TabIndex = 3;
+			this.chkConfirmDeleteProfile.Text = "Confirm before deleting profiles";
+			this.chkConfirmDeleteProfile.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.chkLoadLastProfileOnStart);
+			this.groupBox1.Controls.Add(this.chkStartToTray);
+			this.groupBox1.Controls.Add(this.chkAlwaysOnTop);
+			this.groupBox1.Location = new System.Drawing.Point(8, 6);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(230, 89);
+			this.groupBox1.TabIndex = 4;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "General";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.chkConfirmDeleteKeybind);
+			this.groupBox2.Controls.Add(this.chkConfirmDeleteProfile);
+			this.groupBox2.Location = new System.Drawing.Point(8, 101);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(230, 70);
+			this.groupBox2.TabIndex = 5;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Confirmations";
+			// 
+			// chkLoadLastProfileOnStart
+			// 
+			this.chkLoadLastProfileOnStart.AutoSize = true;
+			this.chkLoadLastProfileOnStart.Location = new System.Drawing.Point(6, 65);
+			this.chkLoadLastProfileOnStart.Name = "chkLoadLastProfileOnStart";
+			this.chkLoadLastProfileOnStart.Size = new System.Drawing.Size(176, 17);
+			this.chkLoadLastProfileOnStart.TabIndex = 2;
+			this.chkLoadLastProfileOnStart.Text = "Load last-used profile on startup";
+			this.chkLoadLastProfileOnStart.UseVisualStyleBackColor = true;
+			// 
 			// OptionsGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(254, 271);
-			this.Controls.Add(this.groupBoxTwitch);
-			this.Controls.Add(this.groupBoxMIDI);
-			this.Controls.Add(this.groupBoxOBS);
+			this.ClientSize = new System.Drawing.Size(254, 297);
+			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.BtnSave);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(270, 310);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(270, 310);
 			this.Name = "OptionsGUI";
@@ -220,6 +341,13 @@
 			this.groupBoxMIDI.PerformLayout();
 			this.groupBoxTwitch.ResumeLayout(false);
 			this.groupBoxTwitch.PerformLayout();
+			this.tabControl1.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -241,5 +369,15 @@
         private System.Windows.Forms.TextBox txtBoxTwitchLogin;
         private System.Windows.Forms.Button BtnRequestTwitchLogin;
         private System.Windows.Forms.Button BtnRequestTwitchLogout;
-    }
+		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.CheckBox chkConfirmDeleteKeybind;
+		private System.Windows.Forms.CheckBox chkConfirmDeleteProfile;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.CheckBox chkStartToTray;
+		private System.Windows.Forms.CheckBox chkAlwaysOnTop;
+		private System.Windows.Forms.CheckBox chkLoadLastProfileOnStart;
+	}
 }

@@ -76,5 +76,5 @@ namespace MidiControl
             options.options.TwitchRefreshToken = "";
             TwitchChatControl.GetInstance().Disconnect();
         }
-    }
+	}
 }

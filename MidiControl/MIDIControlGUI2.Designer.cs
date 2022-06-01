@@ -344,6 +344,7 @@
 			this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
 			this.trayIcon.Text = "MIDIControl";
 			this.trayIcon.Visible = true;
+			this.trayIcon.BalloonTipClicked += new System.EventHandler(this.trayIcon_BalloonTipClicked);
 			this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
 			// 
 			// trayMenuStrip

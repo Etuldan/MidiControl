@@ -75,6 +75,11 @@ namespace MidiControl
             return GetAllProfiles();
         }
 
+		public bool DoesProfileExist(string profile) {
+			string FileToSearch = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(profile, "_") + ".json"));
+			return File.Exists(FileToSearch);
+		}
+
         private void LoadCurrentProfile()
         {
             try

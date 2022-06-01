@@ -415,7 +415,7 @@ namespace MidiControl {
 			}
 
 			if(doCreate) {
-				var newProfileResponse = TextInputGUI.ShowPrompt("Enter a new profile name (no special characters):", "Name new profile");
+				var newProfileResponse = this.PromptForNewProfileName("Enter a new profile name (no special characters):", "Name new profile");
 
 				if(newProfileResponse.Accepted) {
 					conf.Config.Clear();
@@ -431,7 +431,8 @@ namespace MidiControl {
 		}
 
 		private void DuplicateProfileMenuItem_Click(object sender, EventArgs e) {
-			var dupProfileResponse = TextInputGUI.ShowPrompt("Enter a new name for the duplicate of '" + conf.CurrentProfile + "' (no special characters):", "Name duplicate of '" + conf.CurrentProfile + "'");
+			//var dupProfileResponse = TextInputGUI.ShowPrompt("Enter a new name for the duplicate of '" + conf.CurrentProfile + "' (no special characters):", "Name duplicate of '" + conf.CurrentProfile + "'");
+			var dupProfileResponse = this.PromptForNewProfileName("Enter a new name for the duplicate of '" + conf.CurrentProfile + "' (no special characters):", "Name duplicate of '" + conf.CurrentProfile + "'");
 
 			if(dupProfileResponse.Accepted) {
 				conf.SaveCurrentProfileAs(dupProfileResponse.Text);
@@ -442,6 +443,33 @@ namespace MidiControl {
 				options.options.LastUsedProfile = conf.CurrentProfile;
 				options.Save();
 			}
+		}
+
+		private TextInputResponse PromptForNewProfileName(string message, string caption, string initialValue = "") {
+			bool validName = false;
+			var newProfileResponse = new TextInputResponse();
+
+			while(!validName) {
+				newProfileResponse = TextInputGUI.ShowPrompt(message, caption);
+				if(!newProfileResponse.Accepted) break;
+
+				// new name can't be 'default' or an existing profile name
+				if(newProfileResponse.Text.ToLower() == "default") {
+					MessageBox.Show("New profile cannot be named 'default'.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				} else if(conf.DoesProfileExist(newProfileResponse.Text)) {
+					MessageBox.Show("A profile with that name already exists.", "Profile already exists", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				} else if(newProfileResponse.Text.Trim() == "") {
+					MessageBox.Show("New profile name cannot be blank.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				} else {
+					validName = true;
+				}
+			}
+
+			return newProfileResponse;
+		}
+
+		private void trayIcon_BalloonTipClicked(object sender, EventArgs e) {
+
 		}
 	}
 }
