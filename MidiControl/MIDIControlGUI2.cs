@@ -139,8 +139,10 @@ namespace MidiControl {
 
 			if(conf.CurrentProfile == "Default") {
 				btnDeleteCurrentProfile.Text = deleteCurrentProfileToolStripMenuItem.Text = "Clear default profile";
+				saveCurrentProfileAsDefaultToolStripMenuItem.Enabled = false;
 			} else {
 				btnDeleteCurrentProfile.Text = deleteCurrentProfileToolStripMenuItem.Text = "Delete current profile";
+				saveCurrentProfileAsDefaultToolStripMenuItem.Enabled = true;
 			}
 		}
 
