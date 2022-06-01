@@ -79,7 +79,8 @@ namespace MidiControl
         {
             try
             {
-                string json = File.ReadAllText(ConfFile);
+				Unsaved = false;
+				string json = File.ReadAllText(ConfFile);
                 Config = JsonConvert.DeserializeObject<Dictionary<string, KeyBindEntry>>(json);
                 if (Config == null)
                 {

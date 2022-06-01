@@ -70,6 +70,19 @@ namespace MidiControl {
 				this.Hide();
 				trayIcon.BalloonTipText = "MIDIControl is still running.  Double-click the tray icon to reopen the main window.";
 				trayIcon.ShowBalloonTip(500);
+			} else {
+				if(conf.Unsaved) {
+					switch(MessageBox.Show("The current profile '" + conf.CurrentProfile + "' has unsaved changes.  Do you want to save them before exiting?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)) {
+						case DialogResult.Yes:
+							conf.SaveCurrentProfile();
+							break;
+						case DialogResult.No:
+							break;
+						case DialogResult.Cancel:
+							e.Cancel = true;
+							break;
+					}
+				}
 			}
 		}
 
@@ -237,8 +250,23 @@ namespace MidiControl {
 
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
 			var profile = ((ToolStripMenuItem)sender).Text;
+			bool doLoad = true;
 
-			conf.LoadProfile(profile);
+			if(conf.Unsaved) {
+				switch(MessageBox.Show("The current profile '" + conf.CurrentProfile + "' has unsaved changes.  Do you want to save them before switching?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)) {
+					case DialogResult.Yes:
+						conf.SaveCurrentProfile();
+						break;
+					case DialogResult.No:
+						break;
+					case DialogResult.Cancel:
+						doLoad = false;
+						break;
+				}
+			}
+
+			if(doLoad)
+				conf.LoadProfile(profile);
 		}
 
 		public void ReloadEntries() {
@@ -371,17 +399,34 @@ namespace MidiControl {
 		}
 
 		private void NewProfileMenuItem_Click(object sender, EventArgs e) {
-			var newProfileResponse = TextInputGUI.ShowPrompt("Enter a new profile name (no special characters):", "Name new profile");
+			bool doCreate = true;
 
-			if(newProfileResponse.Accepted) {
-				conf.Config.Clear();
-				conf.SaveCurrentProfileAs(newProfileResponse.Text);
-				ReloadProfilesList();
-				ReloadEntries();
-				RefreshWindowTitle();
+			if(conf.Unsaved) {
+				switch(MessageBox.Show("The current profile '" + conf.CurrentProfile + "' has unsaved changes.  Do you want to save them before creating a new profile?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)) {
+					case DialogResult.Yes:
+						conf.SaveCurrentProfile();
+						break;
+					case DialogResult.No:
+						break;
+					case DialogResult.Cancel:
+						doCreate = false;
+						break;
+				}
+			}
 
-				options.options.LastUsedProfile = conf.CurrentProfile;
-				options.Save();
+			if(doCreate) {
+				var newProfileResponse = TextInputGUI.ShowPrompt("Enter a new profile name (no special characters):", "Name new profile");
+
+				if(newProfileResponse.Accepted) {
+					conf.Config.Clear();
+					conf.SaveCurrentProfileAs(newProfileResponse.Text);
+					ReloadProfilesList();
+					ReloadEntries();
+					RefreshWindowTitle();
+
+					options.options.LastUsedProfile = conf.CurrentProfile;
+					options.Save();
+				}
 			}
 		}
 
