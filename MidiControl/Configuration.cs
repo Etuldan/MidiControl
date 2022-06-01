@@ -180,6 +180,93 @@ namespace MidiControl
         public MIDIControlCallBack MIDIControlCallBackOFF;
         public GoXLRCallBack GoXLRCallBackON;
         public GoXLRCallBack GoXLRCallBackOFF;
+
+		public string Summarize() {
+			var summary = new List<string>();
+			if(OBSCallBacksON.Count > 0) {
+				var items = new List<string>();
+				foreach(var item in OBSCallBacksON) {
+					items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+				}
+				summary.Add("OBS (on): " + string.Join("; ", items));
+				
+			}
+			if(OBSCallBacksOFF.Count > 0) {
+				var items = new List<string>();
+				foreach(var item in OBSCallBacksOFF) {
+					items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+				}
+				summary.Add("OBS (off): " + string.Join("; ", items));
+			}
+			if(OBSCallBacksSlider.Count > 0) {
+				var items = new List<string>();
+				foreach(var item in OBSCallBacksSlider) {
+					items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+				}
+				summary.Add("(adjust) " + string.Join("; ", items));
+			}
+			if(SoundCallBack != null) {
+				string soundFile = Path.GetFileName(SoundCallBack.File);
+				string action = "Play '" + soundFile + "' on " + SoundCallBack.DeviceName;
+				summary.Add("Sound: " + action);
+			}
+			if(MediaCallBack != null) {
+				string action = MediaCallBack.MediaType.ToString();
+				summary.Add("Media (on): " + action);
+			}
+			if(MediaCallBackOFF != null) {
+				string action = MediaCallBackOFF.MediaType.ToString();
+				summary.Add("Media (off): " + action);
+			}
+			if(TwitchCallBackON != null) {
+				string action = "Send message on channel " + TwitchCallBackON.Channel;
+				summary.Add("Twitch (on): " + action);
+			}
+			if(TwitchCallBackOFF != null) {
+				string action = "Send message on channel " + TwitchCallBackOFF.Channel;
+				summary.Add("Twitch (off): " + action);
+			}
+			if(MIDIControlCallBackON != null) {
+				var action = new List<string>();
+				if(MIDIControlCallBackON.StopAllSound)
+					action.Add("Stop all sounds");
+				if(MIDIControlCallBackON.SwitchToProfile != null)
+					action.Add("Switch to profile '" + MIDIControlCallBackON.SwitchToProfile);
+
+				summary.Add("MIDIControl (on): " + string.Join("; ", action));
+			}
+			if(MIDIControlCallBackOFF != null) {
+				var action = new List<string>();
+				if(MIDIControlCallBackOFF.StopAllSound)
+					action.Add("Stop all sounds");
+				if(MIDIControlCallBackOFF.SwitchToProfile != null)
+					action.Add("Switch to profile '" + MIDIControlCallBackOFF.SwitchToProfile);
+
+				summary.Add("MIDIControl (on): " + string.Join("; ", action));
+			}
+			if(GoXLRCallBackON != null) {
+				string action = "";
+				switch(GoXLRCallBackON.Action) {
+					case 0: action = "Mute: "; break;
+					case 1: action = "Unmute: "; break;
+					case 2: action = "Toggle: "; break;
+				}
+				action += "Input " + GoXLRCallBackON.Input + ", Output " + GoXLRCallBackON.Output;
+				summary.Add("GoXLR (on): " + action);
+			}
+			if(GoXLRCallBackOFF != null) {
+				string action = "";
+				switch(GoXLRCallBackOFF.Action) {
+					case 0: action = "Mute: "; break;
+					case 1: action = "Unmute: "; break;
+					case 2: action = "Toggle: "; break;
+				}
+				action += "Input " + GoXLRCallBackOFF.Input + ", Output " + GoXLRCallBackOFF.Output;
+				summary.Add("GoXLR (off): " + action);
+			}
+
+			return string.Join(" / ", summary);
+		}
     }
 
     public enum MediaType

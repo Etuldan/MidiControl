@@ -298,7 +298,10 @@ namespace MidiControl {
 					item.ImageKey = "knob";
 
 				// generate overview for details view
-				// ...
+				var summary = entry.Value.Summarize();
+				var overview = new ListViewItem.ListViewSubItem(item, summary);
+				item.SubItems.Add(overview);
+				item.ToolTipText = summary.Replace(" / ", "\n");
 
 				listKeybinds.Items.Add(item);
 			}

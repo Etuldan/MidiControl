@@ -425,9 +425,11 @@
             this.columnHeader1,
             this.columnHeader2});
 			this.listKeybinds.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listKeybinds.FullRowSelect = true;
 			this.listKeybinds.HideSelection = false;
 			this.listKeybinds.Location = new System.Drawing.Point(0, 25);
 			this.listKeybinds.Name = "listKeybinds";
+			this.listKeybinds.ShowItemToolTips = true;
 			this.listKeybinds.Size = new System.Drawing.Size(534, 420);
 			this.listKeybinds.TabIndex = 4;
 			this.listKeybinds.UseCompatibleStateImageBehavior = false;
