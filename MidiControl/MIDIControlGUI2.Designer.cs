@@ -39,7 +39,7 @@
 			this.addKeybindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
 			this.MidiControlOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.InterfaceOptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
 			this.closeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,7 +105,7 @@
             this.addKeybindToolStripMenuItem,
             this.toolStripMenuItem5,
             this.MidiControlOptionsToolStripMenuItem,
-            this.settingsToolStripMenuItem,
+            this.InterfaceOptionsMenuItem,
             this.toolStripMenuItem3,
             this.closeToTrayToolStripMenuItem,
             this.exitToolStripMenuItem});
@@ -217,11 +217,12 @@
 			this.MidiControlOptionsToolStripMenuItem.Text = "MIDIControl options...";
 			this.MidiControlOptionsToolStripMenuItem.Click += new System.EventHandler(this.MidiControlOptionsToolStripMenuItem_Click);
 			// 
-			// settingsToolStripMenuItem
+			// InterfaceOptionsMenuItem
 			// 
-			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-			this.settingsToolStripMenuItem.Text = "Interface options...";
+			this.InterfaceOptionsMenuItem.Name = "InterfaceOptionsMenuItem";
+			this.InterfaceOptionsMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.InterfaceOptionsMenuItem.Text = "Interface options...";
+			this.InterfaceOptionsMenuItem.Click += new System.EventHandler(this.InterfaceOptionsMenuItem_Click);
 			// 
 			// toolStripMenuItem3
 			// 
@@ -515,7 +516,7 @@
 		private System.Windows.Forms.NotifyIcon trayIcon;
 		private System.Windows.Forms.ContextMenuStrip trayMenuStrip;
 		private System.Windows.Forms.ToolStripMenuItem MidiControlOptionsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem InterfaceOptionsMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
 		private System.Windows.Forms.ToolStripMenuItem closeToTrayToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;

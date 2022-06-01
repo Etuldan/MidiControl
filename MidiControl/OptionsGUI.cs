@@ -7,7 +7,7 @@ namespace MidiControl
     public partial class OptionsGUI : Form
     {
         private readonly OptionsManagment options;
-        public OptionsGUI(OptionsManagment options)
+        public OptionsGUI(OptionsManagment options, int tab = 0)
         {
             this.options = options;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
@@ -29,6 +29,14 @@ namespace MidiControl
             txtBoxDelay.Text = options.options.Delay.ToString();
 
             txtBoxTwitchLogin.Text = options.options.TwitchLogin;
+
+			chkStartToTray.Checked = options.options.StartToTray;
+			chkAlwaysOnTop.Checked = options.options.AlwaysOnTop;
+			chkLoadLastProfileOnStart.Checked = options.options.LoadLastProfileOnStartup;
+			chkConfirmDeleteKeybind.Checked = options.options.ConfirmKeybindDeletion;
+			chkConfirmDeleteProfile.Checked = options.options.ConfirmProfileDeletion;
+
+			tabControl1.SelectedIndex = tab;
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -50,6 +58,12 @@ namespace MidiControl
             {
                 options.options.Delay = 0;
             }
+
+			options.options.StartToTray = chkStartToTray.Checked;
+			options.options.AlwaysOnTop = chkAlwaysOnTop.Checked;
+			options.options.LoadLastProfileOnStartup = chkLoadLastProfileOnStart.Checked;
+			options.options.ConfirmKeybindDeletion = chkConfirmDeleteKeybind.Checked;
+			options.options.ConfirmProfileDeletion = chkConfirmDeleteProfile.Checked;
 
             options.Save();
             this.Close();

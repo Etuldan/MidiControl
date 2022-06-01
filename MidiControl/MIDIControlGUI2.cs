@@ -36,7 +36,11 @@ namespace MidiControl {
 			SwitchProfileControlDelegate = new SwitchProfileControlDelegateHandler(UpdateProfile);
 
 			options = new OptionsManagment();
-			conf = new Configuration(this, options.options.LastUsedProfile);
+			string initialProfile = options.options.LastUsedProfile;
+			if(!options.options.LoadLastProfileOnStartup) {
+				initialProfile = "Default";
+			}
+			conf = new Configuration(this, initialProfile);
 
 			midi = new MIDIListener(conf);
 			UpdateMIDIStatus();
@@ -44,7 +48,10 @@ namespace MidiControl {
 			ReloadProfilesList();
 			RefreshWindowTitle();
 
-			trayIcon.BalloonTipText = "MIDIControl is now running.  Double-click the tray icon to open the main window.";
+			trayIcon.BalloonTipText = "MIDIControl loaded the '" + initialProfile + "' profile.  Double-click the tray icon to open the main window.";
+			if(options.options.StartToTray) {
+				trayIcon.ShowBalloonTip(500);
+			}
 
 			keybindIconList = new ImageList() {
 				ColorDepth = ColorDepth.Depth32Bit,
@@ -88,11 +95,11 @@ namespace MidiControl {
 
 		private void MIDIControlGUI2_FormClosed(object sender, FormClosedEventArgs e) {
 			// actual program close stuff here
-			//
+			midi.ReleaseAll();
 
 			// if the program started to tray, kill the main app thread since it was started without being linked to the window
-			if(options.options.StartToTray) {
-				Application.ExitThread();
+			if(Program.StartedToTray) {
+				Application.Exit();
 			}
 		}
 
@@ -244,8 +251,17 @@ namespace MidiControl {
 
 		// ui events
 		private void MidiControlOptionsToolStripMenuItem_Click(object sender, EventArgs e) {
-			using(OptionsGUI optionGUI = new OptionsGUI(options))
+			using(OptionsGUI optionGUI = new OptionsGUI(options)) {
 				optionGUI.ShowDialog();
+				this.TopMost = options.options.AlwaysOnTop;
+			}
+		}
+
+		private void InterfaceOptionsMenuItem_Click(object sender, EventArgs e) {
+			using(OptionsGUI optionGUI = new OptionsGUI(options, 1)) {
+				optionGUI.ShowDialog();
+				this.TopMost = options.options.AlwaysOnTop;
+			}
 		}
 
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
@@ -377,25 +393,37 @@ namespace MidiControl {
 		}
 
 		private void DeleteCurrentProfileClicked(object sender, EventArgs e) {
-			if(conf.CurrentProfile == "Default") {
-				// can't delete default, but offer to clear it
-				if(MessageBox.Show("You are about to clear the default profile.  Are you sure you want to do this?", "Confirm default profile delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+			bool delete = true;
+
+			if(options.options.ConfirmProfileDeletion) {
+				if(conf.CurrentProfile == "Default") {
+					// can't delete default, but offer to clear it
+					if(MessageBox.Show("You are about to clear the default profile.  Are you sure you want to do this?", "Confirm default profile delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No) {
+						delete = false;
+					}
+				} else {
+					if(MessageBox.Show("You are about to delete the profile '" + conf.CurrentProfile + "'.  Are you sure you want to do this?", "Confirm profile delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No) {
+						delete = false;
+					}
+				}
+			}
+			
+			if(delete) {
+				if(conf.CurrentProfile == "Default") {
 					conf.Config.Clear();
 					conf.SaveCurrentProfile();
-				}
-			} else {
-				if(MessageBox.Show("You are about to delete the profile '" + conf.CurrentProfile + "'.  Are you sure you want to do this?", "Confirm profile delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+				} else {
 					conf.RemoveProfile(conf.CurrentProfile);
 					conf.LoadProfile("Default");
 				}
+
+				ReloadProfilesList();
+				ReloadEntries();
+				RefreshWindowTitle();
+
+				options.options.LastUsedProfile = conf.CurrentProfile;
+				options.Save();
 			}
-
-			ReloadProfilesList();
-			ReloadEntries();
-			RefreshWindowTitle();
-
-			options.options.LastUsedProfile = conf.CurrentProfile;
-			options.Save();
 		}
 
 		private void NewProfileMenuItem_Click(object sender, EventArgs e) {
