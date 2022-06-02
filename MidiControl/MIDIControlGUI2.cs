@@ -385,6 +385,12 @@ namespace MidiControl {
 			}
 		}
 
+		private void listKeybinds_KeyDown(object sender, KeyEventArgs e) {
+			if(e.KeyCode == Keys.Delete) {
+				DeleteKeybindMenuItem_Click(sender, e);
+			}
+		}
+
 		private void btnSaveCurrentProfile_Click(object sender, EventArgs e) {
 			conf.SaveCurrentProfile();
 			RefreshWindowTitle();

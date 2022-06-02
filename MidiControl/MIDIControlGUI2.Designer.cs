@@ -68,7 +68,7 @@
 			this.midiStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.itemContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DuplicateKeybindMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
@@ -441,7 +441,7 @@
 			// 
 			this.itemContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
-            this.duplicateToolStripMenuItem,
+            this.DuplicateKeybindMenuItem,
             this.toolStripMenuItem2,
             this.deleteToolStripMenuItem});
 			this.itemContextMenu.Name = "itemContextMenu";
@@ -449,29 +449,30 @@
 			// 
 			// editToolStripMenuItem
 			// 
+			this.editToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.editToolStripMenuItem.Image = global::MidiControl.Properties.Resources.edit;
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.editToolStripMenuItem.Text = "Edit...";
 			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
 			// 
-			// duplicateToolStripMenuItem
+			// DuplicateKeybindMenuItem
 			// 
-			this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-			this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-			this.duplicateToolStripMenuItem.Text = "Duplicate";
+			this.DuplicateKeybindMenuItem.Name = "DuplicateKeybindMenuItem";
+			this.DuplicateKeybindMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.DuplicateKeybindMenuItem.Text = "Duplicate";
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(137, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Image = global::MidiControl.Properties.Resources.minus;
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.deleteToolStripMenuItem.Text = "Delete...";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteKeybindMenuItem_Click);
 			// 
@@ -500,6 +501,7 @@
 			this.listKeybinds.TabIndex = 5;
 			this.listKeybinds.UseCompatibleStateImageBehavior = false;
 			this.listKeybinds.View = System.Windows.Forms.View.Tile;
+			this.listKeybinds.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listKeybinds_KeyDown);
 			this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseClick);
 			this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseDoubleClick);
 			// 
@@ -569,7 +571,7 @@
 		private System.Windows.Forms.ToolStripMenuItem trayMenuExit;
 		private System.Windows.Forms.ContextMenuStrip itemContextMenu;
 		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DuplicateKeybindMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;

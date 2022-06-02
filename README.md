@@ -15,7 +15,7 @@ It support profiles/mapping, so you can switch from one to another, to use your 
 3. Click Add keybind (or press Ctrl+N) to add a new MIDI keybind.
 4. Press a MIDI key or control on your controller; the key/control will be displayed in the "Add MIDI Keybind" window.
 5. Assign one or more actions to this key/control, then press Save.
-6. Repeat steps 3-5 for all keys/controls you want to configure.
+6. Repeat steps 3-5 for all keys/controls you want to configure.  Double-click an existing keybind to edit it, or right-click for more options.
 7. Save your profile.
 8. Hide the window with the X button or Menu > Close to tray; it will minimize to the system tray and can be reactivated by double-clicking the tray icon.  Exit the program by right-clicking the tray icon and choosing Exit, or by selecting Exit from the Menu in the main window.
 
