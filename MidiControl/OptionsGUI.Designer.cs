@@ -46,21 +46,23 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.chkStartToTray = new System.Windows.Forms.CheckBox();
-			this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.chkConfirmDeleteKeybind = new System.Windows.Forms.CheckBox();
 			this.chkConfirmDeleteProfile = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.chkLoadLastProfileOnStart = new System.Windows.Forms.CheckBox();
+			this.chkStartToTray = new System.Windows.Forms.CheckBox();
+			this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.cboToolbarPosition = new System.Windows.Forms.ComboBox();
 			this.groupBoxOBS.SuspendLayout();
 			this.groupBoxMIDI.SuspendLayout();
 			this.groupBoxTwitch.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
-			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// LblOBSIP
@@ -247,25 +249,16 @@
 			this.tabPage2.Text = "Interface";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
-			// chkStartToTray
+			// groupBox2
 			// 
-			this.chkStartToTray.AutoSize = true;
-			this.chkStartToTray.Location = new System.Drawing.Point(6, 19);
-			this.chkStartToTray.Name = "chkStartToTray";
-			this.chkStartToTray.Size = new System.Drawing.Size(115, 17);
-			this.chkStartToTray.TabIndex = 0;
-			this.chkStartToTray.Text = "Start to system tray";
-			this.chkStartToTray.UseVisualStyleBackColor = true;
-			// 
-			// chkAlwaysOnTop
-			// 
-			this.chkAlwaysOnTop.AutoSize = true;
-			this.chkAlwaysOnTop.Location = new System.Drawing.Point(6, 42);
-			this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
-			this.chkAlwaysOnTop.Size = new System.Drawing.Size(148, 17);
-			this.chkAlwaysOnTop.TabIndex = 1;
-			this.chkAlwaysOnTop.Text = "Keep main window on top";
-			this.chkAlwaysOnTop.UseVisualStyleBackColor = true;
+			this.groupBox2.Controls.Add(this.chkConfirmDeleteKeybind);
+			this.groupBox2.Controls.Add(this.chkConfirmDeleteProfile);
+			this.groupBox2.Location = new System.Drawing.Point(8, 135);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(230, 70);
+			this.groupBox2.TabIndex = 5;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Confirmations";
 			// 
 			// chkConfirmDeleteKeybind
 			// 
@@ -289,26 +282,17 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.cboToolbarPosition);
+			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.chkLoadLastProfileOnStart);
 			this.groupBox1.Controls.Add(this.chkStartToTray);
 			this.groupBox1.Controls.Add(this.chkAlwaysOnTop);
 			this.groupBox1.Location = new System.Drawing.Point(8, 6);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(230, 89);
+			this.groupBox1.Size = new System.Drawing.Size(230, 123);
 			this.groupBox1.TabIndex = 4;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "General";
-			// 
-			// groupBox2
-			// 
-			this.groupBox2.Controls.Add(this.chkConfirmDeleteKeybind);
-			this.groupBox2.Controls.Add(this.chkConfirmDeleteProfile);
-			this.groupBox2.Location = new System.Drawing.Point(8, 101);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(230, 70);
-			this.groupBox2.TabIndex = 5;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Confirmations";
 			// 
 			// chkLoadLastProfileOnStart
 			// 
@@ -319,6 +303,47 @@
 			this.chkLoadLastProfileOnStart.TabIndex = 2;
 			this.chkLoadLastProfileOnStart.Text = "Load last-used profile on startup";
 			this.chkLoadLastProfileOnStart.UseVisualStyleBackColor = true;
+			// 
+			// chkStartToTray
+			// 
+			this.chkStartToTray.AutoSize = true;
+			this.chkStartToTray.Location = new System.Drawing.Point(6, 19);
+			this.chkStartToTray.Name = "chkStartToTray";
+			this.chkStartToTray.Size = new System.Drawing.Size(115, 17);
+			this.chkStartToTray.TabIndex = 0;
+			this.chkStartToTray.Text = "Start to system tray";
+			this.chkStartToTray.UseVisualStyleBackColor = true;
+			// 
+			// chkAlwaysOnTop
+			// 
+			this.chkAlwaysOnTop.AutoSize = true;
+			this.chkAlwaysOnTop.Location = new System.Drawing.Point(6, 42);
+			this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
+			this.chkAlwaysOnTop.Size = new System.Drawing.Size(148, 17);
+			this.chkAlwaysOnTop.TabIndex = 1;
+			this.chkAlwaysOnTop.Text = "Keep main window on top";
+			this.chkAlwaysOnTop.UseVisualStyleBackColor = true;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(3, 99);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(85, 13);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "Toolbar position:";
+			// 
+			// cboToolbarPosition
+			// 
+			this.cboToolbarPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboToolbarPosition.FormattingEnabled = true;
+			this.cboToolbarPosition.Items.AddRange(new object[] {
+            "Top",
+            "Bottom"});
+			this.cboToolbarPosition.Location = new System.Drawing.Point(94, 96);
+			this.cboToolbarPosition.Name = "cboToolbarPosition";
+			this.cboToolbarPosition.Size = new System.Drawing.Size(130, 21);
+			this.cboToolbarPosition.TabIndex = 4;
 			// 
 			// OptionsGUI
 			// 
@@ -344,10 +369,10 @@
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -379,5 +404,7 @@
 		private System.Windows.Forms.CheckBox chkStartToTray;
 		private System.Windows.Forms.CheckBox chkAlwaysOnTop;
 		private System.Windows.Forms.CheckBox chkLoadLastProfileOnStart;
+		private System.Windows.Forms.ComboBox cboToolbarPosition;
+		private System.Windows.Forms.Label label2;
 	}
 }

@@ -35,6 +35,7 @@ namespace MidiControl
 			chkLoadLastProfileOnStart.Checked = options.options.LoadLastProfileOnStartup;
 			chkConfirmDeleteKeybind.Checked = options.options.ConfirmKeybindDeletion;
 			chkConfirmDeleteProfile.Checked = options.options.ConfirmProfileDeletion;
+			cboToolbarPosition.SelectedIndex = options.options.ToolbarPosition;
 
 			tabControl1.SelectedIndex = tab;
         }
@@ -64,6 +65,7 @@ namespace MidiControl
 			options.options.LoadLastProfileOnStartup = chkLoadLastProfileOnStart.Checked;
 			options.options.ConfirmKeybindDeletion = chkConfirmDeleteKeybind.Checked;
 			options.options.ConfirmProfileDeletion = chkConfirmDeleteProfile.Checked;
+			options.options.ToolbarPosition = cboToolbarPosition.SelectedIndex;
 
             options.Save();
             this.Close();

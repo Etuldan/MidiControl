@@ -56,7 +56,8 @@ namespace MidiControl
 					ConfirmKeybindDeletion = true,
 					ConfirmProfileDeletion = true,
 					LoadLastProfileOnStartup = true,
-					LastUsedProfile = "Default"
+					LastUsedProfile = "Default",
+					ToolbarPosition = 0 // 0 - top, 1 - bottom
                 };
             }
         }
@@ -84,6 +85,7 @@ namespace MidiControl
 			public bool ConfirmProfileDeletion { get; set; }
 			public bool LoadLastProfileOnStartup { get; set; }
 			public string LastUsedProfile { get; set; }
+			public int ToolbarPosition { get; set; }
         }
     }
 }

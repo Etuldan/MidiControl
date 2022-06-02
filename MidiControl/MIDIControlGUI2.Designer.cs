@@ -64,18 +64,20 @@
 			this.twitchButton = new System.Windows.Forms.ToolStripButton();
 			this.midiButton = new System.Windows.Forms.ToolStripButton();
 			this.midiStatus = new System.Windows.Forms.ToolStripStatusLabel();
-			this.listKeybinds = new System.Windows.Forms.ListView();
-			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.itemContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.listKeybinds = new System.Windows.Forms.ListView();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.toolStrip1.SuspendLayout();
 			this.trayMenuStrip.SuspendLayout();
 			this.statusBar.SuspendLayout();
 			this.itemContextMenu.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip1
@@ -419,34 +421,6 @@
 			this.midiStatus.Name = "midiStatus";
 			this.midiStatus.Size = new System.Drawing.Size(0, 17);
 			// 
-			// listKeybinds
-			// 
-			this.listKeybinds.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-			this.listKeybinds.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listKeybinds.FullRowSelect = true;
-			this.listKeybinds.HideSelection = false;
-			this.listKeybinds.Location = new System.Drawing.Point(0, 25);
-			this.listKeybinds.Name = "listKeybinds";
-			this.listKeybinds.ShowItemToolTips = true;
-			this.listKeybinds.Size = new System.Drawing.Size(534, 420);
-			this.listKeybinds.TabIndex = 4;
-			this.listKeybinds.UseCompatibleStateImageBehavior = false;
-			this.listKeybinds.View = System.Windows.Forms.View.Tile;
-			this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseClick);
-			this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseDoubleClick);
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Keybind Name";
-			this.columnHeader1.Width = 156;
-			// 
-			// columnHeader2
-			// 
-			this.columnHeader2.Text = "Overview";
-			this.columnHeader2.Width = 355;
-			// 
 			// itemContextMenu
 			// 
 			this.itemContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -485,14 +459,49 @@
 			this.deleteToolStripMenuItem.Text = "Delete...";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteKeybindMenuItem_Click);
 			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.listKeybinds);
+			this.panel1.Controls.Add(this.toolStrip1);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Location = new System.Drawing.Point(0, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(534, 445);
+			this.panel1.TabIndex = 5;
+			// 
+			// listKeybinds
+			// 
+			this.listKeybinds.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+			this.listKeybinds.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listKeybinds.FullRowSelect = true;
+			this.listKeybinds.HideSelection = false;
+			this.listKeybinds.Location = new System.Drawing.Point(0, 25);
+			this.listKeybinds.Name = "listKeybinds";
+			this.listKeybinds.ShowItemToolTips = true;
+			this.listKeybinds.Size = new System.Drawing.Size(534, 420);
+			this.listKeybinds.TabIndex = 5;
+			this.listKeybinds.UseCompatibleStateImageBehavior = false;
+			this.listKeybinds.View = System.Windows.Forms.View.Tile;
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Keybind Name";
+			this.columnHeader1.Width = 156;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Overview";
+			this.columnHeader2.Width = 355;
+			// 
 			// MIDIControlGUI2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(534, 467);
-			this.Controls.Add(this.listKeybinds);
+			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.statusBar);
-			this.Controls.Add(this.toolStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MIDIControlGUI2";
 			this.Text = "MIDIControl - [ProfileName]";
@@ -505,6 +514,8 @@
 			this.statusBar.ResumeLayout(false);
 			this.statusBar.PerformLayout();
 			this.itemContextMenu.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -535,7 +546,6 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
 		private System.Windows.Forms.ToolStripButton btnDeleteCurrentProfile;
 		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.ListView listKeybinds;
 		private System.Windows.Forms.ToolStripMenuItem trayMenuShowMainWindow;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
 		private System.Windows.Forms.ToolStripMenuItem trayMenuExit;
@@ -555,8 +565,10 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
 		private System.Windows.Forms.ToolStripMenuItem profileListHereToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addKeybindToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveCurrentProfileAsDefaultToolStripMenuItem;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.ListView listKeybinds;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.ColumnHeader columnHeader2;
-		private System.Windows.Forms.ToolStripMenuItem saveCurrentProfileAsDefaultToolStripMenuItem;
 	}
 }

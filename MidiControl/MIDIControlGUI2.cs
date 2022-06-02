@@ -53,6 +53,8 @@ namespace MidiControl {
 				trayIcon.ShowBalloonTip(500);
 			}
 
+			this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
+
 			keybindIconList = new ImageList() {
 				ColorDepth = ColorDepth.Depth32Bit,
 				ImageSize = new Size(48, 48)
@@ -254,6 +256,7 @@ namespace MidiControl {
 			using(OptionsGUI optionGUI = new OptionsGUI(options)) {
 				optionGUI.ShowDialog();
 				this.TopMost = options.options.AlwaysOnTop;
+				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
 			}
 		}
 
@@ -261,6 +264,7 @@ namespace MidiControl {
 			using(OptionsGUI optionGUI = new OptionsGUI(options, 1)) {
 				optionGUI.ShowDialog();
 				this.TopMost = options.options.AlwaysOnTop;
+				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
 			}
 		}
 
