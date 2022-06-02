@@ -73,6 +73,8 @@
 			this.listKeybinds = new System.Windows.Forms.ListView();
 			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.gitHubProjectPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStrip1.SuspendLayout();
 			this.trayMenuStrip.SuspendLayout();
 			this.statusBar.SuspendLayout();
@@ -109,6 +111,8 @@
             this.MidiControlOptionsToolStripMenuItem,
             this.InterfaceOptionsMenuItem,
             this.toolStripMenuItem3,
+            this.gitHubProjectPageToolStripMenuItem,
+            this.toolStripMenuItem7,
             this.closeToTrayToolStripMenuItem,
             this.exitToolStripMenuItem});
 			this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
@@ -495,6 +499,18 @@
 			this.columnHeader2.Text = "Overview";
 			this.columnHeader2.Width = 355;
 			// 
+			// gitHubProjectPageToolStripMenuItem
+			// 
+			this.gitHubProjectPageToolStripMenuItem.Name = "gitHubProjectPageToolStripMenuItem";
+			this.gitHubProjectPageToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.gitHubProjectPageToolStripMenuItem.Text = "GitHub project page";
+			this.gitHubProjectPageToolStripMenuItem.Click += new System.EventHandler(this.gitHubProjectPageToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem7
+			// 
+			this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+			this.toolStripMenuItem7.Size = new System.Drawing.Size(190, 6);
+			// 
 			// MIDIControlGUI2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -570,5 +586,7 @@
 		private System.Windows.Forms.ListView listKeybinds;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.ColumnHeader columnHeader2;
+		private System.Windows.Forms.ToolStripMenuItem gitHubProjectPageToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
 	}
 }

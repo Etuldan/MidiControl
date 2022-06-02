@@ -504,7 +504,11 @@ namespace MidiControl {
 		}
 
 		private void trayIcon_BalloonTipClicked(object sender, EventArgs e) {
+			trayMenuShowMainWindow_Click(sender, e);
+		}
 
+		private void gitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
+			System.Diagnostics.Process.Start("https://github.com/Etuldan/MidiControl");
 		}
 	}
 }
