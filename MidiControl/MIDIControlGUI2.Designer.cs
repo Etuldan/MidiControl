@@ -41,6 +41,8 @@
 			this.MidiControlOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.InterfaceOptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+			this.gitHubProjectPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
 			this.closeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -73,8 +75,6 @@
 			this.listKeybinds = new System.Windows.Forms.ListView();
 			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.gitHubProjectPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStrip1.SuspendLayout();
 			this.trayMenuStrip.SuspendLayout();
 			this.statusBar.SuspendLayout();
@@ -234,6 +234,18 @@
 			// 
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
 			this.toolStripMenuItem3.Size = new System.Drawing.Size(190, 6);
+			// 
+			// gitHubProjectPageToolStripMenuItem
+			// 
+			this.gitHubProjectPageToolStripMenuItem.Name = "gitHubProjectPageToolStripMenuItem";
+			this.gitHubProjectPageToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.gitHubProjectPageToolStripMenuItem.Text = "GitHub project page";
+			this.gitHubProjectPageToolStripMenuItem.Click += new System.EventHandler(this.gitHubProjectPageToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem7
+			// 
+			this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+			this.toolStripMenuItem7.Size = new System.Drawing.Size(190, 6);
 			// 
 			// closeToTrayToolStripMenuItem
 			// 
@@ -488,6 +500,8 @@
 			this.listKeybinds.TabIndex = 5;
 			this.listKeybinds.UseCompatibleStateImageBehavior = false;
 			this.listKeybinds.View = System.Windows.Forms.View.Tile;
+			this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseClick);
+			this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseDoubleClick);
 			// 
 			// columnHeader1
 			// 
@@ -498,18 +512,6 @@
 			// 
 			this.columnHeader2.Text = "Overview";
 			this.columnHeader2.Width = 355;
-			// 
-			// gitHubProjectPageToolStripMenuItem
-			// 
-			this.gitHubProjectPageToolStripMenuItem.Name = "gitHubProjectPageToolStripMenuItem";
-			this.gitHubProjectPageToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-			this.gitHubProjectPageToolStripMenuItem.Text = "GitHub project page";
-			this.gitHubProjectPageToolStripMenuItem.Click += new System.EventHandler(this.gitHubProjectPageToolStripMenuItem_Click);
-			// 
-			// toolStripMenuItem7
-			// 
-			this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-			this.toolStripMenuItem7.Size = new System.Drawing.Size(190, 6);
 			// 
 			// MIDIControlGUI2
 			// 
