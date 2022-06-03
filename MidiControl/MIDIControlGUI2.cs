@@ -130,7 +130,7 @@ namespace MidiControl {
 		}
 
 		private void RefreshWindowTitle() {
-			this.Text = "MIDIControl - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
+			this.Text = trayIcon.Text = "MIDIControl - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
 		}
 
 		// delegate handlers; from MIDIControlGUI; config/profiles/keybind refresh
