@@ -16,6 +16,7 @@ namespace MidiControl {
 		private readonly MIDIListener midi;
 
 		private bool actuallyClosing = false;
+		private bool windowWasShown = false;
 
 		private const string STATIC_PROFILEMENU_TAG = "#STATIC_PROFILE_MENU_ITEM#";
 
@@ -70,6 +71,8 @@ namespace MidiControl {
 		private void MIDIControlGUI2_Load(object sender, EventArgs e) {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();
+
+			this.windowWasShown = true;
 		}
 
 		private void MIDIControlGUI2_FormClosing(object sender, FormClosingEventArgs e) {
@@ -118,6 +121,12 @@ namespace MidiControl {
 		private void trayMenuExit_Click(object sender, EventArgs e) {
 			this.actuallyClosing = true;
 			this.Close();
+
+			// if window was never shown, the FormClosing/Closed events won't fire
+			if(!this.windowWasShown) {
+				midi.ReleaseAll();
+				Application.Exit();
+			}
 		}
 
 		private void closeToTrayToolStripMenuItem_Click(object sender, EventArgs e) {
