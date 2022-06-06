@@ -258,6 +258,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\settings_light.png" />
+    <None Include="Resources\rubbish_light.png" />
+    <None Include="Resources\plus_light.png" />
+    <None Include="Resources\mute_light.png" />
+    <None Include="Resources\minus_light.png" />
+    <None Include="Resources\MIDI_light.png" />
+    <None Include="Resources\floppy_disk_light.png" />
+    <None Include="Resources\edit_light.png" />
+    <None Include="Resources\control-knob-icon_light.png" />
+    <None Include="Resources\control-button-icon_light.png" />
+    <None Include="Resources\twitch_light.png" />
     <None Include="Resources\control-knob-icon.png" />
     <None Include="Resources\control-button-icon.png" />
     <None Include="Resources\MIDIRed.png" />

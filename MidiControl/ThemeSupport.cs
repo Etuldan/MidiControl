@@ -9,6 +9,18 @@ namespace MidiControl {
 		public const int DARKMODE = 1;
 		public const int OFFICEBLUE = 2;
 
+		public static string[] GetThemesList() {
+			return new string[] { "Default (light)", "Dark", "Office 2007 Blue" };
+		}
+
+		public static MidiControlTheme GetThemeByIndex(int i) {
+			switch(i) {
+				case 1: return new DarkTheme2();
+				case 2: return new Office2007BlueTheme();
+				default: return new DefaultTheme();
+			}
+		}
+
 		public abstract class MidiControlTheme : ProfessionalColorTable {
 			public virtual bool ShowStatusBarGrip => true;
 			public virtual Color WindowBackColor => SystemColors.Control;
@@ -17,6 +29,19 @@ namespace MidiControl {
 			public virtual Color ListViewBackColor => SystemColors.Window;
 			public virtual Color ListViewForeColor => SystemColors.WindowText;
 			public virtual BorderStyle ListViewBorderStyle => BorderStyle.Fixed3D;
+
+			public virtual Image SaveIcon => Properties.Resources.floppy_disk;
+			public virtual Image DeleteIcon => Properties.Resources.rubbish;
+			public virtual Image PlusIcon => Properties.Resources.plus;
+			public virtual Image MinusIcon => Properties.Resources.minus;
+			public virtual Image EditIcon => Properties.Resources.edit;
+			public virtual Image MuteIcon => Properties.Resources.mute;
+			public virtual Image OBSIcon => Properties.Resources.obs;
+			public virtual Image TwitchIcon => Properties.Resources.twitch;
+			public virtual Image MIDIIcon => Properties.Resources.MIDI;
+			public virtual Image ControlKnobIcon => Properties.Resources.control_knob_icon;
+			public virtual Image ControlButtonIcon => Properties.Resources.control_button_icon;
+			public virtual Image SettingsIcon => Properties.Resources.settings;
 		}
 
 		public class DefaultTheme : MidiControlTheme { }
@@ -69,6 +94,19 @@ namespace MidiControl {
 			public override Color ListViewBackColor => Color.FromArgb(30, 30, 30);
 			public override Color ListViewForeColor => Color.FromArgb(224, 224, 224);
 			public override BorderStyle ListViewBorderStyle => BorderStyle.None;
+
+			public override Image SaveIcon => Properties.Resources.floppy_disk_light;
+			public override Image DeleteIcon => Properties.Resources.rubbish_light;
+			public override Image PlusIcon => Properties.Resources.plus_light;
+			public override Image MinusIcon => Properties.Resources.minus_light;
+			public override Image EditIcon => Properties.Resources.edit_light;
+			public override Image MuteIcon => Properties.Resources.mute_light;
+			public override Image OBSIcon => Properties.Resources.obs;
+			public override Image TwitchIcon => Properties.Resources.twitch_light;
+			public override Image MIDIIcon => Properties.Resources.MIDI_light;
+			public override Image ControlKnobIcon => Properties.Resources.control_knob_icon_light;
+			public override Image ControlButtonIcon => Properties.Resources.control_button_icon_light;
+			public override Image SettingsIcon => Properties.Resources.settings_light;
 
 			public override Color ToolStripGradientBegin => Color.FromArgb(45, 45, 48);
 			public override Color ToolStripGradientMiddle => Color.FromArgb(45, 45, 48);

@@ -36,6 +36,9 @@ namespace MidiControl
 			chkConfirmDeleteKeybind.Checked = options.options.ConfirmKeybindDeletion;
 			chkConfirmDeleteProfile.Checked = options.options.ConfirmProfileDeletion;
 			cboToolbarPosition.SelectedIndex = options.options.ToolbarPosition;
+
+			cboTheme.Items.Clear();
+			cboTheme.Items.AddRange(ThemeSupport.GetThemesList());
 			cboTheme.SelectedIndex = options.options.Theme;
 
 			tabControl1.SelectedIndex = tab;

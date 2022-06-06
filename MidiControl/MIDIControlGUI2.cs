@@ -77,22 +77,7 @@ namespace MidiControl {
 		// form, tray icon, close window events
 
 		private void SetWindowTheme(int theme) {
-			ThemeSupport.MidiControlTheme mcTheme;
-
-			switch(theme) {
-				case ThemeSupport.DEFAULT:
-					mcTheme = new ThemeSupport.DefaultTheme();
-					break;
-				case ThemeSupport.DARKMODE:
-					mcTheme = new ThemeSupport.DarkTheme2();
-					break;
-				case ThemeSupport.OFFICEBLUE:
-					mcTheme = new ThemeSupport.Office2007BlueTheme();
-					break;
-				default:
-					mcTheme = new ThemeSupport.DefaultTheme();
-					break;
-			}
+			ThemeSupport.MidiControlTheme mcTheme = ThemeSupport.GetThemeByIndex(theme);
 
 			this.BackColor = mcTheme.WindowBackColor;
 
@@ -110,6 +95,25 @@ namespace MidiControl {
 			ThemeSubitems(toolStrip1.Items, mcTheme);
 			ThemeSubitems(trayMenuStrip.Items, mcTheme);
 			ThemeSubitems(itemContextMenu.Items, mcTheme);
+
+			btnSaveCurrentProfile.Image = saveCurrentProfileToolStripMenuItem.Image = mcTheme.SaveIcon;
+			editToolStripMenuItem.Image = mcTheme.EditIcon;
+			btnDeleteCurrentProfile.Image = deleteCurrentProfileToolStripMenuItem.Image = mcTheme.DeleteIcon;
+			deleteToolStripMenuItem.Image = mcTheme.MinusIcon;
+			btnAddKeybind.Image = addKeybindToolStripMenuItem.Image = mcTheme.PlusIcon;
+			btnStopAllSounds.Image = mcTheme.MuteIcon;
+			MidiControlOptionsToolStripMenuItem.Image = mcTheme.SettingsIcon;
+
+			// need to fix these from being BackgroundImages instead of Images
+			//obsButton.Image = mcTheme.OBSIcon;
+			//twitchButton.Image = mcTheme.TwitchIcon;
+			//midiButton.Image = mcTheme.MIDIIcon;
+
+			keybindIconList.Images.Clear();
+			keybindIconList.Images.Add("button", mcTheme.ControlButtonIcon);
+			keybindIconList.Images.Add("knob", mcTheme.ControlKnobIcon);
+
+			ReloadEntries();
 		}
 
 		private void ThemeSubitems(ToolStripItemCollection items, ThemeSupport.MidiControlTheme theme) {
