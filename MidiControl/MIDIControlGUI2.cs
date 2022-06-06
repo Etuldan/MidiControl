@@ -27,6 +27,40 @@ namespace MidiControl {
 			return _inst;
 		}
 
+		// dark mode theme for toolstrip
+		private bool isDarkMode = false;
+		class DarkModeToolStripColors : ProfessionalColorTable {
+			public override Color ToolStripGradientBegin => Color.Black;
+			public override Color ToolStripGradientMiddle => Color.FromArgb(24, 24, 24);
+			public override Color ToolStripGradientEnd => Color.Black;
+			public override Color ToolStripBorder => Color.Black;
+			public override Color GripLight => Color.DarkGray;
+			public override Color GripDark => Color.DimGray;
+			public override Color SeparatorLight => Color.DarkGray;
+			public override Color SeparatorDark => Color.DimGray;
+
+			public override Color ToolStripDropDownBackground => Color.FromArgb(24, 24, 24);
+			public override Color ImageMarginGradientBegin => Color.FromArgb(48, 48, 48);
+			public override Color ImageMarginGradientMiddle => Color.FromArgb(48, 48, 48);
+			public override Color ImageMarginGradientEnd => Color.FromArgb(48, 48, 48);
+
+			public override Color MenuItemSelected => Color.SteelBlue;
+			public override Color MenuItemPressedGradientBegin => Color.SteelBlue;
+			public override Color MenuItemPressedGradientMiddle => Color.SteelBlue;
+			public override Color MenuItemPressedGradientEnd => Color.SteelBlue;
+
+			public override Color ButtonSelectedHighlight => Color.SteelBlue;
+			public override Color ButtonSelectedBorder => Color.Gray;
+			public override Color ButtonSelectedGradientBegin => Color.SteelBlue;
+			public override Color ButtonSelectedGradientMiddle => Color.SteelBlue;
+			public override Color ButtonSelectedGradientEnd => Color.SteelBlue;
+			public override Color ButtonPressedHighlight => Color.SteelBlue;
+			public override Color ButtonCheckedHighlight => Color.SteelBlue;
+
+			public override Color StatusStripGradientBegin => Color.Black;
+			public override Color StatusStripGradientEnd => Color.Black;
+		}
+
 		// window constructor
 		public MIDIControlGUI2() {
 			_inst = this;
@@ -65,9 +99,61 @@ namespace MidiControl {
 
 			listKeybinds.LargeImageList = keybindIconList;
 			//listKeybinds.SmallImageList = keybindIconList;
+
+			//this.SetDarkTheme(true);
 		}
 
 		// form, tray icon, close window events
+
+		private void SetDarkTheme(bool darkmode) {
+			if(darkmode) {
+				this.BackColor = Color.Black;
+
+				toolStrip1.Renderer = new ToolStripProfessionalRenderer(new DarkModeToolStripColors());
+
+				statusBar.Renderer = new ToolStripProfessionalRenderer(new DarkModeToolStripColors());
+				statusBar.SizingGrip = false;
+
+				listKeybinds.BackColor = Color.FromArgb(24, 24, 24);
+				listKeybinds.ForeColor = Color.FromArgb(224, 224, 224);
+				listKeybinds.BorderStyle = BorderStyle.None;
+
+			} else {
+				this.BackColor = SystemColors.Control;
+
+				toolStrip1.Renderer = new ToolStripProfessionalRenderer();
+
+				statusBar.Renderer = new ToolStripProfessionalRenderer();
+				statusBar.SizingGrip = true;
+
+				listKeybinds.BackColor = SystemColors.Window;
+				listKeybinds.ForeColor = SystemColors.WindowText;
+				listKeybinds.BorderStyle = BorderStyle.Fixed3D;
+			}
+
+			ThemeSubitems(toolStrip1.Items, darkmode);
+			this.isDarkMode = darkmode;
+		}
+
+		private void ThemeSubitems(ToolStripItemCollection items, bool darkmode) {
+			Color forecolor = SystemColors.ControlText;
+			if(darkmode) forecolor = Color.White;
+
+			foreach(var item in items) {
+				if(item is ToolStripButton) {
+					(item as ToolStripButton).ForeColor = forecolor;
+				}
+				if(item is ToolStripDropDownButton) {
+					(item as ToolStripDropDownButton).ForeColor = forecolor;
+					ThemeSubitems((item as ToolStripDropDownButton).DropDownItems, darkmode);
+				}
+				if(item is ToolStripMenuItem) {
+					(item as ToolStripMenuItem).ForeColor = forecolor;
+					ThemeSubitems((item as ToolStripMenuItem).DropDownItems, darkmode);
+				}
+			}
+		}
+
 		private void MIDIControlGUI2_Load(object sender, EventArgs e) {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();
@@ -524,6 +610,10 @@ namespace MidiControl {
 
 		private void gitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
 			System.Diagnostics.Process.Start("https://github.com/Etuldan/MidiControl");
+		}
+
+		private void darkModeTestButton_Click(object sender, EventArgs e) {
+			this.SetDarkTheme(!this.isDarkMode);
 		}
 	}
 }

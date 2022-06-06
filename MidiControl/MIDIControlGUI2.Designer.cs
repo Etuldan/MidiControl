@@ -75,6 +75,7 @@
 			this.listKeybinds = new System.Windows.Forms.ListView();
 			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.darkModeTestButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1.SuspendLayout();
 			this.trayMenuStrip.SuspendLayout();
 			this.statusBar.SuspendLayout();
@@ -93,7 +94,8 @@
             this.btnAddKeybind,
             this.toolStripButton1,
             this.toolStripSeparator3,
-            this.menuViewAsDropdown});
+            this.menuViewAsDropdown,
+            this.darkModeTestButton});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(534, 25);
@@ -519,6 +521,16 @@
 			this.columnHeader2.Text = "Overview";
 			this.columnHeader2.Width = 355;
 			// 
+			// darkModeTestButton
+			// 
+			this.darkModeTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.darkModeTestButton.Image = ((System.Drawing.Image)(resources.GetObject("darkModeTestButton.Image")));
+			this.darkModeTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.darkModeTestButton.Name = "darkModeTestButton";
+			this.darkModeTestButton.Size = new System.Drawing.Size(23, 22);
+			this.darkModeTestButton.Text = "Dark Mode Test";
+			this.darkModeTestButton.Click += new System.EventHandler(this.darkModeTestButton_Click);
+			// 
 			// MIDIControlGUI2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -596,5 +608,6 @@
 		private System.Windows.Forms.ColumnHeader columnHeader2;
 		private System.Windows.Forms.ToolStripMenuItem gitHubProjectPageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+		private System.Windows.Forms.ToolStripButton darkModeTestButton;
 	}
 }
