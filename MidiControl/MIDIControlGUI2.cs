@@ -27,39 +27,8 @@ namespace MidiControl {
 			return _inst;
 		}
 
-		// dark mode theme for toolstrip
-		private bool isDarkMode = false;
-		class DarkModeToolStripColors : ProfessionalColorTable {
-			public override Color ToolStripGradientBegin => Color.Black;
-			public override Color ToolStripGradientMiddle => Color.FromArgb(24, 24, 24);
-			public override Color ToolStripGradientEnd => Color.Black;
-			public override Color ToolStripBorder => Color.Black;
-			public override Color GripLight => Color.DarkGray;
-			public override Color GripDark => Color.DimGray;
-			public override Color SeparatorLight => Color.DarkGray;
-			public override Color SeparatorDark => Color.DimGray;
-
-			public override Color ToolStripDropDownBackground => Color.FromArgb(24, 24, 24);
-			public override Color ImageMarginGradientBegin => Color.FromArgb(48, 48, 48);
-			public override Color ImageMarginGradientMiddle => Color.FromArgb(48, 48, 48);
-			public override Color ImageMarginGradientEnd => Color.FromArgb(48, 48, 48);
-
-			public override Color MenuItemSelected => Color.SteelBlue;
-			public override Color MenuItemPressedGradientBegin => Color.SteelBlue;
-			public override Color MenuItemPressedGradientMiddle => Color.SteelBlue;
-			public override Color MenuItemPressedGradientEnd => Color.SteelBlue;
-
-			public override Color ButtonSelectedHighlight => Color.SteelBlue;
-			public override Color ButtonSelectedBorder => Color.Gray;
-			public override Color ButtonSelectedGradientBegin => Color.SteelBlue;
-			public override Color ButtonSelectedGradientMiddle => Color.SteelBlue;
-			public override Color ButtonSelectedGradientEnd => Color.SteelBlue;
-			public override Color ButtonPressedHighlight => Color.SteelBlue;
-			public override Color ButtonCheckedHighlight => Color.SteelBlue;
-
-			public override Color StatusStripGradientBegin => Color.Black;
-			public override Color StatusStripGradientEnd => Color.Black;
-		}
+		// active window theme name
+		private string windowTheme = "default";
 
 		// window constructor
 		public MIDIControlGUI2() {
@@ -100,39 +69,67 @@ namespace MidiControl {
 			listKeybinds.LargeImageList = keybindIconList;
 			//listKeybinds.SmallImageList = keybindIconList;
 
-			//this.SetDarkTheme(true);
+			// todo: load theme from config
+			this.windowTheme = "default";
+			this.SetWindowTheme(this.windowTheme);
 		}
 
 		// form, tray icon, close window events
 
-		private void SetDarkTheme(bool darkmode) {
-			if(darkmode) {
-				this.BackColor = Color.Black;
+		private void SetWindowTheme(string theme) {
+			this.windowTheme = theme;
+			var darktheme = false;
 
-				toolStrip1.Renderer = new ToolStripProfessionalRenderer(new DarkModeToolStripColors());
+			switch(theme) {
+				case "default":
+					this.BackColor = SystemColors.Control;
 
-				statusBar.Renderer = new ToolStripProfessionalRenderer(new DarkModeToolStripColors());
-				statusBar.SizingGrip = false;
+					toolStrip1.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
+					statusBar.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
+					trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
+					itemContextMenu.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
 
-				listKeybinds.BackColor = Color.FromArgb(24, 24, 24);
-				listKeybinds.ForeColor = Color.FromArgb(224, 224, 224);
-				listKeybinds.BorderStyle = BorderStyle.None;
+					statusBar.SizingGrip = true;
 
-			} else {
-				this.BackColor = SystemColors.Control;
+					listKeybinds.BackColor = SystemColors.Window;
+					listKeybinds.ForeColor = SystemColors.WindowText;
+					listKeybinds.BorderStyle = BorderStyle.Fixed3D;
+					break;
+				case "dark":
+					this.BackColor = Color.Black;
 
-				toolStrip1.Renderer = new ToolStripProfessionalRenderer();
+					toolStrip1.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
+					statusBar.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
+					trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
+					itemContextMenu.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
 
-				statusBar.Renderer = new ToolStripProfessionalRenderer();
-				statusBar.SizingGrip = true;
+					statusBar.SizingGrip = false;
 
-				listKeybinds.BackColor = SystemColors.Window;
-				listKeybinds.ForeColor = SystemColors.WindowText;
-				listKeybinds.BorderStyle = BorderStyle.Fixed3D;
+					listKeybinds.BackColor = Color.FromArgb(24, 24, 24);
+					listKeybinds.ForeColor = Color.FromArgb(224, 224, 224);
+					listKeybinds.BorderStyle = BorderStyle.None;
+
+					darktheme = true;
+					break;
+				case "office2007":
+					this.BackColor = SystemColors.Control;
+
+					toolStrip1.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
+					statusBar.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
+					trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
+					itemContextMenu.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
+
+					statusBar.SizingGrip = true;
+
+					listKeybinds.BackColor = SystemColors.Window;
+					listKeybinds.ForeColor = SystemColors.WindowText;
+					listKeybinds.BorderStyle = BorderStyle.Fixed3D;
+					break;
 			}
 
-			ThemeSubitems(toolStrip1.Items, darkmode);
-			this.isDarkMode = darkmode;
+			ThemeSubitems(toolStrip1.Items, darktheme);
+			ThemeSubitems(trayMenuStrip.Items, darktheme);
+			ThemeSubitems(itemContextMenu.Items, darktheme);
 		}
 
 		private void ThemeSubitems(ToolStripItemCollection items, bool darkmode) {
@@ -613,7 +610,10 @@ namespace MidiControl {
 		}
 
 		private void darkModeTestButton_Click(object sender, EventArgs e) {
-			this.SetDarkTheme(!this.isDarkMode);
+			if(this.windowTheme == "dark")
+				SetWindowTheme("default");
+			else
+				SetWindowTheme("dark");
 		}
 	}
 }

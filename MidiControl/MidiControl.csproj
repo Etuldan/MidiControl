@@ -200,6 +200,7 @@
     <Compile Include="TextInputGUI.Designer.cs">
       <DependentUpon>TextInputGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="ThemeSupport.cs" />
     <Compile Include="TwitchChatControl.cs" />
     <Compile Include="TwitchLogin.cs">
       <SubType>Form</SubType>
