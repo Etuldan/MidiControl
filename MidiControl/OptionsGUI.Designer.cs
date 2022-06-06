@@ -50,11 +50,13 @@
 			this.chkConfirmDeleteKeybind = new System.Windows.Forms.CheckBox();
 			this.chkConfirmDeleteProfile = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cboToolbarPosition = new System.Windows.Forms.ComboBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.chkLoadLastProfileOnStart = new System.Windows.Forms.CheckBox();
 			this.chkStartToTray = new System.Windows.Forms.CheckBox();
 			this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.cboToolbarPosition = new System.Windows.Forms.ComboBox();
+			this.cboTheme = new System.Windows.Forms.ComboBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.groupBoxOBS.SuspendLayout();
 			this.groupBoxMIDI.SuspendLayout();
 			this.groupBoxTwitch.SuspendLayout();
@@ -253,7 +255,7 @@
 			// 
 			this.groupBox2.Controls.Add(this.chkConfirmDeleteKeybind);
 			this.groupBox2.Controls.Add(this.chkConfirmDeleteProfile);
-			this.groupBox2.Location = new System.Drawing.Point(8, 135);
+			this.groupBox2.Location = new System.Drawing.Point(8, 157);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(230, 70);
 			this.groupBox2.TabIndex = 5;
@@ -282,6 +284,8 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Controls.Add(this.cboTheme);
 			this.groupBox1.Controls.Add(this.cboToolbarPosition);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.chkLoadLastProfileOnStart);
@@ -289,10 +293,31 @@
 			this.groupBox1.Controls.Add(this.chkAlwaysOnTop);
 			this.groupBox1.Location = new System.Drawing.Point(8, 6);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(230, 123);
+			this.groupBox1.Size = new System.Drawing.Size(230, 145);
 			this.groupBox1.TabIndex = 4;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "General";
+			// 
+			// cboToolbarPosition
+			// 
+			this.cboToolbarPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboToolbarPosition.FormattingEnabled = true;
+			this.cboToolbarPosition.Items.AddRange(new object[] {
+            "Top",
+            "Bottom"});
+			this.cboToolbarPosition.Location = new System.Drawing.Point(94, 118);
+			this.cboToolbarPosition.Name = "cboToolbarPosition";
+			this.cboToolbarPosition.Size = new System.Drawing.Size(130, 21);
+			this.cboToolbarPosition.TabIndex = 4;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(3, 121);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(85, 13);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "Toolbar position:";
 			// 
 			// chkLoadLastProfileOnStart
 			// 
@@ -324,26 +349,27 @@
 			this.chkAlwaysOnTop.Text = "Keep main window on top";
 			this.chkAlwaysOnTop.UseVisualStyleBackColor = true;
 			// 
-			// label2
+			// cboTheme
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(3, 99);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(85, 13);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "Toolbar position:";
+			this.cboTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboTheme.FormattingEnabled = true;
+			this.cboTheme.Items.AddRange(new object[] {
+            "Default (light)",
+            "Dark",
+            "Office 2007 Blue"});
+			this.cboTheme.Location = new System.Drawing.Point(94, 91);
+			this.cboTheme.Name = "cboTheme";
+			this.cboTheme.Size = new System.Drawing.Size(130, 21);
+			this.cboTheme.TabIndex = 5;
 			// 
-			// cboToolbarPosition
+			// label3
 			// 
-			this.cboToolbarPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cboToolbarPosition.FormattingEnabled = true;
-			this.cboToolbarPosition.Items.AddRange(new object[] {
-            "Top",
-            "Bottom"});
-			this.cboToolbarPosition.Location = new System.Drawing.Point(94, 96);
-			this.cboToolbarPosition.Name = "cboToolbarPosition";
-			this.cboToolbarPosition.Size = new System.Drawing.Size(130, 21);
-			this.cboToolbarPosition.TabIndex = 4;
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(3, 94);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(43, 13);
+			this.label3.TabIndex = 6;
+			this.label3.Text = "Theme:";
 			// 
 			// OptionsGUI
 			// 
@@ -406,5 +432,7 @@
 		private System.Windows.Forms.CheckBox chkLoadLastProfileOnStart;
 		private System.Windows.Forms.ComboBox cboToolbarPosition;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ComboBox cboTheme;
 	}
 }

@@ -70,83 +70,60 @@ namespace MidiControl {
 			//listKeybinds.SmallImageList = keybindIconList;
 
 			// todo: load theme from config
-			this.windowTheme = "default";
-			this.SetWindowTheme(this.windowTheme);
+			//this.windowTheme = "default";
+			this.SetWindowTheme(options.options.Theme);
 		}
 
 		// form, tray icon, close window events
 
-		private void SetWindowTheme(string theme) {
-			this.windowTheme = theme;
-			var darktheme = false;
+		private void SetWindowTheme(int theme) {
+			ThemeSupport.MidiControlTheme mcTheme;
 
 			switch(theme) {
-				case "default":
-					this.BackColor = SystemColors.Control;
-
-					toolStrip1.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-					statusBar.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-					trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-					itemContextMenu.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-
-					statusBar.SizingGrip = true;
-
-					listKeybinds.BackColor = SystemColors.Window;
-					listKeybinds.ForeColor = SystemColors.WindowText;
-					listKeybinds.BorderStyle = BorderStyle.Fixed3D;
+				case ThemeSupport.DEFAULT:
+					mcTheme = new ThemeSupport.DefaultTheme();
 					break;
-				case "dark":
-					this.BackColor = Color.Black;
-
-					toolStrip1.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
-					statusBar.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
-					trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
-					itemContextMenu.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.DarkModeToolStripColors());
-
-					statusBar.SizingGrip = false;
-
-					listKeybinds.BackColor = Color.FromArgb(24, 24, 24);
-					listKeybinds.ForeColor = Color.FromArgb(224, 224, 224);
-					listKeybinds.BorderStyle = BorderStyle.None;
-
-					darktheme = true;
+				case ThemeSupport.DARKMODE:
+					mcTheme = new ThemeSupport.DarkTheme2();
 					break;
-				case "office2007":
-					this.BackColor = SystemColors.Control;
-
-					toolStrip1.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-					statusBar.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-					trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-					itemContextMenu.Renderer = new ToolStripProfessionalRenderer(new ThemeSupport.Office2007BlueColorTable());
-
-					statusBar.SizingGrip = true;
-
-					listKeybinds.BackColor = SystemColors.Window;
-					listKeybinds.ForeColor = SystemColors.WindowText;
-					listKeybinds.BorderStyle = BorderStyle.Fixed3D;
+				case ThemeSupport.OFFICEBLUE:
+					mcTheme = new ThemeSupport.Office2007BlueTheme();
+					break;
+				default:
+					mcTheme = new ThemeSupport.DefaultTheme();
 					break;
 			}
 
-			ThemeSubitems(toolStrip1.Items, darktheme);
-			ThemeSubitems(trayMenuStrip.Items, darktheme);
-			ThemeSubitems(itemContextMenu.Items, darktheme);
+			this.BackColor = mcTheme.WindowBackColor;
+
+			toolStrip1.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+			statusBar.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+			trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+			itemContextMenu.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+
+			statusBar.SizingGrip = mcTheme.ShowStatusBarGrip;
+
+			listKeybinds.BackColor = mcTheme.ListViewBackColor;
+			listKeybinds.ForeColor = mcTheme.ListViewForeColor;
+			listKeybinds.BorderStyle = mcTheme.ListViewBorderStyle;
+
+			ThemeSubitems(toolStrip1.Items, mcTheme);
+			ThemeSubitems(trayMenuStrip.Items, mcTheme);
+			ThemeSubitems(itemContextMenu.Items, mcTheme);
 		}
 
-		private void ThemeSubitems(ToolStripItemCollection items, bool darkmode) {
-			Color forecolor = SystemColors.ControlText;
-			if(darkmode) forecolor = Color.White;
-
+		private void ThemeSubitems(ToolStripItemCollection items, ThemeSupport.MidiControlTheme theme) {
 			foreach(var item in items) {
 				if(item is ToolStripButton) {
-					(item as ToolStripButton).ForeColor = forecolor;
+					(item as ToolStripButton).ForeColor = theme.ToolbarForeColor;
 				}
 				if(item is ToolStripDropDownButton) {
-					(item as ToolStripDropDownButton).ForeColor = forecolor;
-					ThemeSubitems((item as ToolStripDropDownButton).DropDownItems, darkmode);
+					(item as ToolStripDropDownButton).ForeColor = theme.ToolbarForeColor;
+					ThemeSubitems((item as ToolStripDropDownButton).DropDownItems, theme);
 				}
 				if(item is ToolStripMenuItem) {
-					(item as ToolStripMenuItem).ForeColor = forecolor;
-					ThemeSubitems((item as ToolStripMenuItem).DropDownItems, darkmode);
+					(item as ToolStripMenuItem).ForeColor = theme.MenuForeColor;
+					ThemeSubitems((item as ToolStripMenuItem).DropDownItems, theme);
 				}
 			}
 		}
@@ -349,6 +326,7 @@ namespace MidiControl {
 				optionGUI.ShowDialog();
 				this.TopMost = options.options.AlwaysOnTop;
 				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
+				this.SetWindowTheme(options.options.Theme);
 			}
 		}
 
@@ -357,6 +335,7 @@ namespace MidiControl {
 				optionGUI.ShowDialog();
 				this.TopMost = options.options.AlwaysOnTop;
 				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
+				this.SetWindowTheme(options.options.Theme);
 			}
 		}
 
@@ -607,13 +586,6 @@ namespace MidiControl {
 
 		private void gitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
 			System.Diagnostics.Process.Start("https://github.com/Etuldan/MidiControl");
-		}
-
-		private void darkModeTestButton_Click(object sender, EventArgs e) {
-			if(this.windowTheme == "dark")
-				SetWindowTheme("default");
-			else
-				SetWindowTheme("dark");
 		}
 	}
 }
