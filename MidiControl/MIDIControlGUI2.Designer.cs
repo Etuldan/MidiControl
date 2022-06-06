@@ -170,6 +170,7 @@
 			this.saveCurrentProfileToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
 			this.saveCurrentProfileToolStripMenuItem.Tag = "#STATIC_PROFILE_MENU_ITEM#";
 			this.saveCurrentProfileToolStripMenuItem.Text = "Save current profile";
+			this.saveCurrentProfileToolStripMenuItem.Click += new System.EventHandler(this.SaveCurrentProfile_Click);
 			// 
 			// saveCurrentProfileAsDefaultToolStripMenuItem
 			// 
@@ -250,6 +251,7 @@
 			// closeToTrayToolStripMenuItem
 			// 
 			this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
+			this.closeToTrayToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
 			this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.closeToTrayToolStripMenuItem.Text = "Close to tray";
 			this.closeToTrayToolStripMenuItem.Click += new System.EventHandler(this.closeToTrayToolStripMenuItem_Click);
@@ -257,6 +259,8 @@
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Q)));
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
@@ -274,7 +278,7 @@
 			this.btnSaveCurrentProfile.Name = "btnSaveCurrentProfile";
 			this.btnSaveCurrentProfile.Size = new System.Drawing.Size(23, 22);
 			this.btnSaveCurrentProfile.Text = "Save current profile";
-			this.btnSaveCurrentProfile.Click += new System.EventHandler(this.btnSaveCurrentProfile_Click);
+			this.btnSaveCurrentProfile.Click += new System.EventHandler(this.SaveCurrentProfile_Click);
 			// 
 			// btnDeleteCurrentProfile
 			// 
@@ -452,27 +456,27 @@
 			this.editToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.editToolStripMenuItem.Image = global::MidiControl.Properties.Resources.edit;
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.editToolStripMenuItem.Text = "Edit...";
 			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
 			// 
 			// DuplicateKeybindMenuItem
 			// 
 			this.DuplicateKeybindMenuItem.Name = "DuplicateKeybindMenuItem";
-			this.DuplicateKeybindMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.DuplicateKeybindMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.DuplicateKeybindMenuItem.Text = "Duplicate";
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(137, 6);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Image = global::MidiControl.Properties.Resources.minus;
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.deleteToolStripMenuItem.Text = "Delete...";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteKeybindMenuItem_Click);
 			// 

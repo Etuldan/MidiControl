@@ -400,7 +400,7 @@ namespace MidiControl {
 			}
 		}
 
-		private void btnSaveCurrentProfile_Click(object sender, EventArgs e) {
+		private void SaveCurrentProfile_Click(object sender, EventArgs e) {
 			conf.SaveCurrentProfile();
 			RefreshWindowTitle();
 		}
