@@ -50,13 +50,13 @@
 			this.chkConfirmDeleteKeybind = new System.Windows.Forms.CheckBox();
 			this.chkConfirmDeleteProfile = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.cboTheme = new System.Windows.Forms.ComboBox();
 			this.cboToolbarPosition = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.chkLoadLastProfileOnStart = new System.Windows.Forms.CheckBox();
 			this.chkStartToTray = new System.Windows.Forms.CheckBox();
 			this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
-			this.cboTheme = new System.Windows.Forms.ComboBox();
-			this.label3 = new System.Windows.Forms.Label();
 			this.groupBoxOBS.SuspendLayout();
 			this.groupBoxMIDI.SuspendLayout();
 			this.groupBoxTwitch.SuspendLayout();
@@ -298,6 +298,28 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "General";
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(3, 94);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(43, 13);
+			this.label3.TabIndex = 6;
+			this.label3.Text = "Theme:";
+			// 
+			// cboTheme
+			// 
+			this.cboTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboTheme.FormattingEnabled = true;
+			this.cboTheme.Items.AddRange(new object[] {
+            "Default (light)",
+            "Dark",
+            "Office 2007 Blue"});
+			this.cboTheme.Location = new System.Drawing.Point(94, 91);
+			this.cboTheme.Name = "cboTheme";
+			this.cboTheme.Size = new System.Drawing.Size(130, 21);
+			this.cboTheme.TabIndex = 5;
+			// 
 			// cboToolbarPosition
 			// 
 			this.cboToolbarPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -349,28 +371,6 @@
 			this.chkAlwaysOnTop.Text = "Keep main window on top";
 			this.chkAlwaysOnTop.UseVisualStyleBackColor = true;
 			// 
-			// cboTheme
-			// 
-			this.cboTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cboTheme.FormattingEnabled = true;
-			this.cboTheme.Items.AddRange(new object[] {
-            "Default (light)",
-            "Dark",
-            "Office 2007 Blue"});
-			this.cboTheme.Location = new System.Drawing.Point(94, 91);
-			this.cboTheme.Name = "cboTheme";
-			this.cboTheme.Size = new System.Drawing.Size(130, 21);
-			this.cboTheme.TabIndex = 5;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(3, 94);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(43, 13);
-			this.label3.TabIndex = 6;
-			this.label3.Text = "Theme:";
-			// 
 			// OptionsGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +383,7 @@
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(270, 310);
 			this.Name = "OptionsGUI";
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Options";
 			this.TopMost = true;
