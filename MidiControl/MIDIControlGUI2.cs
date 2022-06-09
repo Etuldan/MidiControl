@@ -27,9 +27,6 @@ namespace MidiControl {
 			return _inst;
 		}
 
-		// active window theme name
-		private string windowTheme = "default";
-
 		// window constructor
 		public MIDIControlGUI2() {
 			_inst = this;
@@ -68,9 +65,7 @@ namespace MidiControl {
 
 			listKeybinds.LargeImageList = keybindIconList;
 			//listKeybinds.SmallImageList = keybindIconList;
-
-			// todo: load theme from config
-			//this.windowTheme = "default";
+            
 			this.SetWindowTheme(options.options.Theme);
 		}
 
@@ -79,6 +74,7 @@ namespace MidiControl {
 		private void SetWindowTheme(int theme) {
 			ThemeSupport.MidiControlTheme mcTheme = ThemeSupport.GetThemeByIndex(theme);
 
+            // set colors
 			this.BackColor = mcTheme.WindowBackColor;
 
 			toolStrip1.Renderer = new ToolStripProfessionalRenderer(mcTheme);
@@ -92,10 +88,12 @@ namespace MidiControl {
 			listKeybinds.ForeColor = mcTheme.ListViewForeColor;
 			listKeybinds.BorderStyle = mcTheme.ListViewBorderStyle;
 
+            // theme menu items
 			ThemeSubitems(toolStrip1.Items, mcTheme);
 			ThemeSubitems(trayMenuStrip.Items, mcTheme);
 			ThemeSubitems(itemContextMenu.Items, mcTheme);
 
+            // set icons
 			btnSaveCurrentProfile.Image = saveCurrentProfileToolStripMenuItem.Image = mcTheme.SaveIcon;
 			editToolStripMenuItem.Image = mcTheme.EditIcon;
 			btnDeleteCurrentProfile.Image = deleteCurrentProfileToolStripMenuItem.Image = mcTheme.DeleteIcon;
@@ -104,7 +102,7 @@ namespace MidiControl {
 			btnStopAllSounds.Image = mcTheme.MuteIcon;
 			MidiControlOptionsToolStripMenuItem.Image = mcTheme.SettingsIcon;
 
-			// need to fix these from being BackgroundImages instead of Images
+			// TODO: need to fix these from being BackgroundImages instead of Images
 			//obsButton.Image = mcTheme.OBSIcon;
 			//twitchButton.Image = mcTheme.TwitchIcon;
 			//midiButton.Image = mcTheme.MIDIIcon;
@@ -208,6 +206,7 @@ namespace MidiControl {
 
 		// delegate handlers; from MIDIControlGUI; config/profiles/keybind refresh
 		private void ReloadProfilesList() {
+            // clear profile items from the submenu (but leave the utility ones)
 			for(var i = 0; i < menuProfiles.DropDownItems.Count; i++) {
 				var item = menuProfiles.DropDownItems[i];
 
@@ -225,15 +224,28 @@ namespace MidiControl {
 				}
 			}
 
+            // clear tray profile switcher menu
+            foreach(ToolStripMenuItem dditem in SwitchProfileTrayMenuItem.DropDownItems) {
+                dditem.Click -= ProfileMenuItemClicked;
+            }
+            SwitchProfileTrayMenuItem.DropDownItems.Clear();
+
+            // add new items to both
 			foreach(var profile in conf.GetAllProfiles()) {
 				var newitem = new ToolStripMenuItem(profile) {
-					Tag = profile
+					Tag = "main"
 				};
 				newitem.Click += ProfileMenuItemClicked;
-
 				menuProfiles.DropDownItems.Add(newitem);
+
+                var newtrayitem = new ToolStripMenuItem(profile) {
+                    Tag = "tray"
+                };
+                newtrayitem.Click += ProfileMenuItemClicked;
+                SwitchProfileTrayMenuItem.DropDownItems.Add(newtrayitem);
 			}
 
+            // set the checkmark on the currently-loaded profile
 			CheckCurrentProfileMenuItem();
 		}
 
@@ -243,6 +255,11 @@ namespace MidiControl {
 					((ToolStripMenuItem)item).Checked = (item.Text == conf.CurrentProfile);
 				}
 			}
+            foreach(ToolStripItem item in SwitchProfileTrayMenuItem.DropDownItems) {
+                if(item is ToolStripMenuItem) {
+                    ((ToolStripMenuItem)item).Checked = (item.Text == conf.CurrentProfile);
+                }
+            }
 
 			if(conf.CurrentProfile == "Default") {
 				btnDeleteCurrentProfile.Text = deleteCurrentProfileToolStripMenuItem.Text = "Clear default profile";
@@ -345,6 +362,8 @@ namespace MidiControl {
 
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
 			var profile = ((ToolStripMenuItem)sender).Text;
+            var tag = (string)((ToolStripMenuItem)sender).Tag;
+
 			bool doLoad = true;
 
 			if(conf.Unsaved) {
@@ -362,6 +381,9 @@ namespace MidiControl {
 
 			if(doLoad)
 				conf.LoadProfile(profile);
+
+            //if(tag == "tray")
+            //    trayIcon.ShowBalloonTip(500, "MIDIControl", "The current profile is now '" + profile + "'.", ToolTipIcon.Info);
 		}
 
 		public void ReloadEntries() {

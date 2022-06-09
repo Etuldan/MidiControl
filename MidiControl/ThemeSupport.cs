@@ -9,6 +9,8 @@ namespace MidiControl {
 		public const int DARKMODE = 1;
 		public const int OFFICEBLUE = 2;
 
+        // order of themes to list in the options menu
+        // also determines what theme class is returned for a given index in GetThemeByIndex()
 		public static string[] GetThemesList() {
 			return new string[] { "Default (light)", "Dark", "Office 2007 Blue" };
 		}
@@ -21,6 +23,7 @@ namespace MidiControl {
 			}
 		}
 
+        // ProfessionalColorTable + additional properties specific to this app
 		public abstract class MidiControlTheme : ProfessionalColorTable {
 			public virtual bool ShowStatusBarGrip => true;
 			public virtual Color WindowBackColor => SystemColors.Control;
@@ -148,7 +151,7 @@ namespace MidiControl {
 			public override Color StatusStripGradientEnd => Color.Black;
 
 
-
+            // copied from office 2007 blue to see what's missing
 			public override Color ButtonSelectedHighlightBorder => Color.White;
 			public override Color ButtonPressedHighlightBorder => Color.White;
 			public override Color ButtonCheckedHighlightBorder => Color.White;

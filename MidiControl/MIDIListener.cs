@@ -215,6 +215,7 @@ namespace MidiControl
         {
 #if DEBUG
             Debug.WriteLine("MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
+            Debug.WriteLine("- Device: " + MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName);
 #endif
             if(MidiOutForward != null)
             {
@@ -225,8 +226,33 @@ namespace MidiControl
             {
                 if(e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
                     ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
-                if ((e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff) && entry.Value.Input == Event.Note && (((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber ||
-                    ((NoteEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
+
+                try {
+                    if (
+                        (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
+                        && entry.Value.Input == Event.Note
+                        && (
+                            ((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber
+                            || ((NoteEvent)e.MidiEvent).Channel != entry.Value.Channel
+                            || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice
+                        )
+                    ) continue;
+                } catch (NAudio.MmException ex) {
+#if DEBUG
+                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine("Probably a device previously detected is no longer connected.  Refreshing MIDI devices and returning...");
+#endif
+                    // NAudio.MmException: 'BadDeviceId calling midiInGetDevCaps'
+                    // occurs if a MIDI device present on app launch is disconnected
+                    //
+                    // TODO: this causes nothing to work and crashes the program; need to RefreshMIDIDevices() while not trying to stop the one that is no longer present (because this causes a hang). throwing it again for now
+                    throw ex;
+                    //this.DisableListening();
+                    //this.RefeshMIDIDevices();
+                    //this.EnableListening();
+                    return;
+                }
+
 
                 if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity != 0)
                 {

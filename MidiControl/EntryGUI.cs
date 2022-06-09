@@ -1617,6 +1617,7 @@ namespace MidiControl
 
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            // TODO: whatever bugfix is done in MIDIListener re: disconnecting/changing connected devices, may need to be done here as well
 #if DEBUG
             Debug.WriteLine("Setting : MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
 #endif

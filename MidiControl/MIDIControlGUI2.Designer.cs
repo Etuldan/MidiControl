@@ -75,6 +75,7 @@
             this.listKeybinds = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SwitchProfileTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.trayMenuStrip.SuspendLayout();
             this.statusBar.SuspendLayout();
@@ -375,9 +376,10 @@
             this.trayMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuShowMainWindow,
             this.toolStripMenuItem4,
+            this.SwitchProfileTrayMenuItem,
             this.trayMenuExit});
             this.trayMenuStrip.Name = "trayMenuStrip";
-            this.trayMenuStrip.Size = new System.Drawing.Size(183, 54);
+            this.trayMenuStrip.Size = new System.Drawing.Size(183, 98);
             // 
             // trayMenuShowMainWindow
             // 
@@ -521,6 +523,12 @@
             this.columnHeader2.Text = "Overview";
             this.columnHeader2.Width = 355;
             // 
+            // SwitchProfileTrayMenuItem
+            // 
+            this.SwitchProfileTrayMenuItem.Name = "SwitchProfileTrayMenuItem";
+            this.SwitchProfileTrayMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.SwitchProfileTrayMenuItem.Text = "Switch profile";
+            // 
             // MIDIControlGUI2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -598,5 +606,6 @@
 		private System.Windows.Forms.ColumnHeader columnHeader2;
 		private System.Windows.Forms.ToolStripMenuItem gitHubProjectPageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-	}
+        private System.Windows.Forms.ToolStripMenuItem SwitchProfileTrayMenuItem;
+    }
 }
