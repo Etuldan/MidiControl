@@ -11,6 +11,8 @@ namespace MidiControl {
 		public TwitchControlDelegateHandler TwitchControlDelegate;
 		public delegate void SwitchProfileControlDelegateHandler();
 		public SwitchProfileControlDelegateHandler SwitchProfileControlDelegate;
+        public delegate void MidiInStatusDelegateHandler(bool error = false);
+        public MidiInStatusDelegateHandler MidiInStatusDelegate;
 		private readonly OptionsManagment options;
 		private readonly Configuration conf;
 		private readonly MIDIListener midi;
@@ -35,6 +37,7 @@ namespace MidiControl {
 			OBSControlDelegate = new OBSControlDelegateHandler(UpdateOBSStatus);
 			TwitchControlDelegate = new TwitchControlDelegateHandler(UpdateTwitchStatus);
 			SwitchProfileControlDelegate = new SwitchProfileControlDelegateHandler(UpdateProfile);
+            MidiInStatusDelegate = new MidiInStatusDelegateHandler(UpdateMIDIStatus);
 
 			options = new OptionsManagment();
 			string initialProfile = options.options.LastUsedProfile;
@@ -281,7 +284,7 @@ namespace MidiControl {
 			options.Save();
 		}
 
-		private void UpdateMIDIStatus() {
+		private void UpdateMIDIStatus(bool error = false) {
 			midiStatus.Text = "";
 			foreach(string device in midi.GetMIDIINDevices()) {
 				midiStatus.Text += " " + device + ",";
@@ -293,7 +296,7 @@ namespace MidiControl {
 				midiStatus.ForeColor = Color.Red;
 			} else {
 				midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDI;
-				midiStatus.ForeColor = Color.Green;
+				midiStatus.ForeColor = (error ? Color.Gold : Color.Green);
 			}
 		}
 

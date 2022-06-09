@@ -156,6 +156,12 @@ namespace MidiControl
             {
                 try
                 {
+                    // if the device is no longer connected, this will get stuck
+                    //string devName = MidiIn.DeviceInfo(entry.Value.device).ProductName;
+                    // if that works, does the device name match what the program thinks it is?
+                    //if(entry.Key == devName) {
+                    //
+                    //}
                     entry.Value.Stop();
                     entry.Value.Dispose();
                 }
@@ -210,12 +216,48 @@ namespace MidiControl
             {
                 entry.Value.Send(e.RawMessage);
             }
-        }   
+        }
+
+        private int ValidateSenderDeviceInt(MidiInCustom dev) {
+            int device = dev.device;
+            int assumed = device;
+            bool adjusted = false;
+            bool correct = false;
+            string devName = "null";
+
+            while(!correct && device >= 0) {
+                try {
+                    devName = MidiIn.DeviceInfo(device).ProductName;
+                    correct = true;
+                } catch(NAudio.MmException) {
+                    // device id was invalid; this happens if devices with lower ids are no longer connected and the connected devices list hasn't been refreshed
+                    // need to shift the assumed device down until we find a device that exists
+                    device--;
+                    adjusted = true;
+                }
+            }
+
+            if(device < 0) device = 0;
+
+            if(adjusted) {
+#if DEBUG
+                Debug.WriteLine("device " + devName + " assumed to have id " + assumed + " is now most likely " + device + "; need to do a refresh!");
+#endif
+                var gui = MIDIControlGUI2.GetInstance();
+                gui.Invoke(gui.MidiInStatusDelegate, new object[] { true });
+            }
+
+            return device;
+        }
+
+        // sender = MidiInCustom object
+        // ((MidiInCustom)sender).device = int: numeric device index
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            int deviceId = this.ValidateSenderDeviceInt((MidiInCustom)sender);
 #if DEBUG
             Debug.WriteLine("MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-            Debug.WriteLine("- Device: " + MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName);
+            Debug.WriteLine("- Device: " + deviceId + " - " + MidiIn.DeviceInfo(deviceId).ProductName);
 #endif
             if(MidiOutForward != null)
             {
@@ -225,7 +267,7 @@ namespace MidiControl
             foreach (KeyValuePair<string, KeyBindEntry> entry in conf.Config)
             {
                 if(e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
-                    ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
+                    ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(deviceId).ProductName != entry.Value.Mididevice)) continue;
 
                 try {
                     if (
@@ -234,7 +276,7 @@ namespace MidiControl
                         && (
                             ((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber
                             || ((NoteEvent)e.MidiEvent).Channel != entry.Value.Channel
-                            || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice
+                            || MidiIn.DeviceInfo(deviceId).ProductName != entry.Value.Mididevice
                         )
                     ) continue;
                 } catch (NAudio.MmException ex) {
