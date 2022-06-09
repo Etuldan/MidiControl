@@ -572,7 +572,7 @@ namespace MidiControl {
 				// new name can't be 'default' or an existing profile name
 				if(newProfileResponse.Text.ToLower() == "default") {
 					MessageBox.Show("New profile cannot be named 'default'.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				} else if(conf.DoesProfileExist(newProfileResponse.Text)) {
+				} else if(conf.DoesProfileExist(newProfileResponse.Text.ToLower())) {
 					MessageBox.Show("A profile with that name already exists.", "Profile already exists", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				} else if(newProfileResponse.Text.Trim() == "") {
 					MessageBox.Show("New profile name cannot be blank.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

@@ -80,6 +80,11 @@ namespace MidiControl
 			return File.Exists(FileToSearch);
 		}
 
+        public bool DoesKeybindExist(string key)
+        {
+            return this.Config.ContainsKey(key);
+        }
+
         private void LoadCurrentProfile()
         {
             try
