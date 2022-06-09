@@ -39,6 +39,8 @@ namespace MidiControl {
 			SwitchProfileControlDelegate = new SwitchProfileControlDelegateHandler(UpdateProfile);
             MidiInStatusDelegate = new MidiInStatusDelegateHandler(UpdateMIDIStatus);
 
+            obsButton.Tag = twitchButton.Tag = midiButton.Tag = false;
+
 			options = new OptionsManagment();
 			string initialProfile = options.options.LastUsedProfile;
 			if(!options.options.LoadLastProfileOnStartup) {
@@ -109,11 +111,21 @@ namespace MidiControl {
 			btnStopAllSounds.Image = mcTheme.MuteIcon;
 			MidiControlOptionsToolStripMenuItem.Image = mcTheme.SettingsIcon;
 
-			// TODO: need to fix these from being BackgroundImages instead of Images
-			//obsButton.Image = mcTheme.OBSIcon;
-			//twitchButton.Image = mcTheme.TwitchIcon;
-			//midiButton.Image = mcTheme.MIDIIcon;
+            if((bool)obsButton.Tag)
+                obsButton.Image = mcTheme.OBSIcon;
+            else
+                obsButton.Image = Properties.Resources.obsRed;
 
+            if((bool)twitchButton.Tag)
+                twitchButton.Image = mcTheme.TwitchIcon;
+            else
+                twitchButton.Image = Properties.Resources.twitchRed;
+
+            if((bool)midiButton.Tag)
+                midiButton.Image = mcTheme.MIDIIcon;
+            else
+                midiButton.Image = Properties.Resources.MIDIRed;
+            
 			keybindIconList.Images.Clear();
 			keybindIconList.Images.Add("button", mcTheme.ControlButtonIcon);
 			keybindIconList.Images.Add("knob", mcTheme.ControlKnobIcon);
@@ -298,9 +310,11 @@ namespace MidiControl {
 				midiButton.Image = global::MidiControl.Properties.Resources.MIDIRed;
 				midiStatus.Text = "N/A";
 				midiStatus.ForeColor = Color.Red;
+                midiButton.Tag = false;
 			} else {
                 midiButton.Image = this.GetCurrentTheme().MIDIIcon;
 				midiStatus.ForeColor = (error ? Color.Gold : Color.Green);
+                midiButton.Tag = true;
 			}
 		}
 
@@ -310,6 +324,8 @@ namespace MidiControl {
 			} else {
 				obsButton.Image = global::MidiControl.Properties.Resources.obsRed;
 			}
+
+            obsButton.Tag = connect;
 		}
 		private void UpdateTwitchStatus(bool connect) {
 			if(connect) {
@@ -317,6 +333,8 @@ namespace MidiControl {
 			} else {
 				twitchButton.Image = global::MidiControl.Properties.Resources.twitchRed;
 			}
+
+            twitchButton.Tag = connect;
 		}
 
 		private void OBSStatusButtonClicked(object sender, EventArgs e) {
