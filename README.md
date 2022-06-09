@@ -26,3 +26,6 @@ Once you have it configured to your liking, you can go to Menu > Interface optio
 2. Start MIDIControl.
 3. Select the profile you want to use, if needed.
 4. Press on your MIDI keys/controls!
+
+### Notes
+The green label on the status bar lists the available MIDI input devices detected, in the order they were detected.  This label will turn yellow if you press a control on a device that is listed after a previous one that has been disconnected since starting the program, indicating the need for a device refresh.  Click the MIDI status button next to this label at any time to refresh and reconnect to available input devices.
