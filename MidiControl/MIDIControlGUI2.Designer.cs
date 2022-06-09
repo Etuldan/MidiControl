@@ -60,6 +60,7 @@
             this.trayMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.trayMenuShowMainWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.SwitchProfileTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.obsButton = new System.Windows.Forms.ToolStripButton();
@@ -75,7 +76,6 @@
             this.listKeybinds = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SwitchProfileTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.trayMenuStrip.SuspendLayout();
             this.statusBar.SuspendLayout();
@@ -379,7 +379,7 @@
             this.SwitchProfileTrayMenuItem,
             this.trayMenuExit});
             this.trayMenuStrip.Name = "trayMenuStrip";
-            this.trayMenuStrip.Size = new System.Drawing.Size(183, 98);
+            this.trayMenuStrip.Size = new System.Drawing.Size(183, 76);
             // 
             // trayMenuShowMainWindow
             // 
@@ -393,6 +393,12 @@
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(179, 6);
+            // 
+            // SwitchProfileTrayMenuItem
+            // 
+            this.SwitchProfileTrayMenuItem.Name = "SwitchProfileTrayMenuItem";
+            this.SwitchProfileTrayMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.SwitchProfileTrayMenuItem.Text = "Switch profile";
             // 
             // trayMenuExit
             // 
@@ -415,24 +421,24 @@
             // 
             // obsButton
             // 
-            this.obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obsRed;
             this.obsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.obsButton.Image = global::MidiControl.Properties.Resources.obsRed;
             this.obsButton.Name = "obsButton";
             this.obsButton.Size = new System.Drawing.Size(23, 20);
             this.obsButton.Click += new System.EventHandler(this.OBSStatusButtonClicked);
             // 
             // twitchButton
             // 
-            this.twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitchRed;
             this.twitchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.twitchButton.Image = global::MidiControl.Properties.Resources.twitchRed;
             this.twitchButton.Name = "twitchButton";
             this.twitchButton.Size = new System.Drawing.Size(23, 20);
             this.twitchButton.Click += new System.EventHandler(this.TwitchStatusButtonClicked);
             // 
             // midiButton
             // 
-            this.midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDIRed;
             this.midiButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.midiButton.Image = global::MidiControl.Properties.Resources.MIDIRed;
             this.midiButton.Name = "midiButton";
             this.midiButton.Size = new System.Drawing.Size(23, 20);
             this.midiButton.Click += new System.EventHandler(this.MidiStatusButtonClicked);
@@ -522,12 +528,6 @@
             // 
             this.columnHeader2.Text = "Overview";
             this.columnHeader2.Width = 355;
-            // 
-            // SwitchProfileTrayMenuItem
-            // 
-            this.SwitchProfileTrayMenuItem.Name = "SwitchProfileTrayMenuItem";
-            this.SwitchProfileTrayMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.SwitchProfileTrayMenuItem.Text = "Switch profile";
             // 
             // MIDIControlGUI2
             // 

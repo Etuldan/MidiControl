@@ -74,6 +74,10 @@ namespace MidiControl {
 
 		// form, tray icon, close window events
 
+        private ThemeSupport.MidiControlTheme GetCurrentTheme() {
+            return ThemeSupport.GetThemeByIndex(options.options.Theme);
+        }
+
 		private void SetWindowTheme(int theme) {
 			ThemeSupport.MidiControlTheme mcTheme = ThemeSupport.GetThemeByIndex(theme);
 
@@ -291,27 +295,27 @@ namespace MidiControl {
 			}
 			midiStatus.Text = midiStatus.Text.Trim(',').Trim();
 			if(midiStatus.Text == "") {
-				midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDIRed;
+				midiButton.Image = global::MidiControl.Properties.Resources.MIDIRed;
 				midiStatus.Text = "N/A";
 				midiStatus.ForeColor = Color.Red;
 			} else {
-				midiButton.BackgroundImage = global::MidiControl.Properties.Resources.MIDI;
+                midiButton.Image = this.GetCurrentTheme().MIDIIcon;
 				midiStatus.ForeColor = (error ? Color.Gold : Color.Green);
 			}
 		}
 
 		private void UpdateOBSStatus(bool connect) {
 			if(connect) {
-				obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obs;
+                obsButton.Image = this.GetCurrentTheme().OBSIcon;
 			} else {
-				obsButton.BackgroundImage = global::MidiControl.Properties.Resources.obsRed;
+				obsButton.Image = global::MidiControl.Properties.Resources.obsRed;
 			}
 		}
 		private void UpdateTwitchStatus(bool connect) {
 			if(connect) {
-				twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitch;
+                twitchButton.Image = this.GetCurrentTheme().TwitchIcon;
 			} else {
-				twitchButton.BackgroundImage = global::MidiControl.Properties.Resources.twitchRed;
+				twitchButton.Image = global::MidiControl.Properties.Resources.twitchRed;
 			}
 		}
 
