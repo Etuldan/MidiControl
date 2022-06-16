@@ -31,7 +31,15 @@ namespace MidiControl {
 			public virtual Color ToolbarForeColor => this.MenuForeColor;
 			public virtual Color ListViewBackColor => SystemColors.Window;
 			public virtual Color ListViewForeColor => SystemColors.WindowText;
+            public virtual Color ListViewSubitemForeColor => SystemColors.GrayText;
+            public virtual bool ListViewColumnDrawOverride => false;
+            public virtual Color ListViewColumnBackColor => SystemColors.Control;
+            public virtual Color ListViewColumnForeColor => SystemColors.ControlText;
 			public virtual BorderStyle ListViewBorderStyle => BorderStyle.Fixed3D;
+
+            public virtual Color MIDILabelOff => Color.Red;
+            public virtual Color MIDILabelOn => Color.Green;
+            public virtual Color MIDILabelWarning => Color.Gold;
 
 			public virtual Image SaveIcon => Properties.Resources.floppy_disk;
 			public virtual Image DeleteIcon => Properties.Resources.rubbish;
@@ -40,8 +48,12 @@ namespace MidiControl {
 			public virtual Image EditIcon => Properties.Resources.edit;
 			public virtual Image MuteIcon => Properties.Resources.mute;
 			public virtual Image OBSIcon => Properties.Resources.obs;
+            public virtual Image OBSOffIcon => Properties.Resources.obsRed;
 			public virtual Image TwitchIcon => Properties.Resources.twitch;
+            public virtual Image TwitchOffIcon => Properties.Resources.twitchRed;
 			public virtual Image MIDIIcon => Properties.Resources.MIDI;
+            public virtual Image MIDIOffIcon => Properties.Resources.MIDIRed;
+            public virtual Image MIDIWarningIcon => Properties.Resources.MIDIYellow;
 			public virtual Image ControlKnobIcon => Properties.Resources.control_knob_icon;
 			public virtual Image ControlButtonIcon => Properties.Resources.control_button_icon;
 			public virtual Image SettingsIcon => Properties.Resources.settings;
@@ -95,8 +107,12 @@ namespace MidiControl {
 			public override Color MenuForeColor => Color.White;
 			public override Color ToolbarForeColor => this.MenuForeColor;
 			public override Color ListViewBackColor => Color.FromArgb(30, 30, 30);
-			public override Color ListViewForeColor => Color.FromArgb(224, 224, 224);
-			public override BorderStyle ListViewBorderStyle => BorderStyle.None;
+			public override Color ListViewForeColor => Color.FromArgb(212, 212, 212);
+            public override Color ListViewSubitemForeColor => Color.FromArgb(160, 160, 160);
+            public override bool ListViewColumnDrawOverride => true;
+            public override Color ListViewColumnBackColor => Color.FromArgb(51, 51, 52);
+            public override Color ListViewColumnForeColor => Color.FromArgb(212, 212, 212);
+            public override BorderStyle ListViewBorderStyle => BorderStyle.None;
 
 			public override Image SaveIcon => Properties.Resources.floppy_disk_light;
 			public override Image DeleteIcon => Properties.Resources.rubbish_light;

@@ -74,8 +74,8 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listKeybinds = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colKeybind = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colOverview = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1.SuspendLayout();
             this.trayMenuStrip.SuspendLayout();
             this.statusBar.SuspendLayout();
@@ -503,8 +503,8 @@
             // listKeybinds
             // 
             this.listKeybinds.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
+            this.colKeybind,
+            this.colOverview});
             this.listKeybinds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKeybinds.FullRowSelect = true;
             this.listKeybinds.HideSelection = false;
@@ -519,15 +519,15 @@
             this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseClick);
             this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseDoubleClick);
             // 
-            // columnHeader1
+            // colKeybind
             // 
-            this.columnHeader1.Text = "Keybind Name";
-            this.columnHeader1.Width = 156;
+            this.colKeybind.Text = "Keybind Name";
+            this.colKeybind.Width = 156;
             // 
-            // columnHeader2
+            // colOverview
             // 
-            this.columnHeader2.Text = "Overview";
-            this.columnHeader2.Width = 355;
+            this.colOverview.Text = "Overview";
+            this.colOverview.Width = 355;
             // 
             // MIDIControlGUI2
             // 
@@ -602,8 +602,8 @@
 		private System.Windows.Forms.ToolStripMenuItem saveCurrentProfileAsDefaultToolStripMenuItem;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ListView listKeybinds;
-		private System.Windows.Forms.ColumnHeader columnHeader1;
-		private System.Windows.Forms.ColumnHeader columnHeader2;
+		private System.Windows.Forms.ColumnHeader colKeybind;
+		private System.Windows.Forms.ColumnHeader colOverview;
 		private System.Windows.Forms.ToolStripMenuItem gitHubProjectPageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem SwitchProfileTrayMenuItem;

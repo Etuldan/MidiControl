@@ -258,6 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\MIDIYellow.png" />
     <None Include="Resources\settings_light.png" />
     <None Include="Resources\rubbish_light.png" />
     <None Include="Resources\plus_light.png" />

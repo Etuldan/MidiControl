@@ -129,8 +129,10 @@ namespace MidiControl {
 			keybindIconList.Images.Clear();
 			keybindIconList.Images.Add("button", mcTheme.ControlButtonIcon);
 			keybindIconList.Images.Add("knob", mcTheme.ControlKnobIcon);
-
+            
 			ReloadEntries();
+
+            listKeybinds.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
 		}
 
 		private void ThemeSubitems(ToolStripItemCollection items, ThemeSupport.MidiControlTheme theme) {
@@ -149,7 +151,7 @@ namespace MidiControl {
 			}
 		}
 
-		private void MIDIControlGUI2_Load(object sender, EventArgs e) {
+        private void MIDIControlGUI2_Load(object sender, EventArgs e) {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();
 
@@ -307,13 +309,13 @@ namespace MidiControl {
 			}
 			midiStatus.Text = midiStatus.Text.Trim(',').Trim();
 			if(midiStatus.Text == "") {
-				midiButton.Image = global::MidiControl.Properties.Resources.MIDIRed;
+				midiButton.Image = this.GetCurrentTheme().MIDIOffIcon;
 				midiStatus.Text = "N/A";
-				midiStatus.ForeColor = Color.Red;
+				midiStatus.ForeColor = this.GetCurrentTheme().MIDILabelOff;
                 midiButton.Tag = false;
 			} else {
-                midiButton.Image = this.GetCurrentTheme().MIDIIcon;
-				midiStatus.ForeColor = (error ? Color.Gold : Color.Green);
+                midiButton.Image = (error ? this.GetCurrentTheme().MIDIWarningIcon : this.GetCurrentTheme().MIDIIcon);
+				midiStatus.ForeColor = (error ? this.GetCurrentTheme().MIDILabelWarning : this.GetCurrentTheme().MIDILabelOn);
                 midiButton.Tag = true;
 			}
 		}
@@ -322,7 +324,7 @@ namespace MidiControl {
 			if(connect) {
                 obsButton.Image = this.GetCurrentTheme().OBSIcon;
 			} else {
-				obsButton.Image = global::MidiControl.Properties.Resources.obsRed;
+				obsButton.Image = this.GetCurrentTheme().OBSOffIcon;
 			}
 
             obsButton.Tag = connect;
@@ -331,7 +333,7 @@ namespace MidiControl {
 			if(connect) {
                 twitchButton.Image = this.GetCurrentTheme().TwitchIcon;
 			} else {
-				twitchButton.Image = global::MidiControl.Properties.Resources.twitchRed;
+				twitchButton.Image = this.GetCurrentTheme().TwitchOffIcon;
 			}
 
             twitchButton.Tag = connect;
@@ -417,6 +419,7 @@ namespace MidiControl {
 
 			foreach(KeyValuePair<string, KeyBindEntry> entry in conf.Config) {
 				var item = new ListViewItem(entry.Key);
+                item.UseItemStyleForSubItems = false;
 
 				if(entry.Value.Input == Event.Note)
 					item.ImageKey = "button";
@@ -426,6 +429,9 @@ namespace MidiControl {
 				// generate overview for details view
 				var summary = entry.Value.Summarize();
 				var overview = new ListViewItem.ListViewSubItem(item, summary);
+
+                overview.ForeColor = this.GetCurrentTheme().ListViewSubitemForeColor;
+
 				item.SubItems.Add(overview);
 				item.ToolTipText = summary.Replace(" / ", "\n");
 
@@ -638,5 +644,5 @@ namespace MidiControl {
 		private void gitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
 			System.Diagnostics.Process.Start("https://github.com/Etuldan/MidiControl");
 		}
-	}
+    }
 }
