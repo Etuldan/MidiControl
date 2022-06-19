@@ -226,7 +226,7 @@
             // LblNote
             // 
             this.LblNote.AutoSize = true;
-            this.LblNote.Location = new System.Drawing.Point(523, 13);
+            this.LblNote.Location = new System.Drawing.Point(519, 13);
             this.LblNote.Name = "LblNote";
             this.LblNote.Size = new System.Drawing.Size(30, 13);
             this.LblNote.TabIndex = 2;
@@ -235,9 +235,9 @@
             // TxtBoxNote
             // 
             this.TxtBoxNote.Enabled = false;
-            this.TxtBoxNote.Location = new System.Drawing.Point(559, 10);
+            this.TxtBoxNote.Location = new System.Drawing.Point(555, 10);
             this.TxtBoxNote.Name = "TxtBoxNote";
-            this.TxtBoxNote.Size = new System.Drawing.Size(29, 20);
+            this.TxtBoxNote.Size = new System.Drawing.Size(33, 20);
             this.TxtBoxNote.TabIndex = 3;
             // 
             // TxtBoxDevice

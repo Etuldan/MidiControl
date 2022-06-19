@@ -74,8 +74,7 @@ namespace MidiControl {
 			this.SetWindowTheme(options.options.Theme);
 		}
 
-		// form, tray icon, close window events
-
+		// theme support functions
         private ThemeSupport.MidiControlTheme GetCurrentTheme() {
             return ThemeSupport.GetThemeByIndex(options.options.Theme);
         }
@@ -114,17 +113,17 @@ namespace MidiControl {
             if((bool)obsButton.Tag)
                 obsButton.Image = mcTheme.OBSIcon;
             else
-                obsButton.Image = Properties.Resources.obsRed;
+                obsButton.Image = mcTheme.OBSOffIcon;
 
             if((bool)twitchButton.Tag)
                 twitchButton.Image = mcTheme.TwitchIcon;
             else
-                twitchButton.Image = Properties.Resources.twitchRed;
+                twitchButton.Image = mcTheme.TwitchOffIcon;
 
             if((bool)midiButton.Tag)
                 midiButton.Image = mcTheme.MIDIIcon;
             else
-                midiButton.Image = Properties.Resources.MIDIRed;
+                midiButton.Image = mcTheme.MIDIOffIcon;
             
 			keybindIconList.Images.Clear();
 			keybindIconList.Images.Add("button", mcTheme.ControlButtonIcon);
@@ -151,6 +150,7 @@ namespace MidiControl {
 			}
 		}
 
+        // form, tray icon, close window events
         private void MIDIControlGUI2_Load(object sender, EventArgs e) {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();

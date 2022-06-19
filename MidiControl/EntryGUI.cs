@@ -77,10 +77,12 @@ namespace MidiControl
             TxtBoxDevice.Text = Device;
             TxtBoxChannel.Text = Channel.ToString();
 
-			if(Input == Event.Note)
-				LblNote.Text = "Note";
-			else if(Input == Event.Slider)
-				LblNote.Text = "CC";
+            if(Input == Event.Note) {
+                LblNote.Text = "Note";
+                TxtBoxNote.Text = MIDIListener.getNoteString(Note);
+            } else if(Input == Event.Slider) {
+                LblNote.Text = "CC";
+            }
 
 			if (keybind.MediaCallBack != null)
             {
@@ -1658,10 +1660,12 @@ namespace MidiControl
             TxtBoxDevice.Text = device;
             TxtBoxChannel.Text = channel;
 
-			if(Input == Event.Note)
-				LblNote.Text = "Note";
-			else if(Input == Event.Slider)
-				LblNote.Text = "CC";
+            if(Input == Event.Note) {
+                LblNote.Text = "Note";
+                TxtBoxNote.Text = MIDIListener.getNoteString(Note);
+            } else if(Input == Event.Slider) {
+                LblNote.Text = "CC";
+            }
         }
 
         private void BtnAudioSelect_Click(object sender, EventArgs e)
