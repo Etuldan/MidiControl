@@ -303,6 +303,7 @@
             this.btnAddKeybind.Name = "btnAddKeybind";
             this.btnAddKeybind.Size = new System.Drawing.Size(94, 22);
             this.btnAddKeybind.Text = "Add keybind";
+            this.btnAddKeybind.ToolTipText = "Adds a new keybind to the current profile";
             this.btnAddKeybind.Click += new System.EventHandler(this.AddKeybindItemClicked);
             // 
             // btnStopAllSounds
@@ -333,13 +334,14 @@
             this.menuViewAsDropdown.Name = "menuViewAsDropdown";
             this.menuViewAsDropdown.Size = new System.Drawing.Size(93, 22);
             this.menuViewAsDropdown.Text = "View as: Icons";
+            this.menuViewAsDropdown.ToolTipText = "Change keybind list display mode";
             // 
             // menuViewAsIcons
             // 
             this.menuViewAsIcons.Checked = true;
             this.menuViewAsIcons.CheckState = System.Windows.Forms.CheckState.Checked;
             this.menuViewAsIcons.Name = "menuViewAsIcons";
-            this.menuViewAsIcons.Size = new System.Drawing.Size(109, 22);
+            this.menuViewAsIcons.Size = new System.Drawing.Size(180, 22);
             this.menuViewAsIcons.Tag = "icons";
             this.menuViewAsIcons.Text = "Icons";
             this.menuViewAsIcons.Click += new System.EventHandler(this.ListViewDisplayModeChanged);
@@ -347,7 +349,7 @@
             // menuViewAsList
             // 
             this.menuViewAsList.Name = "menuViewAsList";
-            this.menuViewAsList.Size = new System.Drawing.Size(109, 22);
+            this.menuViewAsList.Size = new System.Drawing.Size(180, 22);
             this.menuViewAsList.Tag = "list";
             this.menuViewAsList.Text = "List";
             this.menuViewAsList.Click += new System.EventHandler(this.ListViewDisplayModeChanged);
@@ -355,7 +357,7 @@
             // menuViewAsDetails
             // 
             this.menuViewAsDetails.Name = "menuViewAsDetails";
-            this.menuViewAsDetails.Size = new System.Drawing.Size(109, 22);
+            this.menuViewAsDetails.Size = new System.Drawing.Size(180, 22);
             this.menuViewAsDetails.Tag = "details";
             this.menuViewAsDetails.Text = "Details";
             this.menuViewAsDetails.Click += new System.EventHandler(this.ListViewDisplayModeChanged);
@@ -416,12 +418,14 @@
             this.midiStatus});
             this.statusBar.Location = new System.Drawing.Point(0, 445);
             this.statusBar.Name = "statusBar";
+            this.statusBar.ShowItemToolTips = true;
             this.statusBar.Size = new System.Drawing.Size(534, 22);
             this.statusBar.TabIndex = 3;
             // 
             // obsButton
             // 
             this.obsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.obsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.obsButton.Image = global::MidiControl.Properties.Resources.obsRed;
             this.obsButton.Name = "obsButton";
             this.obsButton.Size = new System.Drawing.Size(23, 20);
@@ -430,17 +434,21 @@
             // twitchButton
             // 
             this.twitchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.twitchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.twitchButton.Image = global::MidiControl.Properties.Resources.twitchRed;
             this.twitchButton.Name = "twitchButton";
             this.twitchButton.Size = new System.Drawing.Size(23, 20);
+            this.twitchButton.Text = "Connect Twitch";
             this.twitchButton.Click += new System.EventHandler(this.TwitchStatusButtonClicked);
             // 
             // midiButton
             // 
             this.midiButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.midiButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.midiButton.Image = global::MidiControl.Properties.Resources.MIDIRed;
             this.midiButton.Name = "midiButton";
             this.midiButton.Size = new System.Drawing.Size(23, 20);
+            this.midiButton.Text = "Rescan MIDI devices";
             this.midiButton.Click += new System.EventHandler(this.MidiStatusButtonClicked);
             // 
             // midiStatus

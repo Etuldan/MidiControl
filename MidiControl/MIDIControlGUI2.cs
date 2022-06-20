@@ -310,9 +310,11 @@ namespace MidiControl {
 			midiStatus.Text = midiStatus.Text.Trim(',').Trim();
 			if(midiStatus.Text == "") {
 				midiButton.Image = this.GetCurrentTheme().MIDIOffIcon;
-				midiStatus.Text = "N/A";
+				midiStatus.Text = "No MIDI devices detected!  Click MIDI icon to rescan.";
 				midiStatus.ForeColor = this.GetCurrentTheme().MIDILabelOff;
                 midiButton.Tag = false;
+
+                //MessageBox.Show("No MIDI devices were detected.  Connect a device and then click the MIDI icon in the status bar to rescan for devices.", "MIDIControl", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			} else {
                 midiButton.Image = (error ? this.GetCurrentTheme().MIDIWarningIcon : this.GetCurrentTheme().MIDIIcon);
 				midiStatus.ForeColor = (error ? this.GetCurrentTheme().MIDILabelWarning : this.GetCurrentTheme().MIDILabelOn);
@@ -323,8 +325,10 @@ namespace MidiControl {
 		private void UpdateOBSStatus(bool connect) {
 			if(connect) {
                 obsButton.Image = this.GetCurrentTheme().OBSIcon;
+                obsButton.ToolTipText = "Disconnect OBS";
 			} else {
 				obsButton.Image = this.GetCurrentTheme().OBSOffIcon;
+                obsButton.ToolTipText = "Connect OBS";
 			}
 
             obsButton.Tag = connect;
@@ -332,8 +336,10 @@ namespace MidiControl {
 		private void UpdateTwitchStatus(bool connect) {
 			if(connect) {
                 twitchButton.Image = this.GetCurrentTheme().TwitchIcon;
+                twitchButton.ToolTipText = "Disconnect Twitch";
 			} else {
 				twitchButton.Image = this.GetCurrentTheme().TwitchOffIcon;
+                twitchButton.ToolTipText = "Connect Twitch";
 			}
 
             twitchButton.Tag = connect;
