@@ -85,12 +85,15 @@ namespace MidiControl {
             // set colors
 			this.BackColor = mcTheme.WindowBackColor;
 
-			toolStrip1.Renderer = new ToolStripProfessionalRenderer(mcTheme);
-			statusBar.Renderer = new ToolStripProfessionalRenderer(mcTheme);
-			trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(mcTheme);
-			itemContextMenu.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+            toolStrip1.Renderer = new ThemeSupport.MidiControlThemeRenderer(mcTheme);
+            //toolStrip1.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+            statusBar.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+            trayMenuStrip.Renderer = new ThemeSupport.MidiControlThemeRenderer(mcTheme);
+            //trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(mcTheme);
+            itemContextMenu.Renderer = new ThemeSupport.MidiControlThemeRenderer(mcTheme);
+            //itemContextMenu.Renderer = new ToolStripProfessionalRenderer(mcTheme);
 
-			statusBar.SizingGrip = mcTheme.ShowStatusBarGrip;
+            statusBar.SizingGrip = mcTheme.ShowStatusBarGrip;
 
 			listKeybinds.BackColor = mcTheme.ListViewBackColor;
 			listKeybinds.ForeColor = mcTheme.ListViewForeColor;

@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
+#if DEBUG
+using System.Diagnostics;
+#endif
+
 namespace MidiControl {
 	class ThemeSupport {
-		public const int DEFAULT = 0;
-		public const int DARKMODE = 1;
-		public const int OFFICEBLUE = 2;
-
         // order of themes to list in the options menu
         // also determines what theme class is returned for a given index in GetThemeByIndex()
 		public static string[] GetThemesList() {
-			return new string[] { "Default (light)", "Dark", "Office 2007 Blue" };
+			return new string[] { "Default (light)", "Dark", "Office 2007 Blue", "Windows Classic" };
 		}
 
 		public static MidiControlTheme GetThemeByIndex(int i) {
 			switch(i) {
 				case 1: return new DarkTheme2();
 				case 2: return new Office2007BlueTheme();
+                case 3: return new WindowsClassic();
 				default: return new DefaultTheme();
 			}
 		}
@@ -28,6 +29,7 @@ namespace MidiControl {
 			public virtual bool ShowStatusBarGrip => true;
 			public virtual Color WindowBackColor => SystemColors.Control;
 			public virtual Color MenuForeColor => SystemColors.ControlText;
+            public virtual Color MenuHoverForeColor => SystemColors.ControlText;
 			public virtual Color ToolbarForeColor => this.MenuForeColor;
 			public virtual Color ListViewBackColor => SystemColors.Window;
 			public virtual Color ListViewForeColor => SystemColors.WindowText;
@@ -57,6 +59,8 @@ namespace MidiControl {
 			public virtual Image ControlKnobIcon => Properties.Resources.control_knob_icon;
 			public virtual Image ControlButtonIcon => Properties.Resources.control_button_icon;
 			public virtual Image SettingsIcon => Properties.Resources.settings;
+
+            public virtual bool CustomMenuCheckRendering => false;
 		}
 
 		public class DefaultTheme : MidiControlTheme { }
@@ -105,7 +109,8 @@ namespace MidiControl {
 			public override bool ShowStatusBarGrip => false;
 			public override Color WindowBackColor => Color.FromArgb(45, 45, 48);
 			public override Color MenuForeColor => Color.White;
-			public override Color ToolbarForeColor => this.MenuForeColor;
+            public override Color MenuHoverForeColor => Color.White;
+            public override Color ToolbarForeColor => this.MenuForeColor;
 			public override Color ListViewBackColor => Color.FromArgb(30, 30, 30);
 			public override Color ListViewForeColor => Color.FromArgb(212, 212, 212);
             public override Color ListViewSubitemForeColor => Color.FromArgb(160, 160, 160);
@@ -113,8 +118,9 @@ namespace MidiControl {
             public override Color ListViewColumnBackColor => Color.FromArgb(51, 51, 52);
             public override Color ListViewColumnForeColor => Color.FromArgb(212, 212, 212);
             public override BorderStyle ListViewBorderStyle => BorderStyle.None;
+            public override bool CustomMenuCheckRendering => true;
 
-			public override Image SaveIcon => Properties.Resources.floppy_disk_light;
+            public override Image SaveIcon => Properties.Resources.floppy_disk_light;
 			public override Image DeleteIcon => Properties.Resources.rubbish_light;
 			public override Image PlusIcon => Properties.Resources.plus_light;
 			public override Image MinusIcon => Properties.Resources.minus_light;
@@ -310,5 +316,155 @@ namespace MidiControl {
 			public override Color OverflowButtonGradientMiddle => Color.FromArgb(145, 153, 164);
 			public override Color OverflowButtonGradientEnd => Color.FromArgb(81, 88, 98);
 		}
+
+        public class WindowsClassic : MidiControlTheme {
+            public override Color WindowBackColor => Color.FromArgb(212, 208, 200);
+            //public override BorderStyle ListViewBorderStyle => BorderStyle.None;
+            public override bool CustomMenuCheckRendering => true;
+
+            public override Color ToolStripGradientBegin => Color.FromArgb(212, 208, 200);
+            public override Color ToolStripGradientMiddle => Color.FromArgb(212, 208, 200);
+            public override Color ToolStripGradientEnd => Color.FromArgb(212, 208, 200);
+            public override Color ToolStripBorder => Color.FromArgb(128, 128, 128);
+            public override Color GripDark => Color.FromArgb(128, 128, 128);
+            public override Color GripLight => Color.FromArgb(255, 255, 255);
+            public override Color SeparatorDark => Color.FromArgb(128, 128, 128);
+            public override Color SeparatorLight => Color.FromArgb(255, 255, 255);
+            
+
+            public override Color ToolStripDropDownBackground => Color.FromArgb(212, 208, 200);
+            public override Color ImageMarginGradientBegin => Color.FromArgb(212, 208, 200);
+            public override Color ImageMarginGradientMiddle => Color.FromArgb(212, 208, 200);
+            public override Color ImageMarginGradientEnd => Color.FromArgb(212, 208, 200);
+
+            public override Color MenuItemSelected => Color.FromArgb(10, 36, 106);
+            public override Color MenuHoverForeColor => Color.White;
+            public override Color MenuItemSelectedGradientBegin => Color.FromArgb(10, 36, 106);
+            public override Color MenuItemSelectedGradientEnd => Color.FromArgb(10, 36, 106);
+
+            public override Color MenuItemPressedGradientBegin => Color.FromArgb(212, 208, 200);
+            public override Color MenuItemPressedGradientMiddle => Color.FromArgb(212, 208, 200);
+            public override Color MenuItemPressedGradientEnd => Color.FromArgb(212, 208, 200);
+            public override Color MenuBorder => Color.FromArgb(128, 128, 128);
+            public override Color MenuItemBorder => Color.FromArgb(10, 36, 106);
+
+            public override Color ButtonSelectedHighlight => Color.FromArgb(212, 208, 200);
+            public override Color ButtonSelectedBorder => Color.FromArgb(128, 128, 128);
+            public override Color ButtonSelectedGradientBegin => Color.FromArgb(202, 198, 190);
+            public override Color ButtonSelectedGradientMiddle => Color.FromArgb(202, 198, 190);
+            public override Color ButtonSelectedGradientEnd => Color.FromArgb(202, 198, 190);
+            public override Color ButtonPressedHighlight => Color.FromArgb(62, 62, 64);
+
+            public override Color ButtonCheckedHighlight => Color.FromArgb(51, 51, 52);
+            public override Color ButtonCheckedGradientBegin => Color.FromArgb(51, 51, 52);
+            public override Color ButtonCheckedGradientMiddle => Color.FromArgb(51, 51, 52);
+            public override Color ButtonCheckedGradientEnd => Color.FromArgb(51, 51, 52);
+
+            public override Color StatusStripGradientBegin => Color.FromArgb(212, 208, 200); //Color.FromArgb(10, 36, 106);
+            public override Color StatusStripGradientEnd => Color.FromArgb(212, 208, 200); // Color.FromArgb(166, 202, 240);
+
+
+            public override Color ButtonPressedBorder => Color.FromArgb(0, 208, 0); // Color.FromArgb(212, 208, 200);
+            public override Color ButtonPressedGradientBegin => Color.FromArgb(212, 208, 200);
+            public override Color ButtonPressedGradientMiddle => Color.FromArgb(212, 208, 200);
+            public override Color ButtonPressedGradientEnd => Color.FromArgb(212, 208, 200);
+            public override Color CheckBackground => Color.FromArgb(212, 208, 200);
+
+            public override Color CheckSelectedBackground => Color.FromArgb(212, 208, 200);
+            public override Color CheckPressedBackground => Color.FromArgb(212, 208, 200);
+            public override Color ImageMarginRevealedGradientBegin => Color.FromArgb(212, 208, 200);
+            public override Color ImageMarginRevealedGradientMiddle => this.ImageMarginRevealedGradientBegin;
+            public override Color ImageMarginRevealedGradientEnd => this.ImageMarginRevealedGradientBegin;
+        }
+
+        public class MidiControlThemeRenderer : ToolStripProfessionalRenderer {
+            public new MidiControlTheme ColorTable { get; private set; }
+
+            public MidiControlThemeRenderer(MidiControlTheme colorTable) : base(colorTable) {
+                this.ColorTable = colorTable;
+            }
+
+            protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e) {
+                if(!e.Item.Selected) {
+                    e.Item.ForeColor = this.ColorTable.MenuForeColor;
+                    base.OnRenderMenuItemBackground(e);
+                } else {
+                    e.Item.ForeColor = this.ColorTable.MenuHoverForeColor;
+
+                    Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
+                    using(Pen oPen = new Pen(this.ColorTable.MenuItemBorder))
+                    using(Brush oBrush = new SolidBrush(this.ColorTable.MenuItemSelected)) {
+                        //e.Graphics.FillRectangle(oBrush, 0, 0, rc.Width, rc.Height);
+                        e.Graphics.FillRectangle(oBrush, 2, 0, rc.Width - 4, rc.Height - 1);
+                        //e.Graphics.DrawRectangle(oPen, 0, 0, rc.Width, rc.Height);
+                        e.Graphics.DrawRectangle(oPen, 2, 0, rc.Width - 4, rc.Height - 1);
+                    }
+                }
+            }
+
+            protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e) {
+                e.ArrowColor = e.Item.ForeColor;
+                base.OnRenderArrow(e);
+            }
+
+            protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e) {
+                if(!this.ColorTable.CustomMenuCheckRendering) {
+                    base.OnRenderItemCheck(e);
+                    return;
+                }
+
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                Color checkColor = e.Item.ForeColor;
+
+                var r = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
+#if DEBUG
+                Debug.WriteLine("image rect: " + e.ImageRectangle);
+                Debug.WriteLine("r rect: " + r);
+#endif
+                var newr = r;
+                newr.Inflate(-4, -5);
+#if DEBUG
+                Debug.WriteLine("new r rect: " + newr);
+#endif
+
+                using(Pen p = new Pen(checkColor, 2.0f)) {
+                    e.Graphics.DrawLines(p, new Point[] {
+                        new Point(newr.Left, newr.Bottom - newr.Height /2),
+                        new Point(newr.Left + newr.Width /3,  newr.Bottom),
+                        new Point(newr.Right, newr.Top)
+                    });
+
+                    // debug bounding boxes
+                    //e.Graphics.DrawRectangle(Pens.Yellow, e.ImageRectangle);
+                    //e.Graphics.DrawRectangle(Pens.Green, r);
+                    //e.Graphics.DrawRectangle(Pens.Blue, newr);
+                }
+
+                return;
+
+                Color border, fill;
+
+                if(!e.Item.Selected) {
+                    border = Color.Red;
+                    fill = Color.Blue;
+                } else {
+                    border = Color.Green;
+                    fill = Color.Yellow;
+                }
+
+                using(Pen oPen = new Pen(border))
+                using(Brush oBrush = new SolidBrush(fill)) {
+                    e.Graphics.FillRectangle(oBrush, e.ImageRectangle);
+                }
+
+#if DEBUG
+                Debug.WriteLine("check image size: " + e.Image.Size);
+                Debug.WriteLine("image rect: " + e.ImageRectangle);
+#endif
+
+                e.Graphics.DrawImage(e.Image, 0, 0);
+            }
+        }
 	}
 }
