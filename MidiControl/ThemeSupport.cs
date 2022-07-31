@@ -418,15 +418,9 @@ namespace MidiControl {
                 Color checkColor = e.Item.ForeColor;
 
                 var r = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
-#if DEBUG
-                Debug.WriteLine("image rect: " + e.ImageRectangle);
-                Debug.WriteLine("r rect: " + r);
-#endif
+
                 var newr = r;
                 newr.Inflate(-4, -5);
-#if DEBUG
-                Debug.WriteLine("new r rect: " + newr);
-#endif
 
                 using(Pen p = new Pen(checkColor, 2.0f)) {
                     e.Graphics.DrawLines(p, new Point[] {
@@ -440,30 +434,6 @@ namespace MidiControl {
                     //e.Graphics.DrawRectangle(Pens.Green, r);
                     //e.Graphics.DrawRectangle(Pens.Blue, newr);
                 }
-
-                return;
-
-                Color border, fill;
-
-                if(!e.Item.Selected) {
-                    border = Color.Red;
-                    fill = Color.Blue;
-                } else {
-                    border = Color.Green;
-                    fill = Color.Yellow;
-                }
-
-                using(Pen oPen = new Pen(border))
-                using(Brush oBrush = new SolidBrush(fill)) {
-                    e.Graphics.FillRectangle(oBrush, e.ImageRectangle);
-                }
-
-#if DEBUG
-                Debug.WriteLine("check image size: " + e.Image.Size);
-                Debug.WriteLine("image rect: " + e.ImageRectangle);
-#endif
-
-                e.Graphics.DrawImage(e.Image, 0, 0);
             }
         }
 	}
