@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 #if DEBUG
 using System.Diagnostics;
@@ -377,6 +378,9 @@ namespace MidiControl {
             public override Color ImageMarginRevealedGradientEnd => this.ImageMarginRevealedGradientBegin;
         }
 
+        // references:
+        // https://stackoverflow.com/questions/32786250/windows-10-styled-contextmenustrip
+        // https://social.msdn.microsoft.com/Forums/windows/en-US/140096de-05d3-4d7e-8d4c-9f277bc72ddb/change-backcolor-and-forecolor-when-hovering-menu-items-of-menustrip?forum=winforms
         public class MidiControlThemeRenderer : ToolStripProfessionalRenderer {
             public new MidiControlTheme ColorTable { get; private set; }
 
@@ -413,7 +417,7 @@ namespace MidiControl {
                     return;
                 }
 
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
                 Color checkColor = e.Item.ForeColor;
 
