@@ -7,7 +7,9 @@ namespace MidiControl
     public partial class OptionsGUI : Form
     {
         private readonly OptionsManagment options;
-        public OptionsGUI(OptionsManagment options, int tab = 0)
+        private List<Panel> panels;
+
+        public OptionsGUI(OptionsManagment options, string tab = "general")
         {
             this.options = options;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
@@ -41,8 +43,28 @@ namespace MidiControl
 			cboTheme.Items.AddRange(ThemeSupport.GetThemesList());
 			cboTheme.SelectedIndex = options.options.Theme;
 
-			tabControl1.SelectedIndex = tab;
-        }
+            // select the category
+            if(treeView1.Nodes.Find(tab, true).Length == 0)
+                tab = "general";
+            treeView1.SelectedNode = treeView1.Nodes.Find(tab, true)[0];
+			
+			// prepare the panels
+            pnlGeneral.Location = new System.Drawing.Point(148, 12);
+            pnlInterface.Location = new System.Drawing.Point(148, 12);
+
+            pnlInterface.Visible = false;
+
+            panels = new List<Panel>() {
+                pnlGeneral,
+                pnlInterface
+            };
+
+			// show the correct panel
+			OptionsCategoryChanged(this, new TreeNodeMouseClickEventArgs(treeView1.SelectedNode, MouseButtons.Left, 1, 0, 0));
+
+			// theme the window
+			ThemeSupport.ThemeOtherWindow(options.options.Theme, this);
+		}
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
@@ -97,5 +119,12 @@ namespace MidiControl
             options.options.TwitchRefreshToken = "";
             TwitchChatControl.GetInstance().Disconnect();
         }
-	}
+
+        private void OptionsCategoryChanged(object sender, TreeNodeMouseClickEventArgs e) {
+            this.Text = "Options - " + e.Node.Text;
+            foreach(var p in panels) {
+                p.Visible = ((p.Tag as string) == e.Node.Name);
+            }
+        }
+    }
 }

@@ -388,7 +388,7 @@ namespace MidiControl {
 		}
 
 		private void InterfaceOptionsMenuItem_Click(object sender, EventArgs e) {
-			using(OptionsGUI optionGUI = new OptionsGUI(options, 1)) {
+			using(OptionsGUI optionGUI = new OptionsGUI(options, "interface")) {
 				optionGUI.ShowDialog();
 				this.TopMost = options.options.AlwaysOnTop;
 				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);

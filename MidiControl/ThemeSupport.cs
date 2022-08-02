@@ -25,6 +25,45 @@ namespace MidiControl {
 			}
 		}
 
+		public static void ThemeOtherWindow(int themeindex, System.Windows.Forms.Control window) {
+			var theme = GetThemeByIndex(themeindex);
+			if(!theme.ThemeOtherWindows) return;
+
+			window.BackColor = theme.WindowBackColor;
+
+			foreach(System.Windows.Forms.Control ctrl in window.Controls) {
+				switch(ctrl.GetType().Name) {
+					case "TextBox":
+						if(!ctrl.Enabled)
+							ctrl.BackColor = theme.WindowBackColor;
+						else
+							ctrl.BackColor = theme.ListViewBackColor;
+						ctrl.ForeColor = theme.ListViewForeColor;
+						(ctrl as TextBox).BorderStyle = BorderStyle.FixedSingle;
+						break;
+					case "TreeView":
+						ctrl.BackColor = theme.ListViewBackColor;
+						ctrl.ForeColor = theme.ListViewForeColor;
+						break;
+					case "Button":
+						ctrl.ForeColor = SystemColors.ControlText;
+						break;
+					case "CheckedComboBox":
+
+						break;
+					case "GroupBox":
+					case "Panel":
+						ctrl.ForeColor = theme.MenuForeColor;
+						ThemeOtherWindow(themeindex, ctrl);
+						break;
+					default:
+						ctrl.BackColor = theme.WindowBackColor;
+						ctrl.ForeColor = theme.MenuForeColor;
+						break;
+				}
+			}
+		}
+
         // ProfessionalColorTable + additional properties specific to this app
 		public abstract class MidiControlTheme : ProfessionalColorTable {
 			public virtual bool ShowStatusBarGrip => true;
@@ -62,6 +101,7 @@ namespace MidiControl {
 			public virtual Image SettingsIcon => Properties.Resources.settings;
 
             public virtual bool CustomMenuCheckRendering => false;
+			public virtual bool ThemeOtherWindows => false;
 		}
 
 		public class DefaultTheme : MidiControlTheme { }
@@ -119,9 +159,11 @@ namespace MidiControl {
             public override Color ListViewColumnBackColor => Color.FromArgb(51, 51, 52);
             public override Color ListViewColumnForeColor => Color.FromArgb(212, 212, 212);
             public override BorderStyle ListViewBorderStyle => BorderStyle.None;
-            public override bool CustomMenuCheckRendering => true;
 
-            public override Image SaveIcon => Properties.Resources.floppy_disk_light;
+            public override bool CustomMenuCheckRendering => true;
+			public override bool ThemeOtherWindows => true;
+
+			public override Image SaveIcon => Properties.Resources.floppy_disk_light;
 			public override Image DeleteIcon => Properties.Resources.rubbish_light;
 			public override Image PlusIcon => Properties.Resources.plus_light;
 			public override Image MinusIcon => Properties.Resources.minus_light;
@@ -322,8 +364,9 @@ namespace MidiControl {
             public override Color WindowBackColor => Color.FromArgb(212, 208, 200);
             //public override BorderStyle ListViewBorderStyle => BorderStyle.None;
             public override bool CustomMenuCheckRendering => true;
+			public override bool ThemeOtherWindows => true;
 
-            public override Color ToolStripGradientBegin => Color.FromArgb(212, 208, 200);
+			public override Color ToolStripGradientBegin => Color.FromArgb(212, 208, 200);
             public override Color ToolStripGradientMiddle => Color.FromArgb(212, 208, 200);
             public override Color ToolStripGradientEnd => Color.FromArgb(212, 208, 200);
             public override Color ToolStripBorder => Color.FromArgb(128, 128, 128);
