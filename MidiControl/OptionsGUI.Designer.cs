@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("MidiControl");
+			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Interface");
+			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("MidiControl");
 			this.LblOBSIP = new System.Windows.Forms.Label();
 			this.LblOBSPassword = new System.Windows.Forms.Label();
 			this.TxtBoxOBSIP = new System.Windows.Forms.TextBox();
@@ -59,6 +59,7 @@
 			this.pnlGeneral = new System.Windows.Forms.Panel();
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.pnlInterface = new System.Windows.Forms.Panel();
+			this.button1 = new System.Windows.Forms.Button();
 			this.groupBoxOBS.SuspendLayout();
 			this.groupBoxMIDI.SuspendLayout();
 			this.groupBoxTwitch.SuspendLayout();
@@ -104,7 +105,7 @@
 			// BtnSave
 			// 
 			this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnSave.Location = new System.Drawing.Point(325, 268);
+			this.BtnSave.Location = new System.Drawing.Point(244, 266);
 			this.BtnSave.Name = "BtnSave";
 			this.BtnSave.Size = new System.Drawing.Size(75, 23);
 			this.BtnSave.TabIndex = 6;
@@ -356,15 +357,15 @@
 			this.treeView1.HotTracking = true;
 			this.treeView1.Location = new System.Drawing.Point(12, 12);
 			this.treeView1.Name = "treeView1";
-			treeNode1.Name = "interface";
-			treeNode1.Text = "Interface";
-			treeNode1.ToolTipText = "Program appearance and behavior";
-			treeNode2.Name = "general";
-			treeNode2.Text = "MidiControl";
-			treeNode2.ToolTipText = "General program settings";
+			treeNode3.Name = "interface";
+			treeNode3.Text = "Interface";
+			treeNode3.ToolTipText = "Program appearance and behavior";
+			treeNode4.Name = "general";
+			treeNode4.Text = "MidiControl";
+			treeNode4.ToolTipText = "General program settings";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            treeNode3,
+            treeNode4});
 			this.treeView1.ShowNodeToolTips = true;
 			this.treeView1.ShowRootLines = false;
 			this.treeView1.Size = new System.Drawing.Size(130, 246);
@@ -383,11 +384,22 @@
 			this.pnlInterface.TabIndex = 17;
 			this.pnlInterface.Tag = "interface";
 			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(325, 266);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 18;
+			this.button1.Text = "Cancel";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.CancelPressed);
+			// 
 			// OptionsGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(412, 301);
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.pnlInterface);
 			this.Controls.Add(this.treeView1);
 			this.Controls.Add(this.pnlGeneral);
@@ -447,5 +459,6 @@
         private System.Windows.Forms.Panel pnlGeneral;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Panel pnlInterface;
-    }
+		private System.Windows.Forms.Button button1;
+	}
 }

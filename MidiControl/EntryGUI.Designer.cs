@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("OBS");
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("SoundBoard");
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Media Keys");
-			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Twitch Chat");
-			System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("MidiControl");
-			System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Go XLR");
-			System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("On Key Press", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
-			System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("OBS");
-			System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("SoundBoard");
-			System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Media Keys");
-			System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Twitch Chat");
-			System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("MidiControl");
-			System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Go XLR");
-			System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("On Key Release", new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13});
-			System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("OBS");
-			System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("On Slider Change", new System.Windows.Forms.TreeNode[] {
-            treeNode15});
+			System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("OBS");
+			System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("SoundBoard");
+			System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Media Keys");
+			System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Twitch Chat");
+			System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("MidiControl");
+			System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Go XLR");
+			System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("On Key Press", new System.Windows.Forms.TreeNode[] {
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode22});
+			System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("OBS");
+			System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("SoundBoard");
+			System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Media Keys");
+			System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Twitch Chat");
+			System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("MidiControl");
+			System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Go XLR");
+			System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("On Key Release", new System.Windows.Forms.TreeNode[] {
+            treeNode24,
+            treeNode25,
+            treeNode26,
+            treeNode27,
+            treeNode28,
+            treeNode29});
+			System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("OBS");
+			System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("On Slider Change", new System.Windows.Forms.TreeNode[] {
+            treeNode31});
 			this.LblName = new System.Windows.Forms.Label();
 			this.TxtBoxName = new System.Windows.Forms.TextBox();
 			this.LblNote = new System.Windows.Forms.Label();
@@ -1706,42 +1706,42 @@
 			this.treeView1.HotTracking = true;
 			this.treeView1.Location = new System.Drawing.Point(16, 60);
 			this.treeView1.Name = "treeView1";
-			treeNode1.Name = "obs_on";
-			treeNode1.Text = "OBS";
-			treeNode2.Name = "soundboard_on";
-			treeNode2.Text = "SoundBoard";
-			treeNode3.Name = "mediakeys_on";
-			treeNode3.Text = "Media Keys";
-			treeNode4.Name = "twitch_on";
-			treeNode4.Text = "Twitch Chat";
-			treeNode5.Name = "midicontrol_on";
-			treeNode5.Text = "MidiControl";
-			treeNode6.Name = "goxlr_on";
-			treeNode6.Text = "Go XLR";
-			treeNode7.Name = "onkeypress_root";
-			treeNode7.Text = "On Key Press";
-			treeNode8.Name = "obs_off";
-			treeNode8.Text = "OBS";
-			treeNode9.Name = "soundboard_off";
-			treeNode9.Text = "SoundBoard";
-			treeNode10.Name = "mediakeys_off";
-			treeNode10.Text = "Media Keys";
-			treeNode11.Name = "twitch_off";
-			treeNode11.Text = "Twitch Chat";
-			treeNode12.Name = "midicontrol_off";
-			treeNode12.Text = "MidiControl";
-			treeNode13.Name = "goxlr_off";
-			treeNode13.Text = "Go XLR";
-			treeNode14.Name = "onkeyrelease_root";
-			treeNode14.Text = "On Key Release";
-			treeNode15.Name = "obs_slider";
-			treeNode15.Text = "OBS";
-			treeNode16.Name = "onsliderchange_root";
-			treeNode16.Text = "On Slider Change";
+			treeNode17.Name = "obs_on";
+			treeNode17.Text = "OBS";
+			treeNode18.Name = "soundboard_on";
+			treeNode18.Text = "SoundBoard";
+			treeNode19.Name = "mediakeys_on";
+			treeNode19.Text = "Media Keys";
+			treeNode20.Name = "twitch_on";
+			treeNode20.Text = "Twitch Chat";
+			treeNode21.Name = "midicontrol_on";
+			treeNode21.Text = "MidiControl";
+			treeNode22.Name = "goxlr_on";
+			treeNode22.Text = "Go XLR";
+			treeNode23.Name = "onkeypress_root";
+			treeNode23.Text = "On Key Press";
+			treeNode24.Name = "obs_off";
+			treeNode24.Text = "OBS";
+			treeNode25.Name = "soundboard_off";
+			treeNode25.Text = "SoundBoard";
+			treeNode26.Name = "mediakeys_off";
+			treeNode26.Text = "Media Keys";
+			treeNode27.Name = "twitch_off";
+			treeNode27.Text = "Twitch Chat";
+			treeNode28.Name = "midicontrol_off";
+			treeNode28.Text = "MidiControl";
+			treeNode29.Name = "goxlr_off";
+			treeNode29.Text = "Go XLR";
+			treeNode30.Name = "onkeyrelease_root";
+			treeNode30.Text = "On Key Release";
+			treeNode31.Name = "obs_slider";
+			treeNode31.Text = "OBS";
+			treeNode32.Name = "onsliderchange_root";
+			treeNode32.Text = "On Slider Change";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode14,
-            treeNode16});
+            treeNode23,
+            treeNode30,
+            treeNode32});
 			this.treeView1.PathSeparator = " > ";
 			this.treeView1.ShowNodeToolTips = true;
 			this.treeView1.Size = new System.Drawing.Size(191, 301);
@@ -2028,6 +2028,7 @@
 			this.btnCancel.TabIndex = 28;
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.CancelPressed);
 			// 
 			// EntryGUI
 			// 

@@ -1740,5 +1740,10 @@ namespace MidiControl
             }
             CboBoxFilterSettingSlider.SelectedIndex = 0;
         }
+
+		private void CancelPressed(object sender, EventArgs e) {
+			this.DialogResult = DialogResult.Cancel;
+			this.Close();
+		}
 	}
 }

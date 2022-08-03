@@ -126,5 +126,9 @@ namespace MidiControl
                 p.Visible = ((p.Tag as string) == e.Node.Name);
             }
         }
-    }
+
+		private void CancelPressed(object sender, EventArgs e) {
+			this.Close();
+		}
+	}
 }
