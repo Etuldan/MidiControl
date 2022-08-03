@@ -8,6 +8,7 @@ using System.Diagnostics;
 #endif
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace MidiControl
 {
@@ -27,6 +28,11 @@ namespace MidiControl
         private int Channel;
         private int Note;
         private Event Input;
+
+		private List<Panel> panels;
+		private Size PanelSize = new Size(385, 301);
+		private Size ProperWindowSize = new Size(632, 446);
+		private Point PanelLocation = new Point(218, 60);
 
         private readonly string EntryName;
 
@@ -730,8 +736,47 @@ namespace MidiControl
 			DialogResult = DialogResult.Cancel;
 		}
 
-        private void InitControls()
+		private void PrepareWindow() {
+			// move all panels into place and size
+			panels = new List<Panel>() {
+				pnlOBSPress, pnlSoundBoardPress, pnlMediaKeysPress, pnlTwitchPress, pnlMidiControlPress, pnlGoXLRPress,
+				pnlOBSRelease, pnlSoundBoardRelease, pnlMediaKeysRelease, pnlTwitchRelease, pnlMidiControlRelease, pnlGoXLRRelease,
+				pnlOBSSlider
+			};
+
+			foreach(var p in panels) {
+				p.Location = PanelLocation;
+				p.Size = PanelSize;
+				p.Visible = false;
+				p.BorderStyle = BorderStyle.FixedSingle;
+			}
+
+			pnlRoot.BorderStyle = BorderStyle.FixedSingle;
+
+			treeView1.ExpandAll();
+			lblPanelLabel.Text = "No action selected";
+
+			// finally, theme the window
+			ThemeSupport.ThemeOtherWindow((new OptionsManagment()).options.Theme, this);
+		}
+
+		private void ActionCategoryChanged(object sender, TreeNodeMouseClickEventArgs e) {
+			bool root_selected = (e.Node.Name as string).Contains("root");
+			foreach(var p in panels) {
+				p.Visible = ((p.Tag as string) == e.Node.Name);
+			}
+			pnlRoot.Visible = root_selected;
+
+			if(root_selected)
+				lblPanelLabel.Text = "No action selected";
+			else
+				lblPanelLabel.Text = e.Node.FullPath;
+		}
+
+		private void InitControls()
         {
+			PrepareWindow();
+
             CheckToCombo.Add("ChkBoxSwitchScenePress", new string[] { "CboBoxSwitchScenePress" });
             CheckToCombo.Add("ChkBoxSwitchSceneRelease", new string[] { "CboBoxSwitchSceneRelease" });
             CheckToCombo.Add("ChkBoxPreviewScenePress", new string[] { "CboBoxPreviewScenePress" });

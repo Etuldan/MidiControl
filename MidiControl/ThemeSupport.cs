@@ -49,7 +49,7 @@ namespace MidiControl {
 						ctrl.ForeColor = SystemColors.ControlText;
 						break;
 					case "CheckedComboBox":
-
+					case "ComboBox":
 						break;
 					case "GroupBox":
 					case "Panel":

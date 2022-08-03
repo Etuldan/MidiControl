@@ -341,6 +341,7 @@
 			// 
 			this.pnlGeneral.AutoScroll = true;
 			this.pnlGeneral.BackColor = System.Drawing.SystemColors.Control;
+			this.pnlGeneral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.pnlGeneral.Controls.Add(this.groupBoxOBS);
 			this.pnlGeneral.Controls.Add(this.groupBoxTwitch);
 			this.pnlGeneral.Controls.Add(this.groupBoxMIDI);
@@ -352,6 +353,7 @@
 			// 
 			// treeView1
 			// 
+			this.treeView1.HotTracking = true;
 			this.treeView1.Location = new System.Drawing.Point(12, 12);
 			this.treeView1.Name = "treeView1";
 			treeNode1.Name = "interface";
@@ -363,6 +365,8 @@
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
+			this.treeView1.ShowNodeToolTips = true;
+			this.treeView1.ShowRootLines = false;
 			this.treeView1.Size = new System.Drawing.Size(130, 246);
 			this.treeView1.TabIndex = 16;
 			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OptionsCategoryChanged);
@@ -370,6 +374,7 @@
 			// pnlInterface
 			// 
 			this.pnlInterface.AutoScroll = true;
+			this.pnlInterface.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.pnlInterface.Controls.Add(this.groupBox2);
 			this.pnlInterface.Controls.Add(this.groupBox1);
 			this.pnlInterface.Location = new System.Drawing.Point(422, 12);

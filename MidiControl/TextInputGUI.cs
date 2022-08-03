@@ -12,6 +12,8 @@ namespace MidiControl {
 	public partial class TextInputGUI : Form {
 		public TextInputGUI() {
 			InitializeComponent();
+
+			ThemeSupport.ThemeOtherWindow((new OptionsManagment()).options.Theme, this);
 		}
 
 		public static TextInputResponse ShowPrompt(string message, string caption, string default_response = "") {
