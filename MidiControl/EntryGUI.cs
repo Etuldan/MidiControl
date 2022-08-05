@@ -736,15 +736,22 @@ namespace MidiControl
 			DialogResult = DialogResult.Cancel;
 		}
 
+		// notes for adding new action categories:
+		// - add a panel outside of the viewable area; put new controls in there and set AutoScroll = true
+		// - initialize these new controls in InitControls(), EntryGUI(name, keybind), and BtnAdd_Click() as appropriate
+		// - add a new node to the treeview in the appropriate place; the node's Name should match the new panel's Tag
+		// - add the panel to the panels List in PrepareWindow()
 		private void PrepareWindow() {
 			// move all panels into place and size
-			panels = new List<Panel>() {
+			panels = new List<Panel>()
+			{
 				pnlOBSPress, pnlSoundBoardPress, pnlMediaKeysPress, pnlTwitchPress, pnlMidiControlPress, pnlGoXLRPress,
 				pnlOBSRelease, pnlSoundBoardRelease, pnlMediaKeysRelease, pnlTwitchRelease, pnlMidiControlRelease, pnlGoXLRRelease,
 				pnlOBSSlider
 			};
 
-			foreach(var p in panels) {
+			foreach(var p in panels)
+			{
 				p.Location = PanelLocation;
 				p.Size = PanelSize;
 				p.Visible = false;
@@ -758,19 +765,30 @@ namespace MidiControl
 
 			// finally, theme the window
 			ThemeSupport.ThemeOtherWindow((new OptionsManagment()).options.Theme, this);
+
+			if(this.EntryName == null)
+			{
+				this.Text = "Add MIDI Keybind";
+			}
 		}
 
+		// show the correct section panel when the selected treeview node changes
 		private void ActionCategoryChanged(object sender, TreeNodeMouseClickEventArgs e) {
 			bool root_selected = (e.Node.Name as string).Contains("root");
-			foreach(var p in panels) {
+			foreach(var p in panels)
+			{
 				p.Visible = ((p.Tag as string) == e.Node.Name);
 			}
 			pnlRoot.Visible = root_selected;
 
 			if(root_selected)
+			{
 				lblPanelLabel.Text = "No action selected";
+			}
 			else
+			{
 				lblPanelLabel.Text = e.Node.FullPath;
+			}
 		}
 
 		private void InitControls()
@@ -1705,27 +1723,31 @@ namespace MidiControl
             TxtBoxDevice.Text = device;
             TxtBoxChannel.Text = channel;
 
-            if(Input == Event.Note) {
+            if(Input == Event.Note)
+			{
                 LblNote.Text = "Note";
                 TxtBoxNote.Text = MIDIListener.getNoteString(Note);
-            } else if(Input == Event.Slider) {
+            } 
+			else if(Input == Event.Slider)
+			{
                 LblNote.Text = "CC";
             }
         }
 
         private void BtnAudioSelect_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fdlg = new OpenFileDialog
-            {
-                Title = "Select Audio File",
-                InitialDirectory = @"c:\",
-                Filter = "Audio files (*.mp3;*.wav;*.wma;*.aac)|*.MP3;*.WAV;*.WMA;*.AAC|All files (*.*)|*.*",
-                RestoreDirectory = true
-            };
-            if (fdlg.ShowDialog() == DialogResult.OK)
-            {
-                TxtBoxAudioFile.Text = fdlg.FileName;
-            }
+			using(var fdlg = new OpenFileDialog {
+				Title = "Select Audio File",
+				InitialDirectory = @"c:\",
+				Filter = "Audio files (*.mp3;*.wav;*.wma;*.aac)|*.MP3;*.WAV;*.WMA;*.AAC|All files (*.*)|*.*",
+				RestoreDirectory = true
+			}) 
+			{
+				if(fdlg.ShowDialog() == DialogResult.OK)
+				{
+					TxtBoxAudioFile.Text = fdlg.FileName;
+				}
+			}
         }
 
         private void CboBoxFilterNameSlider_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1741,7 +1763,8 @@ namespace MidiControl
             CboBoxFilterSettingSlider.SelectedIndex = 0;
         }
 
-		private void CancelPressed(object sender, EventArgs e) {
+		private void CancelPressed(object sender, EventArgs e)
+		{
 			this.DialogResult = DialogResult.Cancel;
 			this.Close();
 		}
