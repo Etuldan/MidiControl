@@ -211,6 +211,8 @@
 			this.pnlRoot = new System.Windows.Forms.Panel();
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.lblHideMe = new System.Windows.Forms.Label();
+			this.txtKeybindSummary = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).BeginInit();
 			this.PanelXLRPress.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.NumericTransitionRelease)).BeginInit();
@@ -1805,9 +1807,9 @@
 			this.pnlSoundBoardPress.Controls.Add(this.TxtBoxAudioFile);
 			this.pnlSoundBoardPress.Controls.Add(this.chkBoxLoop);
 			this.pnlSoundBoardPress.Controls.Add(this.BtnAudioSelect);
-			this.pnlSoundBoardPress.Location = new System.Drawing.Point(852, 160);
+			this.pnlSoundBoardPress.Location = new System.Drawing.Point(298, 473);
 			this.pnlSoundBoardPress.Name = "pnlSoundBoardPress";
-			this.pnlSoundBoardPress.Size = new System.Drawing.Size(150, 112);
+			this.pnlSoundBoardPress.Size = new System.Drawing.Size(392, 259);
 			this.pnlSoundBoardPress.TabIndex = 16;
 			this.pnlSoundBoardPress.Tag = "soundboard_on";
 			// 
@@ -2004,6 +2006,7 @@
 			// pnlRoot
 			// 
 			this.pnlRoot.AutoScroll = true;
+			this.pnlRoot.Controls.Add(this.txtKeybindSummary);
 			this.pnlRoot.Controls.Add(this.label3);
 			this.pnlRoot.Location = new System.Drawing.Point(218, 60);
 			this.pnlRoot.Name = "pnlRoot";
@@ -2030,11 +2033,33 @@
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.CancelPressed);
 			// 
+			// lblHideMe
+			// 
+			this.lblHideMe.AutoSize = true;
+			this.lblHideMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHideMe.Location = new System.Drawing.Point(13, 365);
+			this.lblHideMe.Name = "lblHideMe";
+			this.lblHideMe.Size = new System.Drawing.Size(272, 26);
+			this.lblHideMe.TabIndex = 29;
+			this.lblHideMe.Text = "original window size (632, 446)\r\nexpand window to view and edit the subpanels\r\n";
+			this.lblHideMe.Visible = false;
+			// 
+			// txtKeybindSummary
+			// 
+			this.txtKeybindSummary.Location = new System.Drawing.Point(15, 32);
+			this.txtKeybindSummary.Multiline = true;
+			this.txtKeybindSummary.Name = "txtKeybindSummary";
+			this.txtKeybindSummary.ReadOnly = true;
+			this.txtKeybindSummary.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtKeybindSummary.Size = new System.Drawing.Size(356, 259);
+			this.txtKeybindSummary.TabIndex = 1;
+			// 
 			// EntryGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(616, 407);
+			this.Controls.Add(this.lblHideMe);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pnlRoot);
 			this.Controls.Add(this.lblPanelLabel);
@@ -2263,5 +2288,7 @@
 		private System.Windows.Forms.Panel pnlRoot;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.Label lblHideMe;
+		private System.Windows.Forms.TextBox txtKeybindSummary;
 	}
 }

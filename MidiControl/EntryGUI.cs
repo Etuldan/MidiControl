@@ -57,20 +57,26 @@ namespace MidiControl
             }
 
 			DialogResult = DialogResult.Cancel;
-        }
+
+			// form opened with no keybind to edit
+			txtKeybindSummary.Visible = false;
+		}
 
         public EntryGUI(string name, KeyBindEntry keybind)
         {
             this.obs = OBSControl.GetInstance();
             conf = Configuration.GetInstance();
-            this.EntryName = name;
+			this.EntryName = name;
 
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             InitControls();
 
-            BtnAdd.Text = "Modify";
+			// show text summary of the current settings on the main panel
+			txtKeybindSummary.Text = "Current keybind settings:\r\n\r\n" + keybind.Summarize().Replace(" / ", "\r\n");
+
+			BtnAdd.Text = "Modify";
             Text = "Edit MIDI Keybind";
 
             Device = keybind.Mididevice;

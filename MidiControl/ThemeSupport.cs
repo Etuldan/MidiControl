@@ -34,7 +34,7 @@ namespace MidiControl {
 			foreach(System.Windows.Forms.Control ctrl in window.Controls) {
 				switch(ctrl.GetType().Name) {
 					case "TextBox":
-						if(!ctrl.Enabled)
+						if(!ctrl.Enabled || (ctrl as TextBox).ReadOnly)
 							ctrl.BackColor = theme.WindowBackColor;
 						else
 							ctrl.BackColor = theme.ListViewBackColor;
