@@ -34,7 +34,12 @@ namespace MidiControl
             isConnected = false;
             obs = new OBSWebsocket();
             obs.Connected += Obs_Connected;
+#if WEBSOCKET5
+            obs.OBSExit += Obs_Exit;
+            obs.Disconnected += this.Obs_Disconnected;
+#else
             obs.Disconnected += Obs_Disconnected;
+#endif
             obs.SourceFilterAdded += Obs_SourceFilterAdded;
             obs.SourceFilterRemoved += Obs_SourceFilteRemoved;
 
@@ -627,10 +632,10 @@ e
 
             foreach (string scene in this.GetScenes())
             {
-                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
-                {
-                    filters.Add(new FilterSettingsScene() { Scene = scene, FilterSettings = filtersetting });
-                }
+                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                 {
+                     filters.Add(new FilterSettingsScene() { Scene = scene, FilterSettings = filtersetting });
+                 }
             }
 
             foreach (string source in this.GetSources())
@@ -679,8 +684,12 @@ e
         }
         public List<string> GetSources()
         {
+            if (!isConnected) return new List<string>();
+
+#if WEBSOCKET5
+            var sourceString = obs.GetInputList().Select(item => item.Name).ToList();
+#else
             List<string> sourceString = new List<string>();
-            if (!isConnected) return sourceString;
 
             List<OBSScene> scenes = obs.ListScenes();
             foreach (OBSScene scene in scenes)
@@ -703,6 +712,7 @@ e
                 sourceString.Add(source.Name);
             }
 
+#endif
             sourceString.Sort((x, y) => string.Compare(x, y));
             return sourceString.Distinct().ToList();
         }
@@ -729,16 +739,19 @@ e
         private void Obs_Connected(object sender, EventArgs e)
         {
             isConnected = true;
+#if !WEBSOCKET5
             Task.Run(() =>
             {
                 filterSettings = GetFiltersSettings();
             });
+#endif
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     true
                 });
             timer.Enabled = false;
         }
-        private void Obs_Disconnected(object sender, EventArgs e)
+
+        private void OnEnd()
         {
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     false
@@ -746,6 +759,21 @@ e
             isConnected = false;
             timer.Enabled = true;
         }
+#if WEBSOCKET5
+        private void Obs_Exit(object sender, EventArgs e)
+        {
+            this.OnEnd();
+        }
+        private void Obs_Disconnected(object sender, global::Websocket.Client.DisconnectionInfo e)
+        {
+            this.OnEnd();
+        }
+#else
+        private void Obs_Disconnected(object sender, EventArgs e)
+        {
+            this.OnEnd();
+        }
+#endif
         public bool IsEnabled()
         {
             return isConnected;
