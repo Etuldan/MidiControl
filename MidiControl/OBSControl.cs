@@ -33,7 +33,7 @@ namespace MidiControl
             _instance = this;
             isConnected = false;
             obs = new OBSWebsocket();
-            obs.Connected += Obs_Connected;
+            obs.Connected += this.Obs_Connected;
 #if WEBSOCKET5
             obs.OBSExit += Obs_Exit;
             obs.Disconnected += this.Obs_Disconnected;
@@ -41,7 +41,11 @@ namespace MidiControl
             obs.Disconnected += Obs_Disconnected;
 #endif
             obs.SourceFilterAdded += Obs_SourceFilterAdded;
-            obs.SourceFilterRemoved += Obs_SourceFilteRemoved;
+            obs.Disconnected += this.Obs_Disconnected;
+            obs.Disconnected += this.Obs_Disconnected;
+
+            obs.SourceFilterAdded += this.Obs_SourceFilterAdded;
+            obs.SourceFilterRemoved += this.Obs_SourceFilteRemoved;
 
             gui = MIDIControlGUI.GetInstance();
             options = OptionsManagment.GetInstance();
