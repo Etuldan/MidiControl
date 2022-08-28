@@ -36,11 +36,7 @@ namespace MidiControl
             obs.Connected += this.Obs_Connected;
 #if WEBSOCKET5
             obs.OBSExit += Obs_Exit;
-            obs.Disconnected += this.Obs_Disconnected;
-#else
-            obs.Disconnected += Obs_Disconnected;
 #endif
-            obs.SourceFilterAdded += Obs_SourceFilterAdded;
             obs.Disconnected += this.Obs_Disconnected;
             obs.Disconnected += this.Obs_Disconnected;
 
@@ -402,7 +398,11 @@ e
 
             foreach (string scene in this.GetScenes())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(scene))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+#endif
                 {
                     if (filtersetting.Name == filter)
                     {
@@ -419,9 +419,13 @@ e
 
             foreach (string source in this.GetSources())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(source))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
+#endif
                 {
-                    if(filtersetting.Name == filter)
+                    if (filtersetting.Name == filter)
                     {
                         FilterSettings setting = obs.GetSourceFilterInfo(source, filter);
                         bool currentVisibility = setting.IsEnabled;
@@ -448,7 +452,11 @@ e
 
             foreach (string scene in this.GetScenes())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(scene))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+#endif
                 {
                     if (filtersetting.Name == filter)
                     {
@@ -459,7 +467,11 @@ e
 
             foreach (string source in this.GetSources())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(source))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
+#endif
                 {
                     if (filtersetting.Name == filter)
                     {
@@ -636,7 +648,11 @@ e
 
             foreach (string scene in this.GetScenes())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(scene))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+#endif
                 {
                     filters.Add(new FilterSettingsScene() { Scene = scene, FilterSettings = filtersetting });
                 }
@@ -644,7 +660,11 @@ e
 
             foreach (string source in this.GetSources())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(source))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
+#endif
                 {
                     filters.Add(new FilterSettingsScene() { Scene = source, FilterSettings = filtersetting });
                 }
@@ -658,7 +678,11 @@ e
 
             foreach (string scene in this.GetScenes())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(scene))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+#endif
                 {
                     filtersString.Add(filtersetting.Name);
                 }
@@ -666,7 +690,11 @@ e
 
             foreach (string source in this.GetSources())
             {
+#if WEBSOCKET5
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(source))
+#else
                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
+#endif
                 {
                     filtersString.Add(filtersetting.Name);
                 }
@@ -730,7 +758,11 @@ e
             List<string> filters = new List<string>();
             if (!isConnected) return filters;
 
+#if WEBSOCKET5
+            List<FilterSettings> listFilters = obs.GetSourceFilterList(source);
+#else
             List<FilterSettings> listFilters = obs.GetSourceFilters(source);
+#endif
             foreach (FilterSettings filter in listFilters)
             {
                 filters.Add(filter.Name);
@@ -743,12 +775,10 @@ e
         private void Obs_Connected(object sender, EventArgs e)
         {
             isConnected = true;
-#if !WEBSOCKET5
             Task.Run(() =>
             {
                 filterSettings = GetFiltersSettings();
             });
-#endif
             gui.Invoke(gui.OBSControlDelegate, new object[] {
                     true
                 });
