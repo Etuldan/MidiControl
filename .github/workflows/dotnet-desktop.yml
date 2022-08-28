@@ -70,7 +70,7 @@ jobs:
     # Replace Secrets
     - uses: microsoft/variable-substitution@v1 
       with:
-        files: './\MidiControl/App.config'
+        files: './MidiControl/App.config'
       env:
         Twitch.ClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
         Twitch.ClientId: ${{ secrets.TWITCH_CLIENTID }}
