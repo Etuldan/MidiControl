@@ -632,10 +632,10 @@ e
 
             foreach (string scene in this.GetScenes())
             {
-                 foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
-                 {
-                     filters.Add(new FilterSettingsScene() { Scene = scene, FilterSettings = filtersetting });
-                 }
+                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                {
+                    filters.Add(new FilterSettingsScene() { Scene = scene, FilterSettings = filtersetting });
+                }
             }
 
             foreach (string source in this.GetSources())
