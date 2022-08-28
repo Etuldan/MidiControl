@@ -134,9 +134,15 @@ namespace MidiControl
         private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
             isReady = false;
-            gui.Invoke(gui.TwitchControlDelegate, new object[] {
+            try
+            {
+                gui.Invoke(gui.TwitchControlDelegate, new object[] {
                     false
                 });
+            }
+            catch (ObjectDisposedException)
+            {
+            }
         }
 
         public bool IsEnabled()
