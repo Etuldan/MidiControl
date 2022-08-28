@@ -66,7 +66,15 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
+        
+    # Replace Secrets
+    - uses: microsoft/variable-substitution@v1 
+      with:
+        files: './\MidiControl/App.config'
+      env:
+        Twitch.ClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
+        Twitch.ClientId: ${{ secrets.TWITCH_CLIENTID }}
+        
     # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v2
