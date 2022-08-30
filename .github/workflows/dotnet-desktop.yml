@@ -36,7 +36,7 @@
 # For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
 # refer to https://github.com/microsoft/github-actions-for-desktop-apps
 
-name: .NET Core Desktop
+name: .NET Framework Desktop
 
 on:
   push:
@@ -68,13 +68,19 @@ jobs:
       with:
         fetch-depth: 0
         
+    - name: Setup MSBuild Path
+      uses: warrenbuckley/Setup-MSBuild@v1
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
+      
+    - name: Restore NuGet Packages
+      run: nuget restore $env:Solution_Name
+      
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
       uses: actions/setup-dotnet@v2
       with:
           dotnet-version: ${{ matrix.dotnet-version }}
-          
-    - name: Install dependencies
-      run: dotnet restore
         
     - name: Replace Secrets
       uses: microsoft/variable-substitution@v1 
@@ -84,17 +90,8 @@ jobs:
         Twitch.ClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
         Twitch.ClientId: ${{ secrets.TWITCH_CLIENTID }}
         
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-      
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
-
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
+    - name: Build and Publish Web App
+      run: msbuild $env:Solution_Name /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
   
     - name: Building the installer
       run: |
