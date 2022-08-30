@@ -51,7 +51,7 @@ jobs:
     strategy:
       matrix:
         configuration: [Release]
-        dotnet-version: ['3.0', '3.1.x', '5.0.x' ]
+        dotnet-version: ['4.7.2' ]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -86,6 +86,7 @@ jobs:
         
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
