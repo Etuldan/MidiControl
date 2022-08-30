@@ -51,7 +51,6 @@ jobs:
     strategy:
       matrix:
         configuration: [Release]
-        dotnet-version: ['5.0.x' ]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -68,19 +67,14 @@ jobs:
       with:
         fetch-depth: 0
         
-    - name: Setup MSBuild Path
-      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
       
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.2
       
     - name: Restore NuGet Packages
       run: nuget restore $env:Solution_Name
-      
-    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v2
-      with:
-          dotnet-version: ${{ matrix.dotnet-version }}
         
     - name: Replace Secrets
       uses: microsoft/variable-substitution@v1 
@@ -90,8 +84,8 @@ jobs:
         Twitch.ClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
         Twitch.ClientId: ${{ secrets.TWITCH_CLIENTID }}
         
-    - name: Build and Publish Web App
-      run: msbuild $env:Solution_Name /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+    - name: Build app for Release
+      run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
   
     - name: Building the installer
       run: |
