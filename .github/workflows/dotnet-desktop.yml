@@ -93,3 +93,7 @@ jobs:
       run: |
         "%programfiles(x86)%\Inno Setup 6\iscc.exe" "setup.iss"
       shell: cmd
+
+    - uses: actions/upload-artifact@v3
+      with:
+        path: "Output/MIDIControl * Setup.exe"
