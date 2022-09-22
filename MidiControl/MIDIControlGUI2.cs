@@ -20,6 +20,8 @@ namespace MidiControl {
 		private bool actuallyClosing = false;
 		private bool windowWasShown = false;
 
+		private string NIControllerEditorEXEPath = @"C:\Program Files\Native Instruments\Controller Editor\Controller Editor.exe";
+
 		private const string STATIC_PROFILEMENU_TAG = "#STATIC_PROFILE_MENU_ITEM#";
 
 		private ImageList keybindIconList;
@@ -72,6 +74,14 @@ namespace MidiControl {
 			//listKeybinds.SmallImageList = keybindIconList;
             
 			this.SetWindowTheme(options.options.Theme);
+
+			// show menu option for Native Instruments Controller Editor, if installed
+			if(!System.IO.File.Exists(NIControllerEditorEXEPath)) {
+				mnuNIControllerEditor.Visible = false;
+			}
+
+			// (if other device manufacturers have MIDI controller editor apps, they can be added in a similar way for convenience to the user :) )
+			//
 		}
 
 		// theme support functions
@@ -653,5 +663,9 @@ namespace MidiControl {
 		private void gitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
 			System.Diagnostics.Process.Start("https://github.com/Etuldan/MidiControl");
 		}
-    }
+
+		private void OpenNIControllerEditor_Clicked(object sender, EventArgs e) {
+			System.Diagnostics.Process.Start(NIControllerEditorEXEPath);
+		}
+	}
 }
