@@ -512,30 +512,36 @@ e
                 {
                     if (sources.Contains(item.SourceName))
                     {
-                        sourcesName.Add(new SourceScene() { Source = item.SourceName, Scene = scene.Name }, item.Render);
-                        if (item.GroupChildren != null)
-                        {
-                            foreach (SceneItem child in item.GroupChildren)
-                            {
-                                sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name }, child.Render);
-                            }
-                        }
+                        sourcesName.Add(new SourceScene() { Source = item.SourceName, Scene = scene.Name }, obs.GetSourceActive(item.SourceName).VideoActive);
+						// obs.GetGroupSceneItemList() -- currently BROKEN in obs-websocket/obs-studio
+						// as of the 5.0.0.1 update to the NuGet package
+						//
+						// TODO: implement this once the underlying bugs are fixed in obs-websocket/obs-studio
+						//
+                        //if (item.GroupChildren != null)
+                        //{
+                        //    foreach (SceneItem child in item.GroupChildren)
+                        //    {
+                        //        sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name }, child.Render);
+                        //    }
+                        //}
                     }
-                    if (item.GroupChildren != null)
-                    {
-                        foreach (SceneItem child in item.GroupChildren)
-                        {
-                            if (sources.Contains(child.SourceName))
-                            {
-                                sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name }, child.Render);
-                            }
-                        }
-                    }
+                    //if (item.GroupChildren != null)
+                    //{
+                    //    foreach (SceneItem child in item.GroupChildren)
+                    //    {
+                    //        if (sources.Contains(child.SourceName))
+                    //        {
+                    //            sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name }, child.Render);
+                    //        }
+                    //    }
+                    //}
                 }
             }
             foreach (KeyValuePair<SourceScene, bool> entry in sourcesName)
             {
-                obs.SetSourceRender(entry.Key.Source, !entry.Value, entry.Key.Scene);
+				var sceneItemId = obs.GetSceneItemId(entry.Key.Scene, entry.Key.Source, 0);
+				obs.SetSceneItemEnabled(entry.Key.Scene, sceneItemId, !entry.Value);
                 if (entry.Value == false)
                 {
                     state = true;
@@ -550,17 +556,25 @@ e
             {
                 feedback.SendOff();
             }
-
-            if (obs.StudioModeEnabled() == true)
+			
+            if (obs.GetStudioModeEnabled())
             {
-                int oldTransition = obs.GetTransitionDuration();
-                obs.SetTransitionDuration(0);
-                OBSScene displayScene = obs.GetCurrentScene();
-                OBSScene previewScene = obs.GetPreviewScene();
-                obs.SetPreviewScene(displayScene);
-                obs.TransitionToProgram();
-                obs.SetPreviewScene(previewScene);
-                obs.SetTransitionDuration(oldTransition);
+				int? oldTransitionMaybe = obs.GetCurrentSceneTransition().Duration; //obs.GetTransitionDuration();
+				int oldTransition = 0;
+				if(oldTransitionMaybe.HasValue)
+					oldTransition = oldTransitionMaybe.Value;
+
+                obs.SetCurrentSceneTransitionDuration(0);
+                //OBSScene displayScene = obs.GetCurrentScene();
+				var programScene = obs.GetCurrentProgramScene();
+                //OBSScene previewScene = obs.GetPreviewScene();
+				var previewScene = obs.GetCurrentPreviewScene();
+				//obs.SetPreviewScene(displayScene);
+				obs.SetCurrentPreviewScene(programScene);
+				//obs.TransitionToProgram();
+				obs.TriggerStudioModeTransition();
+                obs.SetCurrentPreviewScene(previewScene);
+                obs.SetCurrentSceneTransitionDuration(oldTransition);
             }
         }
         private void ShowSources(List<string> sources, bool show)
