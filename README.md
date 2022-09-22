@@ -6,7 +6,7 @@ It support profiles/mapping, so you can switch from one to another, to use your 
 ![MIDIControl main interface](https://github.com/jboby93/MidiControl/blob/New-UI/doc/new-ui.png?raw=true)
 
 ## Prerequisites
-- obs-websocket-4.9.1 plugin for OBS Studio 27.x (other versions may work, but have not been tested) **(OBS Studio 28.x with the included obs-websocket-5.0 plugin does NOT work, and will not work until other dependencies in use by this program are updated accordingly)**
+- obs-websocket-4.9.1 plugin for OBS Studio 27.x (other versions may work, but have not been tested) **(OBS Studio 28.x with the included obs-websocket-5.0 plugin does NOT work currently; this will hopefully change soon)**
 
 
 ## How to configure
