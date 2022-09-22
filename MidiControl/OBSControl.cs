@@ -11,6 +11,7 @@ using System.Timers;
 using Microsoft.VisualBasic.FileIO;
 using System.Threading.Tasks;
 using System.IO;
+using OBSWebsocketDotNet.Types.Events;
 
 namespace MidiControl
 {
@@ -35,8 +36,8 @@ namespace MidiControl
             obs = new OBSWebsocket();
             obs.Connected += Obs_Connected;
             obs.Disconnected += Obs_Disconnected;
-            obs.SourceFilterAdded += Obs_SourceFilterAdded;
-            obs.SourceFilterRemoved += Obs_SourceFilteRemoved;
+            obs.SourceFilterCreated += Obs_SourceFilterAdded;
+            obs.SourceFilterRemoved += Obs_SourceFilterRemoved;
 
             gui = MIDIControlGUI2.GetInstance();
             options = OptionsManagment.GetInstance();
@@ -88,7 +89,7 @@ namespace MidiControl
             InitTimer();
         }
 
-        public void InitTimer()
+		public void InitTimer()
         {
             timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(Timer_Tick);
@@ -111,22 +112,26 @@ namespace MidiControl
         {
             if (!isConnected)
             {
-                try
-                {
-                    obs.Connect("ws://" + options.options.Ip, options.options.Password);
-                    if(obs.IsConnected)
-                    {
-                        Version pluginVersion = new Version(obs.GetVersion().PluginVersion);
-                        if (pluginVersion.CompareTo(new Version("4.9.0")) < 0)
-                        {
-                            throw new ErrorResponseException("Incompatible plugin Version. Please update your OBS-Websocket plugin");
-                        }
-                    }
-                }
-                catch (AuthFailureException)
-                {
-                    isConnected = false;
-                }
+				isConnected = false;
+				Task.Run(() => {
+					try {
+						obs.Connect("ws://" + options.options.Ip, options.options.Password);
+						//if(obs.IsConnected)
+						//{
+						//    Version pluginVersion = new Version(obs.GetVersion().PluginVersion);
+						//    if (pluginVersion.CompareTo(new Version("4.9.0")) < 0)
+						//    {
+						//        throw new ErrorResponseException("Incompatible plugin Version. Please update your OBS-Websocket plugin");
+						//    }
+						//}
+					} catch(Exception e) {
+						gui.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate {
+							//System.Windows.Forms.MessageBox.Show()
+							// handle connection failed here
+						});
+					}
+				});
+               
             }
             else
             {
@@ -135,14 +140,40 @@ namespace MidiControl
             }
         }
 
-        private void Obs_SourceFilterAdded(OBSWebsocket sender, string sourceName, string filterName, string filterType, JObject _filterSettings)
+		private void Obs_Connected(object sender, EventArgs e) {
+			isConnected = true;
+			if((new Version(obs.GetVersion().PluginVersion)).CompareTo("5.0.0") < 0) {
+				throw new OBSWebsocketDotNet.ErrorResponseException("Your version of obs-websocket is not compatible.  Please update to OBS Studio 28.", 500);
+			}
+
+			Task.Run(() => {
+				filterSettings = GetFiltersSettings();
+			});
+			gui.Invoke(gui.OBSControlDelegate, new object[] {
+					true
+				});
+			timer.Enabled = false;
+		}
+		private void Obs_Disconnected(object sender, OBSWebsocketDotNet.Communication.ObsDisconnectionInfo e) {
+			gui.Invoke(gui.OBSControlDelegate, new object[] {
+					false
+				});
+			isConnected = false;
+			timer.Enabled = true;
+		}
+		public bool IsEnabled() {
+			return isConnected;
+		}
+
+		//private void Obs_SourceFilterAdded(string sourceName, string filterName, string filterKind, JObject _filterSettings)
+		private void Obs_SourceFilterAdded(object sender, OBSWebsocketDotNet.Types.Events.SourceFilterCreatedEventArgs e)
         {
             Task.Run(() =>
             {
                 filterSettings = GetFiltersSettings();
             });            
         }
-        private void Obs_SourceFilteRemoved(OBSWebsocket sender, string sourceName, string filterName)
+        private void Obs_SourceFilterRemoved(object sender, SourceFilterRemovedEventArgs e)
         {
             Task.Run(() =>
             {
@@ -166,7 +197,7 @@ namespace MidiControl
                         {
                             feedbackScenes.Add(args[0], feedback);
                         }
-                        obs.SetCurrentScene(args[0]);
+                        obs.SetCurrentProgramScene(args[0]);
                         foreach (KeyValuePair<string, MIDIFeedback> entry in feedbackScenes)
                         {
                             if(entry.Key == args[0])
@@ -180,28 +211,28 @@ namespace MidiControl
                         }
                         break;
                     case "previewScene":
-                        if(obs.StudioModeEnabled())
+                        if(obs.GetStudioModeEnabled())
                         {
-                            obs.SetPreviewScene(args[0]);
+                            obs.SetCurrentPreviewScene(args[0]);
                         }
                         break;
                     case "mute":
                         foreach (string arg in args)
                         {
-                            obs.SetMute(arg, true);
+                            obs.SetInputMute(arg, true);
                         }
                         break;
                     case "unmute":
                         foreach (string arg in args)
                         {
-                            obs.SetMute(arg, false);
+                            obs.SetInputMute(arg, false);
                         }
                         break;
                     case "togglemute":
                         foreach (string arg in args)
                         {
-                            bool currentMute = obs.GetMute(arg);
-                            obs.ToggleMute(arg);
+                            bool currentMute = obs.GetInputMute(arg);
+                            obs.ToggleInputMute(arg);
                             if (currentMute)
                             {
                                 feedback.SendOff();
@@ -258,8 +289,8 @@ namespace MidiControl
                         }
                         break;
                     case "transition":
-                        obs.SetCurrentTransition(args[0]);
-                        obs.SetTransitionDuration(Int32.Parse(args[1]));
+                        obs.SetCurrentSceneTransition(args[0]);
+                        obs.SetCurrentSceneTransitionDuration(Int32.Parse(args[1]));
                         break;
                     case "hotkey":
                         foreach (string arg in args)
@@ -277,15 +308,15 @@ namespace MidiControl
                             switch (arg)
                             {
                                 case "Start Stream":
-                                    obs.StartStreaming();
+                                    obs.StartStream();
                                     break;
                                 case "Stop Stream":
-                                    obs.StopStreaming();
+                                    obs.StopStream();
                                     break;
                                 case "Toggle Stream":
-                                    streamstatus = obs.GetStreamingStatus();
-                                    obs.StartStopStreaming();
-                                    if (streamstatus.IsStreaming)
+                                    streamstatus = obs.GetStreamStatus();
+                                    obs.ToggleStream();
+                                    if (streamstatus.IsActive)
                                     {
                                         feedback.SendOff();
                                     }
@@ -295,15 +326,15 @@ namespace MidiControl
                                     }
                                     break;
                                 case "Start Record":
-                                    obs.StartRecording();
+                                    obs.StartRecord();
                                     break;
                                 case "Stop Record":
-                                    obs.StopRecording();
+                                    obs.StopRecord();
                                     break;
                                 case "Toggle Record":
-                                    streamstatus = obs.GetStreamingStatus();
-                                    obs.StartStopRecording();
-                                    if (streamstatus.IsRecording)
+                                    streamstatus = obs.GetStreamStatus();
+                                    obs.ToggleRecord();
+                                    if (obs.GetRecordStatus().IsRecording)
                                     {
                                         feedback.SendOff();
                                     }
@@ -315,32 +346,32 @@ namespace MidiControl
                                 case "Play/Pause Record":
                                     try
                                     {
-                                        obs.PauseRecording();
+                                        obs.PauseRecord();
                                         feedback.SendIn();
                                     }
                                     catch (ErrorResponseException e)
                                     {
                                         if(e.Message.Equals("recording already paused"))
                                         {
-                                            obs.ResumeRecording();
+                                            obs.ResumeRecord();
                                             feedback.SendOff();
                                         }
                                     }
                                     break;
                                 case "Pause Record":
-                                    obs.PauseRecording();
+                                    obs.PauseRecord();
                                     break;
                                 case "Resume Record":
-                                    obs.ResumeRecording();
+                                    obs.ResumeRecord();
                                     break;
                                 case "Save Record":
                                     obs.SaveReplayBuffer();
                                     break;
                                 case "Transition To Program (Studio)":
-                                    obs.TransitionToProgram();
+									obs.TriggerStudioModeTransition();
                                     break;
                                 case "Toggle Studio Mode":
-                                    obs.ToggleStudioMode();
+                                    obs.SetStudioModeEnabled(!obs.GetStudioModeEnabled());
                                     break;
                             }
                         }
@@ -365,12 +396,12 @@ e
             switch (action)
             {
                 case "transition":
-                    obs.SetTransitionDuration((int)(value * 5000));
+                    obs.SetCurrentSceneTransitionDuration((int)(value * 5000));
                     break;
                 case "volume":
                     foreach (string arg in args)
                     {
-                        obs.SetVolume(arg, value, false);
+                        obs.SetInputVolume(arg, value, false);
                     }
                     break;
                 case "transitionSlider":
@@ -393,13 +424,15 @@ e
 
             foreach (string scene in this.GetScenes())
             {
-                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(scene))
                 {
                     if (filtersetting.Name == filter)
                     {
-                        FilterSettings setting = obs.GetSourceFilterInfo(scene, filter);
+                        FilterSettings setting = obs.GetSourceFilter(scene, filter);
                         bool currentVisibility = setting.IsEnabled;
-                        obs.SetSourceFilterVisibility(scene, filter, !currentVisibility);
+						var newsettings = setting;
+						newsettings.IsEnabled = !currentVisibility;
+                        obs.SetSourceFilterSettings(scene, filter, newsettings);
                         if (currentVisibility == false)
                         {
                             state = true;
@@ -410,13 +443,15 @@ e
 
             foreach (string source in this.GetSources())
             {
-                foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(source))
                 {
                     if(filtersetting.Name == filter)
                     {
-                        FilterSettings setting = obs.GetSourceFilterInfo(source, filter);
+                        FilterSettings setting = obs.GetSourceFilter(source, filter);
                         bool currentVisibility = setting.IsEnabled;
-                        obs.SetSourceFilterVisibility(source, filter, !currentVisibility);
+						var newsettings = setting;
+						newsettings.IsEnabled = !currentVisibility;
+                        obs.SetSourceFilterSettings(source, filter, newsettings);
                         if(currentVisibility == false)
                         {
                             state = true;
@@ -439,22 +474,26 @@ e
 
             foreach (string scene in this.GetScenes())
             {
-                foreach (FilterSettings filtersetting in obs.GetSourceFilters(scene))
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(scene))
                 {
                     if (filtersetting.Name == filter)
                     {
-                        obs.SetSourceFilterVisibility(scene, filter, show);
+						var setting = obs.GetSourceFilter(scene, filter);
+						setting.IsEnabled = show;
+                        obs.SetSourceFilterSettings(scene, filter, setting);
                     }
                 }
             }
 
             foreach (string source in this.GetSources())
             {
-                foreach (FilterSettings filtersetting in obs.GetSourceFilters(source))
+                foreach (FilterSettings filtersetting in obs.GetSourceFilterList(source))
                 {
                     if (filtersetting.Name == filter)
                     {
-                        obs.SetSourceFilterVisibility(source, filter, show);
+						var setting = obs.GetSourceFilter(source, filter);
+						setting.IsEnabled = show;
+						obs.SetSourceFilterSettings(source, filter, setting);
                     }
                 }
             }
@@ -464,12 +503,12 @@ e
             if (!isConnected) return;
 
             Dictionary<SourceScene, bool> sourcesName = new Dictionary<SourceScene, bool>();
-            List<OBSScene> scenes = obs.ListScenes();
+			List<SceneBasicInfo> scenes = obs.GetSceneList().Scenes; //obs.ListScenes();
             bool state = false;
 
-            foreach (OBSScene scene in scenes)
+            foreach (SceneBasicInfo scene in scenes)
             {
-                foreach (SceneItem item in scene.Items)
+                foreach (var item in obs.GetSceneItemList(scene.Name))
                 {
                     if (sources.Contains(item.SourceName))
                     {
@@ -722,33 +761,6 @@ e
                 filters.Add(filter.Name);
             }
             return filters;
-        }
-
-
-
-        private void Obs_Connected(object sender, EventArgs e)
-        {
-            isConnected = true;
-            Task.Run(() =>
-            {
-                filterSettings = GetFiltersSettings();
-            });
-            gui.Invoke(gui.OBSControlDelegate, new object[] {
-                    true
-                });
-            timer.Enabled = false;
-        }
-        private void Obs_Disconnected(object sender, EventArgs e)
-        {
-            gui.Invoke(gui.OBSControlDelegate, new object[] {
-                    false
-                });
-            isConnected = false;
-            timer.Enabled = true;
-        }
-        public bool IsEnabled()
-        {
-            return isConnected;
         }
     }
 
