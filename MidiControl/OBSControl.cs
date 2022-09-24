@@ -115,7 +115,7 @@ namespace MidiControl
 				isConnected = false;
 				Task.Run(() => {
 					try {
-						obs.ConnectAsync("ws://" + options.options.Ip, options.options.Password);
+						obs.Connect("ws://" + options.options.Ip, options.options.Password);
 						//if(obs.IsConnected)
 						//{
 						//    Version pluginVersion = new Version(obs.GetVersion().PluginVersion);
@@ -126,9 +126,12 @@ namespace MidiControl
 						//}
 					} catch(Exception e) {
 						gui.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate {
-							//System.Windows.Forms.MessageBox.Show()
 							// handle connection failed here
+							//System.Windows.Forms.MessageBox.Show()
 						});
+#if DEBUG
+						Debug.WriteLine("Obs_Connected(): error - " + e.Message + "\n" + e.StackTrace);
+#endif
 					}
 				});
                
@@ -141,25 +144,43 @@ namespace MidiControl
         }
 
 		private void Obs_Connected(object sender, EventArgs e) {
-			isConnected = true;
-			if((new Version(((OBSWebsocket)sender).GetVersion().PluginVersion)).CompareTo("5.0.0") < 0) {
-				throw new OBSWebsocketDotNet.ErrorResponseException("Your version of obs-websocket is not compatible.  Please update to OBS Studio 28.", 500);
-			}
+			gui.BeginInvoke((System.Windows.Forms.MethodInvoker)(() => {
+				isConnected = true;
+				if(obs.GetVersion().PluginVersion.CompareTo("5.0.0") < 0) { 
+					throw new ErrorResponseException("Your version of obs-websocket is not compatible.  Please update to OBS Studio 28.", 500);
+				}
 
-			Task.Run(() => {
-				filterSettings = GetFiltersSettings();
-			});
-			gui.Invoke(gui.OBSControlDelegate, new object[] {
+				Task.Run(() => {
+					filterSettings = GetFiltersSettings();
+				});
+				gui.Invoke(gui.OBSControlDelegate, new object[] {
 					true
 				});
-			timer.Enabled = false;
+				timer.Enabled = false;
+			}));
 		}
 		private void Obs_Disconnected(object sender, OBSWebsocketDotNet.Communication.ObsDisconnectionInfo e) {
-			gui.Invoke(gui.OBSControlDelegate, new object[] {
+			gui.BeginInvoke((System.Windows.Forms.MethodInvoker)(() => {
+				gui.Invoke(gui.OBSControlDelegate, new object[] {
 					false
 				});
-			isConnected = false;
-			timer.Enabled = true;
+				isConnected = false;
+				timer.Enabled = true;
+
+				if(e.ObsCloseCode == OBSWebsocketDotNet.Communication.ObsCloseCodes.AuthenticationFailed) {
+					System.Windows.Forms.MessageBox.Show("Authentication failed.", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+					return;
+				} else if(e.WebsocketDisconnectionInfo != null) {
+					if(e.WebsocketDisconnectionInfo.Exception != null) {
+						System.Windows.Forms.MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode} Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription} Exception:{e.WebsocketDisconnectionInfo?.Exception?.Message}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+					} else {
+						System.Windows.Forms.MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode} Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+					}
+				} else {
+					System.Windows.Forms.MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode}", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+					return;
+				}
+			}));
 		}
 		public bool IsEnabled() {
 			return isConnected;
