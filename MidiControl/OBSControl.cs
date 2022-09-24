@@ -167,19 +167,9 @@ namespace MidiControl
 				isConnected = false;
 				timer.Enabled = true;
 
-				if(e.ObsCloseCode == OBSWebsocketDotNet.Communication.ObsCloseCodes.AuthenticationFailed) {
-					System.Windows.Forms.MessageBox.Show("Authentication failed.", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
-					return;
-				} else if(e.WebsocketDisconnectionInfo != null) {
-					if(e.WebsocketDisconnectionInfo.Exception != null) {
-						System.Windows.Forms.MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode} Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription} Exception:{e.WebsocketDisconnectionInfo?.Exception?.Message}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
-					} else {
-						System.Windows.Forms.MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode} Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
-					}
-				} else {
-					System.Windows.Forms.MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode}", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
-					return;
-				}
+#if DEBUG
+				Debug.WriteLine($"OBS Connection failed: CloseCode: {e.ObsCloseCode}, Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription}, Exception:{e.WebsocketDisconnectionInfo?.Exception?.Message}\nType: {e.WebsocketDisconnectionInfo.Type}");
+#endif
 			}));
 		}
 		public bool IsEnabled() {
