@@ -243,7 +243,7 @@ namespace MidiControl
 #if DEBUG
                 Debug.WriteLine("device " + devName + " assumed to have id " + assumed + " is now most likely " + device + "; need to do a refresh!");
 #endif
-                var gui = MIDIControlGUI2.GetInstance();
+                var gui = MIDIControlGUI.GetInstance();
                 gui.Invoke(gui.MidiInStatusDelegate, new object[] { true });
             }
 
