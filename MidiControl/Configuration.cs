@@ -191,7 +191,10 @@ namespace MidiControl
 			if(OBSCallBacksON.Count > 0) {
 				var items = new List<string>();
 				foreach(var item in OBSCallBacksON) {
-					items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+                    if(item.Args != null)
+                        items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+                    else
+                        items.Add(item.Action);
 				}
 				summary.Add("OBS (on): " + string.Join("; ", items));
 				
@@ -199,15 +202,21 @@ namespace MidiControl
 			if(OBSCallBacksOFF.Count > 0) {
 				var items = new List<string>();
 				foreach(var item in OBSCallBacksOFF) {
-					items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
-				}
+                    if(item.Args != null)
+                        items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+                    else
+                        items.Add(item.Action);
+                }
 				summary.Add("OBS (off): " + string.Join("; ", items));
 			}
 			if(OBSCallBacksSlider.Count > 0) {
 				var items = new List<string>();
 				foreach(var item in OBSCallBacksSlider) {
-					items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
-				}
+                    if(item.Args != null)
+                        items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+                    else
+                        items.Add(item.Action);
+                }
 				summary.Add("(adjust) " + string.Join("; ", items));
 			}
 			if(SoundCallBack != null) {
