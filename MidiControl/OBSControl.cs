@@ -115,7 +115,8 @@ namespace MidiControl
 				isConnected = false;
 				Task.Run(() => {
 					try {
-						obs.Connect("ws://" + options.options.Ip, options.options.Password);
+                        obs.ConnectAsync("ws://" + options.options.Ip, options.options.Password);
+						//obs.Connect("ws://" + options.options.Ip, options.options.Password);
 						//if(obs.IsConnected)
 						//{
 						//    Version pluginVersion = new Version(obs.GetVersion().PluginVersion);
