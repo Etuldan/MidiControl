@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace MidiControl {
-	public partial class MIDIControlGUI2 : Form {
+	public partial class MIDIControlGUI : Form {
 		public delegate void OBSControlDelegateHandler(bool connect);
 		public OBSControlDelegateHandler OBSControlDelegate;
 		public delegate void TwitchControlDelegateHandler(bool connect);
@@ -26,13 +26,13 @@ namespace MidiControl {
 
 		private ImageList keybindIconList;
 
-		private static MIDIControlGUI2 _inst;
-		public static MIDIControlGUI2 GetInstance() {
+		private static MIDIControlGUI _inst;
+		public static MIDIControlGUI GetInstance() {
 			return _inst;
 		}
 
 		// window constructor
-		public MIDIControlGUI2() {
+		public MIDIControlGUI() {
 			_inst = this;
 			InitializeComponent();			
 
@@ -164,14 +164,14 @@ namespace MidiControl {
 		}
 
         // form, tray icon, close window events
-        private void MIDIControlGUI2_Load(object sender, EventArgs e) {
+        private void MIDIControlGUI_Load(object sender, EventArgs e) {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();
 
 			this.windowWasShown = true;
 		}
 
-		private void MIDIControlGUI2_FormClosing(object sender, FormClosingEventArgs e) {
+		private void MIDIControlGUI_FormClosing(object sender, FormClosingEventArgs e) {
 			if(!this.actuallyClosing) {
 				e.Cancel = true;
 
@@ -194,7 +194,7 @@ namespace MidiControl {
 			}
 		}
 
-		private void MIDIControlGUI2_FormClosed(object sender, FormClosedEventArgs e) {
+		private void MIDIControlGUI_FormClosed(object sender, FormClosedEventArgs e) {
 			// actual program close stuff here
 			midi.ReleaseAll();
 

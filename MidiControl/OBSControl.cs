@@ -18,7 +18,7 @@ namespace MidiControl
     public class OBSControl : IExternalControl
     {
         private readonly OBSWebsocket obs;
-        private readonly MIDIControlGUI2 gui;
+        private readonly MIDIControlGUI gui;
         private static OBSControl _instance;
         private readonly Dictionary<string, float[]> FiltersMinMaxValues = new Dictionary<string, float[]>();
         public readonly Dictionary<string, string> Hotkeys = new Dictionary<string, string>();
@@ -39,7 +39,7 @@ namespace MidiControl
             obs.SourceFilterCreated += Obs_SourceFilterAdded;
             obs.SourceFilterRemoved += Obs_SourceFilterRemoved;
 
-            gui = MIDIControlGUI2.GetInstance();
+            gui = MIDIControlGUI.GetInstance();
             options = OptionsManagment.GetInstance();
 
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

@@ -1,5 +1,5 @@
 ﻿namespace MidiControl {
-	partial class MIDIControlGUI2 {
+	partial class MIDIControlGUI {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -24,7 +24,7 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI2));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.menuProfiles = new System.Windows.Forms.ToolStripMenuItem();
@@ -591,9 +591,9 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MIDIControlGUI2";
 			this.Text = "MIDIControl - [ProfileName]";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MIDIControlGUI2_FormClosing);
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MIDIControlGUI2_FormClosed);
-			this.Load += new System.EventHandler(this.MIDIControlGUI2_Load);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MIDIControlGUI_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MIDIControlGUI_FormClosed);
+			this.Load += new System.EventHandler(this.MIDIControlGUI_Load);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.trayMenuStrip.ResumeLayout(false);

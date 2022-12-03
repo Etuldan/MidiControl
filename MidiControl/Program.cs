@@ -30,7 +30,7 @@ namespace MidiControl
             Application.SetCompatibleTextRenderingDefault(false);
 			//Application.Run(new MIDIControlGUI());
 
-			var mainForm = new MIDIControlGUI2();
+			var mainForm = new MIDIControlGUI();
 			var options = (new OptionsManagment()).options;
 
 			StartedToTray = options.StartToTray;
