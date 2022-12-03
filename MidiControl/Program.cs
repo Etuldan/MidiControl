@@ -9,6 +9,9 @@ namespace MidiControl
 {
     static class Program
     {
+
+		public static bool StartedToTray = false;
+
         /// <summary>
         /// Point d'entrée principal de l'application.
         /// </summary>
@@ -21,9 +24,22 @@ namespace MidiControl
             Debug.Listeners.Add(new TextWriterTraceListener(Path.Combine(ConfFolder, Path.GetFileName("debug.log"))));
             Debug.AutoFlush = true;
 #endif
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MIDIControlGUI());
+			//Application.Run(new MIDIControlGUI());
+
+			var mainForm = new MIDIControlGUI2();
+			var options = (new OptionsManagment()).options;
+
+			StartedToTray = options.StartToTray;
+
+			if(options.StartToTray) {
+				Application.Run();
+			} else {
+				Application.Run(mainForm);
+			}
         }
     }
 }
