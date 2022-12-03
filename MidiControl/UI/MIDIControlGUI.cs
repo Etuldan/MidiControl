@@ -75,6 +75,26 @@ namespace MidiControl {
             
 			this.SetWindowTheme(options.options.Theme);
 
+			// apply the last-used listview style
+			menuViewAsIcons.Checked = menuViewAsList.Checked = menuViewAsDetails.Checked = false;
+			switch(options.options.ListViewStyle) {
+				case "icons":
+					listKeybinds.View = View.Tile;
+					menuViewAsIcons.Checked = true;
+					menuViewAsDropdown.Text = "View as: Icons";
+					break;
+				case "list":
+					listKeybinds.View = View.List;
+					menuViewAsList.Checked = true;
+					menuViewAsDropdown.Text = "View as: List";
+					break;
+				case "details":
+					listKeybinds.View = View.Details;
+					menuViewAsDetails.Checked = true;
+					menuViewAsDropdown.Text = "View as: Details";
+					break;
+			}
+
 			// show menu option for Native Instruments Controller Editor, if installed
 			if(!System.IO.File.Exists(NIControllerEditorEXEPath)) {
 				mnuNIControllerEditor.Visible = false;
@@ -116,9 +136,9 @@ namespace MidiControl {
 
             // set icons
 			btnSaveCurrentProfile.Image = saveCurrentProfileToolStripMenuItem.Image = mcTheme.SaveIcon;
-			editToolStripMenuItem.Image = mcTheme.EditIcon;
+			editToolStripMenuItem.Image = butEditSelectedKeybind.Image = mcTheme.EditIcon;
 			btnDeleteCurrentProfile.Image = deleteCurrentProfileToolStripMenuItem.Image = mcTheme.DeleteIcon;
-			deleteToolStripMenuItem.Image = mcTheme.MinusIcon;
+			deleteToolStripMenuItem.Image = butDeleteSelectedKeybind.Image = mcTheme.MinusIcon;
 			btnAddKeybind.Image = addKeybindToolStripMenuItem.Image = mcTheme.PlusIcon;
 			btnStopAllSounds.Image = mcTheme.MuteIcon;
 			MidiControlOptionsToolStripMenuItem.Image = mcTheme.SettingsIcon;
@@ -164,14 +184,14 @@ namespace MidiControl {
 		}
 
         // form, tray icon, close window events
-        private void MIDIControlGUI2_Load(object sender, EventArgs e) {
+        private void MIDIControlGUI_Load(object sender, EventArgs e) {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();
 
 			this.windowWasShown = true;
 		}
 
-		private void MIDIControlGUI2_FormClosing(object sender, FormClosingEventArgs e) {
+		private void MIDIControlGUI_FormClosing(object sender, FormClosingEventArgs e) {
 			if(!this.actuallyClosing) {
 				e.Cancel = true;
 
@@ -194,7 +214,7 @@ namespace MidiControl {
 			}
 		}
 
-		private void MIDIControlGUI2_FormClosed(object sender, FormClosedEventArgs e) {
+		private void MIDIControlGUI_FormClosed(object sender, FormClosedEventArgs e) {
 			// actual program close stuff here
 			midi.ReleaseAll();
 
@@ -458,6 +478,8 @@ namespace MidiControl {
 			}
 
 			RefreshWindowTitle();
+
+			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = false;
 		}
 
 		private void ListViewDisplayModeChanged(object sender, EventArgs e) {
@@ -482,6 +504,10 @@ namespace MidiControl {
 			}
 
 			menuViewAsDropdown.Text = "View as: " + label;
+
+			// save preference
+			options.options.ListViewStyle = mode;
+			options.Save();
 		}
 
 		private void listKeybinds_MouseClick(object sender, MouseEventArgs e) {
@@ -495,6 +521,14 @@ namespace MidiControl {
 		private void listKeybinds_MouseDoubleClick(object sender, MouseEventArgs e) {
 			if(e.Button == MouseButtons.Left) {
 				editToolStripMenuItem_Click(sender, EventArgs.Empty);
+			}
+		}
+
+		private void listKeybinds_SelectedIndexChanged(object sender, EventArgs e) {
+			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = (listKeybinds.SelectedItems.Count == 1);
+			if(listKeybinds.SelectedItems.Count == 1) {
+				butEditSelectedKeybind.Text = "Edit '" + listKeybinds.SelectedItems[0].Text + "'";
+				butDeleteSelectedKeybind.Text = "Delete '" + listKeybinds.SelectedItems[0].Text + "'";
 			}
 		}
 
