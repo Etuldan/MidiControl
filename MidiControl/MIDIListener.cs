@@ -156,6 +156,12 @@ namespace MidiControl
             {
                 try
                 {
+                    // if the device is no longer connected, this will get stuck
+                    //string devName = MidiIn.DeviceInfo(entry.Value.device).ProductName;
+                    // if that works, does the device name match what the program thinks it is?
+                    //if(entry.Key == devName) {
+                    //
+                    //}
                     entry.Value.Stop();
                     entry.Value.Dispose();
                 }
@@ -210,11 +216,48 @@ namespace MidiControl
             {
                 entry.Value.Send(e.RawMessage);
             }
-        }   
+        }
+
+        private int ValidateSenderDeviceInt(MidiInCustom dev) {
+            int device = dev.device;
+            int assumed = device;
+            bool adjusted = false;
+            bool correct = false;
+            string devName = "null";
+
+            while(!correct && device >= 0) {
+                try {
+                    devName = MidiIn.DeviceInfo(device).ProductName;
+                    correct = true;
+                } catch(NAudio.MmException) {
+                    // device id was invalid; this happens if devices with lower ids are no longer connected and the connected devices list hasn't been refreshed
+                    // need to shift the assumed device down until we find a device that exists
+                    device--;
+                    adjusted = true;
+                }
+            }
+
+            if(device < 0) device = 0;
+
+            if(adjusted) {
+#if DEBUG
+                Debug.WriteLine("device " + devName + " assumed to have id " + assumed + " is now most likely " + device + "; need to do a refresh!");
+#endif
+                var gui = MIDIControlGUI2.GetInstance();
+                gui.Invoke(gui.MidiInStatusDelegate, new object[] { true });
+            }
+
+            return device;
+        }
+
+        // sender = MidiInCustom object
+        // ((MidiInCustom)sender).device = int: numeric device index
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            int deviceId = this.ValidateSenderDeviceInt((MidiInCustom)sender);
 #if DEBUG
             Debug.WriteLine("MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
+            Debug.WriteLine("- Device: " + deviceId + " - " + MidiIn.DeviceInfo(deviceId).ProductName);
 #endif
             if(MidiOutForward != null)
             {
@@ -224,9 +267,34 @@ namespace MidiControl
             foreach (KeyValuePair<string, KeyBindEntry> entry in conf.Config)
             {
                 if(e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
-                    ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
-                if ((e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff) && entry.Value.Input == Event.Note && (((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber ||
-                    ((NoteEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(((MidiInCustom)sender).device).ProductName != entry.Value.Mididevice)) continue;
+                    ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(deviceId).ProductName != entry.Value.Mididevice)) continue;
+
+                try {
+                    if (
+                        (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn || e.MidiEvent.CommandCode == MidiCommandCode.NoteOff)
+                        && entry.Value.Input == Event.Note
+                        && (
+                            ((NoteEvent)e.MidiEvent).NoteNumber != entry.Value.NoteNumber
+                            || ((NoteEvent)e.MidiEvent).Channel != entry.Value.Channel
+                            || MidiIn.DeviceInfo(deviceId).ProductName != entry.Value.Mididevice
+                        )
+                    ) continue;
+                } catch (NAudio.MmException ex) {
+#if DEBUG
+                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine("Probably a device previously detected is no longer connected.  Refreshing MIDI devices and returning...");
+#endif
+                    // NAudio.MmException: 'BadDeviceId calling midiInGetDevCaps'
+                    // occurs if a MIDI device present on app launch is disconnected
+                    //
+                    // TODO: this causes nothing to work and crashes the program; need to RefreshMIDIDevices() while not trying to stop the one that is no longer present (because this causes a hang). throwing it again for now
+                    throw ex;
+                    //this.DisableListening();
+                    //this.RefeshMIDIDevices();
+                    //this.EnableListening();
+                    return;
+                }
+
 
                 if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity != 0)
                 {
@@ -239,6 +307,9 @@ namespace MidiControl
                     }
                     if(entry.Value.SoundCallBack != null)
                     {
+						if(entry.Value.SoundCallBack.StopAllOtherSounds)
+							audioControl.StopAll();
+
                         audioControl.PlaySound(entry.Value, entry.Value.SoundCallBack.File, entry.Value.SoundCallBack.Device, entry.Value.SoundCallBack.Loop, entry.Value.SoundCallBack.Volume);
                     }
                     if(entry.Value.MediaCallBack != null)
@@ -370,5 +441,22 @@ namespace MidiControl
         {
             return _instance;
         }
+
+        // for convenience on EntryGUI
+        private static string[] note_map = {
+            "C-2", "C#-2", "D-2", "D#-2", "E-2", "F-2", "F#-2", "G-2", "G#-2", "A-2", "A#-2", "B-2",
+            "C-1", "C#-1", "D-1", "D#-1", "E-1", "F-1", "F#-1", "G-1", "G#-1", "A-1", "A#-1", "B-1",
+            "C0", "C#0", "D0", "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0",
+            "C1", "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1", "G#1", "A1", "A#1", "B1",
+            "C2", "C#2", "D2", "D#2", "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
+            "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3",
+            "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
+            "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5",
+            "C6", "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6", "B6",
+            "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7", "A7", "A#7", "B7",
+            "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8", "G8"
+        };
+
+        public static string getNoteString(int pitch) { return note_map[pitch]; }
     }
 }

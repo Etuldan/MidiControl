@@ -30,7 +30,7 @@ namespace MidiControl
             SwitchProfileControlDelegate = new SwitchProfileControlDelegateHandler(UpdateProfile);
 
             options = new OptionsManagment();
-            conf = new Configuration(this);
+            //conf = new Configuration(this);
             midi = new MIDIListener(conf);
 
             this.ComboBoxProfile.Items.AddRange(conf.GetAllProfiles());
@@ -39,6 +39,7 @@ namespace MidiControl
             UpdateMIDIStatus();
 
             notifyIcon.Visible = true;
+			notifyIcon.BalloonTipText = "Click the MIDIControl icon in your system tray to open the main window.";
             notifyIcon.ShowBalloonTip(500);
             this.Hide();
         }
@@ -191,9 +192,18 @@ namespace MidiControl
 
         private void DeleteEntry_Click(object sender, EventArgs e)
         {
-            conf.Config.Remove(((ButtonCustom)sender).index);
-            ReloadEntries();
-        }
+			if(options.options.ConfirmKeybindDeletion) {
+				var index = ((ButtonCustom)sender).index;
+
+				if(MessageBox.Show("Delete the keybind named '" + index + "'?", "Confirm delete keybind", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+					conf.Config.Remove(index);
+					ReloadEntries();
+				}
+			} else {
+				conf.Config.Remove(((ButtonCustom)sender).index);
+				ReloadEntries();
+			}
+		}
 
         private void MIDIControl_Load(object sender, EventArgs e)
         {

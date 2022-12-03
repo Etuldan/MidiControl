@@ -127,7 +127,7 @@
   <data name="mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="floppy-disk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="floppy_disk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\floppy-disk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -156,5 +156,47 @@
   </data>
   <data name="twitchRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\twitchRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="control_button_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\control-button-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="control_knob_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\control-knob-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="control_button_icon_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\control-button-icon_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="control_knob_icon_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\control-knob-icon_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="floppy_disk_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\floppy_disk_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MIDI_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MIDI_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="minus_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\minus_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mute_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mute_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plus_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plus_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rubbish_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rubbish_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="settings_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\settings_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="twitch_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\twitch_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MIDIYellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MIDIYellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

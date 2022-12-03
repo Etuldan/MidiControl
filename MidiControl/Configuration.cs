@@ -17,18 +17,31 @@ namespace MidiControl
         private readonly string ConfFolder;
         private string ConfFile;
         public string CurrentProfile;
-        private readonly MIDIControlGUI gui;
+		public bool Unsaved = false;
+        private readonly MIDIControlGUI2 gui;
         private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        public Configuration(MIDIControlGUI gui)
+        public Configuration(MIDIControlGUI2 gui, string initialProfile)
         {
             _instance = this;
             this.gui = gui;
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             ConfFolder = Path.Combine(folder, "MIDIControl");
-            CurrentProfile = "Default";
-            ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+
+			CurrentProfile = initialProfile; // "Default";
+			if(initialProfile == "Default" || initialProfile == null) {
+				CurrentProfile = "Default";
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+			} else {
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(initialProfile, "_") + ".json"));
+
+				if(!File.Exists(ConfFile)) {
+					CurrentProfile = "Default";
+					ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+				}
+			}
+
             Directory.CreateDirectory(ConfFolder);
             LoadCurrentProfile();
         }
@@ -62,11 +75,22 @@ namespace MidiControl
             return GetAllProfiles();
         }
 
+		public bool DoesProfileExist(string profile) {
+			string FileToSearch = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(profile, "_") + ".json"));
+			return File.Exists(FileToSearch);
+		}
+
+        public bool DoesKeybindExist(string key)
+        {
+            return this.Config.ContainsKey(key);
+        }
+
         private void LoadCurrentProfile()
         {
             try
             {
-                string json = File.ReadAllText(ConfFile);
+				Unsaved = false;
+				string json = File.ReadAllText(ConfFile);
                 Config = JsonConvert.DeserializeObject<Dictionary<string, KeyBindEntry>>(json);
                 if (Config == null)
                 {
@@ -107,7 +131,9 @@ namespace MidiControl
 				string json = JsonConvert.SerializeObject(Config);
 				File.WriteAllText(ConfFile, json);
 
-				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
+				Unsaved = false;
+
+				//MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
 			} catch(Exception ex) {
 				MessageBox.Show("Error occurred while saving: " + ex.ToString());
 			}
@@ -115,13 +141,20 @@ namespace MidiControl
 
 		public void SaveCurrentProfileAs(string newname)
 		{
-			ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(newname, "_") + ".json"));
+			if(newname == "Default") {
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
+			} else {
+				ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(newname, "_") + ".json"));
+			}
+			
 			try {
 				string json = JsonConvert.SerializeObject(Config);
 				File.WriteAllText(ConfFile, json);
 
+				Unsaved = false;
+
 				CurrentProfile = newname;
-				MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
+				//MessageBox.Show("Configuration '" + CurrentProfile + "' saved successfully!");
 			} catch(Exception ex) {
 				MessageBox.Show("Error occurred while saving: " + ex.ToString());
 			}
@@ -152,6 +185,102 @@ namespace MidiControl
         public MIDIControlCallBack MIDIControlCallBackOFF;
         public GoXLRCallBack GoXLRCallBackON;
         public GoXLRCallBack GoXLRCallBackOFF;
+
+		public string Summarize() {
+			var summary = new List<string>();
+			if(OBSCallBacksON.Count > 0) {
+				var items = new List<string>();
+				foreach(var item in OBSCallBacksON) {
+                    if(item.Args != null)
+                        items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+                    else
+                        items.Add(item.Action);
+                }
+				summary.Add("OBS (on): " + string.Join("; ", items));
+				
+			}
+			if(OBSCallBacksOFF.Count > 0) {
+				var items = new List<string>();
+				foreach(var item in OBSCallBacksOFF) {
+                    if(item.Args != null)
+                        items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+                    else
+                        items.Add(item.Action);
+                }
+				summary.Add("OBS (off): " + string.Join("; ", items));
+			}
+			if(OBSCallBacksSlider.Count > 0) {
+				var items = new List<string>();
+				foreach(var item in OBSCallBacksSlider) {
+                    if(item.Args != null)
+                        items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
+                    else
+                        items.Add(item.Action);
+                }
+				summary.Add("(adjust) " + string.Join("; ", items));
+			}
+			if(SoundCallBack != null) {
+				string soundFile = Path.GetFileName(SoundCallBack.File);
+				string action = "Play '" + soundFile + "' on " + SoundCallBack.DeviceName;
+				summary.Add("Sound: " + action);
+			}
+			if(MediaCallBack != null) {
+				string action = MediaCallBack.MediaType.ToString();
+				summary.Add("Media (on): " + action);
+			}
+			if(MediaCallBackOFF != null) {
+				string action = MediaCallBackOFF.MediaType.ToString();
+				summary.Add("Media (off): " + action);
+			}
+			if(TwitchCallBackON != null) {
+				string action = "Send message on channel " + TwitchCallBackON.Channel;
+				summary.Add("Twitch (on): " + action);
+			}
+			if(TwitchCallBackOFF != null) {
+				string action = "Send message on channel " + TwitchCallBackOFF.Channel;
+				summary.Add("Twitch (off): " + action);
+			}
+			if(MIDIControlCallBackON != null) {
+				var action = new List<string>();
+				if(MIDIControlCallBackON.StopAllSound)
+					action.Add("Stop all sounds");
+				if(MIDIControlCallBackON.SwitchToProfile != null)
+					action.Add("Switch to profile '" + MIDIControlCallBackON.SwitchToProfile);
+
+				summary.Add("MIDIControl (on): " + string.Join("; ", action));
+			}
+			if(MIDIControlCallBackOFF != null) {
+				var action = new List<string>();
+				if(MIDIControlCallBackOFF.StopAllSound)
+					action.Add("Stop all sounds");
+				if(MIDIControlCallBackOFF.SwitchToProfile != null)
+					action.Add("Switch to profile '" + MIDIControlCallBackOFF.SwitchToProfile);
+
+				summary.Add("MIDIControl (on): " + string.Join("; ", action));
+			}
+			if(GoXLRCallBackON != null) {
+				string action = "";
+				switch(GoXLRCallBackON.Action) {
+					case 0: action = "Mute: "; break;
+					case 1: action = "Unmute: "; break;
+					case 2: action = "Toggle: "; break;
+				}
+				action += "Input " + GoXLRCallBackON.Input + ", Output " + GoXLRCallBackON.Output;
+				summary.Add("GoXLR (on): " + action);
+			}
+			if(GoXLRCallBackOFF != null) {
+				string action = "";
+				switch(GoXLRCallBackOFF.Action) {
+					case 0: action = "Mute: "; break;
+					case 1: action = "Unmute: "; break;
+					case 2: action = "Toggle: "; break;
+				}
+				action += "Input " + GoXLRCallBackOFF.Input + ", Output " + GoXLRCallBackOFF.Output;
+				summary.Add("GoXLR (off): " + action);
+			}
+
+			return string.Join(" / ", summary);
+		}
     }
 
     public enum MediaType
@@ -197,17 +326,20 @@ namespace MidiControl
         public bool StopWhenReleased { get; }
         public bool Loop { get; }
         public float Volume { get; }
+		public bool StopAllOtherSounds { get; }
 
         public int Device { get; }
 
         [JsonConstructor]
-        public SoundCallBack(string File, string DeviceName, bool StopWhenReleased, bool Loop, float Volume)
+        public SoundCallBack(string File, string DeviceName, bool StopWhenReleased, bool Loop, float Volume, bool StopAllOtherSounds)
         {
             this.File = File;
             this.DeviceName = DeviceName;
             this.StopWhenReleased = StopWhenReleased;
             this.Loop = Loop;
             this.Volume = Volume;
+			this.StopAllOtherSounds = StopAllOtherSounds;
+
             for (int i = 0; i < WaveOut.DeviceCount; i++)
             {
                 WaveOutCapabilities WOC = WaveOut.GetCapabilities(i);

@@ -50,7 +50,15 @@ namespace MidiControl
                     MIDIInterfaces = new List<string>(),
                     Delay = 0,
                     TwitchLogin = "",
-                    TwitchToken = ""
+                    TwitchToken = "",
+					StartToTray = false,
+					AlwaysOnTop = false,
+					ConfirmKeybindDeletion = true,
+					ConfirmProfileDeletion = true,
+					LoadLastProfileOnStartup = true,
+					LastUsedProfile = "Default",
+					ToolbarPosition = 0, // 0 - top, 1 - bottom
+					Theme = 0
                 };
             }
         }
@@ -72,7 +80,14 @@ namespace MidiControl
             public string TwitchLogin { get; set; }
             public string TwitchToken { get; set; }
             public string TwitchRefreshToken { get; set; }
-
+			public bool StartToTray { get; set; }
+			public bool AlwaysOnTop { get; set; }
+			public bool ConfirmKeybindDeletion { get; set; }
+			public bool ConfirmProfileDeletion { get; set; }
+			public bool LoadLastProfileOnStartup { get; set; }
+			public string LastUsedProfile { get; set; }
+			public int ToolbarPosition { get; set; }
+			public int Theme { get; set; }
         }
     }
 }
