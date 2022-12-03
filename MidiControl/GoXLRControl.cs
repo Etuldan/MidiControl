@@ -72,18 +72,24 @@ namespace MidiControl.Control
 
         public void Mute(string input, string output, KeyBindEntry keybind)
         {
+            if (!isConnected) return;
+
             Send("Turn Off", input, output);
             MIDIFeedback feedback = new MIDIFeedback(keybind);
             feedback.SendOff();
         }
         public void UnMute(string input, string output, KeyBindEntry keybind)
         {
+            if (!isConnected) return;
+            
             Send("Turn On", input, output);
             MIDIFeedback feedback = new MIDIFeedback(keybind);
             feedback.SendOn();
         }
         public void Toggle(string input, string output, KeyBindEntry keybind)
         {
+            if (!isConnected) return;
+            
             Send("Toggle", input, output);
             MIDIFeedback feedback = new MIDIFeedback(keybind);
             if (!feedbackToggle.ContainsKey(input + "-" + output))
