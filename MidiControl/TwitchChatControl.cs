@@ -15,7 +15,7 @@ namespace MidiControl
     class TwitchChatControl : IExternalControl
     {
         private static TwitchChatControl _instance;
-        private readonly MIDIControlGUI2 gui;
+        private readonly MIDIControlGUI gui;
         private TwitchClient client;
         private readonly Dictionary<string, KeyBindEntry> config;
         private readonly OptionsManagment.Options options;
@@ -23,7 +23,7 @@ namespace MidiControl
         public TwitchChatControl(OptionsManagment.Options options, Dictionary<string, KeyBindEntry> config)
         {
             _instance = this;
-            gui = MIDIControlGUI2.GetInstance();
+            gui = MIDIControlGUI.GetInstance();
             this.config = config;
             this.options = options;
             this.Connect();

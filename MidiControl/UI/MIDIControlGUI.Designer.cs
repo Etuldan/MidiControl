@@ -1,5 +1,5 @@
 ﻿namespace MidiControl {
-	partial class MIDIControlGUI2 {
+	partial class MIDIControlGUI {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -24,7 +24,7 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI2));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.menuProfiles = new System.Windows.Forms.ToolStripMenuItem();

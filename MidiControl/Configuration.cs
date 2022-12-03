@@ -18,11 +18,11 @@ namespace MidiControl
         private string ConfFile;
         public string CurrentProfile;
 		public bool Unsaved = false;
-        private readonly MIDIControlGUI2 gui;
+        private readonly MIDIControlGUI gui;
         private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        public Configuration(MIDIControlGUI2 gui, string initialProfile)
+        public Configuration(MIDIControlGUI gui, string initialProfile)
         {
             _instance = this;
             this.gui = gui;
