@@ -36,13 +36,13 @@
 # For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
 # refer to https://github.com/microsoft/github-actions-for-desktop-apps
 
-name: .NET Core Desktop
+name: .NET Framework Desktop
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "building-tools" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "building-tools" ]
 
 jobs:
 
@@ -67,36 +67,33 @@ jobs:
       with:
         fetch-depth: 0
         
-    # Replace Secrets
-    - uses: microsoft/variable-substitution@v1 
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        msbuild-architecture: x64
+      
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+      
+    - name: Restore NuGet Packages
+      run: nuget restore $env:Solution_Name
+        
+    - name: Replace Secrets
+      uses: microsoft/variable-substitution@v1 
       with:
         files: './MidiControl/App.config'
       env:
         Twitch.ClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
         Twitch.ClientId: ${{ secrets.TWITCH_CLIENTID }}
         
-    # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 6.0.x
-
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
-
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
+    - name: Build app for Release
+      run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
   
-    # Package with Inno Setup
     - name: Building the installer
       run: |
         "%programfiles(x86)%\Inno Setup 6\iscc.exe" "setup.iss"
       shell: cmd
+
+    - uses: actions/upload-artifact@v3
+      with:
+        path: "Output/MIDIControl * Setup.exe"
