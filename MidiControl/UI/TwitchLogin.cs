@@ -3,6 +3,7 @@ using Microsoft.Web.WebView2.WinForms;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -135,11 +136,11 @@ namespace MidiControl
     {
         public HttpListener listener;
         public readonly static string URL = "http://localhost:65432";
-        public readonly static string ClientID = "gvhpl3qeui9p0n1eih18569fds7z5n";
-        private static readonly string ClientSecret = "[REDACTED]";
-        public string OAuthCode = "";
-        public string RefreshToken = "";
-        public string Login = "";
+        public readonly static string ClientID = ConfigurationManager.AppSettings["Twitch.ClientId"];
+        private static readonly string ClientSecret = ConfigurationManager.AppSettings["Twitch.ClientSecret"];
+        public string OAuthCode = string.Empty;
+        public string RefreshToken = string.Empty;
+        public string Login = string.Empty;
         public WebServer()
         {
             listener = new HttpListener();
