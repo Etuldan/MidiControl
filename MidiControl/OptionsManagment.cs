@@ -57,6 +57,7 @@ namespace MidiControl
 					ConfirmProfileDeletion = true,
 					LoadLastProfileOnStartup = true,
 					LastUsedProfile = "Default",
+					ListViewStyle = "icons", // icons, list, details
 					ToolbarPosition = 0, // 0 - top, 1 - bottom
 					Theme = 0
                 };
@@ -86,6 +87,7 @@ namespace MidiControl
 			public bool ConfirmProfileDeletion { get; set; }
 			public bool LoadLastProfileOnStartup { get; set; }
 			public string LastUsedProfile { get; set; }
+			public string ListViewStyle { get; set; }
 			public int ToolbarPosition { get; set; }
 			public int Theme { get; set; }
         }
