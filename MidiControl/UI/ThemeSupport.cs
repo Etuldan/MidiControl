@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
@@ -438,9 +436,9 @@ namespace MidiControl {
                 } else {
                     e.Item.ForeColor = this.ColorTable.MenuHoverForeColor;
 
-                    Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
-                    using(Pen oPen = new Pen(this.ColorTable.MenuItemBorder))
-                    using(Brush oBrush = new SolidBrush(this.ColorTable.MenuItemSelected)) {
+                    var rc = new Rectangle(Point.Empty, e.Item.Size);
+                    using(var oPen = new Pen(this.ColorTable.MenuItemBorder))
+                    using(var oBrush = new SolidBrush(this.ColorTable.MenuItemSelected)) {
                         //e.Graphics.FillRectangle(oBrush, 0, 0, rc.Width, rc.Height);
                         e.Graphics.FillRectangle(oBrush, 2, 0, rc.Width - 4, rc.Height - 1);
                         //e.Graphics.DrawRectangle(oPen, 0, 0, rc.Width, rc.Height);
@@ -462,14 +460,14 @@ namespace MidiControl {
 
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-                Color checkColor = e.Item.ForeColor;
+                var checkColor = e.Item.ForeColor;
 
                 var r = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
 
                 var newr = r;
                 newr.Inflate(-4, -5);
 
-                using(Pen p = new Pen(checkColor, 2.0f)) {
+                using(var p = new Pen(checkColor, 2.0f)) {
                     e.Graphics.DrawLines(p, new Point[] {
                         new Point(newr.Left, newr.Bottom - newr.Height /2),
                         new Point(newr.Left + newr.Width /3,  newr.Bottom),
