@@ -11,7 +11,6 @@ using System.Timers;
 using Microsoft.VisualBasic.FileIO;
 using System.Threading.Tasks;
 using System.IO;
-using OBSWebsocketDotNet.Types.Events;
 
 namespace MidiControl {
 	public class OBSControl : IExternalControl {
