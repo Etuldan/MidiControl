@@ -97,7 +97,7 @@ namespace MidiControl
 
             if(Input == Event.Note) {
                 LblNote.Text = "Note";
-                TxtBoxNote.Text = MIDIListener.getNoteString(Note);
+                TxtBoxNote.Text = MIDIListener.GetNoteString(Note);
             } else if(Input == Event.Slider) {
                 LblNote.Text = "CC";
             }
@@ -1675,7 +1675,7 @@ namespace MidiControl
             if(Input == Event.Note)
 			{
                 LblNote.Text = "Note";
-                TxtBoxNote.Text = MIDIListener.getNoteString(Note);
+                TxtBoxNote.Text = MIDIListener.GetNoteString(Note);
             } 
 			else if(Input == Event.Slider)
 			{

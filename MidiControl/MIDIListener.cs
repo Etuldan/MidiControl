@@ -443,7 +443,7 @@ namespace MidiControl
         }
 
         // for convenience on EntryGUI
-        private static string[] note_map = {
+        private static readonly string[] noteMap = {
             "C-2", "C#-2", "D-2", "D#-2", "E-2", "F-2", "F#-2", "G-2", "G#-2", "A-2", "A#-2", "B-2",
             "C-1", "C#-1", "D-1", "D#-1", "E-1", "F-1", "F#-1", "G-1", "G#-1", "A-1", "A#-1", "B-1",
             "C0", "C#0", "D0", "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0",
@@ -457,6 +457,6 @@ namespace MidiControl
             "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8", "G8"
         };
 
-        public static string getNoteString(int pitch) { return note_map[pitch]; }
+        public static string GetNoteString(int pitch) { return noteMap[pitch]; }
     }
 }
