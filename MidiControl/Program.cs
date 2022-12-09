@@ -28,7 +28,6 @@ namespace MidiControl
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-			//Application.Run(new MIDIControlGUI());
 
 			var mainForm = new MIDIControlGUI();
 			var options = (new OptionsManagment()).options;
