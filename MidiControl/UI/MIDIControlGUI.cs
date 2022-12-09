@@ -44,7 +44,7 @@ namespace MidiControl {
             obsButton.Tag = twitchButton.Tag = midiButton.Tag = false;
 
 			options = new OptionsManagment();
-			string initialProfile = options.options.LastUsedProfile;
+			var initialProfile = options.options.LastUsedProfile;
 			if(!options.options.LoadLastProfileOnStartup) {
 				initialProfile = "Default";
 			}
@@ -61,7 +61,7 @@ namespace MidiControl {
 				trayIcon.ShowBalloonTip(500);
 			}
 
-			this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
+			toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
 
 			keybindIconList = new ImageList() {
 				ColorDepth = ColorDepth.Depth32Bit,
@@ -73,7 +73,7 @@ namespace MidiControl {
 			listKeybinds.LargeImageList = keybindIconList;
 			//listKeybinds.SmallImageList = keybindIconList;
             
-			this.SetWindowTheme(options.options.Theme);
+			SetWindowTheme(options.options.Theme);
 
 			// apply the last-used listview style
 			menuViewAsIcons.Checked = menuViewAsList.Checked = menuViewAsDetails.Checked = false;
@@ -113,7 +113,7 @@ namespace MidiControl {
 			ThemeSupport.MidiControlTheme mcTheme = ThemeSupport.GetThemeByIndex(theme);
 
             // set colors
-			this.BackColor = mcTheme.WindowBackColor;
+			BackColor = mcTheme.WindowBackColor;
 
             toolStrip1.Renderer = new ThemeSupport.MidiControlThemeRenderer(mcTheme);
             //toolStrip1.Renderer = new ToolStripProfessionalRenderer(mcTheme);
@@ -188,14 +188,14 @@ namespace MidiControl {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();
 
-			this.windowWasShown = true;
+			windowWasShown = true;
 		}
 
 		private void MIDIControlGUI_FormClosing(object sender, FormClosingEventArgs e) {
-			if(!this.actuallyClosing) {
+			if(!actuallyClosing) {
 				e.Cancel = true;
 
-				this.Hide();
+				Hide();
 				trayIcon.BalloonTipText = "MIDIControl is still running.  Double-click the tray icon to reopen the main window.";
 				trayIcon.ShowBalloonTip(500);
 			} else {
@@ -224,38 +224,38 @@ namespace MidiControl {
 			}
 		}
 
-		private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
+		private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
 			if(e.Button == MouseButtons.Left) {
-				this.Show();
+				Show();
 			}
 		}
 
-		private void trayMenuShowMainWindow_Click(object sender, EventArgs e) {
-			this.Show();
+		private void TrayMenuShowMainWindow_Click(object sender, EventArgs e) {
+			Show();
 		}
 
-		private void trayMenuExit_Click(object sender, EventArgs e) {
-			this.actuallyClosing = true;
-			this.Close();
+		private void TrayMenuExit_Click(object sender, EventArgs e) {
+			actuallyClosing = true;
+			Close();
 
 			// if window was never shown, the FormClosing/Closed events won't fire
-			if(!this.windowWasShown) {
+			if(!windowWasShown) {
 				midi.ReleaseAll();
 				Application.Exit();
 			}
 		}
 
-		private void closeToTrayToolStripMenuItem_Click(object sender, EventArgs e) {
-			this.Close();
+		private void CloseToTrayToolStripMenuItem_Click(object sender, EventArgs e) {
+			Close();
 		}
 
-		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-			this.actuallyClosing = true;
-			this.Close();
+		private void ExitToolStripMenuItem_Click(object sender, EventArgs e) {
+			actuallyClosing = true;
+			Close();
 		}
 
 		private void RefreshWindowTitle() {
-			this.Text = trayIcon.Text = "MIDIControl (for OBS 28) - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
+			Text = trayIcon.Text = "MIDIControl (for OBS 28) - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
 		}
 
 		// delegate handlers; from MIDIControlGUI; config/profiles/keybind refresh
@@ -304,14 +304,14 @@ namespace MidiControl {
 		}
 
 		private void CheckCurrentProfileMenuItem() {
-			foreach(ToolStripItem item in menuProfiles.DropDownItems) {
-				if(item is ToolStripMenuItem) {
-					((ToolStripMenuItem)item).Checked = (item.Text == conf.CurrentProfile);
+			foreach(var item in menuProfiles.DropDownItems) {
+				if(item is ToolStripMenuItem toolStripMenuItem) {
+                    toolStripMenuItem.Checked = (toolStripMenuItem.Text == conf.CurrentProfile);
 				}
 			}
-            foreach(ToolStripItem item in SwitchProfileTrayMenuItem.DropDownItems) {
-                if(item is ToolStripMenuItem) {
-                    ((ToolStripMenuItem)item).Checked = (item.Text == conf.CurrentProfile);
+            foreach(var item in SwitchProfileTrayMenuItem.DropDownItems) {
+                if(item is ToolStripMenuItem toolStripMenuItem) {
+                    toolStripMenuItem.Checked = (toolStripMenuItem.Text == conf.CurrentProfile);
                 }
             }
 
@@ -337,7 +337,7 @@ namespace MidiControl {
 
 		private void UpdateMIDIStatus(bool error = false) {
 			midiStatus.Text = "";
-			foreach(string device in midi.GetMIDIINDevices()) {
+			foreach(var device in midi.GetMIDIINDevices()) {
 				midiStatus.Text += " " + device + ",";
 			}
 			midiStatus.Text = midiStatus.Text.Trim(',').Trim();
@@ -398,7 +398,7 @@ namespace MidiControl {
 		// processing
 		private void EditEntry(string index) {
 			if(conf.Config.TryGetValue(index, out KeyBindEntry value)) {
-				using(EntryGUI addEntry = new EntryGUI(index, value)) {
+				using(var addEntry = new EntryGUI(index, value)) {
 					addEntry.StartPosition = FormStartPosition.CenterParent;
 					if(addEntry.ShowDialog() == DialogResult.OK)
 						ReloadEntries();
@@ -409,7 +409,7 @@ namespace MidiControl {
 
 		// ui events
 		private void MidiControlOptionsToolStripMenuItem_Click(object sender, EventArgs e) {
-			using(OptionsGUI optionGUI = new OptionsGUI(options)) {
+			using(var optionGUI = new OptionsGUI(options)) {
 				optionGUI.ShowDialog();
 				this.TopMost = options.options.AlwaysOnTop;
 				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
@@ -418,7 +418,7 @@ namespace MidiControl {
 		}
 
 		private void InterfaceOptionsMenuItem_Click(object sender, EventArgs e) {
-			using(OptionsGUI optionGUI = new OptionsGUI(options, "interface")) {
+			using(var optionGUI = new OptionsGUI(options, "interface")) {
 				optionGUI.ShowDialog();
 				this.TopMost = options.options.AlwaysOnTop;
 				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
@@ -428,9 +428,7 @@ namespace MidiControl {
 
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
 			var profile = ((ToolStripMenuItem)sender).Text;
-            var tag = (string)((ToolStripMenuItem)sender).Tag;
-
-			bool doLoad = true;
+			var doLoad = true;
 
 			if(conf.Unsaved) {
 				switch(MessageBox.Show("The current profile '" + conf.CurrentProfile + "' has unsaved changes.  Do you want to save them before switching?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)) {
@@ -456,7 +454,7 @@ namespace MidiControl {
 			// display all keybinds for current profile in listview
 			listKeybinds.Items.Clear();
 
-			foreach(KeyValuePair<string, KeyBindEntry> entry in conf.Config) {
+			foreach(var entry in conf.Config) {
 				var item = new ListViewItem(entry.Key);
                 item.UseItemStyleForSubItems = false;
 
@@ -482,8 +480,8 @@ namespace MidiControl {
 		}
 
 		private void ListViewDisplayModeChanged(object sender, EventArgs e) {
-			string mode = (sender as ToolStripMenuItem).Tag as string;
-			string label = (sender as ToolStripMenuItem).Text;
+			var mode = (sender as ToolStripMenuItem).Tag as string;
+			var label = (sender as ToolStripMenuItem).Text;
 
 			menuViewAsIcons.Checked = menuViewAsList.Checked = menuViewAsDetails.Checked = false;
 
@@ -509,7 +507,7 @@ namespace MidiControl {
 			options.Save();
 		}
 
-		private void listKeybinds_MouseClick(object sender, MouseEventArgs e) {
+		private void ListKeybinds_MouseClick(object sender, MouseEventArgs e) {
 			if(e.Button == MouseButtons.Right) {
 				if(listKeybinds.SelectedItems.Count == 1) {
 					itemContextMenu.Show(listKeybinds, e.Location);
@@ -517,7 +515,7 @@ namespace MidiControl {
 			}
 		}
 
-		private void listKeybinds_SelectedIndexChanged(object sender, EventArgs e) {
+		private void ListKeybinds_SelectedIndexChanged(object sender, EventArgs e) {
 			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = (listKeybinds.SelectedItems.Count == 1);
 			if(listKeybinds.SelectedItems.Count == 1) {
 				butEditSelectedKeybind.Text = "Edit '" + listKeybinds.SelectedItems[0].Text + "'";
@@ -525,21 +523,13 @@ namespace MidiControl {
 			}
 		}
 
-		private void listKeybinds_MouseDoubleClick(object sender, MouseEventArgs e) {
+		private void ListKeybinds_MouseDoubleClick(object sender, MouseEventArgs e) {
 			if(e.Button == MouseButtons.Left) {
-				editToolStripMenuItem_Click(sender, EventArgs.Empty);
+                EditToolStripMenuItem_Click(sender, EventArgs.Empty);
 			}
 		}
 
-		private void listKeybinds_SelectedIndexChanged(object sender, EventArgs e) {
-			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = (listKeybinds.SelectedItems.Count == 1);
-			if(listKeybinds.SelectedItems.Count == 1) {
-				butEditSelectedKeybind.Text = "Edit '" + listKeybinds.SelectedItems[0].Text + "'";
-				butDeleteSelectedKeybind.Text = "Delete '" + listKeybinds.SelectedItems[0].Text + "'";
-			}
-		}
-
-		private void editToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void EditToolStripMenuItem_Click(object sender, EventArgs e) {
 			if(listKeybinds.SelectedIndices.Count == 1) {
 				var index = listKeybinds.SelectedIndices[0];
 				EditEntry(listKeybinds.Items[index].Text);
@@ -547,7 +537,7 @@ namespace MidiControl {
 		}
 
 		private void AddKeybindItemClicked(object sender, EventArgs e) {
-			using(EntryGUI addEntry = new EntryGUI()) {
+			using(var addEntry = new EntryGUI()) {
 				addEntry.StartPosition = FormStartPosition.CenterParent;
 				if(addEntry.ShowDialog() == DialogResult.OK)
 					ReloadEntries();
@@ -573,7 +563,7 @@ namespace MidiControl {
 			}
 		}
 
-		private void listKeybinds_KeyDown(object sender, KeyEventArgs e) {
+		private void ListKeybinds_KeyDown(object sender, KeyEventArgs e) {
 			if(e.KeyCode == Keys.Delete) {
 				DeleteKeybindMenuItem_Click(sender, e);
 			}
@@ -594,7 +584,7 @@ namespace MidiControl {
 		}
 
 		private void DeleteCurrentProfileClicked(object sender, EventArgs e) {
-			bool delete = true;
+			var delete = true;
 
 			if(options.options.ConfirmProfileDeletion) {
 				if(conf.CurrentProfile == "Default") {
@@ -628,7 +618,7 @@ namespace MidiControl {
 		}
 
 		private void NewProfileMenuItem_Click(object sender, EventArgs e) {
-			bool doCreate = true;
+			var doCreate = true;
 
 			if(conf.Unsaved) {
 				switch(MessageBox.Show("The current profile '" + conf.CurrentProfile + "' has unsaved changes.  Do you want to save them before creating a new profile?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)) {
@@ -675,7 +665,7 @@ namespace MidiControl {
 		}
 
 		private TextInputResponse PromptForNewProfileName(string message, string caption, string initialValue = "") {
-			bool validName = false;
+			var validName = false;
 			var newProfileResponse = new TextInputResponse();
 
 			while(!validName) {
@@ -697,11 +687,11 @@ namespace MidiControl {
 			return newProfileResponse;
 		}
 
-		private void trayIcon_BalloonTipClicked(object sender, EventArgs e) {
+		private void TrayIcon_BalloonTipClicked(object sender, EventArgs e) {
 			//trayMenuShowMainWindow_Click(sender, e);
 		}
 
-		private void gitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void GitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
 			System.Diagnostics.Process.Start("https://github.com/Etuldan/MidiControl");
 		}
 

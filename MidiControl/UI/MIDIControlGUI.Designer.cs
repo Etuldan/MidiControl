@@ -257,7 +257,7 @@
 			this.gitHubProjectPageToolStripMenuItem.Name = "gitHubProjectPageToolStripMenuItem";
 			this.gitHubProjectPageToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
 			this.gitHubProjectPageToolStripMenuItem.Text = "GitHub project page";
-			this.gitHubProjectPageToolStripMenuItem.Click += new System.EventHandler(this.gitHubProjectPageToolStripMenuItem_Click);
+			this.gitHubProjectPageToolStripMenuItem.Click += new System.EventHandler(this.GitHubProjectPageToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem7
 			// 
@@ -270,7 +270,7 @@
 			this.closeToTrayToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
 			this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
 			this.closeToTrayToolStripMenuItem.Text = "Close to tray";
-			this.closeToTrayToolStripMenuItem.Click += new System.EventHandler(this.closeToTrayToolStripMenuItem_Click);
+			this.closeToTrayToolStripMenuItem.Click += new System.EventHandler(this.CloseToTrayToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
@@ -279,7 +279,7 @@
             | System.Windows.Forms.Keys.Q)));
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
-			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -345,7 +345,7 @@
 			this.butEditSelectedKeybind.Name = "butEditSelectedKeybind";
 			this.butEditSelectedKeybind.Size = new System.Drawing.Size(23, 22);
 			this.butEditSelectedKeybind.Text = "toolStripButton1";
-			this.butEditSelectedKeybind.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+			this.butEditSelectedKeybind.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
 			// 
 			// butDeleteSelectedKeybind
 			// 
@@ -410,8 +410,8 @@
 			this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
 			this.trayIcon.Text = "MIDIControl";
 			this.trayIcon.Visible = true;
-			this.trayIcon.BalloonTipClicked += new System.EventHandler(this.trayIcon_BalloonTipClicked);
-			this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
+			this.trayIcon.BalloonTipClicked += new System.EventHandler(this.TrayIcon_BalloonTipClicked);
+			this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
 			// 
 			// trayMenuStrip
 			// 
@@ -429,7 +429,7 @@
 			this.trayMenuShowMainWindow.Name = "trayMenuShowMainWindow";
 			this.trayMenuShowMainWindow.Size = new System.Drawing.Size(182, 22);
 			this.trayMenuShowMainWindow.Text = "Show main window";
-			this.trayMenuShowMainWindow.Click += new System.EventHandler(this.trayMenuShowMainWindow_Click);
+			this.trayMenuShowMainWindow.Click += new System.EventHandler(this.TrayMenuShowMainWindow_Click);
 			// 
 			// toolStripMenuItem4
 			// 
@@ -447,7 +447,7 @@
 			this.trayMenuExit.Name = "trayMenuExit";
 			this.trayMenuExit.Size = new System.Drawing.Size(182, 22);
 			this.trayMenuExit.Text = "Exit";
-			this.trayMenuExit.Click += new System.EventHandler(this.trayMenuExit_Click);
+			this.trayMenuExit.Click += new System.EventHandler(this.TrayMenuExit_Click);
 			// 
 			// statusBar
 			// 
@@ -514,7 +514,7 @@
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
 			this.editToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
 			this.editToolStripMenuItem.Text = "Edit...";
-			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+			this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
 			// 
 			// DuplicateKeybindMenuItem
 			// 
@@ -563,10 +563,10 @@
 			this.listKeybinds.TabIndex = 5;
 			this.listKeybinds.UseCompatibleStateImageBehavior = false;
 			this.listKeybinds.View = System.Windows.Forms.View.Tile;
-			this.listKeybinds.SelectedIndexChanged += new System.EventHandler(this.listKeybinds_SelectedIndexChanged);
-			this.listKeybinds.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listKeybinds_KeyDown);
-			this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseClick);
-			this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseDoubleClick);
+			this.listKeybinds.SelectedIndexChanged += new System.EventHandler(this.ListKeybinds_SelectedIndexChanged);
+			this.listKeybinds.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListKeybinds_KeyDown);
+			this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListKeybinds_MouseClick);
+			this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListKeybinds_MouseDoubleClick);
 			// 
 			// colKeybind
 			// 
