@@ -40,6 +40,7 @@
 			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
 			this.MidiControlOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.InterfaceOptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuNIControllerEditor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
 			this.gitHubProjectPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
@@ -51,6 +52,9 @@
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.btnAddKeybind = new System.Windows.Forms.ToolStripButton();
 			this.btnStopAllSounds = new System.Windows.Forms.ToolStripButton();
+			this.sepSelectedKeybind = new System.Windows.Forms.ToolStripSeparator();
+			this.butEditSelectedKeybind = new System.Windows.Forms.ToolStripButton();
+			this.butDeleteSelectedKeybind = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.menuViewAsDropdown = new System.Windows.Forms.ToolStripDropDownButton();
 			this.menuViewAsIcons = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +80,6 @@
 			this.listKeybinds = new System.Windows.Forms.ListView();
 			this.colKeybind = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.colOverview = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.mnuNIControllerEditor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip1.SuspendLayout();
 			this.trayMenuStrip.SuspendLayout();
 			this.statusBar.SuspendLayout();
@@ -94,6 +97,9 @@
             this.toolStripSeparator2,
             this.btnAddKeybind,
             this.btnStopAllSounds,
+            this.sepSelectedKeybind,
+            this.butEditSelectedKeybind,
+            this.butDeleteSelectedKeybind,
             this.toolStripSeparator3,
             this.menuViewAsDropdown});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -234,6 +240,13 @@
 			this.InterfaceOptionsMenuItem.Text = "Interface options...";
 			this.InterfaceOptionsMenuItem.Click += new System.EventHandler(this.InterfaceOptionsMenuItem_Click);
 			// 
+			// mnuNIControllerEditor
+			// 
+			this.mnuNIControllerEditor.Name = "mnuNIControllerEditor";
+			this.mnuNIControllerEditor.Size = new System.Drawing.Size(217, 22);
+			this.mnuNIControllerEditor.Text = "Open NI Controller Editor...";
+			this.mnuNIControllerEditor.Click += new System.EventHandler(this.OpenNIControllerEditor_Clicked);
+			// 
 			// toolStripMenuItem3
 			// 
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
@@ -318,6 +331,34 @@
 			this.btnStopAllSounds.Size = new System.Drawing.Size(23, 22);
 			this.btnStopAllSounds.Text = "Stop all sounds";
 			this.btnStopAllSounds.Click += new System.EventHandler(this.StopAllSoundsClicked);
+			// 
+			// sepSelectedKeybind
+			// 
+			this.sepSelectedKeybind.Name = "sepSelectedKeybind";
+			this.sepSelectedKeybind.Size = new System.Drawing.Size(6, 25);
+			this.sepSelectedKeybind.Visible = false;
+			// 
+			// butEditSelectedKeybind
+			// 
+			this.butEditSelectedKeybind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.butEditSelectedKeybind.Image = global::MidiControl.Properties.Resources.edit;
+			this.butEditSelectedKeybind.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.butEditSelectedKeybind.Name = "butEditSelectedKeybind";
+			this.butEditSelectedKeybind.Size = new System.Drawing.Size(23, 22);
+			this.butEditSelectedKeybind.Text = "Edit [keybind]";
+			this.butEditSelectedKeybind.Visible = false;
+			this.butEditSelectedKeybind.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+			// 
+			// butDeleteSelectedKeybind
+			// 
+			this.butDeleteSelectedKeybind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.butDeleteSelectedKeybind.Image = global::MidiControl.Properties.Resources.minus;
+			this.butDeleteSelectedKeybind.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.butDeleteSelectedKeybind.Name = "butDeleteSelectedKeybind";
+			this.butDeleteSelectedKeybind.Size = new System.Drawing.Size(23, 22);
+			this.butDeleteSelectedKeybind.Text = "Delete [keybind]";
+			this.butDeleteSelectedKeybind.Visible = false;
+			this.butDeleteSelectedKeybind.Click += new System.EventHandler(this.DeleteKeybindMenuItem_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -525,6 +566,7 @@
 			this.listKeybinds.TabIndex = 5;
 			this.listKeybinds.UseCompatibleStateImageBehavior = false;
 			this.listKeybinds.View = System.Windows.Forms.View.Tile;
+			this.listKeybinds.SelectedIndexChanged += new System.EventHandler(this.listKeybinds_SelectedIndexChanged);
 			this.listKeybinds.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listKeybinds_KeyDown);
 			this.listKeybinds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseClick);
 			this.listKeybinds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listKeybinds_MouseDoubleClick);
@@ -539,13 +581,6 @@
 			this.colOverview.Text = "Overview";
 			this.colOverview.Width = 355;
 			// 
-			// mnuNIControllerEditor
-			// 
-			this.mnuNIControllerEditor.Name = "mnuNIControllerEditor";
-			this.mnuNIControllerEditor.Size = new System.Drawing.Size(217, 22);
-			this.mnuNIControllerEditor.Text = "Open NI Controller Editor...";
-			this.mnuNIControllerEditor.Click += new System.EventHandler(this.OpenNIControllerEditor_Clicked);
-			// 
 			// MIDIControlGUI2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -556,9 +591,9 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MIDIControlGUI2";
 			this.Text = "MIDIControl - [ProfileName]";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MIDIControlGUI2_FormClosing);
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MIDIControlGUI2_FormClosed);
-			this.Load += new System.EventHandler(this.MIDIControlGUI2_Load);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MIDIControlGUI_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MIDIControlGUI_FormClosed);
+			this.Load += new System.EventHandler(this.MIDIControlGUI_Load);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.trayMenuStrip.ResumeLayout(false);
@@ -625,5 +660,8 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem SwitchProfileTrayMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem mnuNIControllerEditor;
+		private System.Windows.Forms.ToolStripSeparator sepSelectedKeybind;
+		private System.Windows.Forms.ToolStripButton butEditSelectedKeybind;
+		private System.Windows.Forms.ToolStripButton butDeleteSelectedKeybind;
 	}
 }

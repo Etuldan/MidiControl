@@ -195,7 +195,7 @@ namespace MidiControl
                         items.Add(item.Action + ": " + string.Join(", ", item.Args.ToArray()));
                     else
                         items.Add(item.Action);
-                }
+				}
 				summary.Add("OBS (on): " + string.Join("; ", items));
 				
 			}

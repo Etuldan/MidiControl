@@ -116,9 +116,9 @@ namespace MidiControl {
 
             // set icons
 			btnSaveCurrentProfile.Image = saveCurrentProfileToolStripMenuItem.Image = mcTheme.SaveIcon;
-			editToolStripMenuItem.Image = mcTheme.EditIcon;
+			editToolStripMenuItem.Image = butEditSelectedKeybind.Image = mcTheme.EditIcon;
 			btnDeleteCurrentProfile.Image = deleteCurrentProfileToolStripMenuItem.Image = mcTheme.DeleteIcon;
-			deleteToolStripMenuItem.Image = mcTheme.MinusIcon;
+			deleteToolStripMenuItem.Image = butDeleteSelectedKeybind.Image = mcTheme.MinusIcon;
 			btnAddKeybind.Image = addKeybindToolStripMenuItem.Image = mcTheme.PlusIcon;
 			btnStopAllSounds.Image = mcTheme.MuteIcon;
 			MidiControlOptionsToolStripMenuItem.Image = mcTheme.SettingsIcon;
@@ -164,14 +164,14 @@ namespace MidiControl {
 		}
 
         // form, tray icon, close window events
-        private void MIDIControlGUI2_Load(object sender, EventArgs e) {
+        private void MIDIControlGUI_Load(object sender, EventArgs e) {
 			ReloadEntries();
 			OBSControl.GetInstance().ConnectDisconnect();
 
 			this.windowWasShown = true;
 		}
 
-		private void MIDIControlGUI2_FormClosing(object sender, FormClosingEventArgs e) {
+		private void MIDIControlGUI_FormClosing(object sender, FormClosingEventArgs e) {
 			if(!this.actuallyClosing) {
 				e.Cancel = true;
 
@@ -194,7 +194,7 @@ namespace MidiControl {
 			}
 		}
 
-		private void MIDIControlGUI2_FormClosed(object sender, FormClosedEventArgs e) {
+		private void MIDIControlGUI_FormClosed(object sender, FormClosedEventArgs e) {
 			// actual program close stuff here
 			midi.ReleaseAll();
 
@@ -235,7 +235,7 @@ namespace MidiControl {
 		}
 
 		private void RefreshWindowTitle() {
-			this.Text = trayIcon.Text = "MIDIControl - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
+			this.Text = trayIcon.Text = "MIDIControl (for OBS 28) - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
 		}
 
 		// delegate handlers; from MIDIControlGUI; config/profiles/keybind refresh
@@ -458,6 +458,7 @@ namespace MidiControl {
 			}
 
 			RefreshWindowTitle();
+			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = false;
 		}
 
 		private void ListViewDisplayModeChanged(object sender, EventArgs e) {
@@ -489,6 +490,14 @@ namespace MidiControl {
 				if(listKeybinds.SelectedItems.Count == 1) {
 					itemContextMenu.Show(listKeybinds, e.Location);
 				}
+			}
+		}
+
+		private void listKeybinds_SelectedIndexChanged(object sender, EventArgs e) {
+			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = (listKeybinds.SelectedItems.Count == 1);
+			if(listKeybinds.SelectedItems.Count == 1) {
+				butEditSelectedKeybind.Text = "Edit '" + listKeybinds.SelectedItems[0].Text + "'";
+				butDeleteSelectedKeybind.Text = "Delete '" + listKeybinds.SelectedItems[0].Text + "'";
 			}
 		}
 
