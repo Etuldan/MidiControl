@@ -75,6 +75,26 @@ namespace MidiControl {
             
 			this.SetWindowTheme(options.options.Theme);
 
+			// apply the last-used listview style
+			menuViewAsIcons.Checked = menuViewAsList.Checked = menuViewAsDetails.Checked = false;
+			switch(options.options.ListViewStyle) {
+				case "icons":
+					listKeybinds.View = View.Tile;
+					menuViewAsIcons.Checked = true;
+					menuViewAsDropdown.Text = "View as: Icons";
+					break;
+				case "list":
+					listKeybinds.View = View.List;
+					menuViewAsList.Checked = true;
+					menuViewAsDropdown.Text = "View as: List";
+					break;
+				case "details":
+					listKeybinds.View = View.Details;
+					menuViewAsDetails.Checked = true;
+					menuViewAsDropdown.Text = "View as: Details";
+					break;
+			}
+
 			// show menu option for Native Instruments Controller Editor, if installed
 			if(!System.IO.File.Exists(NIControllerEditorEXEPath)) {
 				mnuNIControllerEditor.Visible = false;
@@ -483,6 +503,10 @@ namespace MidiControl {
 			}
 
 			menuViewAsDropdown.Text = "View as: " + label;
+
+			// save preference
+			options.options.ListViewStyle = mode;
+			options.Save();
 		}
 
 		private void listKeybinds_MouseClick(object sender, MouseEventArgs e) {
@@ -504,6 +528,14 @@ namespace MidiControl {
 		private void listKeybinds_MouseDoubleClick(object sender, MouseEventArgs e) {
 			if(e.Button == MouseButtons.Left) {
 				editToolStripMenuItem_Click(sender, EventArgs.Empty);
+			}
+		}
+
+		private void listKeybinds_SelectedIndexChanged(object sender, EventArgs e) {
+			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = (listKeybinds.SelectedItems.Count == 1);
+			if(listKeybinds.SelectedItems.Count == 1) {
+				butEditSelectedKeybind.Text = "Edit '" + listKeybinds.SelectedItems[0].Text + "'";
+				butDeleteSelectedKeybind.Text = "Delete '" + listKeybinds.SelectedItems[0].Text + "'";
 			}
 		}
 

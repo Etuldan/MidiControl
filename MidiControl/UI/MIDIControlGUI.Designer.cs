@@ -336,7 +336,6 @@
 			// 
 			this.sepSelectedKeybind.Name = "sepSelectedKeybind";
 			this.sepSelectedKeybind.Size = new System.Drawing.Size(6, 25);
-			this.sepSelectedKeybind.Visible = false;
 			// 
 			// butEditSelectedKeybind
 			// 
@@ -345,8 +344,7 @@
 			this.butEditSelectedKeybind.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.butEditSelectedKeybind.Name = "butEditSelectedKeybind";
 			this.butEditSelectedKeybind.Size = new System.Drawing.Size(23, 22);
-			this.butEditSelectedKeybind.Text = "Edit [keybind]";
-			this.butEditSelectedKeybind.Visible = false;
+			this.butEditSelectedKeybind.Text = "toolStripButton1";
 			this.butEditSelectedKeybind.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
 			// 
 			// butDeleteSelectedKeybind
@@ -356,8 +354,7 @@
 			this.butDeleteSelectedKeybind.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.butDeleteSelectedKeybind.Name = "butDeleteSelectedKeybind";
 			this.butDeleteSelectedKeybind.Size = new System.Drawing.Size(23, 22);
-			this.butDeleteSelectedKeybind.Text = "Delete [keybind]";
-			this.butDeleteSelectedKeybind.Visible = false;
+			this.butDeleteSelectedKeybind.Text = "toolStripButton2";
 			this.butDeleteSelectedKeybind.Click += new System.EventHandler(this.DeleteKeybindMenuItem_Click);
 			// 
 			// toolStripSeparator3
@@ -581,7 +578,7 @@
 			this.colOverview.Text = "Overview";
 			this.colOverview.Width = 355;
 			// 
-			// MIDIControlGUI2
+			// MIDIControlGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -589,7 +586,7 @@
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.statusBar);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "MIDIControlGUI2";
+			this.Name = "MIDIControlGUI";
 			this.Text = "MIDIControl - [ProfileName]";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MIDIControlGUI_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MIDIControlGUI_FormClosed);
@@ -658,7 +655,7 @@
 		private System.Windows.Forms.ColumnHeader colOverview;
 		private System.Windows.Forms.ToolStripMenuItem gitHubProjectPageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem SwitchProfileTrayMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem SwitchProfileTrayMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem mnuNIControllerEditor;
 		private System.Windows.Forms.ToolStripSeparator sepSelectedKeybind;
 		private System.Windows.Forms.ToolStripButton butEditSelectedKeybind;
