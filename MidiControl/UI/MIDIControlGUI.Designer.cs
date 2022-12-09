@@ -655,7 +655,7 @@
 		private System.Windows.Forms.ColumnHeader colOverview;
 		private System.Windows.Forms.ToolStripMenuItem gitHubProjectPageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem SwitchProfileTrayMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem SwitchProfileTrayMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem mnuNIControllerEditor;
 		private System.Windows.Forms.ToolStripSeparator sepSelectedKeybind;
 		private System.Windows.Forms.ToolStripButton butEditSelectedKeybind;

@@ -146,7 +146,6 @@ namespace MidiControl {
 				});
 				isConnected = false;
 				timer.Enabled = true;
-
 #if DEBUG
 				Debug.WriteLine($"OBS Connection failed: CloseCode: {e.ObsCloseCode}, Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription}, Exception:{e.WebsocketDisconnectionInfo?.Exception?.Message}\nType: {e.WebsocketDisconnectionInfo.Type}");
 #endif

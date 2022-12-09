@@ -478,7 +478,6 @@ namespace MidiControl {
 			}
 
 			RefreshWindowTitle();
-
 			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = false;
 		}
 
@@ -515,6 +514,14 @@ namespace MidiControl {
 				if(listKeybinds.SelectedItems.Count == 1) {
 					itemContextMenu.Show(listKeybinds, e.Location);
 				}
+			}
+		}
+
+		private void listKeybinds_SelectedIndexChanged(object sender, EventArgs e) {
+			sepSelectedKeybind.Visible = butEditSelectedKeybind.Visible = butDeleteSelectedKeybind.Visible = (listKeybinds.SelectedItems.Count == 1);
+			if(listKeybinds.SelectedItems.Count == 1) {
+				butEditSelectedKeybind.Text = "Edit '" + listKeybinds.SelectedItems[0].Text + "'";
+				butDeleteSelectedKeybind.Text = "Delete '" + listKeybinds.SelectedItems[0].Text + "'";
 			}
 		}
 
