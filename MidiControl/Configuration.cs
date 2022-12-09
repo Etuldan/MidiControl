@@ -26,7 +26,7 @@ namespace MidiControl
         {
             _instance = this;
             this.gui = gui;
-            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             ConfFolder = Path.Combine(folder, "MIDIControl");
 
 			CurrentProfile = initialProfile; // "Default";
@@ -53,7 +53,7 @@ namespace MidiControl
 
         public string[] GetAllProfiles()
         {
-            List<string> output = new List<string>
+            var output = new List<string>
             {
                 "Default"
             };
@@ -70,13 +70,13 @@ namespace MidiControl
 
         public string[] RemoveProfile(string ProfileToRemove)
         {
-            string FileToDelete = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(ProfileToRemove, "_") + ".json"));
+            var FileToDelete = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(ProfileToRemove, "_") + ".json"));
             File.Delete(FileToDelete);
             return GetAllProfiles();
         }
 
 		public bool DoesProfileExist(string profile) {
-			string FileToSearch = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(profile, "_") + ".json"));
+			var FileToSearch = Path.Combine(ConfFolder, Path.GetFileName("keybinds-" + removeInvalidChars.Replace(profile, "_") + ".json"));
 			return File.Exists(FileToSearch);
 		}
 
@@ -90,7 +90,7 @@ namespace MidiControl
             try
             {
 				Unsaved = false;
-				string json = File.ReadAllText(ConfFile);
+				var json = File.ReadAllText(ConfFile);
                 Config = JsonConvert.DeserializeObject<Dictionary<string, KeyBindEntry>>(json);
                 if (Config == null)
                 {
@@ -128,7 +128,7 @@ namespace MidiControl
         public void SaveCurrentProfile()
         {
 			try {
-				string json = JsonConvert.SerializeObject(Config);
+				var json = JsonConvert.SerializeObject(Config);
 				File.WriteAllText(ConfFile, json);
 
 				Unsaved = false;
@@ -148,7 +148,7 @@ namespace MidiControl
 			}
 			
 			try {
-				string json = JsonConvert.SerializeObject(Config);
+				var json = JsonConvert.SerializeObject(Config);
 				File.WriteAllText(ConfFile, json);
 
 				Unsaved = false;
@@ -220,24 +220,24 @@ namespace MidiControl
 				summary.Add("(adjust) " + string.Join("; ", items));
 			}
 			if(SoundCallBack != null) {
-				string soundFile = Path.GetFileName(SoundCallBack.File);
-				string action = "Play '" + soundFile + "' on " + SoundCallBack.DeviceName;
+				var soundFile = Path.GetFileName(SoundCallBack.File);
+				var action = "Play '" + soundFile + "' on " + SoundCallBack.DeviceName;
 				summary.Add("Sound: " + action);
 			}
 			if(MediaCallBack != null) {
-				string action = MediaCallBack.MediaType.ToString();
+				var action = MediaCallBack.MediaType.ToString();
 				summary.Add("Media (on): " + action);
 			}
 			if(MediaCallBackOFF != null) {
-				string action = MediaCallBackOFF.MediaType.ToString();
+				var action = MediaCallBackOFF.MediaType.ToString();
 				summary.Add("Media (off): " + action);
 			}
 			if(TwitchCallBackON != null) {
-				string action = "Send message on channel " + TwitchCallBackON.Channel;
+				var action = "Send message on channel " + TwitchCallBackON.Channel;
 				summary.Add("Twitch (on): " + action);
 			}
 			if(TwitchCallBackOFF != null) {
-				string action = "Send message on channel " + TwitchCallBackOFF.Channel;
+				var action = "Send message on channel " + TwitchCallBackOFF.Channel;
 				summary.Add("Twitch (off): " + action);
 			}
 			if(MIDIControlCallBackON != null) {
@@ -259,7 +259,7 @@ namespace MidiControl
 				summary.Add("MIDIControl (on): " + string.Join("; ", action));
 			}
 			if(GoXLRCallBackON != null) {
-				string action = "";
+				var action = string.Empty;
 				switch(GoXLRCallBackON.Action) {
 					case 0: action = "Mute: "; break;
 					case 1: action = "Unmute: "; break;
@@ -269,7 +269,7 @@ namespace MidiControl
 				summary.Add("GoXLR (on): " + action);
 			}
 			if(GoXLRCallBackOFF != null) {
-				string action = "";
+				var action = string.Empty;
 				switch(GoXLRCallBackOFF.Action) {
 					case 0: action = "Mute: "; break;
 					case 1: action = "Unmute: "; break;
@@ -340,9 +340,9 @@ namespace MidiControl
             this.Volume = Volume;
 			this.StopAllOtherSounds = StopAllOtherSounds;
 
-            for (int i = 0; i < WaveOut.DeviceCount; i++)
+            for (var i = 0; i < WaveOut.DeviceCount; i++)
             {
-                WaveOutCapabilities WOC = WaveOut.GetCapabilities(i);
+                var WOC = WaveOut.GetCapabilities(i);
                 if(WOC.ProductName == DeviceName)
                 {
                     Device = i;

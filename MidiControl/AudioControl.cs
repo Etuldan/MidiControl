@@ -38,11 +38,11 @@ namespace MidiControl
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            int totalBytesRead = 0;
+            var totalBytesRead = 0;
 
             while (totalBytesRead < count)
             {
-                int bytesRead = sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
+                var bytesRead = sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
                 if (bytesRead == 0)
                 {
                     if (sourceStream.Position == 0 || !EnableLooping)
@@ -96,20 +96,20 @@ namespace MidiControl
 #if DEBUG
                 Debug.WriteLine("AudioControl : play");
 #endif
-                MIDIFeedback feedback = new MIDIFeedback(keybind);
-                MediaFoundationReader waveReader = new MediaFoundationReader(File);
-                LoopStream loop = new LoopStream(waveReader)
+                var feedback = new MIDIFeedback(keybind);
+                var waveReader = new MediaFoundationReader(File);
+                var loop = new LoopStream(waveReader)
                 {
                     EnableLooping = Loop
                 };
 
-                WaveChannel32 channel = new WaveChannel32(loop)
+                var channel = new WaveChannel32(loop)
                 {
                     PadWithZeroes = false,
                     Volume = volume
                 };
 
-                WaveOut waveOut = new WaveOut();
+                var waveOut = new WaveOut();
 
                 void PlaybackStopped(object sender, EventArgs e, KeyBindEntry bind)
                 {
@@ -117,7 +117,7 @@ namespace MidiControl
                     Debug.WriteLine("AudioControl : Stop");
 #endif
                     WaveOuts.Remove(bind);
-                    MIDIFeedback feedbackOff = new MIDIFeedback(bind); ;
+                    var feedbackOff = new MIDIFeedback(bind); ;
                     feedbackOff.SendOff();
 #if DEBUG
                     Debug.WriteLine("AudioControl : StopEnd");
@@ -130,7 +130,7 @@ namespace MidiControl
                 feedback.SendIn();
                 try
                 {
-                    List<WaveOut> list = new List<WaveOut> { waveOut };
+                    var list = new List<WaveOut> { waveOut };
                     WaveOuts.Add(keybind, list);
                 }
                 catch (ArgumentException)
@@ -168,8 +168,8 @@ e
         {
             if (WaveOuts.TryGetValue(keybind, out List<WaveOut> waveOuts) == true)
             {
-                MIDIFeedback feedback = new MIDIFeedback(keybind);
-                foreach (WaveOut waveOut in waveOuts)
+                var feedback = new MIDIFeedback(keybind);
+                foreach (var waveOut in waveOuts)
                 {
                     feedback.SendOff();
                     waveOut.Stop();
@@ -180,13 +180,13 @@ e
 
         public void StopAll()
         {
-            List<WaveOut> list = new List<WaveOut>();
-            foreach (KeyValuePair<KeyBindEntry, List<WaveOut>> entry in WaveOuts)
+            var list = new List<WaveOut>();
+            foreach (var entry in WaveOuts)
             {
-                foreach (WaveOut waveOut in entry.Value)
+                foreach (var waveOut in entry.Value)
                 {
                     list.Add(waveOut);
-                    MIDIFeedback feedback = new MIDIFeedback(entry.Key); ;
+                    var feedback = new MIDIFeedback(entry.Key); ;
                     feedback.SendOff();
                 }
             }

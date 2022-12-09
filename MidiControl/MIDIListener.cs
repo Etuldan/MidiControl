@@ -44,7 +44,7 @@ namespace MidiControl
             midiInStringOptions.Clear();
             midiInInterface.Clear();
             midiOutInterface.Clear();
-            for (int device = 0; device < MidiIn.NumberOfDevices; device++)
+            for (var device = 0; device < MidiIn.NumberOfDevices; device++)
             {
                 try
                 {
@@ -121,8 +121,8 @@ namespace MidiControl
 
         public List<string> GetMIDIINDevices()
         {
-            List<string> list = new List<string>();
-            foreach (KeyValuePair<string, MidiInCustom> entry in midiInInterface)
+            var list = new List<string>();
+            foreach (var entry in midiInInterface)
             {
                 list.Add(entry.Key);
             }
@@ -152,7 +152,7 @@ namespace MidiControl
                 {
                 }
             }
-            foreach (KeyValuePair<string, MidiInCustom> entry in midiInInterface)
+            foreach (var entry in midiInInterface)
             {
                 try
                 {
@@ -169,14 +169,14 @@ namespace MidiControl
                 {
                 }
             }
-            foreach (KeyValuePair<string, MidiOutCustom> entry in midiOutInterface)
+            foreach (var entry in midiOutInterface)
             {
                 if (entry.Key == "MIDIOUT2 (Launchkey Mini)")
                 {
 #if DEBUG
                     Debug.WriteLine("Yo, found the midiout2, stop incontrol");
 #endif
-                    MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
+                    var m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
                     MidiEvent me;
                     me = new NoteOnEvent(0, 1, 12, 0, 0);
                     m.Send(me.GetAsShortMessage());
@@ -193,7 +193,7 @@ namespace MidiControl
 
         public void EnableListening()
         {
-            foreach (KeyValuePair<string, MidiInCustom> entry in midiInInterface)
+            foreach (var entry in midiInInterface)
             {
                 entry.Value.MessageReceived += MidiIn_MessageReceived;
             }
@@ -201,7 +201,7 @@ namespace MidiControl
 
         public void DisableListening()
         {
-            foreach (KeyValuePair<string, MidiInCustom> entry in midiInInterface)
+            foreach (var entry in midiInInterface)
             {
                 entry.Value.MessageReceived -= MidiIn_MessageReceived;
             }
@@ -212,18 +212,18 @@ namespace MidiControl
 #if DEBUG
             Debug.WriteLine("MIDI IN ForwardBack Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
 #endif
-            foreach (KeyValuePair<string, MidiOutCustom> entry in midiOutInterface)
+            foreach (var entry in midiOutInterface)
             {
                 entry.Value.Send(e.RawMessage);
             }
         }
 
         private int ValidateSenderDeviceInt(MidiInCustom dev) {
-            int device = dev.device;
-            int assumed = device;
-            bool adjusted = false;
-            bool correct = false;
-            string devName = "null";
+            var device = dev.device;
+            var assumed = device;
+            var adjusted = false;
+            var correct = false;
+            var devName = "null";
 
             while(!correct && device >= 0) {
                 try {
@@ -264,7 +264,7 @@ namespace MidiControl
                 MidiOutForward.Send(e.RawMessage);
             }
 
-            foreach (KeyValuePair<string, KeyBindEntry> entry in conf.Config)
+            foreach (var entry in conf.Config)
             {
                 if(e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider && ((int)((ControlChangeEvent)e.MidiEvent).Controller != entry.Value.NoteNumber ||
                     ((ControlChangeEvent)e.MidiEvent).Channel != entry.Value.Channel || MidiIn.DeviceInfo(deviceId).ProductName != entry.Value.Mididevice)) continue;
@@ -301,7 +301,7 @@ namespace MidiControl
 #if DEBUG
                     Debug.WriteLine("KeyBind NoteON");
 #endif
-                    foreach (OBSCallBack callback in entry.Value.OBSCallBacksON)
+                    foreach (var callback in entry.Value.OBSCallBacksON)
                     {
                         callback.Start(entry.Value);
                     }
@@ -353,7 +353,7 @@ namespace MidiControl
 #if DEBUG
                     Debug.WriteLine("KeyBind NoteOFF");
 #endif
-                    foreach (OBSCallBack callback in entry.Value.OBSCallBacksOFF)
+                    foreach (var callback in entry.Value.OBSCallBacksOFF)
                     {
                         callback.Start(entry.Value);
                     }
@@ -404,7 +404,7 @@ namespace MidiControl
 #endif
                     if (((ControlChangeEvent)e.MidiEvent).ControllerValue != 0)
                     {
-                        foreach (OBSCallBack callback in entry.Value.OBSCallBacksON)
+                        foreach (var callback in entry.Value.OBSCallBacksON)
                         {
                             callback.Start(entry.Value);
                         }
@@ -415,7 +415,7 @@ namespace MidiControl
                     }
                     else
                     {
-                        foreach (OBSCallBack callback in entry.Value.OBSCallBacksOFF)
+                        foreach (var callback in entry.Value.OBSCallBacksOFF)
                         {
                             callback.Start(entry.Value);
                         }
@@ -424,7 +424,7 @@ namespace MidiControl
                             audioControl.StopSound(entry.Value);
                         }
                     }
-                    foreach (OBSCallBack callback in entry.Value.OBSCallBacksSlider)
+                    foreach (var callback in entry.Value.OBSCallBacksSlider)
                     {
                         callback.Start(entry.Value, (float)((ControlChangeEvent)e.MidiEvent).ControllerValue / 127);
                     }

@@ -12,8 +12,8 @@ namespace MidiControl {
 		public OptionsManagment() {
 			_instance = this;
 
-			string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-			string ConfFolder = Path.Combine(folder, "MIDIControl");
+			var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			var ConfFolder = Path.Combine(folder, "MIDIControl");
 			OptionFile = Path.Combine(ConfFolder, Path.GetFileName("options.json"));
 			Directory.CreateDirectory(ConfFolder);
 			Load();
@@ -24,7 +24,7 @@ namespace MidiControl {
 
 		private void Load() {
 			try {
-				string json = File.ReadAllText(OptionFile);
+				var json = File.ReadAllText(OptionFile);
 				options = JsonConvert.DeserializeObject<Options>(json);
 				if(options == null) {
 					throw new FileNotFoundException();
@@ -54,7 +54,7 @@ namespace MidiControl {
 		}
 
 		public void Save() {
-			string json = JsonConvert.SerializeObject(options);
+			var json = JsonConvert.SerializeObject(options);
 			File.WriteAllText(OptionFile, json);
 		}
 

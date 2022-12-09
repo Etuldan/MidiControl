@@ -38,11 +38,11 @@ namespace MidiControl {
 			gui = MIDIControlGUI.GetInstance();
 			options = OptionsManagment.GetInstance();
 
-			string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-			string ConfFolder = Path.Combine(folder, "MIDIControl");
+			var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			var ConfFolder = Path.Combine(folder, "MIDIControl");
 			FilterLog = Path.Combine(ConfFolder, Path.GetFileName("FilterLog.log"));
 
-			string pathFilters = Path.Combine(ConfFolder, Path.GetFileName("filterminmax.csv"));
+			var pathFilters = Path.Combine(ConfFolder, Path.GetFileName("filterminmax.csv"));
 			try {
 				using(TextFieldParser csvParser = new TextFieldParser(pathFilters)) {
 					csvParser.CommentTokens = new string[] { "#" };
@@ -50,11 +50,11 @@ namespace MidiControl {
 					csvParser.HasFieldsEnclosedInQuotes = true;
 
 					while(!csvParser.EndOfData) {
-						string[] fields = csvParser.ReadFields();
+						var fields = csvParser.ReadFields();
 						FiltersMinMaxValues.Add(fields[0], new float[] { float.Parse(fields[1]), float.Parse(fields[2]) });
 					}
 				}
-			} catch(System.IO.FileNotFoundException) {
+			} catch(FileNotFoundException) {
 			}
 
 			string pathHotkeys = Path.Combine(ConfFolder, Path.GetFileName("hotkeys.csv"));
@@ -69,7 +69,7 @@ namespace MidiControl {
 						Hotkeys.Add(fields[0], fields[1]);
 					}
 				}
-			} catch(System.IO.FileNotFoundException) {
+			} catch(FileNotFoundException) {
 			}
 
 			InitTimer();
@@ -96,15 +96,6 @@ namespace MidiControl {
 				Task.Run(() => {
 					try {
 						obs.ConnectAsync("ws://" + options.options.Ip, options.options.Password);
-						//obs.Connect("ws://" + options.options.Ip, options.options.Password);
-						//if(obs.IsConnected)
-						//{
-						//    Version pluginVersion = new Version(obs.GetVersion().PluginVersion);
-						//    if (pluginVersion.CompareTo(new Version("4.9.0")) < 0)
-						//    {
-						//        throw new ErrorResponseException("Incompatible plugin Version. Please update your OBS-Websocket plugin");
-						//    }
-						//}
 					} catch(Exception e) {
 						gui.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate {
 							// handle connection failed here
@@ -154,13 +145,12 @@ namespace MidiControl {
 			return isConnected;
 		}
 
-		//private void Obs_SourceFilterAdded(string sourceName, string filterName, string filterKind, JObject _filterSettings)
 		private void Obs_SourceFilterAdded(object sender, OBSWebsocketDotNet.Types.Events.SourceFilterCreatedEventArgs e) {
 			Task.Run(() => {
 				filterSettings = GetFiltersSettings();
 			});
 		}
-		private void Obs_SourceFilterRemoved(object sender, SourceFilterRemovedEventArgs e) {
+		private void Obs_SourceFilterRemoved(object sender, OBSWebsocketDotNet.Types.Events.SourceFilterRemovedEventArgs e) {
 			Task.Run(() => {
 				filterSettings = GetFiltersSettings();
 			});
@@ -171,7 +161,7 @@ namespace MidiControl {
 #if DEBUG
 			Debug.WriteLine("OBSControl : DoAction");
 #endif
-			MIDIFeedback feedback = new MIDIFeedback(keybind);
+			var feedback = new MIDIFeedback(keybind);
 			try {
 				switch(action) {
 					case "switchScene":
@@ -179,7 +169,7 @@ namespace MidiControl {
 							feedbackScenes.Add(args[0], feedback);
 						}
 						obs.SetCurrentProgramScene(args[0]);
-						foreach(KeyValuePair<string, MIDIFeedback> entry in feedbackScenes) {
+						foreach(var entry in feedbackScenes) {
 							if(entry.Key == args[0]) {
 								entry.Value.SendOn();
 							} else {
@@ -193,18 +183,18 @@ namespace MidiControl {
 						}
 						break;
 					case "mute":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							obs.SetInputMute(arg, true);
 						}
 						break;
 					case "unmute":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							obs.SetInputMute(arg, false);
 						}
 						break;
 					case "togglemute":
-						foreach(string arg in args) {
-							bool currentMute = obs.GetInputMute(arg);
+						foreach(var arg in args) {
+							var currentMute = obs.GetInputMute(arg);
 							obs.ToggleInputMute(arg);
 							if(currentMute) {
 								feedback.SendOff();
@@ -223,22 +213,22 @@ namespace MidiControl {
 						ToggleSources(feedback, args);
 						break;
 					case "hidefilter":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							ShowFilter(arg, false);
 						}
 						break;
 					case "showfilter":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							ShowFilter(arg, true);
 						}
 						break;
 					case "togglefilter":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							ToggleFilter(feedback, arg);
 						}
 						break;
 					case "mediaplay":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							//obs.PlayPauseMedia(arg, false);
 							// reusing implementations from obs-websocket-dotnet-4.9.1
 							var request = new JObject {
@@ -271,14 +261,14 @@ namespace MidiControl {
 						obs.SetCurrentSceneTransitionDuration(Int32.Parse(args[1]));
 						break;
 					case "hotkey":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							if(Hotkeys.TryGetValue(arg, out string value) == true) {
 								obs.TriggerHotkeyByName(value);
 							}
 						}
 						break;
 					case "misc":
-						foreach(string arg in args) {
+						foreach(var arg in args) {
 							OutputStatus streamstatus;
 							switch(arg) {
 								case "Start Stream":
@@ -380,11 +370,11 @@ e
 
 			bool state = false;
 
-			foreach(string scene in this.GetScenes()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(scene)) {
+			foreach(var scene in this.GetScenes()) {
+				foreach(var filtersetting in obs.GetSourceFilterList(scene)) {
 					if(filtersetting.Name == filter) {
-						FilterSettings setting = obs.GetSourceFilter(scene, filter);
-						bool currentVisibility = setting.IsEnabled;
+						var setting = obs.GetSourceFilter(scene, filter);
+						var currentVisibility = setting.IsEnabled;
 						var newsettings = setting;
 						newsettings.IsEnabled = !currentVisibility;
 						obs.SetSourceFilterSettings(scene, filter, newsettings);
@@ -396,10 +386,10 @@ e
 			}
 
 			foreach(string source in this.GetSources()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(source)) {
+				foreach(var filtersetting in obs.GetSourceFilterList(source)) {
 					if(filtersetting.Name == filter) {
-						FilterSettings setting = obs.GetSourceFilter(source, filter);
-						bool currentVisibility = setting.IsEnabled;
+						var setting = obs.GetSourceFilter(source, filter);
+						var currentVisibility = setting.IsEnabled;
 						var newsettings = setting;
 						newsettings.IsEnabled = !currentVisibility;
 						obs.SetSourceFilterSettings(source, filter, newsettings);
@@ -419,7 +409,7 @@ e
 			if(!isConnected) return;
 
 			foreach(string scene in this.GetScenes()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(scene)) {
+				foreach(var filtersetting in obs.GetSourceFilterList(scene)) {
 					if(filtersetting.Name == filter) {
 						var setting = obs.GetSourceFilter(scene, filter);
 						setting.IsEnabled = show;
@@ -428,8 +418,8 @@ e
 				}
 			}
 
-			foreach(string source in this.GetSources()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(source)) {
+			foreach(var source in this.GetSources()) {
+				foreach(var filtersetting in obs.GetSourceFilterList(source)) {
 					if(filtersetting.Name == filter) {
 						var setting = obs.GetSourceFilter(source, filter);
 						setting.IsEnabled = show;
@@ -441,9 +431,9 @@ e
 		private void ToggleSources(MIDIFeedback feedback, List<string> sources) {
 			if(!isConnected) return;
 
-			Dictionary<SourceScene, bool> sourcesName = new Dictionary<SourceScene, bool>();
-			List<SceneBasicInfo> scenes = obs.GetSceneList().Scenes; //obs.ListScenes();
-			bool state = false;
+			var sourcesName = new Dictionary<SourceScene, bool>();
+			var scenes = obs.GetSceneList().Scenes;
+			var state = false;
 
 			foreach(SceneBasicInfo scene in scenes) {
 				foreach(var item in obs.GetSceneItemList(scene.Name)) {
@@ -474,7 +464,7 @@ e
 					//}
 				}
 			}
-			foreach(KeyValuePair<SourceScene, bool> entry in sourcesName) {
+			foreach(var entry in sourcesName) {
 				var sceneItemId = obs.GetSceneItemId(entry.Key.Scene, entry.Key.Source, 0);
 				obs.SetSceneItemEnabled(entry.Key.Scene, sceneItemId, !entry.Value);
 				if(entry.Value == false) {
@@ -489,19 +479,15 @@ e
 			}
 
 			if(obs.GetStudioModeEnabled()) {
-				int? oldTransitionMaybe = obs.GetCurrentSceneTransition().Duration; //obs.GetTransitionDuration();
-				int oldTransition = 0;
+				var oldTransitionMaybe = obs.GetCurrentSceneTransition().Duration;
+				var oldTransition = 0;
 				if(oldTransitionMaybe.HasValue)
 					oldTransition = oldTransitionMaybe.Value;
 
 				obs.SetCurrentSceneTransitionDuration(0);
-				//OBSScene displayScene = obs.GetCurrentScene();
 				var programScene = obs.GetCurrentProgramScene();
-				//OBSScene previewScene = obs.GetPreviewScene();
 				var previewScene = obs.GetCurrentPreviewScene();
-				//obs.SetPreviewScene(displayScene);
 				obs.SetCurrentPreviewScene(programScene);
-				//obs.TransitionToProgram();
 				obs.TriggerStudioModeTransition();
 				obs.SetCurrentPreviewScene(previewScene);
 				obs.SetCurrentSceneTransitionDuration(oldTransition);
@@ -510,8 +496,7 @@ e
 		private void ShowSources(List<string> sources, bool show) {
 			if(!isConnected) return;
 
-			List<SourceScene> sourcesName = new List<SourceScene>();
-			//List<OBSScene> scenes = obs.ListScenes();
+			var sourcesName = new List<SourceScene>();
 			var scenes = obs.GetSceneList().Scenes;
 			foreach(var scene in scenes) {
 				foreach(var item in obs.GetSceneItemList(scene.Name)) {
@@ -544,25 +529,19 @@ e
 			}
 
 			foreach(SourceScene sourcescene in sourcesName) {
-				//obs.SetSourceRender(sourcescene.Source, show, sourcescene.Scene);
-
 				var sceneItemId = obs.GetSceneItemId(sourcescene.Scene, sourcescene.Source, 0);
 				obs.SetSceneItemEnabled(sourcescene.Scene, sceneItemId, show);
 			}
 			if(obs.GetStudioModeEnabled() == true) {
-				int? oldTransitionMaybe = obs.GetCurrentSceneTransition().Duration; //obs.GetTransitionDuration();
-				int oldTransition = 0;
+				var oldTransitionMaybe = obs.GetCurrentSceneTransition().Duration;
+				var oldTransition = 0;
 				if(oldTransitionMaybe.HasValue)
 					oldTransition = oldTransitionMaybe.Value;
 
 				obs.SetCurrentSceneTransitionDuration(0);
-				//OBSScene displayScene = obs.GetCurrentScene();
 				var programScene = obs.GetCurrentProgramScene();
-				//OBSScene previewScene = obs.GetPreviewScene();
 				var previewScene = obs.GetCurrentPreviewScene();
-				//obs.SetPreviewScene(displayScene);
 				obs.SetCurrentPreviewScene(programScene);
-				//obs.TransitionToProgram();
 				obs.TriggerStudioModeTransition();
 				obs.SetCurrentPreviewScene(previewScene);
 				obs.SetCurrentSceneTransitionDuration(oldTransition);
@@ -572,7 +551,7 @@ e
 		private void SetFilterProperties(string filterName, string property, float value) {
 			if(!isConnected) return;
 
-			foreach(FilterSettingsScene filterSetting in filterSettings) {
+			foreach(var filterSetting in filterSettings) {
 				if(FiltersMinMaxValues.TryGetValue(filterSetting.FilterSettings.Kind + "." + property, out float[] values) == true) {
 					float min = values[0];
 					float max = values[1];
@@ -590,11 +569,11 @@ e
 			}
 		}
 		public List<string> GetFilterProperties(string filterName) {
-			List<string> listProperties = new List<string>();
+			var listProperties = new List<string>();
 			if(!isConnected) return listProperties;
 
-			List<FilterSettingsScene> list = GetFiltersSettings();
-			foreach(FilterSettingsScene item in list) {
+			var list = GetFiltersSettings();
+			foreach(var item in list) {
 				if(item.FilterSettings.Name == filterName) {
 					foreach(var setting in item.FilterSettings.Settings) {
 						listProperties.Add(setting.Key);
@@ -604,44 +583,43 @@ e
 			return listProperties;
 		}
 		public List<FilterSettingsScene> GetFiltersSettings() {
-			List<FilterSettingsScene> filters = new List<FilterSettingsScene>();
+			var filters = new List<FilterSettingsScene>();
 			if(!isConnected) return filters;
 
-			foreach(string scene in this.GetScenes()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(scene)) {
+			foreach(var scene in this.GetScenes()) {
+				foreach(var filtersetting in obs.GetSourceFilterList(scene)) {
 					filters.Add(new FilterSettingsScene() { Scene = scene, FilterSettings = filtersetting });
 				}
 			}
 
-			foreach(string source in this.GetSources()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(source)) {
+			foreach(var source in this.GetSources()) {
+				foreach(var filtersetting in obs.GetSourceFilterList(source)) {
 					filters.Add(new FilterSettingsScene() { Scene = source, FilterSettings = filtersetting });
 				}
 			}
 			return filters;
 		}
 		public List<string> GetFilters() {
-			List<string> filtersString = new List<string>();
+			var filtersString = new List<string>();
 			if(!isConnected) return filtersString;
 
-			foreach(string scene in this.GetScenes()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(scene)) {
+			foreach(var scene in this.GetScenes()) {
+				foreach(var filtersetting in obs.GetSourceFilterList(scene)) {
 					filtersString.Add(filtersetting.Name);
 				}
 			}
 
-			foreach(string source in this.GetSources()) {
-				foreach(FilterSettings filtersetting in obs.GetSourceFilterList(source)) {
+			foreach(var source in this.GetSources()) {
+				foreach(var filtersetting in obs.GetSourceFilterList(source)) {
 					filtersString.Add(filtersetting.Name);
 				}
 			}
 			return filtersString;
 		}
 		public List<string> GetScenes() {
-			List<string> scenesString = new List<string>();
+			var scenesString = new List<string>();
 			if(!isConnected) return scenesString;
 
-			//List<OBSScene> scenes = obs.ListScenes();
 			var scenes = obs.GetSceneList().Scenes;
 			foreach(var scene in scenes) {
 				scenesString.Add(scene.Name);
@@ -650,7 +628,7 @@ e
 			return scenesString;
 		}
 		public List<string> GetSources() {
-			List<string> sourceString = new List<string>();
+			var sourceString = new List<string>();
 			if(!isConnected) return sourceString;
 
 			var scenes = obs.GetSceneList().Scenes;
@@ -686,15 +664,14 @@ e
 		}
 		public List<string> GetTransitions() {
 			if(!isConnected) return new List<string>();
-			//return obs.ListTransitions();
 			return obs.GetTransitionKindList();
 		}
 		public List<string> GetFilters(string source) {
-			List<string> filters = new List<string>();
+			var filters = new List<string>();
 			if(!isConnected) return filters;
 
-			List<FilterSettings> listFilters = obs.GetSourceFilterList(source);
-			foreach(FilterSettings filter in listFilters) {
+			var listFilters = obs.GetSourceFilterList(source);
+			foreach(var filter in listFilters) {
 				filters.Add(filter.Name);
 			}
 			return filters;

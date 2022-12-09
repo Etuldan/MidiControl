@@ -30,7 +30,7 @@ namespace MidiControl
         {
             channel = keybind.Channel;
             note = keybind.NoteNumber;
-            foreach (KeyValuePair<string, MidiOutCustom> entry in MIDIListener.GetInstance().midiOutInterface)
+            foreach (var entry in MIDIListener.GetInstance().midiOutInterface)
             {
 #if DEBUG
                 Debug.WriteLine("MIDIFeedback : Device "+ MidiOut.DeviceInfo(entry.Value.device).ProductName);

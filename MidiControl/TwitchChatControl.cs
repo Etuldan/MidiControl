@@ -26,7 +26,7 @@ namespace MidiControl
             gui = MIDIControlGUI.GetInstance();
             this.config = config;
             this.options = options;
-            this.Connect();
+            Connect();
         }
 
         public static TwitchChatControl GetInstance()
@@ -59,13 +59,13 @@ namespace MidiControl
                 isReady = false;
                 WebServer.RefreshTwitchToken(options);
 
-                ConnectionCredentials credentials = new ConnectionCredentials(options.TwitchLogin, options.TwitchToken);
+                var credentials = new ConnectionCredentials(options.TwitchLogin, options.TwitchToken);
                 var clientOptions = new ClientOptions
                 {
                     MessagesAllowedInPeriod = 750,
                     ThrottlingPeriod = TimeSpan.FromSeconds(30)
                 };
-                WebSocketClient customClient = new WebSocketClient(clientOptions);
+                var customClient = new WebSocketClient(clientOptions);
                 client = new TwitchClient(customClient);
                 client.Initialize(credentials);
 #if DEBUG
@@ -93,7 +93,7 @@ namespace MidiControl
             if (!isReady) return;
 
             bool sent = false;
-            foreach(JoinedChannel chan in client.JoinedChannels)
+            foreach(var chan in client.JoinedChannels)
             {
                 if(chan.Channel == channel)
                 {
@@ -114,7 +114,7 @@ namespace MidiControl
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            foreach (KeyValuePair<string, KeyBindEntry> entry in config)
+            foreach (var entry in config)
             {
                 if (entry.Value.TwitchCallBackON != null)
                 {

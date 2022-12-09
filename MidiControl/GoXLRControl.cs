@@ -75,7 +75,7 @@ namespace MidiControl.Control
             if (!isConnected) return;
 
             Send("Turn Off", input, output);
-            MIDIFeedback feedback = new MIDIFeedback(keybind);
+            var feedback = new MIDIFeedback(keybind);
             feedback.SendOff();
         }
         public void UnMute(string input, string output, KeyBindEntry keybind)
@@ -83,7 +83,7 @@ namespace MidiControl.Control
             if (!isConnected) return;
             
             Send("Turn On", input, output);
-            MIDIFeedback feedback = new MIDIFeedback(keybind);
+            var feedback = new MIDIFeedback(keybind);
             feedback.SendOn();
         }
         public void Toggle(string input, string output, KeyBindEntry keybind)
@@ -91,12 +91,12 @@ namespace MidiControl.Control
             if (!isConnected) return;
             
             Send("Toggle", input, output);
-            MIDIFeedback feedback = new MIDIFeedback(keybind);
+            var feedback = new MIDIFeedback(keybind);
             if (!feedbackToggle.ContainsKey(input + "-" + output))
             {
                 feedbackToggle.Add(input + "-" + output, feedback);
             }
-            foreach (KeyValuePair<string, MIDIFeedback> entry in feedbackToggle)
+            foreach (var entry in feedbackToggle)
             {
                 if (entry.Key == input + "-" + output)
                 {
