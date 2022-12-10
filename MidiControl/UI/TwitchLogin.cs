@@ -22,16 +22,16 @@ namespace MidiControl
         private WebServer server;
         private WebView2 webview;
 
-        public WebViewLoginTwitch(OptionsManagment.Options options)
+        public WebViewLoginTwitch(Options options)
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
             Icon = (System.Drawing.Icon)(resources.GetObject("icon"));
 
-            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string ConfFolder = Path.Combine(folder, "MIDIControl");
-            CoreWebView2EnvironmentOptions optionsWebView = new CoreWebView2EnvironmentOptions();
-            CoreWebView2Environment env = CoreWebView2Environment.CreateAsync("", ConfFolder, optionsWebView).GetAwaiter().GetResult();
+            var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var ConfFolder = Path.Combine(folder, "MIDIControl");
+            var optionsWebView = new CoreWebView2EnvironmentOptions();
+            var env = CoreWebView2Environment.CreateAsync("", ConfFolder, optionsWebView).GetAwaiter().GetResult();
             webview.EnsureCoreWebView2Async(env);
 
             string baseURL = "https://id.twitch.tv/oauth2/authorize?response_type=code";
@@ -57,7 +57,7 @@ namespace MidiControl
                 }));
             }
 
-            Thread thread = new Thread(() =>
+            var thread = new Thread(() =>
             {
                 try
                 {
@@ -149,7 +149,7 @@ namespace MidiControl
             try
             {
                 listener.Start();
-                Task listenTask = HandleIncomingConnections();
+                var listenTask = HandleIncomingConnections();
                 listenTask.GetAwaiter().GetResult();
             }
             catch (HttpListenerException)
@@ -172,10 +172,10 @@ namespace MidiControl
             HttpClient httpclient = new HttpClient();
             Dictionary<string, string> parameters = new Dictionary<string, string> { { "client_id", WebServer.ClientID }, { "client_secret", WebServer.ClientSecret }, { "grant_type", "refresh_token" }, { "refresh_token", options.TwitchRefreshToken } };
             var encodedContent = new FormUrlEncodedContent(parameters);
-            HttpResponseMessage response = httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).Result;
+            var response = httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).Result;
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                string responseBody = response.Content.ReadAsStringAsync().Result;
+                var responseBody = response.Content.ReadAsStringAsync().Result;
                 var _json = JObject.Parse(responseBody);
                 options.TwitchToken = _json["access_token"].ToString();
                 options.TwitchRefreshToken = _json["refresh_token"].ToString();
@@ -184,9 +184,9 @@ namespace MidiControl
 
         public async Task HandleIncomingConnections()
         {
-            HttpListenerContext ctx = await listener.GetContextAsync();
-            HttpListenerRequest req = ctx.Request;
-            HttpListenerResponse resp = ctx.Response;
+            var ctx = await listener.GetContextAsync();
+            var req = ctx.Request;
+            var resp = ctx.Response;
             try
             {
                 string code = GetParameterFromUrl(req.Url.ToString(), "code");
@@ -194,10 +194,10 @@ namespace MidiControl
                 Dictionary<string, string> parameters = new Dictionary<string, string> { { "client_id", WebServer.ClientID }, { "client_secret", ClientSecret }, { "code", code }, { "grant_type", "authorization_code" }, { "redirect_uri", WebServer.URL } };
                 var encodedContent = new FormUrlEncodedContent(parameters);
 
-                HttpResponseMessage response = await httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).ConfigureAwait(false);
+                var response = await httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var responseBody = await response.Content.ReadAsStringAsync();
                     var _json = JObject.Parse(responseBody);
                     OAuthCode = _json["access_token"].ToString();
                     RefreshToken = _json["refresh_token"].ToString();
@@ -216,7 +216,7 @@ namespace MidiControl
             catch (ArgumentOutOfRangeException)
             {
             }
-            byte[] data = Encoding.UTF8.GetBytes("<html></html>");
+            var data = Encoding.UTF8.GetBytes("<html></html>");
             resp.ContentType = "text/html";
             resp.ContentEncoding = Encoding.UTF8;
             resp.ContentLength64 = data.LongLength;

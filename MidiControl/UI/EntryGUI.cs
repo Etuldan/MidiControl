@@ -31,19 +31,18 @@ namespace MidiControl
 
 		private List<Panel> panels;
 		private Size PanelSize = new Size(385, 301);
-		private Size ProperWindowSize = new Size(632, 446);
 		private Point PanelLocation = new Point(218, 60);
 
         private readonly string EntryName;
 
-		private KeyBindEntry previousSettings = null;
-		private List<string> keybindErrors;
+		private readonly KeyBindEntry previousSettings = null;
+		private readonly List<string> keybindErrors;
 
 		public EntryGUI()
         {
-            this.obs = OBSControl.GetInstance();
+            obs = OBSControl.GetInstance();
             conf = Configuration.GetInstance();
-			this.keybindErrors = new List<string>();
+			keybindErrors = new List<string>();
 
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
@@ -54,7 +53,7 @@ namespace MidiControl
 
             midi = MIDIListener.GetInstance();
             midi.DisableListening();
-            foreach (KeyValuePair<string, MidiInCustom> entry in midi.midiInInterface)
+            foreach (var entry in midi.midiInInterface)
             {
                 entry.Value.MessageReceived += MidiIn_MessageReceived;
                 midiDevice.Add(entry.Value);
@@ -68,11 +67,11 @@ namespace MidiControl
 
         public EntryGUI(string name, KeyBindEntry keybind)
         {
-            this.obs = OBSControl.GetInstance();
+            obs = OBSControl.GetInstance();
             conf = Configuration.GetInstance();
-			this.EntryName = name;
-			this.keybindErrors = new List<string>();
-			this.previousSettings = keybind;
+			EntryName = name;
+			keybindErrors = new List<string>();
+			previousSettings = keybind;
 
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
@@ -231,7 +230,7 @@ namespace MidiControl
 
             if (obs.IsEnabled())
             {
-                foreach (OBSCallBack on in keybind.OBSCallBacksON)
+                foreach (var on in keybind.OBSCallBacksON)
                 {
                     switch (on.Action)
                     {
@@ -252,7 +251,7 @@ namespace MidiControl
                             }
                             break;
                         case "mute":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMutePress.Checked = true;
                                 ChkCboBoxMutePress.Enabled = true;
@@ -266,7 +265,7 @@ namespace MidiControl
                             }
                             break;
                         case "unmute":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxUnmutePress.Checked = true;
                                 ChkCboBoxUnmutePress.Enabled = true;
@@ -280,7 +279,7 @@ namespace MidiControl
                             }
                             break;
                         case "togglemute":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxTogglemutePress.Checked = true;
                                 ChkCboBoxToggleMutePress.Enabled = true;
@@ -294,7 +293,7 @@ namespace MidiControl
                             }
                             break;
                         case "hide":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxHideSourcePress.Checked = true;
                                 ChkCboBoxHidePress.Enabled = true;
@@ -308,7 +307,7 @@ namespace MidiControl
                             }
                             break;
                         case "show":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxShowSourcePress.Checked = true;
                                 ChkCboBoxShowPress.Enabled = true;
@@ -322,7 +321,7 @@ namespace MidiControl
                             }
                             break;
                         case "togglehide":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxToggleSourcePress.Checked = true;
                                 ChkCboBoxToggleSourcePress.Enabled = true;
@@ -336,7 +335,7 @@ namespace MidiControl
                             }
                             break;
                         case "transition":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxTransitionPress.Checked = true;
                                 CboBoxTransitionPress.Enabled = true;
@@ -346,7 +345,7 @@ namespace MidiControl
                             }
                             break;
                         case "hidefilter":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxHideFilterPress.Checked = true;
                                 ChkCboBoxHideFilterPress.Enabled = true;
@@ -360,7 +359,7 @@ namespace MidiControl
                             }
                             break;
                         case "showfilter":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxShowFilterPress.Checked = true;
                                 ChkCboBoxShowFilterPress.Enabled = true;
@@ -374,7 +373,7 @@ namespace MidiControl
                             }
                             break;
                         case "togglefilter":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxToggleFilterPress.Checked = true;
                                 ChkCboBoxToggleFilterPress.Enabled = true;
@@ -388,7 +387,7 @@ namespace MidiControl
                             }
                             break;
                         case "mediaplay":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMediaPlayPress.Checked = true;
                                 ChkCboBoxMediaPlayPress.Enabled = true;
@@ -402,7 +401,7 @@ namespace MidiControl
                             }
                             break;
                         case "mediastop":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMediaStopPress.Checked = true;
                                 ChkCboBoxMediaStopPress.Enabled = true;
@@ -416,7 +415,7 @@ namespace MidiControl
                             }
                             break;
                         case "mediarestart":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMediaRestartPress.Checked = true;
                                 ChkCboBoxMediaRestartPress.Enabled = true;
@@ -430,7 +429,7 @@ namespace MidiControl
                             }
                             break;
                         case "hotkey":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxHotkeyPress.Checked = true;
                                 ChkCboBoxHotkeyPress.Enabled = true;
@@ -444,7 +443,7 @@ namespace MidiControl
                             }
                             break;
                         case "misc":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMiscPress.Checked = true;
                                 ChkCboBoxMiscPress.Enabled = true;
@@ -461,7 +460,7 @@ namespace MidiControl
                             break;
                     }
                 }
-                foreach (OBSCallBack on in keybind.OBSCallBacksOFF)
+                foreach (var on in keybind.OBSCallBacksOFF)
                 {
                     switch (on.Action)
                     {
@@ -482,7 +481,7 @@ namespace MidiControl
                             }
                             break;
                         case "mute":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMuteRelease.Checked = true;
                                 ChkCboBoxMuteRelease.Enabled = true;
@@ -496,7 +495,7 @@ namespace MidiControl
                             }
                             break;
                         case "unmute":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxUnmuteRelease.Checked = true;
                                 ChkCboBoxUnmuteRelease.Enabled = true;
@@ -510,7 +509,7 @@ namespace MidiControl
                             }
                             break;
                         case "togglemute":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxTogglemuteRelease.Checked = true;
                                 ChkCboBoxToggleMuteRelease.Enabled = true;
@@ -524,7 +523,7 @@ namespace MidiControl
                             }
                             break;
                         case "hide":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxHideSourceRelease.Checked = true;
                                 ChkCboBoxHideRelease.Enabled = true;
@@ -538,7 +537,7 @@ namespace MidiControl
                             }
                             break;
                         case "show":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxShowSourceRelease.Checked = true;
                                 ChkCboBoxShowRelease.Enabled = true;
@@ -552,7 +551,7 @@ namespace MidiControl
                             }
                             break;
                         case "togglehide":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxToggleSourceRelease.Checked = true;
                                 ChkCboBoxToggleSourceRelease.Enabled = true;
@@ -566,7 +565,7 @@ namespace MidiControl
                             }
                             break;
                         case "transition":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxTransitionRelease.Checked = true;
                                 CboBoxTransitionRelease.Enabled = true;
@@ -576,7 +575,7 @@ namespace MidiControl
                             }
                             break;
                         case "hidefilter":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxHideFilterRelease.Checked = true;
                                 ChkCboBoxHideFilterRelease.Enabled = true;
@@ -590,7 +589,7 @@ namespace MidiControl
                             }
                             break;
                         case "showfilter":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxShowFilterRelease.Checked = true;
                                 ChkCboBoxShowFilterRelease.Enabled = true;
@@ -604,7 +603,7 @@ namespace MidiControl
                             }
                             break;
                         case "togglefilter":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxToggleFilterRelease.Checked = true;
                                 ChkCboBoxToggleFilterRelease.Enabled = true;
@@ -618,7 +617,7 @@ namespace MidiControl
                             }
                             break;
                         case "mediaplay":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMediaPlayRelease.Checked = true;
                                 ChkCboBoxMediaPlayRelease.Enabled = true;
@@ -632,7 +631,7 @@ namespace MidiControl
                             }
                             break;
                         case "mediastop":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMediaStopRelease.Checked = true;
                                 ChkCboBoxMediaStopRelease.Enabled = true;
@@ -646,7 +645,7 @@ namespace MidiControl
                             }
                             break;
                         case "mediarestart":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMediaRestartRelease.Checked = true;
                                 ChkCboBoxMediaRestartRelease.Enabled = true;
@@ -660,7 +659,7 @@ namespace MidiControl
                             }
                             break;
                         case "hotkey":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxHotkeyRelease.Checked = true;
                                 ChkCboBoxHotkeyRelease.Enabled = true;
@@ -674,7 +673,7 @@ namespace MidiControl
                             }
                             break;
                         case "misc":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxMiscRelease.Checked = true;
                                 ChkCboBoxMiscRelease.Enabled = true;
@@ -691,12 +690,12 @@ namespace MidiControl
                             break;
                     }
                 }
-                foreach (OBSCallBack on in keybind.OBSCallBacksSlider)
+                foreach (var on in keybind.OBSCallBacksSlider)
                 {
                     switch (on.Action)
                     {
                         case "volume":
-                            foreach (string arg in on.Args)
+                            foreach (var arg in on.Args)
                             {
                                 ChkBoxAdjustVolume.Checked = true;
                                 ChkCboBoxVolumeSlider.Enabled = true;
@@ -721,8 +720,7 @@ namespace MidiControl
                                 CboBoxFilterNameSlider.Enabled = true;
                                 CboBoxFilterNameSlider.SelectedItem = on.Args[0];
                                 CboBoxFilterSettingSlider.Items.Clear();
-                                List<string> listProperties = obs.GetFilterProperties(on.Args[0]);
-                                foreach (string property in listProperties)
+                                foreach (var property in obs.GetFilterProperties(on.Args[0]))
                                 {
                                     CboBoxFilterSettingSlider.Items.Add(property);
                                 }
@@ -739,7 +737,7 @@ namespace MidiControl
             MIDIDelegate = new MIDIDelegateHandler(UpdateNote);
             midi = MIDIListener.GetInstance();
             midi.DisableListening();
-            foreach (KeyValuePair<string, MidiInCustom> entry in midi.midiInInterface)
+            foreach (var entry in midi.midiInInterface)
             {
                 entry.Value.MessageReceived += MidiIn_MessageReceived;
                 midiDevice.Add(entry.Value);
@@ -778,22 +776,22 @@ namespace MidiControl
 			// finally, theme the window
 			ThemeSupport.ThemeOtherWindow((new OptionsManagment()).options.Theme, this);
 
-			if(this.EntryName == null)
+			if(EntryName == null)
 			{
-				this.Text = "Add MIDI Keybind";
+				Text = "Add MIDI Keybind";
 			}
 		}
 
 		// show the correct section panel when the selected treeview node changes
 		private void ActionCategoryChanged(object sender, TreeNodeMouseClickEventArgs e) {
-			bool root_selected = (e.Node.Name as string).Contains("root");
+			var root_selected = (e.Node.Name as string).Contains("root");
 			foreach(var p in panels)
 			{
 				p.Visible = ((p.Tag as string) == e.Node.Name);
 			}
 			pnlRoot.Visible = root_selected;
 			if(pnlRoot.Visible)
-				this.UpdateSummaryTextbox(this.GetProposedKeybind());
+				UpdateSummaryTextbox(GetProposedKeybind());
 
 			if(root_selected)
 			{
@@ -862,12 +860,12 @@ namespace MidiControl
             CboBoxXLROutputPress.Items.Clear();
             CboBoxXLROutputRelease.Items.Clear();
 
-            foreach (string input in GoXLRControl.inputs)
+            foreach (var input in GoXLRControl.inputs)
             {
                 CboBoxXLRInputPress.Items.Add(input);
                 CboBoxXLRInputRelease.Items.Add(input);
             }
-            foreach (string output in GoXLRControl.outputs)
+            foreach (var output in GoXLRControl.outputs)
             {
                 CboBoxXLROutputPress.Items.Add(output);
                 CboBoxXLROutputRelease.Items.Add(output);
@@ -880,19 +878,19 @@ namespace MidiControl
 
             ChkCboBoxHotkeyPress.Items.Clear();
             ChkCboBoxHotkeyRelease.Items.Clear();
-            foreach (KeyValuePair<string,string> hotkey in obs.Hotkeys)
+            foreach (var hotkey in obs.Hotkeys)
             {
                 ChkCboBoxHotkeyPress.Items.Add(hotkey.Key);
                 ChkCboBoxHotkeyRelease.Items.Add(hotkey.Key);
             }
 
-            List<string> scenes = obs.GetScenes();
+            var scenes = obs.GetScenes();
             CboBoxSwitchScenePress.Items.Clear();
             CboBoxSwitchSceneRelease.Items.Clear();
             CboBoxPreviewScenePress.Items.Clear();
             CboBoxPreviewSceneRelease.Items.Clear();
 
-            foreach (string scene in scenes)
+            foreach (var scene in scenes)
             {
                 CboBoxSwitchScenePress.Items.Add(scene);
                 CboBoxSwitchSceneRelease.Items.Add(scene);
@@ -900,7 +898,7 @@ namespace MidiControl
                 CboBoxPreviewSceneRelease.Items.Add(scene);
             }
 
-            List<string> sources = obs.GetSources();
+            var sources = obs.GetSources();
             ChkCboBoxMutePress.Items.Clear();
             ChkCboBoxUnmutePress.Items.Clear();
             ChkCboBoxHidePress.Items.Clear();
@@ -921,7 +919,7 @@ namespace MidiControl
             ChkCboBoxMediaPlayRelease.Items.Clear();
             ChkCboBoxMediaStopRelease.Items.Clear();
             ChkCboBoxMediaRestartRelease.Items.Clear();
-            foreach (string source in sources)
+            foreach (var source in sources)
             {
                 ChkCboBoxMutePress.Items.Add(source);
                 ChkCboBoxUnmutePress.Items.Add(source);
@@ -944,16 +942,16 @@ namespace MidiControl
                 ChkCboBoxMediaStopRelease.Items.Add(source);
                 ChkCboBoxMediaRestartRelease.Items.Add(source);
             }
-            List<string> transitions = obs.GetTransitions();
+            var transitions = obs.GetTransitions();
             CboBoxTransitionPress.Items.Clear();
             CboBoxTransitionRelease.Items.Clear();
-            foreach (string transition in transitions)
+            foreach (var transition in transitions)
             {
                 CboBoxTransitionPress.Items.Add(transition);
                 CboBoxTransitionRelease.Items.Add(transition);
             }
 
-            List<string> filters = obs.GetFilters();
+            var filters = obs.GetFilters();
             ChkCboBoxShowFilterPress.Items.Clear();
             ChkCboBoxHideFilterPress.Items.Clear();
             ChkCboBoxToggleFilterPress.Items.Clear();
@@ -961,7 +959,7 @@ namespace MidiControl
             ChkCboBoxHideFilterRelease.Items.Clear();
             ChkCboBoxToggleFilterRelease.Items.Clear();
             CboBoxFilterNameSlider.Items.Clear();
-            foreach (string filter in filters)
+            foreach (var filter in filters)
             {
                 ChkCboBoxShowFilterPress.Items.Add(filter);
                 ChkCboBoxHideFilterPress.Items.Add(filter);
@@ -974,29 +972,29 @@ namespace MidiControl
 
             ChkCboBoxMiscPress.Items.Clear();
             ChkCboBoxMiscRelease.Items.Clear();
-            string[] itemValues = new string[] {"Start Stream", "Stop Stream", "Toggle Stream", "Start Record", "Stop Record", "Toggle Record", "Pause Record", "Resume Record" ,"Play/Pause Record", "Save Record", "Transition To Program (Studio)", "Toggle Studio Mode" };
+            var itemValues = new string[] {"Start Stream", "Stop Stream", "Toggle Stream", "Start Record", "Stop Record", "Toggle Record", "Pause Record", "Resume Record" ,"Play/Pause Record", "Save Record", "Transition To Program (Studio)", "Toggle Studio Mode" };
             ChkCboBoxMiscPress.Items.AddRange(itemValues);
             ChkCboBoxMiscRelease.Items.AddRange(itemValues);
 
-            for (int i = 0; i < WaveOut.DeviceCount; i++)
+            for (var i = 0; i < WaveOut.DeviceCount; i++)
             {
-                WaveOutCapabilities WOC = WaveOut.GetCapabilities(i);
+                var WOC = WaveOut.GetCapabilities(i);
                 CboBoxAudioDevice.Items.Add(WOC.ProductName);
             }
         }
 
         private void EntryGUI_FormClosing(Object sender, FormClosingEventArgs e)
         {
-            foreach (MidiInCustom midi in midiDevice)
+            foreach (var midi in midiDevice)
             {
                 midi.MessageReceived -= MidiIn_MessageReceived;
             }
         }
 				
 		private KeyBindEntry GetProposedKeybind() {
-			this.keybindErrors.Clear();
+			keybindErrors.Clear();
 
-			KeyBindEntry key = new KeyBindEntry {
+			var key = new KeyBindEntry {
 				Mididevice = Device,
 				NoteNumber = Note,
 				Channel = Channel,
@@ -1004,408 +1002,377 @@ namespace MidiControl
 			};
 
 			if(ChkBoxTransitionPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "transition"
 				};
 				if((string)CboBoxTransitionPress.SelectedItem == null)
-					this.keybindErrors.Add("No scene selected for OBS (on) - Transition");
+					keybindErrors.Add("No scene selected for OBS (on) - Transition");
 				callback.Args.Add((string)CboBoxTransitionPress.SelectedItem);
 				callback.Args.Add(NumericTransitionPress.Value.ToString());
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxSwitchScenePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "switchScene"
 				};
 				if((string)CboBoxSwitchScenePress.SelectedItem == null)
-					this.keybindErrors.Add("No scene selected for OBS (on) - Switch Scene"); ;
+					keybindErrors.Add("No scene selected for OBS (on) - Switch Scene"); ;
 				callback.Args.Add((string)CboBoxSwitchScenePress.SelectedItem);
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxPreviewScenePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "previewScene"
 				};
 				if((string)CboBoxPreviewScenePress.SelectedItem == null)
-					this.keybindErrors.Add("No scene selected for OBS (on) - Preview Scene"); ;
+					keybindErrors.Add("No scene selected for OBS (on) - Preview Scene"); ;
 				callback.Args.Add((string)CboBoxPreviewScenePress.SelectedItem);
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMutePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mute"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMutePress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMutePress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxUnmutePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "unmute"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxUnmutePress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxUnmutePress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxHideSourcePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "hide"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxHidePress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxHidePress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxShowSourcePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "show"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxShowPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxShowPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxToggleSourcePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "togglehide"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleSourcePress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxToggleSourcePress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxTogglemutePress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "togglemute"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleMutePress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxToggleMutePress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxHideFilterPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "hidefilter"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxHideFilterPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxHideFilterPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxShowFilterPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "showfilter"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxShowFilterPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxShowFilterPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxToggleFilterPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "togglefilter"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleFilterPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxToggleFilterPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMediaPlayPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mediaplay"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaPlayPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMediaPlayPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMediaStopPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mediastop"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaStopPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMediaStopPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMediaRestartPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mediarestart"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaRestartPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMediaRestartPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxHotkeyPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "hotkey"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxHotkeyPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxHotkeyPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMiscPress.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "misc"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMiscPress.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMiscPress.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
-
-
 			if(ChkBoxTransitionRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "transition"
 				};
 				if((string)CboBoxTransitionRelease.SelectedItem == null)
-					this.keybindErrors.Add("No scene selected for OBS (off) - Transition"); ;
+					keybindErrors.Add("No scene selected for OBS (off) - Transition"); ;
 				callback.Args.Add((string)CboBoxTransitionRelease.SelectedItem);
 				callback.Args.Add(NumericTransitionRelease.Value.ToString());
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxSwitchSceneRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "switchScene"
 				};
 				if((string)CboBoxSwitchSceneRelease.SelectedItem == null)
-					this.keybindErrors.Add("No scene selected for OBS (off) - Switch Scene"); ;
+					keybindErrors.Add("No scene selected for OBS (off) - Switch Scene"); ;
 				callback.Args.Add((string)CboBoxSwitchSceneRelease.SelectedItem);
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxPreviewSceneRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "previewScene"
 				};
 				if((string)CboBoxPreviewSceneRelease.SelectedItem == null)
-					this.keybindErrors.Add("No scene selected for OBS (off) - Preview Scene"); ;
+					keybindErrors.Add("No scene selected for OBS (off) - Preview Scene"); ;
 				callback.Args.Add((string)CboBoxPreviewSceneRelease.SelectedItem);
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMuteRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mute"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMuteRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMuteRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxUnmuteRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "unmute"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxUnmuteRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxUnmuteRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxHideSourceRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "hide"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxHideRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxHideRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxShowSourceRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "show"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxShowRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxShowRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxToggleSourceRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "togglehide"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleSourceRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxToggleSourceRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxTogglemuteRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "togglemute"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleMuteRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxToggleMuteRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxHideFilterRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "hidefilter"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxHideFilterRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxHideFilterRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxShowFilterRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "showfilter"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxShowFilterRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxShowFilterRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxToggleFilterRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "togglefilter"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxToggleFilterRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxToggleFilterRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxMediaPlayRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mediaplay"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaPlayRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMediaPlayRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMediaStopRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mediastop"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaStopRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMediaStopRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxMediaRestartRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "mediarestart"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMediaRestartRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMediaRestartRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksON.Add(callback);
 			}
 			if(ChkBoxHotkeyRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "hotkey"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxHotkeyRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxHotkeyRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 			if(ChkBoxMiscRelease.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "misc"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxMiscRelease.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxMiscRelease.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksOFF.Add(callback);
 			}
 
 			if(ChkBoxAdjustVolume.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "volume"
 				};
-				CheckedListBox.CheckedItemCollection items = ChkCboBoxVolumeSlider.CheckedItems;
-				foreach(object item in items) {
+				foreach(var item in ChkCboBoxVolumeSlider.CheckedItems) {
 					callback.Args.Add(item.ToString());
 				}
 				key.OBSCallBacksSlider.Add(callback);
 			}
 			if(ChkBoxAdjustTransitionDuration.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Action = "transition"
 				};
 				key.OBSCallBacksSlider.Add(callback);
 			}
 			if(ChkBoxSlideTransition.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Action = "transitionSlider"
 				};
 				key.OBSCallBacksSlider.Add(callback);
 			}
 			if(ChkBoxAdjustFilter.Checked) {
-				OBSCallBack callback = new OBSCallBack {
+				var callback = new OBSCallBack {
 					Args = new List<string>(),
 					Action = "filterSettings"
 				};
 				if((string)CboBoxFilterNameSlider.SelectedItem == null)
-					this.keybindErrors.Add("No filter selected for OBS (adjust) - Filter slider"); ;
+					keybindErrors.Add("No filter selected for OBS (adjust) - Filter slider"); ;
 				callback.Args.Add((string)CboBoxFilterNameSlider.SelectedItem);
 				callback.Args.Add((string)CboBoxFilterSettingSlider.SelectedItem);
 				key.OBSCallBacksSlider.Add(callback);
@@ -1526,22 +1493,22 @@ namespace MidiControl
 
 		private void UpdateSummaryTextbox(KeyBindEntry proposed) {
 			txtKeybindSummary.Text = "";
-			if(this.previousSettings != null) {
+			if(previousSettings != null) {
 				txtKeybindSummary.Text += "Current keybind settings:\r\n";
-				foreach(var s in this.previousSettings.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries))
+				foreach(var s in previousSettings.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries))
 					 txtKeybindSummary.Text += "- " + s + "\r\n";
 				txtKeybindSummary.Text += "\r\n";
 			}
-			if(this.keybindErrors.Count > 0) {
+			if(keybindErrors.Count > 0) {
 				txtKeybindSummary.Visible = true;
 
 				txtKeybindSummary.Text += "The following issues with the proposed settings were detected:\r\n";
-				foreach(var s in this.keybindErrors) {
+				foreach(var s in keybindErrors) {
 					txtKeybindSummary.Text += "- " + s + "\r\n";
 				}
 			} else {
 				txtKeybindSummary.Text += "Proposed keybind settings:\r\n";
-				string[] proposedChanges = proposed.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries);
+				var proposedChanges = proposed.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries);
 				if(proposedChanges.Length > 0) {
 					txtKeybindSummary.Visible = true;
 					foreach(var s in proposedChanges)
@@ -1555,8 +1522,8 @@ namespace MidiControl
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-			KeyBindEntry key = this.GetProposedKeybind();
-			if(this.keybindErrors.Count > 0) {
+			var key = GetProposedKeybind();
+			if(keybindErrors.Count > 0) {
 				// invalid settings
 				MessageBox.Show("One or more invalid settings was detected.  Please check your selections and try again.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -1570,7 +1537,7 @@ namespace MidiControl
 				return;
 			}
 
-			if(key.Summarize().Trim() == "") {
+			if(GetProposedKeybind().Summarize().Trim() == "") {
 				// nothing selected
 				MessageBox.Show("You haven't selected any actions for this keybind.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
@@ -1583,7 +1550,7 @@ namespace MidiControl
 			}
             
 
-            if (this.EntryName == null) // New
+            if (EntryName == null) // New
             {
 				// make sure the proposed name isn't already taken
 				if(conf.Config.ContainsKey(TxtBoxName.Text)) {
@@ -1602,7 +1569,7 @@ namespace MidiControl
 				}
                 else // Name Modified
                 {
-                    conf.Config.Remove(this.EntryName);
+                    conf.Config.Remove(EntryName);
                     conf.Config.Add(TxtBoxName.Text, key);
                 }
             }
@@ -1611,19 +1578,19 @@ namespace MidiControl
 
 			DialogResult = DialogResult.OK;
 
-            this.Close();
-            this.Dispose();
+            Close();
+            Dispose();
         }
 
         private void ChkBox_State(object sender, EventArgs e)
         {
-            foreach (KeyValuePair<string, string[]> items in CheckToCombo)
+            foreach (var items in CheckToCombo)
             {
-                foreach (string item in items.Value)
+                foreach (var item in items.Value)
                 {
                     if (((CheckBox)sender).Name == items.Key)
                     {
-                        this.Controls.Find(item, true).First().Enabled = ((CheckBox)sender).Checked;
+                        Controls.Find(item, true).First().Enabled = ((CheckBox)sender).Checked;
                     }
                 }
             }
@@ -1637,13 +1604,13 @@ namespace MidiControl
 #endif
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
             {
-                int device = ((MidiInCustom)sender).device;
+                var device = ((MidiInCustom)sender).device;
                 Device = MidiIn.DeviceInfo(device).ProductName;
                 Channel = ((NoteEvent)e.MidiEvent).Channel;
                 Note = ((NoteEvent)e.MidiEvent).NoteNumber;
                 Input = Event.Note;
 
-                this.Invoke(this.MIDIDelegate, new object[] {
+                Invoke(MIDIDelegate, new object[] {
                     Note.ToString(),
                     Device,
                     Channel.ToString()
@@ -1651,13 +1618,13 @@ namespace MidiControl
             }
             else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
             {
-                int device = ((MidiInCustom)sender).device;
+                var device = ((MidiInCustom)sender).device;
                 Device = MidiIn.DeviceInfo(device).ProductName;
                 Channel = ((ControlChangeEvent)e.MidiEvent).Channel;
                 Note = (int)((ControlChangeEvent)e.MidiEvent).Controller;
                 Input = Event.Slider;
 
-                this.Invoke(this.MIDIDelegate, new object[] {
+                Invoke(MIDIDelegate, new object[] {
                     Note.ToString(),
                     Device,
                     Channel.ToString()
@@ -1701,11 +1668,11 @@ namespace MidiControl
 
         private void CboBoxFilterNameSlider_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            string filterName = (string)CboBoxFilterNameSlider.SelectedItem;
+            var filterName = (string)CboBoxFilterNameSlider.SelectedItem;
             CboBoxFilterSettingSlider.Items.Clear();
-            List<string> listProperties = obs.GetFilterProperties(filterName);
+            var listProperties = obs.GetFilterProperties(filterName);
             CboBoxFilterSettingSlider.Items.Add("");
-            foreach (string property in listProperties)
+            foreach (var property in listProperties)
             {
                 CboBoxFilterSettingSlider.Items.Add(property);
             }
@@ -1714,8 +1681,8 @@ namespace MidiControl
 
 		private void CancelPressed(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.Cancel;
-			this.Close();
+			DialogResult = DialogResult.Cancel;
+			Close();
 		}
 	}
 }
