@@ -26,7 +26,7 @@ namespace MidiControl
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            Icon = (System.Drawing.Icon)(resources.GetObject("icon"));
 
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string ConfFolder = Path.Combine(folder, "MIDIControl");
