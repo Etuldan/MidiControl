@@ -40,9 +40,9 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: ["master"]
+    branches: ["obs-ws5.0"]
   pull_request:
-    branches: ["master"]
+    branches: ["obs-ws5.0"]
 
 jobs:
   build:
