@@ -38,9 +38,9 @@ namespace MidiControl
             var uriBuilder = new UriBuilder("https://id.twitch.tv/oauth2/authorize?");
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query.Add("response_type", "code");
-            query.Add("client_id", ConfigurationManager.AppSettings["Twitch.ClientId"]);
-            query.Add("redirect_uri", ConfigurationManager.AppSettings["Twitch.LocalUrl"]);
-            query.Add("scope", ConfigurationManager.AppSettings["Twitch.Scope"]);
+            query.Add("client_id", ConfigurationManager.AppSettings["TwitchClientId"]);
+            query.Add("redirect_uri", ConfigurationManager.AppSettings["TwitchLocalUrl"]);
+            query.Add("scope", ConfigurationManager.AppSettings["TwitchScope"]);
             query.Add("state", "c3ab8aa609ea11e793ae92361f002671");
             uriBuilder.Query = query.ToString();
             webview.Source = uriBuilder.Uri;
@@ -123,7 +123,7 @@ namespace MidiControl
         {
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(ConfigurationManager.AppSettings["Twitch.LocalUrl"]);
+                var request = (HttpWebRequest)WebRequest.Create(ConfigurationManager.AppSettings["TwitchLocalUrl"]);
                 request.AutomaticDecompression = DecompressionMethods.GZip;
                 request.GetResponse();
             }
@@ -144,7 +144,7 @@ namespace MidiControl
         public WebServer()
         {
             listener = new HttpListener();
-            listener.Prefixes.Add(ConfigurationManager.AppSettings["Twitch.LocalUrl"]);
+            listener.Prefixes.Add(ConfigurationManager.AppSettings["TwitchLocalUrl"]);
             try
             {
                 listener.Start();
@@ -170,8 +170,8 @@ namespace MidiControl
         {
             var httpclient = new HttpClient();
             var parameters = new Dictionary<string, string> { 
-                { "client_id", ConfigurationManager.AppSettings["Twitch.ClientId"] }, 
-                { "client_secret", ConfigurationManager.AppSettings["Twitch.ClientSecret"] }, 
+                { "client_id", ConfigurationManager.AppSettings["TwitchClientId"] }, 
+                { "client_secret", ConfigurationManager.AppSettings["TwitchClientSecret"] }, 
                 { "grant_type", "refresh_token" }, 
                 { "refresh_token", options.TwitchRefreshToken }
             };
@@ -196,11 +196,11 @@ namespace MidiControl
                 var code = GetParameterFromUrl(req.Url.ToString(), "code");
                 var httpclient = new HttpClient();
                 var parameters = new Dictionary<string, string> { 
-                    { "client_id", ConfigurationManager.AppSettings["Twitch.ClientId"] }, 
-                    { "client_secret", ConfigurationManager.AppSettings["Twitch.ClientSecret"] }, 
+                    { "client_id", ConfigurationManager.AppSettings["TwitchClientId"] }, 
+                    { "client_secret", ConfigurationManager.AppSettings["TwitchClientSecret"] }, 
                     { "code", code }, 
                     { "grant_type", "authorization_code" }, 
-                    { "redirect_uri", ConfigurationManager.AppSettings["Twitch.LocalUrl"] } };
+                    { "redirect_uri", ConfigurationManager.AppSettings["TwitchLocalUrl"] } };
                 var encodedContent = new FormUrlEncodedContent(parameters);
 
                 var response = await httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).ConfigureAwait(false);

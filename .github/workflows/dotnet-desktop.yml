@@ -79,8 +79,8 @@ jobs:
         with:
           files: "./MidiControl/App.config"
         env:
-          Twitch.ClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
-          Twitch.ClientId: ${{ secrets.TWITCH_CLIENTID }}
+          TwitchClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
+          TwitchClientId: ${{ secrets.TWITCH_CLIENTID }}
 
       - name: Build app for Release
         run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
