@@ -185,7 +185,7 @@
 			this.saveCurrentProfileAsDefaultToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
             this.saveCurrentProfileAsDefaultToolStripMenuItem.Tag = "#STATIC_PROFILE_MENU_ITEM#";
             this.saveCurrentProfileAsDefaultToolStripMenuItem.Text = "Save current profile as default";
-            this.saveCurrentProfileAsDefaultToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentProfileAsDefaultToolStripMenuItem_Click);
+            this.saveCurrentProfileAsDefaultToolStripMenuItem.Click += new System.EventHandler(this.SaveCurrentProfileAsDefaultToolStripMenuItem_Click);
             // 
             // deleteCurrentProfileToolStripMenuItem
             // 

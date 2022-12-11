@@ -19,7 +19,7 @@ namespace MidiControl {
 		private bool actuallyClosing = false;
 		private bool windowWasShown = false;
 
-		private string NIControllerEditorEXEPath = @"C:\Program Files\Native Instruments\Controller Editor\Controller Editor.exe";
+		private readonly string NIControllerEditorEXEPath = @"C:\Program Files\Native Instruments\Controller Editor\Controller Editor.exe";
 
 		private const string STATIC_PROFILEMENU_TAG = "#STATIC_PROFILE_MENU_ITEM#";
 
@@ -115,12 +115,9 @@ namespace MidiControl {
 			BackColor = mcTheme.WindowBackColor;
 
             toolStrip1.Renderer = new ThemeSupport.MidiControlThemeRenderer(mcTheme);
-            //toolStrip1.Renderer = new ToolStripProfessionalRenderer(mcTheme);
             statusBar.Renderer = new ToolStripProfessionalRenderer(mcTheme);
             trayMenuStrip.Renderer = new ThemeSupport.MidiControlThemeRenderer(mcTheme);
-            //trayMenuStrip.Renderer = new ToolStripProfessionalRenderer(mcTheme);
             itemContextMenu.Renderer = new ThemeSupport.MidiControlThemeRenderer(mcTheme);
-            //itemContextMenu.Renderer = new ToolStripProfessionalRenderer(mcTheme);
 
             statusBar.SizingGrip = mcTheme.ShowStatusBarGrip;
 
@@ -444,9 +441,6 @@ namespace MidiControl {
 
 			if(doLoad)
 				conf.LoadProfile(profile);
-
-            //if(tag == "tray")
-            //    trayIcon.ShowBalloonTip(500, "MIDIControl", "The current profile is now '" + profile + "'.", ToolTipIcon.Info);
 		}
 
 		public void ReloadEntries() {
@@ -573,7 +567,7 @@ namespace MidiControl {
 			RefreshWindowTitle();
 		}
 
-		private void saveCurrentProfileAsDefaultToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void SaveCurrentProfileAsDefaultToolStripMenuItem_Click(object sender, EventArgs e) {
 			conf.SaveCurrentProfileAs("Default");
 			ReloadProfilesList();
 			RefreshWindowTitle();
