@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MidiControl.OptionsManagment;
+using System.Web;
 
 namespace MidiControl
 {
@@ -34,13 +35,16 @@ namespace MidiControl
             var env = CoreWebView2Environment.CreateAsync("", ConfFolder, optionsWebView).GetAwaiter().GetResult();
             webview.EnsureCoreWebView2Async(env);
 
-            string baseURL = "https://id.twitch.tv/oauth2/authorize?response_type=code";
-            string clientId = "client_id=" + WebServer.ClientID;
-            string redirectUri = "redirect_uri=" + WebServer.URL;
-            string scope = "scope=chat:read chat:edit channel:moderate whispers:read whispers:edit";
-            string state = "state=c3ab8aa609ea11e793ae92361f002671";
-            this.webview.Source = new System.Uri(baseURL + "&" + clientId + "&" + redirectUri + "&" + scope + "&" + state, System.UriKind.Absolute);
-            this.FormClosed += WebView_FormClosing;
+            var uriBuilder = new UriBuilder("https://id.twitch.tv/oauth2/authorize?");
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query.Add("response_type", "code");
+            query.Add("client_id", ConfigurationManager.AppSettings["Twitch.ClientId"]);
+            query.Add("redirect_uri", ConfigurationManager.AppSettings["Twitch.LocalUrl"]);
+            query.Add("scope", ConfigurationManager.AppSettings["Twitch.Scope"]);
+            query.Add("state", "c3ab8aa609ea11e793ae92361f002671");
+            uriBuilder.Query = query.ToString();
+            webview.Source = uriBuilder.Uri;
+            FormClosed += WebView_FormClosing;
 
             void onCompleted()
             {
@@ -52,8 +56,8 @@ namespace MidiControl
                         options.TwitchToken = server.OAuthCode;
                         options.TwitchRefreshToken = server.RefreshToken;
                     }
-                    this.Close();
-                    this.Dispose();
+                    Close();
+                    Dispose();
                 }));
             }
 
@@ -82,36 +86,36 @@ namespace MidiControl
 
         private void InitializeComponent()
         {
-            this.webview = new Microsoft.Web.WebView2.WinForms.WebView2();
-            ((System.ComponentModel.ISupportInitialize)(this.webview)).BeginInit();
-            this.SuspendLayout();
+            webview = new Microsoft.Web.WebView2.WinForms.WebView2();
+            ((System.ComponentModel.ISupportInitialize)(webview)).BeginInit();
+            SuspendLayout();
             // 
             // webview
             // 
-            this.webview.CreationProperties = null;
-            this.webview.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webview.Location = new System.Drawing.Point(0, 0);
-            this.webview.Margin = new System.Windows.Forms.Padding(0);
-            this.webview.Name = "webview";
-            this.webview.Size = new System.Drawing.Size(500, 750);
-            this.webview.TabIndex = 0;
-            this.webview.ZoomFactor = 1D;
+            webview.CreationProperties = null;
+            webview.DefaultBackgroundColor = System.Drawing.Color.White;
+            webview.Location = new System.Drawing.Point(0, 0);
+            webview.Margin = new System.Windows.Forms.Padding(0);
+            webview.Name = "webview";
+            webview.Size = new System.Drawing.Size(500, 750);
+            webview.TabIndex = 0;
+            webview.ZoomFactor = 1D;
             // 
             // WebViewLoginTwitch
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 750);
-            this.Controls.Add(this.webview);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(500, 750);
-            this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(500, 750);
-            this.Name = "WebViewLoginTwitch";
-            this.Text = "Twitch Chat Login";
-            this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.webview)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(500, 750);
+            Controls.Add(webview);
+            MaximizeBox = false;
+            MaximumSize = new System.Drawing.Size(500, 750);
+            MinimizeBox = false;
+            MinimumSize = new System.Drawing.Size(500, 750);
+            Name = "WebViewLoginTwitch";
+            Text = "Twitch Chat Login";
+            TopMost = true;
+            ((System.ComponentModel.ISupportInitialize)(webview)).EndInit();
+            ResumeLayout(false);
 
         }
 
@@ -119,33 +123,28 @@ namespace MidiControl
         {
             try
             {
-                string url = WebServer.URL + "/";
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                var request = (HttpWebRequest)WebRequest.Create(ConfigurationManager.AppSettings["Twitch.LocalUrl"]);
                 request.AutomaticDecompression = DecompressionMethods.GZip;
                 request.GetResponse();
             }
             catch (WebException)
             {
             }
-            this.Close();
-            this.Dispose();
+            Close();
+            Dispose();
         }
     }
 
     class WebServer
     {
         public HttpListener listener;
-        public readonly static string URL = "http://localhost:65432";
-        public readonly static string ClientID = ConfigurationManager.AppSettings["Twitch.ClientId"];
-        private static readonly string ClientSecret = ConfigurationManager.AppSettings["Twitch.ClientSecret"];
         public string OAuthCode = string.Empty;
         public string RefreshToken = string.Empty;
         public string Login = string.Empty;
         public WebServer()
         {
             listener = new HttpListener();
-            string url = WebServer.URL + "/";
-            listener.Prefixes.Add(url);
+            listener.Prefixes.Add(ConfigurationManager.AppSettings["Twitch.LocalUrl"]);
             try
             {
                 listener.Start();
@@ -169,8 +168,13 @@ namespace MidiControl
 
         public static void RefreshTwitchToken(Options options)
         {
-            HttpClient httpclient = new HttpClient();
-            Dictionary<string, string> parameters = new Dictionary<string, string> { { "client_id", WebServer.ClientID }, { "client_secret", WebServer.ClientSecret }, { "grant_type", "refresh_token" }, { "refresh_token", options.TwitchRefreshToken } };
+            var httpclient = new HttpClient();
+            var parameters = new Dictionary<string, string> { 
+                { "client_id", ConfigurationManager.AppSettings["Twitch.ClientId"] }, 
+                { "client_secret", ConfigurationManager.AppSettings["Twitch.ClientSecret"] }, 
+                { "grant_type", "refresh_token" }, 
+                { "refresh_token", options.TwitchRefreshToken }
+            };
             var encodedContent = new FormUrlEncodedContent(parameters);
             var response = httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).Result;
             if (response.StatusCode == HttpStatusCode.OK)
@@ -189,9 +193,14 @@ namespace MidiControl
             var resp = ctx.Response;
             try
             {
-                string code = GetParameterFromUrl(req.Url.ToString(), "code");
-                HttpClient httpclient = new HttpClient();
-                Dictionary<string, string> parameters = new Dictionary<string, string> { { "client_id", WebServer.ClientID }, { "client_secret", ClientSecret }, { "code", code }, { "grant_type", "authorization_code" }, { "redirect_uri", WebServer.URL } };
+                var code = GetParameterFromUrl(req.Url.ToString(), "code");
+                var httpclient = new HttpClient();
+                var parameters = new Dictionary<string, string> { 
+                    { "client_id", ConfigurationManager.AppSettings["Twitch.ClientId"] }, 
+                    { "client_secret", ConfigurationManager.AppSettings["Twitch.ClientSecret"] }, 
+                    { "code", code }, 
+                    { "grant_type", "authorization_code" }, 
+                    { "redirect_uri", ConfigurationManager.AppSettings["Twitch.LocalUrl"] } };
                 var encodedContent = new FormUrlEncodedContent(parameters);
 
                 var response = await httpclient.PostAsync("https://id.twitch.tv/oauth2/token", encodedContent).ConfigureAwait(false);
