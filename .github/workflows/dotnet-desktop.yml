@@ -76,8 +76,8 @@ jobs:
         
       - name: Replace Secrets
         run: |-
-          sed -i "s/TWITCH_CLIENTSECRET/${{secrets.TWITCH_CLIENTSECRET}}/g" "./MidiControl/App.config" |
-          sed -i "s/TWITCH_CLIENTID/${{secrets.TWITCH_CLIENTID}}/g" "./MidiControl/App.config" |
+          sed -i "s/TWITCH_CLIENTSECRET/${{secrets.TWITCH_CLIENTSECRET}}/g" "MidiControl\\App.config" |
+          sed -i "s/TWITCH_CLIENTID/${{secrets.TWITCH_CLIENTID}}/g" ".MidiControl\\App.config" |
 
       - name: Build app for Release
         run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
