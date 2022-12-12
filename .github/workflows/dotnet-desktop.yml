@@ -73,14 +73,11 @@ jobs:
 
       - name: Restore NuGet Packages
         run: nuget restore $env:Solution_Name
-
+        
       - name: Replace Secrets
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: "./MidiControl/App.config"
-        env:
-          TwitchClientSecret: ${{ secrets.TWITCH_CLIENTSECRET }}
-          TwitchClientId: ${{ secrets.TWITCH_CLIENTID }}
+        run: |-
+          sed -i "s/TWITCH_CLIENTSECRET/${{secrets.TWITCH_CLIENTSECRET}}/g" "./MidiControl/App.config" |
+          sed -i "s/TWITCH_CLIENTID/${{secrets.TWITCH_CLIENTID}}/g" "./MidiControl/App.config" |
 
       - name: Build app for Release
         run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
