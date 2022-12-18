@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Fleck;
 
 namespace MidiControl.Control
@@ -62,9 +61,9 @@ namespace MidiControl.Control
             if (!isConnected)
                 return;
 
-            action = JsonSerializer.Serialize(action);
-            input = JsonSerializer.Serialize(input);
-            output = JsonSerializer.Serialize(output);
+            action = JsonConvert.SerializeObject(action);
+            input = JsonConvert.SerializeObject(input);
+            output = JsonConvert.SerializeObject(output);
 
             var json = $"{{\"action\":\"com.tchelicon.goxlr.routingtable\",\"event\":\"keyUp\",\"payload\":{{\"settings\":{{\"RoutingAction\":{action},\"RoutingInput\":{input},\"RoutingOutput\":{output}}}}}}}";
             socket.Send(json);
