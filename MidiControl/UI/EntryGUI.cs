@@ -3,9 +3,6 @@ using NAudio.Midi;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
-#if DEBUG
-using System.Diagnostics;
-#endif
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
@@ -1599,9 +1596,6 @@ namespace MidiControl
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
             // TODO: whatever bugfix is done in MIDIListener re: disconnecting/changing connected devices, may need to be done here as well
-#if DEBUG
-            Debug.WriteLine("Setting : MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-#endif
             if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn)
             {
                 var device = ((MidiInCustom)sender).device;

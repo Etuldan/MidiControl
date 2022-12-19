@@ -2,10 +2,6 @@
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
-#if DEBUG
-using System.Diagnostics;
-#endif
-
 namespace MidiControl {
 	class ThemeSupport {
         // order of themes to list in the options menu

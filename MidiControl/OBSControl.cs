@@ -3,9 +3,6 @@ using OBSWebsocketDotNet;
 using OBSWebsocketDotNet.Types;
 using System;
 using System.Collections.Generic;
-#if DEBUG
-using System.Diagnostics;
-#endif
 using System.Linq;
 using System.Timers;
 using Microsoft.VisualBasic.FileIO;
@@ -101,9 +98,6 @@ namespace MidiControl {
 							// handle connection failed here
 							//System.Windows.Forms.MessageBox.Show()
 						});
-#if DEBUG
-						Debug.WriteLine("Obs_Connected(): error - " + e.Message + "\n" + e.StackTrace);
-#endif
 					}
 				});
 
@@ -136,9 +130,6 @@ namespace MidiControl {
 				});
 				isConnected = false;
 				timer.Enabled = true;
-#if DEBUG
-				Debug.WriteLine($"OBS Connection failed: CloseCode: {e.ObsCloseCode}, Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription}, Exception:{e.WebsocketDisconnectionInfo?.Exception?.Message}\nType: {e.WebsocketDisconnectionInfo.Type}");
-#endif
 			}));
 		}
 		public bool IsEnabled() {
@@ -158,9 +149,6 @@ namespace MidiControl {
 
 		public void DoAction(KeyBindEntry keybind, string action, List<string> args) {
 			if(!isConnected) return;
-#if DEBUG
-			Debug.WriteLine("OBSControl : DoAction");
-#endif
 			var feedback = new MIDIFeedback(keybind);
 			try {
 				switch(action) {
@@ -331,14 +319,7 @@ namespace MidiControl {
 						}
 						break;
 				}
-			} catch(ErrorResponseException
-#if DEBUG
-e
-#endif
-			) {
-#if DEBUG
-				Debug.WriteLine("OBSControl : ErrorResponseException " + e);
-#endif
+			} catch(ErrorResponseException) {
 			}
 		}
 		public void DoAction(KeyBindEntry _, string action, List<string> args, float value) {
