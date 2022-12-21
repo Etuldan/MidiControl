@@ -1,9 +1,6 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
-#if DEBUG
-using System.Diagnostics;
-#endif
 using System.Runtime.InteropServices;
 
 namespace MidiControl
@@ -93,9 +90,6 @@ namespace MidiControl
         {
             try
             {
-#if DEBUG
-                Debug.WriteLine("AudioControl : play");
-#endif
                 var feedback = new MIDIFeedback(keybind);
                 var waveReader = new MediaFoundationReader(File);
                 var loop = new LoopStream(waveReader)
@@ -113,15 +107,9 @@ namespace MidiControl
 
                 void PlaybackStopped(object sender, EventArgs e, KeyBindEntry bind)
                 {
-#if DEBUG
-                    Debug.WriteLine("AudioControl : Stop");
-#endif
                     WaveOuts.Remove(bind);
                     var feedbackOff = new MIDIFeedback(bind); ;
                     feedbackOff.SendOff();
-#if DEBUG
-                    Debug.WriteLine("AudioControl : StopEnd");
-#endif
                 }
                 waveOut.PlaybackStopped += (sender, e) => PlaybackStopped(sender, e, keybind);
                 waveOut.DeviceNumber = Device;
@@ -137,30 +125,15 @@ namespace MidiControl
                 {
                     WaveOuts[keybind].Add(waveOut);
                 }
-#if DEBUG
-                Debug.WriteLine("AudioControl : playEnd");
-#endif
 
             }
-            catch (COMException
-#if DEBUG
-e
-#endif
-            )
+            catch (COMException)
             {
-#if DEBUG
-                Debug.WriteLine("AudioControl : COMException" + e);
-#endif
+
             }
-            catch (ArgumentException
-#if DEBUG
-e
-#endif
-            )
+            catch (ArgumentException)
             {
-#if DEBUG
-                Debug.WriteLine("AudioControl : ArgumentException" + e);
-#endif
+
             }
         }
 

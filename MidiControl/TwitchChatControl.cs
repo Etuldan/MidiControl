@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-#if DEBUG
-using System.Diagnostics;
-#endif
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -68,9 +65,6 @@ namespace MidiControl
                 var customClient = new WebSocketClient(clientOptions);
                 client = new TwitchClient(customClient);
                 client.Initialize(credentials);
-#if DEBUG
-                client.OnLog += Client_OnLog;
-#endif
                 client.OnConnected += Client_OnConnected;
                 client.OnDisconnected += Client_OnDisconnected;
                 client.Connect();
@@ -80,13 +74,6 @@ namespace MidiControl
 
             }
         }
-
-#if DEBUG
-        private void Client_OnLog(object sender, OnLogArgs e)
-        {
-            Debug.WriteLine($"{e.DateTime}: {e.BotUsername} - {e.Data}");
-        }
-#endif
 
         public void SendMessage(string channel, string message)
         {
