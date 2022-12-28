@@ -1,8 +1,5 @@
 ﻿using NAudio.Midi;
 using System.Collections.Generic;
-#if DEBUG
-using System.Diagnostics;
-#endif
 
 namespace MidiControl
 {
@@ -32,10 +29,6 @@ namespace MidiControl
             note = keybind.NoteNumber;
             foreach (var entry in MIDIListener.GetInstance().midiOutInterface)
             {
-#if DEBUG
-                Debug.WriteLine("MIDIFeedback : Device "+ MidiOut.DeviceInfo(entry.Value.device).ProductName);
-                Debug.WriteLine("MIDIFeedback : Device " + keybind.Mididevice);
-#endif
                 if (MidiOut.DeviceInfo(entry.Value.device).ProductName == "APC MINI" && keybind.Mididevice == "APC MINI")
                 {
                     MidiOutdeviceFeedback = entry.Value;
@@ -70,9 +63,6 @@ namespace MidiControl
         }
         public void SendOn()
         {
-#if DEBUG
-            Debug.WriteLine("MIDIFeedback : SendOn");
-#endif
             state = true;
             MidiEvent me;
             switch (deviceType)
@@ -99,9 +89,6 @@ namespace MidiControl
 
         public void SendOff()
         {
-#if DEBUG
-            Debug.WriteLine("MIDIFeedback : SendOff");
-#endif
             state = false;
             MidiEvent me;
             switch(deviceType)
@@ -127,9 +114,6 @@ namespace MidiControl
         }
         public void SendIn()
         {
-#if DEBUG
-            Debug.WriteLine("MIDIFeedback : SendIn");
-#endif
             state = true;
             MidiEvent me;
             switch (deviceType)
@@ -158,13 +142,7 @@ namespace MidiControl
 
         private void Send(MidiEvent me)
         {
-#if DEBUG
-            Debug.WriteLine("MIDIFeedback : Send " + me.GetAsShortMessage());
-#endif
             MidiOutdeviceFeedback.Send(me.GetAsShortMessage());
-#if DEBUG
-            Debug.WriteLine("MIDIFeedback : SendEnd");
-#endif
         }
     }
 }

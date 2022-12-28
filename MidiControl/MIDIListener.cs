@@ -1,9 +1,6 @@
 ﻿using MidiControl.Control;
 using NAudio.Midi;
 using System.Collections.Generic;
-#if DEBUG
-using System.Diagnostics;
-#endif
 using System.Linq;
 
 namespace MidiControl
@@ -53,9 +50,6 @@ namespace MidiControl
                         MidiInForward = new MidiInCustom(device);
                         MidiInForward.MessageReceived += MidiIn_MessageReceivedForwardBack;
                         MidiInForward.Start();
-#if DEBUG
-                        Debug.WriteLine("MIDI IN Forward Device " + MidiIn.DeviceInfo(device).ProductName);
-#endif
                     }
                     else if (MidiIn.DeviceInfo(device).ProductName == "MIDIControl Forward IN")
                     {
@@ -65,9 +59,6 @@ namespace MidiControl
                         MidiInCustom MidiIndevice = new MidiInCustom(device);
                         midiInInterface.Add(MidiIn.DeviceInfo(device).ProductName, MidiIndevice);
                         MidiIndevice.Start();
-#if DEBUG
-                        Debug.WriteLine("MIDI IN Device " + MidiIn.DeviceInfo(device).ProductName);
-#endif
                     }
 
                     midiInStringOptions.Add(MidiIn.DeviceInfo(device).ProductName);
@@ -85,9 +76,6 @@ namespace MidiControl
                     if (MidiOut.DeviceInfo(device).ProductName == "MIDIControl Forward IN")
                     {
                         MidiOutForward = new MidiOutCustom(device);
-#if DEBUG
-                        Debug.WriteLine("MIDI OUT Forward Device " + MidiOut.DeviceInfo(device).ProductName);
-#endif
                     }
                     else if (MidiOut.DeviceInfo(device).ProductName == "MIDIControl Forward OUT")
                     {
@@ -95,15 +83,9 @@ namespace MidiControl
                     else if (MIDIFeedback.FeedBackDevices.Contains(MidiOut.DeviceInfo(device).ProductName))
                     {
                         midiOutInterface.Add(MidiOut.DeviceInfo(device).ProductName, new MidiOutCustom(device));
-#if DEBUG
-                        Debug.WriteLine("MIDI OUT Feedback Device " + MidiOut.DeviceInfo(device).ProductName);
-#endif
                     }
                     if (MidiOut.DeviceInfo(device).ProductName == "MIDIOUT2 (Launchkey Mini)")
                     {
-#if DEBUG
-                        Debug.WriteLine("Yo, found the midiout2, wake up incontrol");
-#endif
                         MidiOut m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
                         MidiEvent me;
                         me = new NoteOnEvent(0, 1, 12, 127, 0);
@@ -173,9 +155,6 @@ namespace MidiControl
             {
                 if (entry.Key == "MIDIOUT2 (Launchkey Mini)")
                 {
-#if DEBUG
-                    Debug.WriteLine("Yo, found the midiout2, stop incontrol");
-#endif
                     var m = midiOutInterface["MIDIOUT2 (Launchkey Mini)"];
                     MidiEvent me;
                     me = new NoteOnEvent(0, 1, 12, 0, 0);
@@ -209,9 +188,6 @@ namespace MidiControl
 
         private void MidiIn_MessageReceivedForwardBack(object sender, MidiInMessageEventArgs e)
         {
-#if DEBUG
-            Debug.WriteLine("MIDI IN ForwardBack Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-#endif
             foreach (var entry in midiOutInterface)
             {
                 entry.Value.Send(e.RawMessage);
@@ -240,9 +216,6 @@ namespace MidiControl
             if(device < 0) device = 0;
 
             if(adjusted) {
-#if DEBUG
-                Debug.WriteLine("device " + devName + " assumed to have id " + assumed + " is now most likely " + device + "; need to do a refresh!");
-#endif
                 var gui = MIDIControlGUI.GetInstance();
                 gui.Invoke(gui.MidiInStatusDelegate, new object[] { true });
             }
@@ -255,10 +228,6 @@ namespace MidiControl
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
             int deviceId = this.ValidateSenderDeviceInt((MidiInCustom)sender);
-#if DEBUG
-            Debug.WriteLine("MIDI IN Signal " + e.MidiEvent.GetType() + " | " + e.MidiEvent.ToString());
-            Debug.WriteLine("- Device: " + deviceId + " - " + MidiIn.DeviceInfo(deviceId).ProductName);
-#endif
             if(MidiOutForward != null)
             {
                 MidiOutForward.Send(e.RawMessage);
@@ -280,10 +249,6 @@ namespace MidiControl
                         )
                     ) continue;
                 } catch (NAudio.MmException ex) {
-#if DEBUG
-                    Debug.WriteLine(ex.Message);
-                    Debug.WriteLine("Probably a device previously detected is no longer connected.  Refreshing MIDI devices and returning...");
-#endif
                     // NAudio.MmException: 'BadDeviceId calling midiInGetDevCaps'
                     // occurs if a MIDI device present on app launch is disconnected
                     //
@@ -298,9 +263,6 @@ namespace MidiControl
 
                 if (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && entry.Value.Input == Event.Note && ((NoteEvent)e.MidiEvent).Velocity != 0)
                 {
-#if DEBUG
-                    Debug.WriteLine("KeyBind NoteON");
-#endif
                     foreach (var callback in entry.Value.OBSCallBacksON)
                     {
                         callback.Start(entry.Value);
@@ -350,9 +312,6 @@ namespace MidiControl
                 }
                 else if (((e.MidiEvent.CommandCode == MidiCommandCode.NoteOff || (e.MidiEvent.CommandCode == MidiCommandCode.NoteOn && ((NoteEvent)e.MidiEvent).Velocity == 0))) && entry.Value.Input == Event.Note )
                 {
-#if DEBUG
-                    Debug.WriteLine("KeyBind NoteOFF");
-#endif
                     foreach (var callback in entry.Value.OBSCallBacksOFF)
                     {
                         callback.Start(entry.Value);
@@ -399,9 +358,6 @@ namespace MidiControl
                 }
                 else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider)
                 {
-#if DEBUG
-                    Debug.WriteLine("KeyBind ControlChange");
-#endif
                     if (((ControlChangeEvent)e.MidiEvent).ControllerValue != 0)
                     {
                         foreach (var callback in entry.Value.OBSCallBacksON)

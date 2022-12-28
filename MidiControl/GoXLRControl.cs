@@ -35,25 +35,11 @@ namespace MidiControl.Control
             {
                 this.socket = socket;
                 isConnected = true;
-#if DEBUG
-                Debug.WriteLine($"Connection opened {socket.ConnectionInfo.ClientIpAddress}.");
-#endif
             };
 
             socket.OnClose = () =>
             {
                 isConnected = false;
-#if DEBUG
-                Debug.WriteLine($"Connection closed {socket.ConnectionInfo.ClientIpAddress}.");
-#endif
-            };
-
-            socket.OnError = (exception) =>
-
-            {
-#if DEBUG
-                Debug.WriteLine(exception.ToString());
-#endif
             };
         }
 
