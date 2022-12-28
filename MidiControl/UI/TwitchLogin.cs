@@ -25,9 +25,8 @@ namespace MidiControl
 
         public WebViewLoginTwitch(Options options)
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            Icon = (System.Drawing.Icon)(resources.GetObject("icon"));
+            Icon = Properties.Resources.icon;
 
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var ConfFolder = Path.Combine(folder, "MIDIControl");

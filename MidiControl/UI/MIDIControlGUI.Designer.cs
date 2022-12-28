@@ -24,7 +24,6 @@
 		/// </summary>
 		private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuProfiles = new System.Windows.Forms.ToolStripMenuItem();
@@ -403,7 +402,7 @@
             this.trayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.trayIcon.BalloonTipTitle = "MIDIControl";
             this.trayIcon.ContextMenuStrip = this.trayMenuStrip; 
-            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            this.trayIcon.Icon = Properties.Resources.icon;
             this.trayIcon.Text = "MIDIControl";
             this.trayIcon.Visible = true;
             this.trayIcon.BalloonTipClicked += new System.EventHandler(this.TrayIcon_BalloonTipClicked);
@@ -581,7 +580,7 @@
             this.ClientSize = new System.Drawing.Size(534, 467);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusBar);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            this.Icon = Properties.Resources.icon;
             this.Name = "MIDIControlGUI";
             this.Text = "MIDIControl - [ProfileName]";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MIDIControlGUI_FormClosing);

@@ -12,9 +12,8 @@ namespace MidiControl
         public OptionsGUI(OptionsManagment options, string tab = "general")
         {
             this.options = options;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            Icon = ((System.Drawing.Icon)(resources.GetObject("icon")));
+            Icon = Properties.Resources.icon;
             TxtBoxOBSIP.Text = options.options.Ip;
             TxtBoxOBSPassword.Text = options.options.Password;
 
