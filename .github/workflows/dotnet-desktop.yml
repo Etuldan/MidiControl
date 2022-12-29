@@ -79,7 +79,12 @@ jobs:
           sed -i "s/TWITCH_CLIENTSECRET/${{secrets.TWITCH_CLIENTSECRET}}/g" "MidiControl/App.config" &&
           sed -i "s/TWITCH_CLIENTID/${{secrets.TWITCH_CLIENTID}}/g" "MidiControl/App.config"
         shell: bash
-
+      
+      - name: Resource generation
+        run: |
+          "'C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\ResGen.exe' "MidiControl/Properties/Resources.resx" /str:csharp,MidiControl.Properties"
+        shell: powershell
+        
       - name: Build app for Release
         run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
 
