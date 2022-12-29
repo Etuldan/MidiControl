@@ -4,7 +4,6 @@
 	  <OutputType>WinExe</OutputType>
 	  <TargetFramework>net472</TargetFramework>
 	  <LangVersion>8.0</LangVersion>
-	  <Nullable>enable</Nullable>
 	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 

@@ -104,10 +104,10 @@ namespace MidiControl
             }
         }
 
-        public void LoadProfile(string profile = null)
+        public void LoadProfile(string profile = "Default")
         {
             CurrentProfile = profile;
-            if (profile == null || profile == "Default")
+            if (profile == "Default")
             {
                 ConfFile = Path.Combine(ConfFolder, Path.GetFileName("keybinds.json"));
             } 
