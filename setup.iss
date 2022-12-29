@@ -1,6 +1,6 @@
 #define AppName "MIDIControl"
-#define Dir "MidiControl\bin\Release\"
-#define AppVersion GetFileVersion(Dir + "MIDIControl.exe")
+#define Dir "MidiControl\bin\Release\net472\"
+#define AppVersion GetVersionNumbersString(Dir + "MIDIControl.exe")
 
 #define UseWebView2
 #define UseDotNet47
