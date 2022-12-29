@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -627,11 +628,11 @@ namespace MidiControl {
 			}
 
 			if(doCreate) {
-				var newProfileResponse = this.PromptForNewProfileName("Enter a new profile name (no special characters):", "Name new profile");
+				var newProfileResponse = PromptForNewProfileName("Enter a new profile name (no special characters):", "Name new profile");
 
-				if(newProfileResponse.Accepted) {
+				if(newProfileResponse != null) {
 					conf.Config.Clear();
-					conf.SaveCurrentProfileAs(newProfileResponse.Text);
+					conf.SaveCurrentProfileAs(newProfileResponse);
 					ReloadProfilesList();
 					ReloadEntries();
 					RefreshWindowTitle();
@@ -643,11 +644,10 @@ namespace MidiControl {
 		}
 
 		private void DuplicateProfileMenuItem_Click(object sender, EventArgs e) {
-			//var dupProfileResponse = TextInputGUI.ShowPrompt("Enter a new name for the duplicate of '" + conf.CurrentProfile + "' (no special characters):", "Name duplicate of '" + conf.CurrentProfile + "'");
-			var dupProfileResponse = this.PromptForNewProfileName("Enter a new name for the duplicate of '" + conf.CurrentProfile + "' (no special characters):", "Name duplicate of '" + conf.CurrentProfile + "'");
+			var dupProfileResponse = PromptForNewProfileName("Enter a new name for the duplicate of '" + conf.CurrentProfile + "' (no special characters):", "Name duplicate of '" + conf.CurrentProfile + "'");
 
-			if(dupProfileResponse.Accepted) {
-				conf.SaveCurrentProfileAs(dupProfileResponse.Text);
+			if(dupProfileResponse != null) {
+				conf.SaveCurrentProfileAs(dupProfileResponse);
 				ReloadProfilesList();
 				ReloadEntries();
 				RefreshWindowTitle();
@@ -657,31 +657,29 @@ namespace MidiControl {
 			}
 		}
 
-		private TextInputResponse PromptForNewProfileName(string message, string caption, string initialValue = "") {
-			var validName = false;
-			var newProfileResponse = new TextInputResponse();
+		private string? PromptForNewProfileName(string message, string caption, string initialValue = "") {
+            var response = Interaction.InputBox(message, caption, initialValue);
 
-			while(!validName) {
-				newProfileResponse = TextInputGUI.ShowPrompt(message, caption);
-				if(!newProfileResponse.Accepted) break;
-
-				// new name can't be 'default' or an existing profile name
-				if(newProfileResponse.Text.ToLower() == "default") {
-					MessageBox.Show("New profile cannot be named 'default'.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				} else if(conf.DoesProfileExist(newProfileResponse.Text.ToLower())) {
-					MessageBox.Show("A profile with that name already exists.", "Profile already exists", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				} else if(newProfileResponse.Text.Trim() == "") {
-					MessageBox.Show("New profile name cannot be blank.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				} else {
-					validName = true;
-				}
+			if (string.IsNullOrEmpty(response))
+			{
+				return null;
 			}
 
-			return newProfileResponse;
-		}
+			// new name can't be 'default' or an existing profile name
+			if(response.ToLower() == "default") {
+				MessageBox.Show("New profile cannot be named 'default'.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+            else if(conf.DoesProfileExist(response.ToLower())) {
+				MessageBox.Show("A profile with that name already exists.", "Profile already exists", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+            else if(response.Trim() == "") {
+				MessageBox.Show("New profile name cannot be blank.", "Invalid profile name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+			}
 
-		private void TrayIcon_BalloonTipClicked(object sender, EventArgs e) {
-			//trayMenuShowMainWindow_Click(sender, e);
+			return response;
 		}
 
 		private void GitHubProjectPageToolStripMenuItem_Click(object sender, EventArgs e) {
