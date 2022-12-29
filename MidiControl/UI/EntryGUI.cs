@@ -41,9 +41,8 @@ namespace MidiControl
             conf = Configuration.GetInstance();
 			keybindErrors = new List<string>();
 
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            Icon = ((Icon)(resources.GetObject("icon")));
+            Icon = Properties.Resources.icon;
             InitControls();
 
             MIDIDelegate = new MIDIDelegateHandler(UpdateNote);
@@ -72,7 +71,7 @@ namespace MidiControl
 
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
-            Icon = ((Icon)(resources.GetObject("icon")));
+            Icon = Properties.Resources.icon;
             InitControls();
 
 			// show text summary of the current settings on the main panel
