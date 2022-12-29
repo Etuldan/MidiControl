@@ -65,7 +65,12 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, Go, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
+    - name: Resource generation
+      run: |
+          "'C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\ResGen.exe' '.\MidiControl\Properties\Resources.resx' /useSourcePath /str:csharp,MidiControl.Properties"
+      shell: powershell
+        
+    - name: Build
       run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
     #  uses: github/codeql-action/autobuild@v2
 
