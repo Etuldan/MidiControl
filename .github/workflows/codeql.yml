@@ -67,7 +67,8 @@ jobs:
     # If this step fails, then you should remove it and run the build manually (see below)
     - name: Resource generation
       run: |
-          "'C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\ResGen.exe' '.\MidiControl\Properties\Resources.resx' /useSourcePath /str:csharp,MidiControl.Properties"
+          Set-Location -Path "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\"
+          .\ResGen.exe "D:\a\MidiControl\MidiControl\MidiControl\Properties\Resources.resx" /useSourcePath /str:csharp,MidiControl.Properties
       shell: powershell
         
     - name: Build
