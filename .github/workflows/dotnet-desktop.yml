@@ -82,8 +82,8 @@ jobs:
       
       - name: Resource generation
         run: |
-          cd "%programfiles(x86)%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\"
-          .\ResGen.exe ".\MidiControl\Properties\Resources.resx" /useSourcePath /str:csharp,MidiControl.Properties
+          cd /d "%programfiles(x86)%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\"
+          .\ResGen.exe "D:\a\MidiControl\MidiControl\Properties\Resources.resx" /useSourcePath /str:csharp,MidiControl.Properties
         shell: powershell
         
       - name: Build app for Release
