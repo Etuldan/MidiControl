@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
+using MidiControl.Properties;
 
 namespace MidiControl
 {
@@ -880,13 +881,12 @@ namespace MidiControl
                 ChkCboBoxHotkeyRelease.Items.Add(hotkey.Key);
             }
 
-            var scenes = obs.GetScenes();
             CboBoxSwitchScenePress.Items.Clear();
             CboBoxSwitchSceneRelease.Items.Clear();
             CboBoxPreviewScenePress.Items.Clear();
             CboBoxPreviewSceneRelease.Items.Clear();
 
-            foreach (var scene in scenes)
+            foreach (var scene in obs.GetScenes())
             {
                 CboBoxSwitchScenePress.Items.Add(scene);
                 CboBoxSwitchSceneRelease.Items.Add(scene);
@@ -894,7 +894,6 @@ namespace MidiControl
                 CboBoxPreviewSceneRelease.Items.Add(scene);
             }
 
-            var sources = obs.GetSources();
             ChkCboBoxMutePress.Items.Clear();
             ChkCboBoxUnmutePress.Items.Clear();
             ChkCboBoxHidePress.Items.Clear();
@@ -915,7 +914,17 @@ namespace MidiControl
             ChkCboBoxMediaPlayRelease.Items.Clear();
             ChkCboBoxMediaStopRelease.Items.Clear();
             ChkCboBoxMediaRestartRelease.Items.Clear();
-            foreach (var source in sources)
+            foreach (var source in obs.GetGlobalAudioSources())
+            {
+                ChkCboBoxMutePress.Items.Add(source);
+                ChkCboBoxUnmutePress.Items.Add(source);
+                ChkCboBoxMuteRelease.Items.Add(source);
+                ChkCboBoxUnmuteRelease.Items.Add(source);
+                ChkCboBoxToggleMutePress.Items.Add(source);
+                ChkCboBoxToggleMuteRelease.Items.Add(source);
+                ChkCboBoxVolumeSlider.Items.Add(source);
+            }
+            foreach (var source in obs.GetSources())
             {
                 ChkCboBoxMutePress.Items.Add(source);
                 ChkCboBoxUnmutePress.Items.Add(source);
@@ -938,16 +947,14 @@ namespace MidiControl
                 ChkCboBoxMediaStopRelease.Items.Add(source);
                 ChkCboBoxMediaRestartRelease.Items.Add(source);
             }
-            var transitions = obs.GetTransitions();
             CboBoxTransitionPress.Items.Clear();
             CboBoxTransitionRelease.Items.Clear();
-            foreach (var transition in transitions)
+            foreach (var transition in obs.GetTransitions())
             {
                 CboBoxTransitionPress.Items.Add(transition);
                 CboBoxTransitionRelease.Items.Add(transition);
             }
 
-            var filters = obs.GetFilters();
             ChkCboBoxShowFilterPress.Items.Clear();
             ChkCboBoxHideFilterPress.Items.Clear();
             ChkCboBoxToggleFilterPress.Items.Clear();
@@ -955,7 +962,7 @@ namespace MidiControl
             ChkCboBoxHideFilterRelease.Items.Clear();
             ChkCboBoxToggleFilterRelease.Items.Clear();
             CboBoxFilterNameSlider.Items.Clear();
-            foreach (var filter in filters)
+            foreach (var filter in obs.GetFilters())
             {
                 ChkCboBoxShowFilterPress.Items.Add(filter);
                 ChkCboBoxHideFilterPress.Items.Add(filter);

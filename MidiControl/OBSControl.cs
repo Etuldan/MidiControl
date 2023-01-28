@@ -608,9 +608,22 @@ namespace MidiControl {
 			scenesString.Sort((x, y) => string.Compare(x, y));
 			return scenesString;
 		}
+
+		public List<string> GetGlobalAudioSources()
+		{
+            var audioSources = new List<string>();
+            if (!isConnected) return audioSources;
+
+            var allSources = obs.GetInputList();
+            foreach (var audioSource in allSources.Where(x => x.InputKind == "wasapi_input_capture" || x.InputKind == "wasapi_output_capture"))
+            {
+				audioSources.Add(audioSource.InputName);
+            }
+            return audioSources;
+		}
+
 		public List<string> GetSources() {
-			var sourceString = new List<string>();
-			if(!isConnected) return sourceString;
+            var sourceString = new List<string>();
 
 			var scenes = obs.GetSceneList().Scenes;
 			foreach(var scene in scenes) {
