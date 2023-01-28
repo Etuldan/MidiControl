@@ -419,30 +419,8 @@ namespace MidiControl {
 			foreach(SceneBasicInfo scene in scenes) {
 				foreach(var item in obs.GetSceneItemList(scene.Name)) {
 					if(sources.Contains(item.SourceName)) {
-						sourcesName.Add(new SourceScene() { Source = item.SourceName, Scene = scene.Name }, obs.GetSourceActive(item.SourceName).VideoActive);
-						// obs.GetGroupSceneItemList() -- currently BROKEN in obs-websocket/obs-studio
-						// as of the 5.0.0.1 update to the NuGet package
-						//
-						// TODO: implement this once the underlying bugs are fixed in obs-websocket/obs-studio
-						//
-						//if (item.GroupChildren != null)
-						//{
-						//    foreach (SceneItem child in item.GroupChildren)
-						//    {
-						//        sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name }, child.Render);
-						//    }
-						//}
+						sourcesName.Add(new SourceScene() { Source = item.SourceName, Scene = scene.Name }, obs.GetSourceActive(item.SourceName).VideoShowing);
 					}
-					//if (item.GroupChildren != null)
-					//{
-					//    foreach (SceneItem child in item.GroupChildren)
-					//    {
-					//        if (sources.Contains(child.SourceName))
-					//        {
-					//            sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name }, child.Render);
-					//        }
-					//    }
-					//}
 				}
 			}
 			foreach(var entry in sourcesName) {
@@ -483,29 +461,7 @@ namespace MidiControl {
 				foreach(var item in obs.GetSceneItemList(scene.Name)) {
 					if(sources.Contains(item.SourceName)) {
 						sourcesName.Add(new SourceScene() { Source = item.SourceName, Scene = scene.Name });
-						// obs.GetGroupSceneItemList() -- currently BROKEN in obs-websocket/obs-studio
-						// as of the 5.0.0.1 update to the NuGet package
-						//
-						// TODO: implement this once the underlying bugs are fixed in obs-websocket/obs-studio
-						//
-						//if (item.GroupChildren != null)
-						//{
-						//    foreach (SceneItem child in item.GroupChildren)
-						//    {
-						//        sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name } );
-						//    }
-						//}
 					}
-					//if (item.GroupChildren != null)
-					//{
-					//    foreach (SceneItem child in item.GroupChildren)
-					//    {
-					//        if (sources.Contains(child.SourceName))
-					//        {
-					//            sourcesName.Add(new SourceScene() { Source = child.SourceName, Scene = scene.Name } );
-					//        }
-					//    }
-					//}
 				}
 			}
 
@@ -629,29 +585,8 @@ namespace MidiControl {
 			foreach(var scene in scenes) {
 				foreach(var source in obs.GetSceneItemList(scene.Name)) {
 					sourceString.Add(source.SourceName);
-					// obs.GetGroupSceneItemList() -- currently BROKEN in obs-websocket/obs-studio
-					// as of the 5.0.0.1 update to the NuGet package
-					//
-					// TODO: implement this once the underlying bugs are fixed in obs-websocket/obs-studio
-					//
-					//if (source.GroupChildren != null)
-					//{
-					//    foreach (SceneItem subfield in source.GroupChildren)
-					//    {
-					//        sourceString.Add(subfield.SourceName);
-					//    }
-					//}
 				}
 			}
-
-			//List<SourceInfo> sources = obs.GetSourcesList();
-			// this got a list of all sources available in the ENTIRE instance
-			// which should be the same thing as traversing all scenes and adding all sources, as above, right?
-			//
-			//foreach (SourceInfo source in sources)
-			//{
-			//    sourceString.Add(source.Name);
-			//}
 
 			sourceString.Sort((x, y) => string.Compare(x, y));
 			return sourceString.Distinct().ToList();
