@@ -93,6 +93,13 @@ jobs:
         run: |
           "%programfiles(x86)%\Inno Setup 6\iscc.exe" "setup.iss"
         shell: cmd
+        
+      - name: VirusTotal Scan
+        uses: crazy-max/ghaction-virustotal@v3
+        with:
+          vt_api_key: ${{ secrets.VT_API_KEY }}
+          files: |
+            "Output/MIDIControl * Setup.exe"
 
       - uses: actions/upload-artifact@v3
         with:
