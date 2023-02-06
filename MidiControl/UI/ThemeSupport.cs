@@ -11,13 +11,14 @@ namespace MidiControl {
 		}
 
 		public static MidiControlTheme GetThemeByIndex(int i) {
-			switch(i) {
-				case 1: return new DarkTheme2();
-				case 2: return new Office2007BlueTheme();
-                case 3: return new WindowsClassic();
-				default: return new DefaultTheme();
-			}
-		}
+            return i switch
+            {
+                1 => new DarkTheme2(),
+                2 => new Office2007BlueTheme(),
+                3 => new WindowsClassic(),
+                _ => new DefaultTheme(),
+            };
+        }
 
 		public static void ThemeOtherWindow(int themeindex, System.Windows.Forms.Control window) {
 			var theme = GetThemeByIndex(themeindex);
@@ -356,7 +357,6 @@ namespace MidiControl {
 
         public class WindowsClassic : MidiControlTheme {
             public override Color WindowBackColor => Color.FromArgb(212, 208, 200);
-            //public override BorderStyle ListViewBorderStyle => BorderStyle.None;
             public override bool CustomMenuCheckRendering => true;
 			public override bool ThemeOtherWindows => true;
 
@@ -398,11 +398,11 @@ namespace MidiControl {
             public override Color ButtonCheckedGradientMiddle => Color.FromArgb(51, 51, 52);
             public override Color ButtonCheckedGradientEnd => Color.FromArgb(51, 51, 52);
 
-            public override Color StatusStripGradientBegin => Color.FromArgb(212, 208, 200); //Color.FromArgb(10, 36, 106);
-            public override Color StatusStripGradientEnd => Color.FromArgb(212, 208, 200); // Color.FromArgb(166, 202, 240);
+            public override Color StatusStripGradientBegin => Color.FromArgb(212, 208, 200);
+            public override Color StatusStripGradientEnd => Color.FromArgb(212, 208, 200);
 
 
-            public override Color ButtonPressedBorder => Color.FromArgb(0, 208, 0); // Color.FromArgb(212, 208, 200);
+            public override Color ButtonPressedBorder => Color.FromArgb(0, 208, 0);
             public override Color ButtonPressedGradientBegin => Color.FromArgb(212, 208, 200);
             public override Color ButtonPressedGradientMiddle => Color.FromArgb(212, 208, 200);
             public override Color ButtonPressedGradientEnd => Color.FromArgb(212, 208, 200);
@@ -433,13 +433,10 @@ namespace MidiControl {
                     e.Item.ForeColor = this.ColorTable.MenuHoverForeColor;
 
                     var rc = new Rectangle(Point.Empty, e.Item.Size);
-                    using(var oPen = new Pen(this.ColorTable.MenuItemBorder))
-                    using(var oBrush = new SolidBrush(this.ColorTable.MenuItemSelected)) {
-                        //e.Graphics.FillRectangle(oBrush, 0, 0, rc.Width, rc.Height);
-                        e.Graphics.FillRectangle(oBrush, 2, 0, rc.Width - 4, rc.Height - 1);
-                        //e.Graphics.DrawRectangle(oPen, 0, 0, rc.Width, rc.Height);
-                        e.Graphics.DrawRectangle(oPen, 2, 0, rc.Width - 4, rc.Height - 1);
-                    }
+                    using var oPen = new Pen(this.ColorTable.MenuItemBorder);
+                    using var oBrush = new SolidBrush(this.ColorTable.MenuItemSelected);
+                    e.Graphics.FillRectangle(oBrush, 2, 0, rc.Width - 4, rc.Height - 1);
+                    e.Graphics.DrawRectangle(oPen, 2, 0, rc.Width - 4, rc.Height - 1);
                 }
             }
 
@@ -463,18 +460,12 @@ namespace MidiControl {
                 var newr = r;
                 newr.Inflate(-4, -5);
 
-                using(var p = new Pen(checkColor, 2.0f)) {
-                    e.Graphics.DrawLines(p, new Point[] {
+                using var p = new Pen(checkColor, 2.0f);
+                e.Graphics.DrawLines(p, new Point[] {
                         new Point(newr.Left, newr.Bottom - newr.Height /2),
                         new Point(newr.Left + newr.Width /3,  newr.Bottom),
                         new Point(newr.Right, newr.Top)
                     });
-
-                    // debug bounding boxes
-                    //e.Graphics.DrawRectangle(Pens.Yellow, e.ImageRectangle);
-                    //e.Graphics.DrawRectangle(Pens.Green, r);
-                    //e.Graphics.DrawRectangle(Pens.Blue, newr);
-                }
             }
         }
 	}

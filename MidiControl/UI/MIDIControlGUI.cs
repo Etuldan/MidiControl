@@ -24,7 +24,7 @@ namespace MidiControl {
 
 		private const string STATIC_PROFILEMENU_TAG = "#STATIC_PROFILE_MENU_ITEM#";
 
-		private ImageList keybindIconList;
+		private readonly ImageList keybindIconList;
 
 		private static MIDIControlGUI _inst;
 		public static MIDIControlGUI GetInstance() {
@@ -71,7 +71,6 @@ namespace MidiControl {
 			keybindIconList.Images.Add("knob", Properties.Resources.control_knob_icon);
 
 			listKeybinds.LargeImageList = keybindIconList;
-			//listKeybinds.SmallImageList = keybindIconList;
             
 			SetWindowTheme(options.options.Theme);
 
@@ -252,7 +251,7 @@ namespace MidiControl {
 		}
 
 		private void RefreshWindowTitle() {
-			Text = trayIcon.Text = "MIDIControl (for OBS 28) - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
+			Text = trayIcon.Text = "MIDIControl - [" + conf.CurrentProfile + (conf.Unsaved?"*":"") + "]";
 		}
 
 		// delegate handlers; from MIDIControlGUI; config/profiles/keybind refresh
@@ -395,33 +394,30 @@ namespace MidiControl {
 		// processing
 		private void EditEntry(string index) {
 			if(conf.Config.TryGetValue(index, out KeyBindEntry value)) {
-				using(var addEntry = new EntryGUI(index, value)) {
-					addEntry.StartPosition = FormStartPosition.CenterParent;
-					if(addEntry.ShowDialog() == DialogResult.OK)
-						ReloadEntries();
-					midi.EnableListening();
-				}
-			}
+                using var addEntry = new EntryGUI(index, value);
+                addEntry.StartPosition = FormStartPosition.CenterParent;
+                if (addEntry.ShowDialog() == DialogResult.OK)
+                    ReloadEntries();
+                midi.EnableListening();
+            }
 		}
 
 		// ui events
 		private void MidiControlOptionsToolStripMenuItem_Click(object sender, EventArgs e) {
-			using(var optionGUI = new OptionsGUI(options)) {
-				optionGUI.ShowDialog();
-				this.TopMost = options.options.AlwaysOnTop;
-				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
-				this.SetWindowTheme(options.options.Theme);
-			}
-		}
+            using var optionGUI = new OptionsGUI(options);
+            optionGUI.ShowDialog();
+            this.TopMost = options.options.AlwaysOnTop;
+            this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
+            this.SetWindowTheme(options.options.Theme);
+        }
 
 		private void InterfaceOptionsMenuItem_Click(object sender, EventArgs e) {
-			using(var optionGUI = new OptionsGUI(options, "interface")) {
-				optionGUI.ShowDialog();
-				this.TopMost = options.options.AlwaysOnTop;
-				this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
-				this.SetWindowTheme(options.options.Theme);
-			}
-		}
+            using var optionGUI = new OptionsGUI(options, "interface");
+            optionGUI.ShowDialog();
+            this.TopMost = options.options.AlwaysOnTop;
+            this.toolStrip1.Dock = (options.options.ToolbarPosition == 1 ? DockStyle.Bottom : DockStyle.Top);
+            this.SetWindowTheme(options.options.Theme);
+        }
 
 		private void ProfileMenuItemClicked(object sender, EventArgs e) {
 			var profile = ((ToolStripMenuItem)sender).Text;
@@ -449,21 +445,24 @@ namespace MidiControl {
 			listKeybinds.Items.Clear();
 
 			foreach(var entry in conf.Config) {
-				var item = new ListViewItem(entry.Key);
-                item.UseItemStyleForSubItems = false;
+                var item = new ListViewItem(entry.Key)
+                {
+                    UseItemStyleForSubItems = false
+                };
 
-				if(entry.Value.Input == Event.Note)
+                if (entry.Value.Input == Event.Note)
 					item.ImageKey = "button";
 				else if(entry.Value.Input == Event.Slider)
 					item.ImageKey = "knob";
 
 				// generate overview for details view
 				var summary = entry.Value.Summarize();
-				var overview = new ListViewItem.ListViewSubItem(item, summary);
+                var overview = new ListViewItem.ListViewSubItem(item, summary)
+                {
+                    ForeColor = this.GetCurrentTheme().ListViewSubitemForeColor
+                };
 
-                overview.ForeColor = this.GetCurrentTheme().ListViewSubitemForeColor;
-
-				item.SubItems.Add(overview);
+                item.SubItems.Add(overview);
 				item.ToolTipText = summary.Replace(" / ", "\n");
 
 				listKeybinds.Items.Add(item);
@@ -531,19 +530,18 @@ namespace MidiControl {
 		}
 
 		private void AddKeybindItemClicked(object sender, EventArgs e) {
-			using(var addEntry = new EntryGUI()) {
-				addEntry.StartPosition = FormStartPosition.CenterParent;
-				if(addEntry.ShowDialog() == DialogResult.OK)
-					ReloadEntries();
-				midi.EnableListening();
-			}
-		}
+            using var addEntry = new EntryGUI();
+            addEntry.StartPosition = FormStartPosition.CenterParent;
+            if (addEntry.ShowDialog() == DialogResult.OK)
+                ReloadEntries();
+            midi.EnableListening();
+        }
 
 		private void DeleteKeybindMenuItem_Click(object sender, EventArgs e) {
 			if(listKeybinds.SelectedIndices.Count == 1) {
 				var index = listKeybinds.SelectedIndices[0];
-				string key = listKeybinds.Items[index].Text;
-				bool delete = true;
+				var key = listKeybinds.Items[index].Text;
+				var delete = true;
 
 				if(options.options.ConfirmKeybindDeletion) {
 					delete = (MessageBox.Show("Delete the keybind named '" + key + "'?", "Confirm delete keybind", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
