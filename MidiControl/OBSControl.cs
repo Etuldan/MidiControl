@@ -580,8 +580,9 @@ namespace MidiControl {
 
 		public List<string> GetSources() {
             var sourceString = new List<string>();
+            if (!isConnected) return sourceString;
 
-			var scenes = obs.GetSceneList().Scenes;
+            var scenes = obs.GetSceneList().Scenes;
 			foreach(var scene in scenes) {
 				foreach(var source in obs.GetSceneItemList(scene.Name)) {
 					sourceString.Add(source.SourceName);
