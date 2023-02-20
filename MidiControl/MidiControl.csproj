@@ -41,7 +41,7 @@
     <PackageReference Include="TwitchLib.Client.Enums" Version="3.3.1" />
     <PackageReference Include="TwitchLib.Client.Models" Version="3.3.1" />
     <PackageReference Include="TwitchLib.Communication" Version="1.0.4" />
-    <PackageReference Include="Websocket.Client" Version="4.4.43" />
+    <PackageReference Include="Websocket.Client" Version="4.5.2" />
     <PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
   </ItemGroup>
 
