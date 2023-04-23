@@ -1,5 +1,4 @@
-﻿using MidiControl.Controller;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

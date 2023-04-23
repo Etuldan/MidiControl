@@ -1,5 +1,4 @@
 ﻿using MidiControl.Control;
-using MidiControl.Controller;
 using NAudio.Midi;
 using System.Collections.Generic;
 using System.Linq;
