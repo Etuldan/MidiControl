@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using MidiControl.Controller;
+using NAudio.Wave;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -92,10 +93,7 @@ namespace MidiControl
 				Unsaved = false;
 				var json = File.ReadAllText(ConfFile);
                 Config = JsonConvert.DeserializeObject<Dictionary<string, KeyBindEntry>>(json);
-                if (Config == null)
-                {
-                    Config = new Dictionary<string, KeyBindEntry>();
-                }
+                Config ??= new Dictionary<string, KeyBindEntry>();
             }
             catch (FileNotFoundException)
             {
@@ -365,10 +363,7 @@ namespace MidiControl
 
         public void Start(KeyBindEntry midiDevice)
         {
-            if (obs == null)
-            {
-                obs = OBSControl.GetInstance();
-            }
+            obs ??= OBSControl.GetInstance();
             var t = Task.Run(async delegate
             {
                 await Task.Delay(obs.options.options.Delay);
@@ -378,10 +373,7 @@ namespace MidiControl
 
         public void Start(KeyBindEntry midiDevice, float value)
         {
-            if (obs == null)
-            {
-                obs = OBSControl.GetInstance();
-            }
+            obs ??= OBSControl.GetInstance();
             var t = Task.Run(async delegate
             {
                 await Task.Delay(obs.options.options.Delay);
