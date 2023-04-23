@@ -1,6 +1,4 @@
-﻿using Microsoft.Web.WebView2.Core;
-using Microsoft.Web.WebView2.WinForms;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,126 +12,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MidiControl.OptionsManagment;
 using System.Web;
+using System.Reactive;
 
 namespace MidiControl
 {
-    partial class WebViewLoginTwitch : Form
-    {
-        private readonly System.ComponentModel.IContainer components = null;
-        private WebServer server;
-        private WebView2 webview;
-
-        public WebViewLoginTwitch(Options options)
-        {
-            InitializeComponent();
-            Icon = Properties.Resources.icon;
-
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var ConfFolder = Path.Combine(folder, "MIDIControl");
-            var optionsWebView = new CoreWebView2EnvironmentOptions();
-            var env = CoreWebView2Environment.CreateAsync("", ConfFolder, optionsWebView).GetAwaiter().GetResult();
-            webview.EnsureCoreWebView2Async(env);
-
-            var uriBuilder = new UriBuilder("https://id.twitch.tv/oauth2/authorize?");
-            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-            query.Add("response_type", "code");
-            query.Add("client_id", ConfigurationManager.AppSettings["TwitchClientId"]);
-            query.Add("redirect_uri", ConfigurationManager.AppSettings["TwitchLocalUrl"]);
-            query.Add("scope", ConfigurationManager.AppSettings["TwitchScope"]);
-            query.Add("state", "c3ab8aa609ea11e793ae92361f002671");
-            uriBuilder.Query = query.ToString();
-            webview.Source = uriBuilder.Uri;
-            FormClosed += WebView_FormClosing;
-
-            void onCompleted()
-            {
-                BeginInvoke(new Action(() =>
-                {
-                    if (server.Login != "" && server.OAuthCode != "" && server.RefreshToken != "")
-                    {
-                        options.TwitchLogin = server.Login;
-                        options.TwitchToken = server.OAuthCode;
-                        options.TwitchRefreshToken = server.RefreshToken;
-                    }
-                    Close();
-                    Dispose();
-                }));
-            }
-
-            var thread = new Thread(() =>
-            {
-                try
-                {
-                    server = new WebServer();
-                }
-                finally
-                {
-                    onCompleted();
-                }
-            });
-            thread.Start();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private void InitializeComponent()
-        {
-            webview = new Microsoft.Web.WebView2.WinForms.WebView2();
-            ((System.ComponentModel.ISupportInitialize)(webview)).BeginInit();
-            SuspendLayout();
-            // 
-            // webview
-            // 
-            webview.CreationProperties = null;
-            webview.DefaultBackgroundColor = System.Drawing.Color.White;
-            webview.Location = new System.Drawing.Point(0, 0);
-            webview.Margin = new System.Windows.Forms.Padding(0);
-            webview.Name = "webview";
-            webview.Size = new System.Drawing.Size(500, 750);
-            webview.TabIndex = 0;
-            webview.ZoomFactor = 1D;
-            // 
-            // WebViewLoginTwitch
-            // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(500, 750);
-            Controls.Add(webview);
-            MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(500, 750);
-            MinimizeBox = false;
-            MinimumSize = new System.Drawing.Size(500, 750);
-            Name = "WebViewLoginTwitch";
-            Text = "Twitch Chat Login";
-            TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(webview)).EndInit();
-            ResumeLayout(false);
-
-        }
-
-        private void WebView_FormClosing(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                var request = (HttpWebRequest)WebRequest.Create(ConfigurationManager.AppSettings["TwitchLocalUrl"]);
-                request.AutomaticDecompression = DecompressionMethods.GZip;
-                request.GetResponse();
-            }
-            catch (WebException)
-            {
-            }
-            Close();
-            Dispose();
-        }
-    }
-
     class WebServer
     {
         public HttpListener listener;
@@ -217,6 +99,10 @@ namespace MidiControl
                         responseBody = await response.Content.ReadAsStringAsync();
                         _json = JObject.Parse(responseBody);
                         Login = _json["login"].ToString();
+
+                        options.TwitchLogin = Login;
+                        options.TwitchToken = OAuthCode;
+                        options.TwitchRefreshToken = RefreshToken;
                     }
                 }
 

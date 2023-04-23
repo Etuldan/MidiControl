@@ -100,8 +100,6 @@ namespace MidiControl
 
         private void BtnRequestTwitchLogin_Click(object sender, EventArgs e)
         {
-            WebViewLoginTwitch login = new WebViewLoginTwitch(options.options);
-            login.ShowDialog();
             if (options.options.TwitchLogin != "" && options.options.TwitchToken != "")
             {
                 txtBoxTwitchLogin.Text = options.options.TwitchLogin;
