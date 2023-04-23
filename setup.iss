@@ -2,7 +2,6 @@
 #define Dir "MidiControl\bin\Release\net472\"
 #define AppVersion GetVersionNumbersString(Dir + "MIDIControl.exe")
 
-#define UseWebView2
 #define UseDotNet47
 
 #include "InnoDependencyInstaller.iss"
@@ -25,7 +24,6 @@ VersionInfoVersion={#AppVersion}
 [Files]
 Source: "{#Dir}MidiControl.exe"; DestDir: "{app}";
 Source: "{#Dir}*.dll"; DestDir: "{app}";
-Source: "{#Dir}runtimes\*"; DestDir: "{app}\runtimes";  Flags: recursesubdirs
 Source: "{#Dir}MidiControl.exe.config"; DestDir: "{app}";
 Source: "3rd-party-licenses.txt"; DestDir: "{app}";
 Source: "LICENSE"; DestDir: "{app}";
