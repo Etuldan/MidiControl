@@ -2,11 +2,6 @@
 #define Dir "MidiControl\bin\Release\net472\"
 #define AppVersion GetVersionNumbersString(Dir + "MIDIControl.exe")
 
-#define UseDotNet47
-
-#include "InnoDependencyInstaller.iss"
-
-
 [Setup]
 AppName={#AppName}
 AppVersion={#AppVersion}
