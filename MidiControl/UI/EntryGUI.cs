@@ -1652,18 +1652,17 @@ namespace MidiControl
 
         private void BtnAudioSelect_Click(object sender, EventArgs e)
         {
-			using(var fdlg = new OpenFileDialog {
-				Title = "Select Audio File",
-				InitialDirectory = @"c:\",
-				Filter = "Audio files (*.mp3;*.wav;*.wma;*.aac)|*.MP3;*.WAV;*.WMA;*.AAC|All files (*.*)|*.*",
-				RestoreDirectory = true
-			}) 
-			{
-				if(fdlg.ShowDialog() == DialogResult.OK)
-				{
-					TxtBoxAudioFile.Text = fdlg.FileName;
-				}
-			}
+            using var fdlg = new OpenFileDialog
+            {
+                Title = "Select Audio File",
+                InitialDirectory = @"c:\",
+                Filter = "Audio files (*.mp3;*.wav;*.wma;*.aac)|*.MP3;*.WAV;*.WMA;*.AAC|All files (*.*)|*.*",
+                RestoreDirectory = true
+            };
+            if (fdlg.ShowDialog() == DialogResult.OK)
+            {
+                TxtBoxAudioFile.Text = fdlg.FileName;
+            }
         }
 
         private void CboBoxFilterNameSlider_SelectionChangeCommitted(object sender, EventArgs e)

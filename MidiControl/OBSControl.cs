@@ -41,32 +41,32 @@ namespace MidiControl {
 
 			var pathFilters = Path.Combine(ConfFolder, Path.GetFileName("filterminmax.csv"));
 			try {
-				using(TextFieldParser csvParser = new TextFieldParser(pathFilters)) {
-					csvParser.CommentTokens = new string[] { "#" };
-					csvParser.SetDelimiters(new string[] { "," });
-					csvParser.HasFieldsEnclosedInQuotes = true;
+                using TextFieldParser csvParser = new TextFieldParser(pathFilters);
+                csvParser.CommentTokens = new string[] { "#" };
+                csvParser.SetDelimiters(new string[] { "," });
+                csvParser.HasFieldsEnclosedInQuotes = true;
 
-					while(!csvParser.EndOfData) {
-						var fields = csvParser.ReadFields();
-						FiltersMinMaxValues.Add(fields[0], new float[] { float.Parse(fields[1]), float.Parse(fields[2]) });
-					}
-				}
-			} catch(FileNotFoundException) {
+                while (!csvParser.EndOfData)
+                {
+                    var fields = csvParser.ReadFields();
+                    FiltersMinMaxValues.Add(fields[0], new float[] { float.Parse(fields[1]), float.Parse(fields[2]) });
+                }
+            } catch(FileNotFoundException) {
 			}
 
 			string pathHotkeys = Path.Combine(ConfFolder, Path.GetFileName("hotkeys.csv"));
 			try {
-				using(TextFieldParser csvParser = new TextFieldParser(pathHotkeys)) {
-					csvParser.CommentTokens = new string[] { "#" };
-					csvParser.SetDelimiters(new string[] { "," });
-					csvParser.HasFieldsEnclosedInQuotes = true;
+                using TextFieldParser csvParser = new TextFieldParser(pathHotkeys);
+                csvParser.CommentTokens = new string[] { "#" };
+                csvParser.SetDelimiters(new string[] { "," });
+                csvParser.HasFieldsEnclosedInQuotes = true;
 
-					while(!csvParser.EndOfData) {
-						string[] fields = csvParser.ReadFields();
-						Hotkeys.Add(fields[0], fields[1]);
-					}
-				}
-			} catch(FileNotFoundException) {
+                while (!csvParser.EndOfData)
+                {
+                    string[] fields = csvParser.ReadFields();
+                    Hotkeys.Add(fields[0], fields[1]);
+                }
+            } catch(FileNotFoundException) {
 			}
 
 			InitTimer();
@@ -93,7 +93,7 @@ namespace MidiControl {
 				Task.Run(() => {
 					try {
 						obs.ConnectAsync("ws://" + options.options.Ip, options.options.Password);
-					} catch(Exception e) {
+					} catch(Exception) {
 						gui.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate {
 							// handle connection failed here
 							//System.Windows.Forms.MessageBox.Show()
@@ -499,10 +499,9 @@ namespace MidiControl {
 						obs.SetSourceFilterSettings(filterSetting.Scene, filterName, o);
 					}
 				} else if(filterSetting.FilterSettings.Name == filterName) {
-					using(StreamWriter w = File.AppendText(FilterLog)) {
-						w.WriteLine(filterSetting.FilterSettings.Name + " is missing. Add a new line in filterminmax.csv (replace MinValue and MaxValue)'" + filterSetting.FilterSettings.Kind + "." + property + ",MinValue,MaxValue'");
-					}
-				}
+                    using StreamWriter w = File.AppendText(FilterLog);
+                    w.WriteLine(filterSetting.FilterSettings.Name + " is missing. Add a new line in filterminmax.csv (replace MinValue and MaxValue)'" + filterSetting.FilterSettings.Kind + "." + property + ",MinValue,MaxValue'");
+                }
 			}
 		}
 		public List<string> GetFilterProperties(string filterName) {

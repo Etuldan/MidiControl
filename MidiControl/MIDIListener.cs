@@ -228,10 +228,7 @@ namespace MidiControl
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
             int deviceId = this.ValidateSenderDeviceInt((MidiInCustom)sender);
-            if(MidiOutForward != null)
-            {
-                MidiOutForward.Send(e.RawMessage);
-            }
+            MidiOutForward?.Send(e.RawMessage);
 
             foreach (var entry in conf.Config)
             {
@@ -254,10 +251,6 @@ namespace MidiControl
                     //
                     // TODO: this causes nothing to work and crashes the program; need to RefreshMIDIDevices() while not trying to stop the one that is no longer present (because this causes a hang). throwing it again for now
                     throw ex;
-                    //this.DisableListening();
-                    //this.RefeshMIDIDevices();
-                    //this.EnableListening();
-                    return;
                 }
 
 
@@ -270,8 +263,9 @@ namespace MidiControl
                     if(entry.Value.SoundCallBack != null)
                     {
 						if(entry.Value.SoundCallBack.StopAllOtherSounds)
-							audioControl.StopAll();
-
+                        {
+                            audioControl.StopAll();
+                        }
                         audioControl.PlaySound(entry.Value, entry.Value.SoundCallBack.File, entry.Value.SoundCallBack.Device, entry.Value.SoundCallBack.Loop, entry.Value.SoundCallBack.Volume);
                     }
                     if(entry.Value.MediaCallBack != null)
@@ -284,7 +278,7 @@ namespace MidiControl
                     }
                     if (entry.Value.MIDIControlCallBackON != null)
                     {
-                        if(entry.Value.MIDIControlCallBackON.StopAllSound == true)
+                        if(entry.Value.MIDIControlCallBackON.StopAllSound)
                         {
                             audioControl.StopAll();
                         }
@@ -320,7 +314,7 @@ namespace MidiControl
                     {
                         audioControl.MediaKey(entry.Value.MediaCallBackOFF.MediaType);
                     }
-                    if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased == true)
+                    if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased)
                     {
                         audioControl.StopSound(entry.Value);
                     }
@@ -330,7 +324,7 @@ namespace MidiControl
                     }
                     if (entry.Value.MIDIControlCallBackOFF != null)
                     {
-                        if (entry.Value.MIDIControlCallBackOFF.StopAllSound == true)
+                        if (entry.Value.MIDIControlCallBackOFF.StopAllSound)
                         {
                             audioControl.StopAll();
                         }
@@ -358,6 +352,30 @@ namespace MidiControl
                 }
                 else if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange && entry.Value.Input == Event.Slider)
                 {
+                    if (entry.Value.MIDIControlCallBackON != null)
+                    {
+                        if (entry.Value.MIDIControlCallBackON.StopAllSound)
+                        {
+                            audioControl.StopAll();
+                        }
+                        if (entry.Value.MIDIControlCallBackON.SwitchToProfile != null &&
+                            entry.Value.MIDIControlCallBackON.SwitchToProfile != "")
+                        {
+                            conf.LoadProfile(entry.Value.MIDIControlCallBackON.SwitchToProfile);
+                        }
+                    }
+                    if (entry.Value.MIDIControlCallBackOFF != null)
+                    {
+                        if (entry.Value.MIDIControlCallBackOFF.StopAllSound)
+                        {
+                            audioControl.StopAll();
+                        }
+                        if (entry.Value.MIDIControlCallBackOFF.SwitchToProfile != null &&
+                            entry.Value.MIDIControlCallBackOFF.SwitchToProfile != "")
+                        {
+                            conf.LoadProfile(entry.Value.MIDIControlCallBackOFF.SwitchToProfile);
+                        }
+                    }
                     if (((ControlChangeEvent)e.MidiEvent).ControllerValue != 0)
                     {
                         foreach (var callback in entry.Value.OBSCallBacksON)
@@ -375,7 +393,7 @@ namespace MidiControl
                         {
                             callback.Start(entry.Value);
                         }
-                        if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased == true)
+                        if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased)
                         {
                             audioControl.StopSound(entry.Value);
                         }
