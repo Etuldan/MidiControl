@@ -2,26 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using static MidiControl.OptionsManagment;
-using System.Web;
-using System.Reactive;
 
 namespace MidiControl
 {
     class WebServer
     {
         public HttpListener listener;
-        public string OAuthCode = string.Empty;
-        public string RefreshToken = string.Empty;
-        public string Login = string.Empty;
+        public string OAuthCode { get; set; } = string.Empty;
+        public string RefreshToken { get; set; } = string.Empty;
+        public string Login { get; set; } = string.Empty;
         public WebServer()
         {
             listener = new HttpListener();
@@ -61,9 +56,9 @@ namespace MidiControl
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var responseBody = response.Content.ReadAsStringAsync().Result;
-                var _json = JObject.Parse(responseBody);
-                options.TwitchToken = _json["access_token"].ToString();
-                options.TwitchRefreshToken = _json["refresh_token"].ToString();
+                var json = JObject.Parse(responseBody);
+                options.TwitchToken = json["access_token"].ToString();
+                options.TwitchRefreshToken = json["refresh_token"].ToString();
             }
         }
 
@@ -88,21 +83,17 @@ namespace MidiControl
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var responseBody = await response.Content.ReadAsStringAsync();
-                    var _json = JObject.Parse(responseBody);
-                    OAuthCode = _json["access_token"].ToString();
-                    RefreshToken = _json["refresh_token"].ToString();
+                    var json = JObject.Parse(responseBody);
+                    this.OAuthCode = json["access_token"].ToString();
+                    this.RefreshToken = json["refresh_token"].ToString();
 
                     httpclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", OAuthCode);
                     response = await httpclient.GetAsync("https://id.twitch.tv/oauth2/validate");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         responseBody = await response.Content.ReadAsStringAsync();
-                        _json = JObject.Parse(responseBody);
-                        Login = _json["login"].ToString();
-
-                        options.TwitchLogin = Login;
-                        options.TwitchToken = OAuthCode;
-                        options.TwitchRefreshToken = RefreshToken;
+                        json = JObject.Parse(responseBody);
+                        this.Login = json["login"].ToString();
                     }
                 }
 

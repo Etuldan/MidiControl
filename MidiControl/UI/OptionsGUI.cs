@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
+using System.Threading;
+using System.Web;
 using System.Windows.Forms;
 
 namespace MidiControl
@@ -100,11 +104,30 @@ namespace MidiControl
 
         private void BtnRequestTwitchLogin_Click(object sender, EventArgs e)
         {
-            if (options.options.TwitchLogin != "" && options.options.TwitchToken != "")
+            var thread = new Thread(() =>
             {
-                txtBoxTwitchLogin.Text = options.options.TwitchLogin;
-                TwitchChatControl.GetInstance().Connect();
-            }
+                var server = new WebServer();
+                options.options.TwitchLogin = server.Login;
+                options.options.TwitchToken = server.OAuthCode;
+                options.options.TwitchRefreshToken = server.RefreshToken;
+
+                if (options.options.TwitchLogin != "" && options.options.TwitchToken != "")
+                {
+                    txtBoxTwitchLogin.Text = options.options.TwitchLogin;
+                    TwitchChatControl.GetInstance().Connect();
+                }
+            });
+            thread.Start(); 
+
+            var uriBuilder = new UriBuilder("https://id.twitch.tv/oauth2/authorize?");
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query.Add("response_type", "code");
+            query.Add("client_id", ConfigurationManager.AppSettings["TwitchClientId"]);
+            query.Add("redirect_uri", ConfigurationManager.AppSettings["TwitchLocalUrl"]);
+            query.Add("scope", ConfigurationManager.AppSettings["TwitchScope"]);
+            query.Add("state", "c3ab8aa609ea11e793ae92361f002671");
+            uriBuilder.Query = query.ToString();
+            Process.Start(uriBuilder.Uri.ToString());
         }
 
         private void BtnRequestTwitchLogout_Click(object sender, EventArgs e)
