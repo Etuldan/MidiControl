@@ -37,7 +37,7 @@ jobs:
       - name: Set Variable
         id: vars
         run: |
-          VERSION=${{ github.event.release.tag_name }}
+          VERSION=v0.0.1
           echo "version=${VERSION:1}" >> $GITHUB_OUTPUT
           echo "file=MIDIControl_${VERSION:1}_Setup.exe" >> $GITHUB_OUTPUT
         shell: bash
