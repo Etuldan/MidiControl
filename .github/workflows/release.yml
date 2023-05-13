@@ -1,6 +1,7 @@
-name: Auto-Release on PR
+name: Auto-Release on PR Merged
+
 on:
-  pull_request:
+  push:
     branches: ["main"]
 
 jobs:
@@ -35,12 +36,6 @@ jobs:
       - name: Restore NuGet Packages
         run: nuget restore $env:Solution_Name
 
-      - name: Resource generation
-        run: |
-          Set-Location -Path "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\"
-          .\ResGen.exe "D:\a\MidiControl\MidiControl\MidiControl\Properties\Resources.resx" /useSourcePath /str:csharp,MidiControl.Properties
-        shell: powershell
-
       - name: Set Variable
         id: vars
         run: |
@@ -61,6 +56,12 @@ jobs:
         run: |
           sed -i "s/VERSION/${{ steps.vars.outputs.version }}/g" "MidiControl/Properties/AssemblyInfo.cs"
         shell: bash
+        
+      - name: Resource generation
+        run: |
+          Set-Location -Path "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\"
+          .\ResGen.exe "D:\a\MidiControl\MidiControl\MidiControl\Properties\Resources.resx" /useSourcePath /str:csharp,MidiControl.Properties
+        shell: powershell
 
       - name: Build app for Release
         run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
