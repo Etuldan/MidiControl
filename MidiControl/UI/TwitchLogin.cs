@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static MidiControl.OptionsManagment;
@@ -101,7 +103,8 @@ namespace MidiControl
             catch (ArgumentOutOfRangeException)
             {
             }
-            var data = Encoding.UTF8.GetBytes("<html></html>");
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Resources\redirect.html");
+            var data = File.ReadAllBytes(path);
             resp.ContentType = "text/html";
             resp.ContentEncoding = Encoding.UTF8;
             resp.ContentLength64 = data.LongLength;
