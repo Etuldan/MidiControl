@@ -2,11 +2,6 @@
 #define Dir "MidiControl\bin\Release\net472\"
 #define AppVersion GetVersionNumbersString(Dir + "MIDIControl.exe")
 
-#define UseDotNet47
-
-#include "InnoDependencyInstaller.iss"
-
-
 [Setup]
 AppName={#AppName}
 AppVersion={#AppVersion}
@@ -18,7 +13,7 @@ UninstallDisplayName={#AppName}
 Compression=lzma2
 SolidCompression=yes
 PrivilegesRequired=admin
-OutputBaseFilename={#AppName} {#AppVersion} Setup
+OutputBaseFilename={#AppName}_{#AppVersion}_Setup
 VersionInfoVersion={#AppVersion}
 
 [Files]

@@ -1,18 +1,108 @@
-name: released
+name: Auto-Release on PR Merged
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: ["main"]
 
 jobs:
-  virustotal:
-    runs-on: ubuntu-latest
+  build:
+    runs-on:
+      windows-latest
+
+    env:
+      Solution_Name: MidiControl.sln
+
     steps:
-      -
-        name: VirusTotal Scan
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Bump version and push tag
+        id: tag
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          msbuild-architecture: x64
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
+
+      - name: Restore NuGet Packages
+        run: nuget restore $env:Solution_Name
+
+      - name: Set Variable
+        id: vars
+        run: |
+          VERSION=${{ steps.tag.outputs.new_tag  }}
+          echo "version=${VERSION:1}" >> $GITHUB_OUTPUT
+          echo "file=MIDIControl_${VERSION:1}_Setup.exe" >> $GITHUB_OUTPUT
+        shell: bash
+        
+      - name: Replace Secrets
+        id: secrets
+        run: |
+          sed -i "s/TWITCH_CLIENTSECRET/${{ secrets.TWITCH_CLIENTSECRET }}/g" "MidiControl/App.config" &&
+          sed -i "s/TWITCH_CLIENTID/${{ secrets.TWITCH_CLIENTID }}/g" "MidiControl/App.config"
+        shell: bash
+        
+      - name: Replace Version
+        id: code_version
+        run: |
+          sed -i "s/VERSION/${{ steps.vars.outputs.version }}/g" "MidiControl/Properties/AssemblyInfo.cs"
+        shell: bash
+        
+      - name: Resource generation
+        run: |
+          Set-Location -Path "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\"
+          .\ResGen.exe "D:\a\MidiControl\MidiControl\MidiControl\Properties\Resources.resx" /useSourcePath /str:csharp,MidiControl.Properties
+        shell: powershell
+
+      - name: Build app for Release
+        run: msbuild $env:Solution_Name -t:rebuild -verbosity:diag -property:Configuration=Release
+        
+      - name: Building the installer
+        run: |
+          "%programfiles(x86)%\Inno Setup 6\iscc.exe" "setup.iss"
+        shell: cmd
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        id: artifact
+        with:
+          path: "./Output/${{ steps.vars.outputs.file }}"
+          
+      - name: VirusTotal Scan
+        id: virustotal
         uses: crazy-max/ghaction-virustotal@v3
         with:
           vt_api_key: ${{ secrets.VT_API_KEY }}
           update_release_body: true
           files: |
-            .exe$
+            ./Output/${{ steps.vars.outputs.file }}
+            
+      - name: Formatting Text
+        id: format_text
+        run: |
+          ANALYSIS=${{ steps.virustotal.outputs.analysis }}
+          SEARCHSTRING="exe="
+          LINK=${ANALYSIS#*$SEARCHSTRING}
+          echo "virustotal=🛡️ [${{ steps.vars.outputs.file }}](${LINK})" >> $GITHUB_OUTPUT
+        shell: bash
+        
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "MIDIControl version ${{ steps.vars.outputs.version }}"
+          body:  "${{ steps.tag.outputs.changelog }} \n ${{ steps.format_text.outputs.virustotal }}"
+          tag_name: ${{ steps.tag.outputs.new_tag }}
+          generate_release_notes: true
+          append_body: true
+          files: "./Output/${{ steps.vars.outputs.file }}"
+          fail_on_unmatched_files: true
+          prerelease: true
