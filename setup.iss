@@ -28,6 +28,7 @@ Source: "MIDIControl.VisualElementsManifest.xml"; DestDir: "{app}";
 Source: "filterminmax.csv"; DestDir: "{userappdata}\{#AppName}";
 Source: "hotkeys.csv"; DestDir: "{userappdata}\{#AppName}";
 Source: "icon.png"; DestDir: "{app}";
+Source: "Resources\redirect.html"; DestDir: "{app}";
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\MidiControl.exe";

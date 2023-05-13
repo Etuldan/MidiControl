@@ -48,6 +48,12 @@ jobs:
           sed -i "s/TWITCH_CLIENTID/${{secrets.TWITCH_CLIENTID}}/g" "MidiControl/App.config"
         shell: bash
       
+      - name: Replace Version
+        id: code_version
+        run: |
+          sed -i "s/VERSION/${{ steps.vars.outputs.version }}/g" "MidiControl/Properties/AssemblyInfo.cs"
+        shell: bash
+
       - name: Resource generation
         run: |
           Set-Location -Path "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\"
