@@ -22,13 +22,13 @@ VersionInfoVersion={#AppVersion}
 Source: "{#Dir}MidiControl.exe"; DestDir: "{app}";
 Source: "{#Dir}*.dll"; DestDir: "{app}";
 Source: "{#Dir}MidiControl.exe.config"; DestDir: "{app}";
+Source: "{#Dir}Resources\redirect.html"; DestDir: "{app}\Resources";
 Source: "3rd-party-licenses.txt"; DestDir: "{app}";
 Source: "LICENSE"; DestDir: "{app}";
 Source: "MIDIControl.VisualElementsManifest.xml"; DestDir: "{app}";
 Source: "filterminmax.csv"; DestDir: "{userappdata}\{#AppName}";
 Source: "hotkeys.csv"; DestDir: "{userappdata}\{#AppName}";
 Source: "icon.png"; DestDir: "{app}";
-Source: "Resources\redirect.html"; DestDir: "{app}";
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\MidiControl.exe";
