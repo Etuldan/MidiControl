@@ -1,6 +1,8 @@
 #define AppName "MIDIControl"
 #define Dir "MidiControl\bin\Release\net472\"
-#define AppVersion GetVersionNumbersString(Dir + "MIDIControl.exe")
+#define AppVersion() GetVersionComponents(Dir + "MIDIControl.exe", \
+    Local[0], Local[1], Local[2], Local[3]), \
+    Str(Local[0]) + "." + Str(Local[1]) + "." + Str(Local[2])
 
 [Setup]
 AppName={#AppName}
