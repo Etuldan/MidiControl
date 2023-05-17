@@ -8,6 +8,8 @@ using System.Timers;
 using Microsoft.VisualBasic.FileIO;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
+using MidiControl.Models.OBS;
 
 namespace MidiControl {
 	public class OBSControl : IExternalControl {
@@ -409,13 +411,30 @@ namespace MidiControl {
 			var state = false;
 
 			foreach(SceneBasicInfo scene in scenes) {
-				foreach(var item in obs.GetSceneItemList(scene.Name)) {
+                foreach(var item in obs.GetSceneItemList(scene.Name)) {
 					if(sources.Contains(item.SourceName)) {
-						sourcesName.Add(new SourceScene() { Source = item.SourceName, Scene = scene.Name }, obs.GetSourceActive(item.SourceName).VideoShowing);
-					}
-				}
-			}
-			foreach(var entry in sourcesName) {
+                        sourcesName.Add(new SourceScene() { Source = item.SourceName, Scene = scene.Name }, obs.GetSourceActive(item.SourceName).VideoShowing);
+                    }
+                }
+            }
+			
+			// Groups
+            var groups = obs.GetGroupList();
+            foreach (var group in groups)
+            {
+                var request = new JObject
+				{
+					{ "sceneName", group}
+				};
+                var result = obs.SendRequest("GetGroupSceneItemList", request)["sceneItems"].ToString();
+                var groupElements = JsonConvert.DeserializeObject<List<Source>>(result);
+                foreach (var groupElement in groupElements.Where(element => sources.Contains(element.sourceName)))
+                {
+                    sourcesName.Add(new SourceScene() { Source = groupElement.sourceName, Scene = group }, obs.GetSourceActive(groupElement.sourceName).VideoShowing);
+                }
+            }
+
+            foreach(var entry in sourcesName) {
 				var sceneItemId = obs.GetSceneItemId(entry.Key.Scene, entry.Key.Source, 0);
 				obs.SetSceneItemEnabled(entry.Key.Scene, sceneItemId, !entry.Value);
 				if(entry.Value == false) {
@@ -457,7 +476,23 @@ namespace MidiControl {
 				}
 			}
 
-			foreach(SourceScene sourcescene in sourcesName) {
+            // Groups
+            var groups = obs.GetGroupList();
+            foreach (var group in groups)
+            {
+                var request = new JObject
+                {
+                    { "sceneName", group}
+                };
+                var result = obs.SendRequest("GetGroupSceneItemList", request)["sceneItems"].ToString();
+                var groupElements = JsonConvert.DeserializeObject<List<Source>>(result);
+                foreach (var groupElement in groupElements.Where(element => sources.Contains(element.sourceName)))
+                {
+                    sourcesName.Add(new SourceScene() { Source = groupElement.sourceName, Scene = group });
+                }
+            }
+
+            foreach (var sourcescene in sourcesName) {
 				var sceneItemId = obs.GetSceneItemId(sourcescene.Scene, sourcescene.Source, 0);
 				obs.SetSceneItemEnabled(sourcescene.Scene, sceneItemId, show);
 			}
@@ -580,7 +615,22 @@ namespace MidiControl {
 				}
 			}
 
-			sourceString.Sort((x, y) => string.Compare(x, y));
+            var groups = obs.GetGroupList();
+			foreach(var group in groups)
+			{
+                var request = new JObject
+				{
+					{ "sceneName", group}
+				};
+                var result = obs.SendRequest("GetGroupSceneItemList", request)["sceneItems"].ToString();
+                var groupElements = JsonConvert.DeserializeObject<List<Source>>(result);
+                foreach (var groupElement in groupElements)
+				{
+                    sourceString.Add(groupElement.sourceName);
+                }
+            }
+
+            sourceString.Sort((x, y) => string.Compare(x, y));
 			return sourceString.Distinct().ToList();
 		}
 		public List<string> GetTransitions() {
