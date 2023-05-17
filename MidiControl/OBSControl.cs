@@ -8,6 +8,8 @@ using System.Timers;
 using Microsoft.VisualBasic.FileIO;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
+using MidiControl.Models.OBS;
 
 namespace MidiControl {
 	public class OBSControl : IExternalControl {
@@ -580,7 +582,22 @@ namespace MidiControl {
 				}
 			}
 
-			sourceString.Sort((x, y) => string.Compare(x, y));
+            var groups = obs.GetGroupList();
+			foreach(var group in groups)
+			{
+                var request = new JObject
+				{
+					{ "sceneName", group}
+				};
+                var result = obs.SendRequest("GetGroupSceneItemList", request)["sceneItems"].ToString();
+                var groupElements = JsonConvert.DeserializeObject<List<Source>>(result);
+                foreach (var groupElement in groupElements)
+				{
+                    sourceString.Add(groupElement.sourceName);
+                }
+            }
+
+            sourceString.Sort((x, y) => string.Compare(x, y));
 			return sourceString.Distinct().ToList();
 		}
 		public List<string> GetTransitions() {
