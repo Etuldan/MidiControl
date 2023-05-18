@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
-using MidiControl.Properties;
 
 namespace MidiControl
 {
@@ -15,32 +13,29 @@ namespace MidiControl
         private delegate void MIDIDelegateHandler(string note, string device, string channel);
         private readonly MIDIDelegateHandler MIDIDelegate;
 
-        private readonly List<MidiInCustom> midiDevice = new List<MidiInCustom>();
+        private readonly List<MidiInCustom> midiDevice = new();
         private readonly Configuration conf;
         private readonly MIDIListener midi;
         private readonly OBSControl obs;
 
-        private readonly Dictionary<string, string[]> CheckToCombo = new Dictionary<string, string[]>();
+        private readonly Dictionary<string, string[]> CheckToCombo = new();
 
         private string Device;
         private int Channel;
         private int Note;
         private Event Input;
 
-		private List<Panel> panels;
-		private Size PanelSize = new Size(385, 301);
-		private Point PanelLocation = new Point(218, 60);
-
+        private List<Panel> panels;
         private readonly string EntryName;
 
-		private readonly KeyBindEntry previousSettings = null;
-		private readonly List<string> keybindErrors;
+        private readonly KeyBindEntry previousSettings = null;
+        private readonly List<string> keybindErrors;
 
-		public EntryGUI()
+        public EntryGUI()
         {
             obs = OBSControl.GetInstance();
             conf = Configuration.GetInstance();
-			keybindErrors = new List<string>();
+            keybindErrors = new List<string>();
 
             InitializeComponent();
             Icon = Properties.Resources.icon;
@@ -56,29 +51,29 @@ namespace MidiControl
                 midiDevice.Add(entry.Value);
             }
 
-			DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
 
-			// form opened with no keybind to edit
-			txtKeybindSummary.Visible = false;
-		}
+            // form opened with no keybind to edit
+            txtKeybindSummary.Visible = false;
+        }
 
         public EntryGUI(string name, KeyBindEntry keybind)
         {
             obs = OBSControl.GetInstance();
             conf = Configuration.GetInstance();
-			EntryName = name;
-			keybindErrors = new List<string>();
-			previousSettings = keybind;
+            EntryName = name;
+            keybindErrors = new List<string>();
+            previousSettings = keybind;
 
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(MIDIControlGUI));
             InitializeComponent();
             Icon = Properties.Resources.icon;
             InitControls();
 
-			// show text summary of the current settings on the main panel
-			txtKeybindSummary.Text = "Current keybind settings:\r\n\r\n" + keybind.Summarize().Replace(" / ", "\r\n");
+            // show text summary of the current settings on the main panel
+            txtKeybindSummary.Text = "Current keybind settings:\r\n\r\n" + keybind.Summarize().Replace(" / ", "\r\n");
 
-			BtnAdd.Text = "Modify";
+            BtnAdd.Text = "Modify";
             Text = "Edit MIDI Keybind";
 
             Device = keybind.Mididevice;
@@ -91,14 +86,17 @@ namespace MidiControl
             TxtBoxDevice.Text = Device;
             TxtBoxChannel.Text = Channel.ToString();
 
-            if(Input == Event.Note) {
+            if (Input == Event.Note)
+            {
                 LblNote.Text = "Note";
                 TxtBoxNote.Text = MIDIListener.GetNoteString(Note);
-            } else if(Input == Event.Slider) {
+            }
+            else if (Input == Event.Slider)
+            {
                 LblNote.Text = "CC";
             }
 
-			if (keybind.MediaCallBack != null)
+            if (keybind.MediaCallBack != null)
             {
                 switch (keybind.MediaCallBack.MediaType)
                 {
@@ -195,17 +193,17 @@ namespace MidiControl
                 ChkBoxAudioStop.Checked = keybind.SoundCallBack.StopWhenReleased;
                 chkBoxLoop.Checked = keybind.SoundCallBack.Loop;
                 volumeSlider.Volume = keybind.SoundCallBack.Volume == 0.0f ? 1.0f : keybind.SoundCallBack.Volume;
-				chkStopAllOthers.Checked = keybind.SoundCallBack.StopAllOtherSounds;
+                chkStopAllOthers.Checked = keybind.SoundCallBack.StopAllOtherSounds;
             }
 
             if (keybind.MIDIControlCallBackON != null)
             {
-                if(keybind.MIDIControlCallBackON.StopAllSound == true)
+                if (keybind.MIDIControlCallBackON.StopAllSound == true)
                 {
                     ChkBoxStopAllSoundPress.Checked = true;
                 }
-                if(keybind.MIDIControlCallBackON.SwitchToProfile != null &&
-					keybind.MIDIControlCallBackON.SwitchToProfile != "")
+                if (keybind.MIDIControlCallBackON.SwitchToProfile != null &&
+                    keybind.MIDIControlCallBackON.SwitchToProfile != "")
                 {
                     ChkBoxSwitchToProfilePress.Checked = true;
                     CboBoxProfilePress.SelectedItem = keybind.MIDIControlCallBackON.SwitchToProfile;
@@ -218,7 +216,7 @@ namespace MidiControl
                     ChkBoxStopAllSoundRelease.Checked = true;
                 }
                 if (keybind.MIDIControlCallBackOFF.SwitchToProfile != null &&
-					keybind.MIDIControlCallBackOFF.SwitchToProfile != "")
+                    keybind.MIDIControlCallBackOFF.SwitchToProfile != "")
                 {
                     ChkBoxSwitchToProfileRelease.Checked = true;
                     CboBoxProfileRelease.SelectedItem = keybind.MIDIControlCallBackOFF.SwitchToProfile;
@@ -252,9 +250,9 @@ namespace MidiControl
                             {
                                 ChkBoxMutePress.Checked = true;
                                 ChkCboBoxMutePress.Enabled = true;
-                                try 
-                                { 
-                                ChkCboBoxMutePress.SetItemChecked(ChkCboBoxMutePress.Items.IndexOf(arg), true);
+                                try
+                                {
+                                    ChkCboBoxMutePress.SetItemChecked(ChkCboBoxMutePress.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
                                 {
@@ -270,7 +268,7 @@ namespace MidiControl
                                 {
                                     ChkCboBoxUnmutePress.SetItemChecked(ChkCboBoxUnmutePress.Items.IndexOf(arg), true);
                                 }
-                                catch (ArgumentOutOfRangeException) 
+                                catch (ArgumentOutOfRangeException)
                                 {
                                 }
                             }
@@ -322,11 +320,11 @@ namespace MidiControl
                             {
                                 ChkBoxToggleSourcePress.Checked = true;
                                 ChkCboBoxToggleSourcePress.Enabled = true;
-                                try 
-                                { 
+                                try
+                                {
                                     ChkCboBoxToggleSourcePress.SetItemChecked(ChkCboBoxToggleSourcePress.Items.IndexOf(arg), true);
                                 }
-                                    catch (ArgumentOutOfRangeException)
+                                catch (ArgumentOutOfRangeException)
                                 {
                                 }
                             }
@@ -346,8 +344,8 @@ namespace MidiControl
                             {
                                 ChkBoxHideFilterPress.Checked = true;
                                 ChkCboBoxHideFilterPress.Enabled = true;
-                                try 
-                                { 
+                                try
+                                {
                                     ChkCboBoxHideFilterPress.SetItemChecked(ChkCboBoxHideFilterPress.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -360,8 +358,8 @@ namespace MidiControl
                             {
                                 ChkBoxShowFilterPress.Checked = true;
                                 ChkCboBoxShowFilterPress.Enabled = true;
-                                try 
-                                { 
+                                try
+                                {
                                     ChkCboBoxShowFilterPress.SetItemChecked(ChkCboBoxShowFilterPress.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -375,7 +373,7 @@ namespace MidiControl
                                 ChkBoxToggleFilterPress.Checked = true;
                                 ChkCboBoxToggleFilterPress.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxToggleFilterPress.SetItemChecked(ChkCboBoxToggleFilterPress.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -445,7 +443,7 @@ namespace MidiControl
                                 ChkBoxMiscPress.Checked = true;
                                 ChkCboBoxMiscPress.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxMiscPress.SetItemChecked(ChkCboBoxMiscPress.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -483,7 +481,7 @@ namespace MidiControl
                                 ChkBoxMuteRelease.Checked = true;
                                 ChkCboBoxMuteRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxMuteRelease.SetItemChecked(ChkCboBoxMuteRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -525,7 +523,7 @@ namespace MidiControl
                                 ChkBoxHideSourceRelease.Checked = true;
                                 ChkCboBoxHideRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxHideRelease.SetItemChecked(ChkCboBoxHideRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -539,7 +537,7 @@ namespace MidiControl
                                 ChkBoxShowSourceRelease.Checked = true;
                                 ChkCboBoxShowRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxShowRelease.SetItemChecked(ChkCboBoxShowRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -553,7 +551,7 @@ namespace MidiControl
                                 ChkBoxToggleSourceRelease.Checked = true;
                                 ChkCboBoxToggleSourceRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxToggleSourceRelease.SetItemChecked(ChkCboBoxToggleSourceRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -577,7 +575,7 @@ namespace MidiControl
                                 ChkBoxHideFilterRelease.Checked = true;
                                 ChkCboBoxHideFilterRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxHideFilterRelease.SetItemChecked(ChkCboBoxHideFilterRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -591,7 +589,7 @@ namespace MidiControl
                                 ChkBoxShowFilterRelease.Checked = true;
                                 ChkCboBoxShowFilterRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxShowFilterRelease.SetItemChecked(ChkCboBoxShowFilterRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -605,7 +603,7 @@ namespace MidiControl
                                 ChkBoxToggleFilterRelease.Checked = true;
                                 ChkCboBoxToggleFilterRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxToggleFilterRelease.SetItemChecked(ChkCboBoxToggleFilterRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -675,7 +673,7 @@ namespace MidiControl
                                 ChkBoxMiscRelease.Checked = true;
                                 ChkCboBoxMiscRelease.Enabled = true;
                                 try
-                                { 
+                                {
                                     ChkCboBoxMiscRelease.SetItemChecked(ChkCboBoxMiscRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -696,7 +694,8 @@ namespace MidiControl
                             {
                                 ChkBoxAdjustVolume.Checked = true;
                                 ChkCboBoxVolumeSlider.Enabled = true;
-                                try { 
+                                try
+                                {
                                     ChkCboBoxVolumeSlider.SetItemChecked(ChkCboBoxHideRelease.Items.IndexOf(arg), true);
                                 }
                                 catch (ArgumentOutOfRangeException)
@@ -711,7 +710,7 @@ namespace MidiControl
                             ChkBoxSlideTransition.Checked = true;
                             break;
                         case "filterSettings":
-                            if(on.Args.Count == 2)
+                            if (on.Args.Count == 2)
                             {
                                 ChkBoxAdjustFilter.Checked = true;
                                 CboBoxFilterNameSlider.Enabled = true;
@@ -740,69 +739,69 @@ namespace MidiControl
                 midiDevice.Add(entry.Value);
             }
 
-			DialogResult = DialogResult.Cancel;
-		}
+            DialogResult = DialogResult.Cancel;
+        }
 
-		// notes for adding new action categories:
-		// - add a panel outside of the viewable area; put new controls in there and set AutoScroll = true
-		// - initialize these new controls in InitControls(), EntryGUI(name, keybind), and BtnAdd_Click() as appropriate
-		// - add a new node to the treeview in the appropriate place; the node's Name should match the new panel's Tag
-		// - add the panel to the panels List in PrepareWindow()
-		private void PrepareWindow() {
-			// move all panels into place and size
-			panels = new List<Panel>()
-			{
-				pnlOBSPress, pnlSoundBoardPress, pnlMediaKeysPress, pnlTwitchPress, pnlMidiControlPress, pnlGoXLRPress,
-				pnlOBSRelease, pnlSoundBoardRelease, pnlMediaKeysRelease, pnlTwitchRelease, pnlMidiControlRelease, pnlGoXLRRelease,
-				pnlOBSSlider
-			};
-
-			foreach(var p in panels)
-			{
-				p.Location = PanelLocation;
-				p.Size = PanelSize;
-				p.Visible = false;
-				p.BorderStyle = BorderStyle.FixedSingle;
-			}
-
-			pnlRoot.BorderStyle = BorderStyle.FixedSingle;
-
-			treeView1.ExpandAll();
-			lblPanelLabel.Text = "No action selected";
-
-			// finally, theme the window
-			ThemeSupport.ThemeOtherWindow((new OptionsManagment()).options.Theme, this);
-
-			if(EntryName == null)
-			{
-				Text = "Add MIDI Keybind";
-			}
-		}
-
-		// show the correct section panel when the selected treeview node changes
-		private void ActionCategoryChanged(object sender, TreeNodeMouseClickEventArgs e) {
-			var root_selected = (e.Node.Name as string).Contains("root");
-			foreach(var p in panels)
-			{
-				p.Visible = ((p.Tag as string) == e.Node.Name);
-			}
-			pnlRoot.Visible = root_selected;
-			if(pnlRoot.Visible)
-				UpdateSummaryTextbox(GetProposedKeybind());
-
-			if(root_selected)
-			{
-				lblPanelLabel.Text = "No action selected";
-			}
-			else
-			{
-				lblPanelLabel.Text = e.Node.FullPath;
-			}
-		}
-
-		private void InitControls()
+        // notes for adding new action categories:
+        // - add a panel outside of the viewable area; put new controls in there and set AutoScroll = true
+        // - initialize these new controls in InitControls(), EntryGUI(name, keybind), and BtnAdd_Click() as appropriate
+        // - add a new node to the treeview in the appropriate place; the node's Name should match the new panel's Tag
+        // - add the panel to the panels List in PrepareWindow()
+        private void PrepareWindow()
         {
-			PrepareWindow();
+            // move all panels into place and size
+            panels = new List<Panel>()
+            {
+                pnlOBSPress, pnlSoundBoardPress, pnlMediaKeysPress, pnlTwitchPress, pnlMidiControlPress, pnlGoXLRPress,
+                pnlOBSRelease, pnlSoundBoardRelease, pnlMediaKeysRelease, pnlTwitchRelease, pnlMidiControlRelease, pnlGoXLRRelease,
+                pnlOBSSlider
+            };
+
+            foreach (var p in panels)
+            {
+                p.Location = pnlRoot.Location;
+                p.Size = pnlRoot.Size;
+                p.Visible = false;
+                p.BorderStyle = pnlRoot.BorderStyle;
+            }
+
+            treeView1.ExpandAll();
+            lblPanelLabel.Text = "No action selected";
+
+            // finally, theme the window
+            ThemeSupport.ThemeOtherWindow((new OptionsManagment()).options.Theme, this);
+
+            if (EntryName == null)
+            {
+                Text = "Add MIDI Keybind";
+            }
+        }
+
+        // show the correct section panel when the selected treeview node changes
+        private void ActionCategoryChanged(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            var root_selected = (e.Node.Name as string).Contains("root");
+            foreach (var p in panels)
+            {
+                p.Visible = ((p.Tag as string) == e.Node.Name);
+            }
+            pnlRoot.Visible = root_selected;
+            if (pnlRoot.Visible)
+                UpdateSummaryTextbox(GetProposedKeybind());
+
+            if (root_selected)
+            {
+                lblPanelLabel.Text = "No action selected";
+            }
+            else
+            {
+                lblPanelLabel.Text = e.Node.FullPath;
+            }
+        }
+
+        private void InitControls()
+        {
+            PrepareWindow();
 
             CheckToCombo.Add("ChkBoxSwitchScenePress", new string[] { "CboBoxSwitchScenePress" });
             CheckToCombo.Add("ChkBoxSwitchSceneRelease", new string[] { "CboBoxSwitchSceneRelease" });
@@ -836,7 +835,7 @@ namespace MidiControl
             CheckToCombo.Add("ChkBoxMiscRelease", new string[] { "ChkCboBoxMiscRelease" });
 
             CheckToCombo.Add("ChkBoxAdjustVolume", new string[] { "ChkCboBoxVolumeSlider" });
-            CheckToCombo.Add("ChkBoxAdjustFilter", new string[] { "CboBoxFilterNameSlider", "CboBoxFilterSettingSlider"});
+            CheckToCombo.Add("ChkBoxAdjustFilter", new string[] { "CboBoxFilterNameSlider", "CboBoxFilterSettingSlider" });
 
             CheckToCombo.Add("ChkBoxMediaPlayPress", new string[] { "ChkCboBoxMediaPlayPress" });
             CheckToCombo.Add("ChkBoxMediaPlayRelease", new string[] { "ChkCboBoxMediaPlayRelease" });
@@ -975,7 +974,7 @@ namespace MidiControl
 
             ChkCboBoxMiscPress.Items.Clear();
             ChkCboBoxMiscRelease.Items.Clear();
-            var itemValues = new string[] {"Start Stream", "Stop Stream", "Toggle Stream", "Start Record", "Stop Record", "Toggle Record", "Pause Record", "Resume Record" ,"Play/Pause Record", "Save Record", "Transition To Program (Studio)", "Toggle Studio Mode" };
+            var itemValues = new string[] { "Start Stream", "Stop Stream", "Toggle Stream", "Start Record", "Stop Record", "Toggle Record", "Pause Record", "Resume Record", "Play/Pause Record", "Save Record", "Transition To Program (Studio)", "Toggle Studio Mode" };
             ChkCboBoxMiscPress.Items.AddRange(itemValues);
             ChkCboBoxMiscRelease.Items.AddRange(itemValues);
 
@@ -993,583 +992,745 @@ namespace MidiControl
                 midi.MessageReceived -= MidiIn_MessageReceived;
             }
         }
-				
-		private KeyBindEntry GetProposedKeybind() {
-			keybindErrors.Clear();
 
-			var key = new KeyBindEntry {
-				Mididevice = Device,
-				NoteNumber = Note,
-				Channel = Channel,
-				Input = Input
-			};
+        private KeyBindEntry GetProposedKeybind()
+        {
+            keybindErrors.Clear();
 
-			if(ChkBoxTransitionPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "transition"
-				};
-				if((string)CboBoxTransitionPress.SelectedItem == null)
-					keybindErrors.Add("No scene selected for OBS (on) - Transition");
-				callback.Args.Add((string)CboBoxTransitionPress.SelectedItem);
-				callback.Args.Add(NumericTransitionPress.Value.ToString());
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxSwitchScenePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "switchScene"
-				};
-				if((string)CboBoxSwitchScenePress.SelectedItem == null)
-					keybindErrors.Add("No scene selected for OBS (on) - Switch Scene"); ;
-				callback.Args.Add((string)CboBoxSwitchScenePress.SelectedItem);
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxPreviewScenePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "previewScene"
-				};
-				if((string)CboBoxPreviewScenePress.SelectedItem == null)
-					keybindErrors.Add("No scene selected for OBS (on) - Preview Scene"); ;
-				callback.Args.Add((string)CboBoxPreviewScenePress.SelectedItem);
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMutePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mute"
-				};
-				foreach(var item in ChkCboBoxMutePress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxUnmutePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "unmute"
-				};
-				foreach(var item in ChkCboBoxUnmutePress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxHideSourcePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "hide"
-				};
-				foreach(var item in ChkCboBoxHidePress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxShowSourcePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "show"
-				};
-				foreach(var item in ChkCboBoxShowPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxToggleSourcePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "togglehide"
-				};
-				foreach(var item in ChkCboBoxToggleSourcePress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxTogglemutePress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "togglemute"
-				};
-				foreach(var item in ChkCboBoxToggleMutePress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxHideFilterPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "hidefilter"
-				};
-				foreach(var item in ChkCboBoxHideFilterPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxShowFilterPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "showfilter"
-				};
-				foreach(var item in ChkCboBoxShowFilterPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxToggleFilterPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "togglefilter"
-				};
-				foreach(var item in ChkCboBoxToggleFilterPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMediaPlayPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mediaplay"
-				};
-				foreach(var item in ChkCboBoxMediaPlayPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMediaStopPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mediastop"
-				};
-				foreach(var item in ChkCboBoxMediaStopPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMediaRestartPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mediarestart"
-				};
-				foreach(var item in ChkCboBoxMediaRestartPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxHotkeyPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "hotkey"
-				};
-				foreach(var item in ChkCboBoxHotkeyPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMiscPress.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "misc"
-				};
-				foreach(var item in ChkCboBoxMiscPress.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxTransitionRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "transition"
-				};
-				if((string)CboBoxTransitionRelease.SelectedItem == null)
-					keybindErrors.Add("No scene selected for OBS (off) - Transition"); ;
-				callback.Args.Add((string)CboBoxTransitionRelease.SelectedItem);
-				callback.Args.Add(NumericTransitionRelease.Value.ToString());
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxSwitchSceneRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "switchScene"
-				};
-				if((string)CboBoxSwitchSceneRelease.SelectedItem == null)
-					keybindErrors.Add("No scene selected for OBS (off) - Switch Scene"); ;
-				callback.Args.Add((string)CboBoxSwitchSceneRelease.SelectedItem);
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxPreviewSceneRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "previewScene"
-				};
-				if((string)CboBoxPreviewSceneRelease.SelectedItem == null)
-					keybindErrors.Add("No scene selected for OBS (off) - Preview Scene"); ;
-				callback.Args.Add((string)CboBoxPreviewSceneRelease.SelectedItem);
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMuteRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mute"
-				};
-				foreach(var item in ChkCboBoxMuteRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxUnmuteRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "unmute"
-				};
-				foreach(var item in ChkCboBoxUnmuteRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxHideSourceRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "hide"
-				};
-				foreach(var item in ChkCboBoxHideRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxShowSourceRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "show"
-				};
-				foreach(var item in ChkCboBoxShowRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxToggleSourceRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "togglehide"
-				};
-				foreach(var item in ChkCboBoxToggleSourceRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxTogglemuteRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "togglemute"
-				};
-				foreach(var item in ChkCboBoxToggleMuteRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxHideFilterRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "hidefilter"
-				};
-				foreach(var item in ChkCboBoxHideFilterRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxShowFilterRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "showfilter"
-				};
-				foreach(var item in ChkCboBoxShowFilterRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxToggleFilterRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "togglefilter"
-				};
-				foreach(var item in ChkCboBoxToggleFilterRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxMediaPlayRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mediaplay"
-				};
-				foreach(var item in ChkCboBoxMediaPlayRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMediaStopRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mediastop"
-				};
-				foreach(var item in ChkCboBoxMediaStopRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxMediaRestartRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "mediarestart"
-				};
-				foreach(var item in ChkCboBoxMediaRestartRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksON.Add(callback);
-			}
-			if(ChkBoxHotkeyRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "hotkey"
-				};
-				foreach(var item in ChkCboBoxHotkeyRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
-			if(ChkBoxMiscRelease.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "misc"
-				};
-				foreach(var item in ChkCboBoxMiscRelease.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksOFF.Add(callback);
-			}
+            var key = new KeyBindEntry
+            {
+                Mididevice = Device,
+                NoteNumber = Note,
+                Channel = Channel,
+                Input = Input
+            };
 
-			if(ChkBoxAdjustVolume.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "volume"
-				};
-				foreach(var item in ChkCboBoxVolumeSlider.CheckedItems) {
-					callback.Args.Add(item.ToString());
-				}
-				key.OBSCallBacksSlider.Add(callback);
-			}
-			if(ChkBoxAdjustTransitionDuration.Checked) {
-				var callback = new OBSCallBack {
-					Action = "transition"
-				};
-				key.OBSCallBacksSlider.Add(callback);
-			}
-			if(ChkBoxSlideTransition.Checked) {
-				var callback = new OBSCallBack {
-					Action = "transitionSlider"
-				};
-				key.OBSCallBacksSlider.Add(callback);
-			}
-			if(ChkBoxAdjustFilter.Checked) {
-				var callback = new OBSCallBack {
-					Args = new List<string>(),
-					Action = "filterSettings"
-				};
-				if((string)CboBoxFilterNameSlider.SelectedItem == null)
-					keybindErrors.Add("No filter selected for OBS (adjust) - Filter slider"); ;
-				callback.Args.Add((string)CboBoxFilterNameSlider.SelectedItem);
-				callback.Args.Add((string)CboBoxFilterSettingSlider.SelectedItem);
-				key.OBSCallBacksSlider.Add(callback);
-			}
+            if (ChkBoxTransitionPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "transition"
+                };
+                if ((string)CboBoxTransitionPress.SelectedItem == null)
+                    keybindErrors.Add("No scene selected for OBS (on) - Transition");
+                callback.Args.Add((string)CboBoxTransitionPress.SelectedItem);
+                callback.Args.Add(NumericTransitionPress.Value.ToString());
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxSwitchScenePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "switchScene"
+                };
+                if ((string)CboBoxSwitchScenePress.SelectedItem == null)
+                    keybindErrors.Add("No scene selected for OBS (on) - Switch Scene"); ;
+                callback.Args.Add((string)CboBoxSwitchScenePress.SelectedItem);
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxPreviewScenePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "previewScene"
+                };
+                if ((string)CboBoxPreviewScenePress.SelectedItem == null)
+                    keybindErrors.Add("No scene selected for OBS (on) - Preview Scene"); ;
+                callback.Args.Add((string)CboBoxPreviewScenePress.SelectedItem);
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMutePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mute"
+                };
+                foreach (var item in ChkCboBoxMutePress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxUnmutePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "unmute"
+                };
+                foreach (var item in ChkCboBoxUnmutePress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxHideSourcePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hide"
+                };
+                foreach (var item in ChkCboBoxHidePress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxShowSourcePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "show"
+                };
+                foreach (var item in ChkCboBoxShowPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxToggleSourcePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "togglehide"
+                };
+                foreach (var item in ChkCboBoxToggleSourcePress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxTogglemutePress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "togglemute"
+                };
+                foreach (var item in ChkCboBoxToggleMutePress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxHideFilterPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hidefilter"
+                };
+                foreach (var item in ChkCboBoxHideFilterPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxShowFilterPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "showfilter"
+                };
+                foreach (var item in ChkCboBoxShowFilterPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxToggleFilterPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "togglefilter"
+                };
+                foreach (var item in ChkCboBoxToggleFilterPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaPlayPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediaplay"
+                };
+                foreach (var item in ChkCboBoxMediaPlayPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaStopPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediastop"
+                };
+                foreach (var item in ChkCboBoxMediaStopPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaRestartPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediarestart"
+                };
+                foreach (var item in ChkCboBoxMediaRestartPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxHotkeyPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hotkey"
+                };
+                foreach (var item in ChkCboBoxHotkeyPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMiscPress.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "misc"
+                };
+                foreach (var item in ChkCboBoxMiscPress.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxTransitionRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "transition"
+                };
+                if ((string)CboBoxTransitionRelease.SelectedItem == null)
+                    keybindErrors.Add("No scene selected for OBS (off) - Transition"); ;
+                callback.Args.Add((string)CboBoxTransitionRelease.SelectedItem);
+                callback.Args.Add(NumericTransitionRelease.Value.ToString());
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxSwitchSceneRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "switchScene"
+                };
+                if ((string)CboBoxSwitchSceneRelease.SelectedItem == null)
+                    keybindErrors.Add("No scene selected for OBS (off) - Switch Scene"); ;
+                callback.Args.Add((string)CboBoxSwitchSceneRelease.SelectedItem);
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxPreviewSceneRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "previewScene"
+                };
+                if ((string)CboBoxPreviewSceneRelease.SelectedItem == null)
+                    keybindErrors.Add("No scene selected for OBS (off) - Preview Scene"); ;
+                callback.Args.Add((string)CboBoxPreviewSceneRelease.SelectedItem);
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMuteRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mute"
+                };
+                foreach (var item in ChkCboBoxMuteRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxUnmuteRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "unmute"
+                };
+                foreach (var item in ChkCboBoxUnmuteRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxHideSourceRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hide"
+                };
+                foreach (var item in ChkCboBoxHideRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxShowSourceRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "show"
+                };
+                foreach (var item in ChkCboBoxShowRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxToggleSourceRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "togglehide"
+                };
+                foreach (var item in ChkCboBoxToggleSourceRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxTogglemuteRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "togglemute"
+                };
+                foreach (var item in ChkCboBoxToggleMuteRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxHideFilterRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hidefilter"
+                };
+                foreach (var item in ChkCboBoxHideFilterRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxShowFilterRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "showfilter"
+                };
+                foreach (var item in ChkCboBoxShowFilterRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxToggleFilterRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "togglefilter"
+                };
+                foreach (var item in ChkCboBoxToggleFilterRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxMediaPlayRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediaplay"
+                };
+                foreach (var item in ChkCboBoxMediaPlayRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaStopRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediastop"
+                };
+                foreach (var item in ChkCboBoxMediaStopRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxMediaRestartRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "mediarestart"
+                };
+                foreach (var item in ChkCboBoxMediaRestartRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksON.Add(callback);
+            }
+            if (ChkBoxHotkeyRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "hotkey"
+                };
+                foreach (var item in ChkCboBoxHotkeyRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+            if (ChkBoxMiscRelease.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "misc"
+                };
+                foreach (var item in ChkCboBoxMiscRelease.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksOFF.Add(callback);
+            }
+
+            if (ChkBoxAdjustVolume.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "volume"
+                };
+                foreach (var item in ChkCboBoxVolumeSlider.CheckedItems)
+                {
+                    callback.Args.Add(item.ToString());
+                }
+                key.OBSCallBacksSlider.Add(callback);
+            }
+            if (ChkBoxAdjustTransitionDuration.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Action = "transition"
+                };
+                key.OBSCallBacksSlider.Add(callback);
+            }
+            if (ChkBoxSlideTransition.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Action = "transitionSlider"
+                };
+                key.OBSCallBacksSlider.Add(callback);
+            }
+            if (ChkBoxAdjustFilter.Checked)
+            {
+                var callback = new OBSCallBack
+                {
+                    Args = new List<string>(),
+                    Action = "filterSettings"
+                };
+                if ((string)CboBoxFilterNameSlider.SelectedItem == null)
+                    keybindErrors.Add("No filter selected for OBS (adjust) - Filter slider"); ;
+                callback.Args.Add((string)CboBoxFilterNameSlider.SelectedItem);
+                callback.Args.Add((string)CboBoxFilterSettingSlider.SelectedItem);
+                key.OBSCallBacksSlider.Add(callback);
+            }
 
 
-			// Sounboard
-			if(ChkBoxEnableAudio.Checked) {
-				key.SoundCallBack = new SoundCallBack(TxtBoxAudioFile.Text, CboBoxAudioDevice.Text, ChkBoxAudioStop.Checked, chkBoxLoop.Checked, volumeSlider.Volume, chkStopAllOthers.Checked);
-			} else {
-				key.SoundCallBack = null;
-			}
+            // Sounboard
+            if (ChkBoxEnableAudio.Checked)
+            {
+                key.SoundCallBack = new SoundCallBack(TxtBoxAudioFile.Text, CboBoxAudioDevice.Text, ChkBoxAudioStop.Checked, chkBoxLoop.Checked, volumeSlider.Volume, chkStopAllOthers.Checked);
+            }
+            else
+            {
+                key.SoundCallBack = null;
+            }
 
-			// MIDIControl
-			if(ChkBoxStopAllSoundPress.Checked || ChkBoxSwitchToProfilePress.Checked) {
-				key.MIDIControlCallBackON = new MIDIControlCallBack();
-				if(ChkBoxStopAllSoundPress.Checked) {
-					key.MIDIControlCallBackON.StopAllSound = true;
-				}
-				if(ChkBoxSwitchToProfilePress.Checked) {
-					key.MIDIControlCallBackON.SwitchToProfile = CboBoxProfilePress.SelectedItem.ToString();
-				}
-			}
-			if(ChkBoxStopAllSoundRelease.Checked || ChkBoxSwitchToProfileRelease.Checked) {
-				key.MIDIControlCallBackOFF = new MIDIControlCallBack();
-				if(ChkBoxStopAllSoundRelease.Checked) {
-					key.MIDIControlCallBackOFF.StopAllSound = true;
-				}
-				if(ChkBoxSwitchToProfileRelease.Checked) {
-					key.MIDIControlCallBackOFF.SwitchToProfile = CboBoxProfileRelease.SelectedItem.ToString();
-				}
-			}
+            // MIDIControl
+            if (ChkBoxStopAllSoundPress.Checked || ChkBoxSwitchToProfilePress.Checked)
+            {
+                key.MIDIControlCallBackON = new MIDIControlCallBack();
+                if (ChkBoxStopAllSoundPress.Checked)
+                {
+                    key.MIDIControlCallBackON.StopAllSound = true;
+                }
+                if (ChkBoxSwitchToProfilePress.Checked)
+                {
+                    key.MIDIControlCallBackON.SwitchToProfile = CboBoxProfilePress.SelectedItem.ToString();
+                }
+            }
+            if (ChkBoxStopAllSoundRelease.Checked || ChkBoxSwitchToProfileRelease.Checked)
+            {
+                key.MIDIControlCallBackOFF = new MIDIControlCallBack();
+                if (ChkBoxStopAllSoundRelease.Checked)
+                {
+                    key.MIDIControlCallBackOFF.StopAllSound = true;
+                }
+                if (ChkBoxSwitchToProfileRelease.Checked)
+                {
+                    key.MIDIControlCallBackOFF.SwitchToProfile = CboBoxProfileRelease.SelectedItem.ToString();
+                }
+            }
 
-			// Media Keys
-			if(ChkBoxMediaKeyPlayPress.Checked) {
-				key.MediaCallBack = new MediaCallBack(MediaType.PLAY);
-			} else if(ChkBoxMediaKeyNextPress.Checked) {
-				key.MediaCallBack = new MediaCallBack(MediaType.NEXT);
-			} else if(ChkBoxMediaKeyPreviousPress.Checked) {
-				key.MediaCallBack = new MediaCallBack(MediaType.PREVIOUS);
-			} else {
-				key.MediaCallBackOFF = null;
-			}
-			if(ChkBoxMediaKeyPlayRelease.Checked) {
-				key.MediaCallBackOFF = new MediaCallBack(MediaType.PLAY);
-			} else if(ChkBoxMediaKeyNextRelease.Checked) {
-				key.MediaCallBackOFF = new MediaCallBack(MediaType.NEXT);
-			} else if(ChkBoxMediaKeyPreviousRelease.Checked) {
-				key.MediaCallBackOFF = new MediaCallBack(MediaType.PREVIOUS);
-			} else {
-				key.MediaCallBackOFF = null;
-			}
+            // Media Keys
+            if (ChkBoxMediaKeyPlayPress.Checked)
+            {
+                key.MediaCallBack = new MediaCallBack(MediaType.PLAY);
+            }
+            else if (ChkBoxMediaKeyNextPress.Checked)
+            {
+                key.MediaCallBack = new MediaCallBack(MediaType.NEXT);
+            }
+            else if (ChkBoxMediaKeyPreviousPress.Checked)
+            {
+                key.MediaCallBack = new MediaCallBack(MediaType.PREVIOUS);
+            }
+            else
+            {
+                key.MediaCallBackOFF = null;
+            }
+            if (ChkBoxMediaKeyPlayRelease.Checked)
+            {
+                key.MediaCallBackOFF = new MediaCallBack(MediaType.PLAY);
+            }
+            else if (ChkBoxMediaKeyNextRelease.Checked)
+            {
+                key.MediaCallBackOFF = new MediaCallBack(MediaType.NEXT);
+            }
+            else if (ChkBoxMediaKeyPreviousRelease.Checked)
+            {
+                key.MediaCallBackOFF = new MediaCallBack(MediaType.PREVIOUS);
+            }
+            else
+            {
+                key.MediaCallBackOFF = null;
+            }
 
 
-			// Twitch
-			if(TxtBoxTwitchChannelPress.Text != "" && TxtBoxTwitchMessagePress.Text != "") {
-				key.TwitchCallBackON = new TwitchCallBack {
-					Channel = TxtBoxTwitchChannelPress.Text,
-					Messsage = TxtBoxTwitchMessagePress.Text
-				};
-			}
-			if(TxtBoxTwitchChannelRelease.Text != "" && TxtBoxTwitchMessageRelease.Text != "") {
-				key.TwitchCallBackOFF = new TwitchCallBack {
-					Channel = TxtBoxTwitchChannelRelease.Text,
-					Messsage = TxtBoxTwitchMessageRelease.Text
-				};
-			}
+            // Twitch
+            if (TxtBoxTwitchChannelPress.Text != "" && TxtBoxTwitchMessagePress.Text != "")
+            {
+                key.TwitchCallBackON = new TwitchCallBack
+                {
+                    Channel = TxtBoxTwitchChannelPress.Text,
+                    Messsage = TxtBoxTwitchMessagePress.Text
+                };
+            }
+            if (TxtBoxTwitchChannelRelease.Text != "" && TxtBoxTwitchMessageRelease.Text != "")
+            {
+                key.TwitchCallBackOFF = new TwitchCallBack
+                {
+                    Channel = TxtBoxTwitchChannelRelease.Text,
+                    Messsage = TxtBoxTwitchMessageRelease.Text
+                };
+            }
 
-			// Go XLR
-			if(RadioButtonToggleXLRPress.Checked) {
-				key.GoXLRCallBackON = new GoXLRCallBack {
-					Action = (int)GoXLRControl.Action.Toggle,
-					Input = CboBoxXLRInputPress.SelectedItem.ToString(),
-					Output = CboBoxXLROutputPress.SelectedItem.ToString()
-				};
-			}
-			if(RadioButtonMuteXLRPress.Checked) {
-				key.GoXLRCallBackON = new GoXLRCallBack {
-					Action = (int)GoXLRControl.Action.Mute,
-					Input = CboBoxXLRInputPress.SelectedItem.ToString(),
-					Output = CboBoxXLROutputPress.SelectedItem.ToString()
-				};
-			}
-			if(RadioButtonUnMuteXLRPress.Checked) {
-				key.GoXLRCallBackON = new GoXLRCallBack {
-					Action = (int)GoXLRControl.Action.UnMute,
-					Input = CboBoxXLRInputPress.SelectedItem.ToString(),
-					Output = CboBoxXLROutputPress.SelectedItem.ToString()
-				};
-			}
-			if(RadioButtonToggleXLRRelease.Checked) {
-				key.GoXLRCallBackOFF = new GoXLRCallBack {
-					Action = (int)GoXLRControl.Action.Toggle,
-					Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
-					Output = CboBoxXLROutputRelease.SelectedItem.ToString()
-				};
-			}
-			if(RadioButtonMuteXLRRelease.Checked) {
-				key.GoXLRCallBackOFF = new GoXLRCallBack {
-					Action = (int)GoXLRControl.Action.Mute,
-					Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
-					Output = CboBoxXLROutputRelease.SelectedItem.ToString()
-				};
-			}
-			if(RadioButtonUnMuteXLRRelease.Checked) {
-				key.GoXLRCallBackOFF = new GoXLRCallBack {
-					Action = (int)GoXLRControl.Action.UnMute,
-					Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
-					Output = CboBoxXLROutputRelease.SelectedItem.ToString()
-				};
-			}
+            // Go XLR
+            if (RadioButtonToggleXLRPress.Checked)
+            {
+                key.GoXLRCallBackON = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Toggle,
+                    Input = CboBoxXLRInputPress.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputPress.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonMuteXLRPress.Checked)
+            {
+                key.GoXLRCallBackON = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Mute,
+                    Input = CboBoxXLRInputPress.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputPress.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonUnMuteXLRPress.Checked)
+            {
+                key.GoXLRCallBackON = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.UnMute,
+                    Input = CboBoxXLRInputPress.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputPress.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonToggleXLRRelease.Checked)
+            {
+                key.GoXLRCallBackOFF = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Toggle,
+                    Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputRelease.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonMuteXLRRelease.Checked)
+            {
+                key.GoXLRCallBackOFF = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.Mute,
+                    Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputRelease.SelectedItem.ToString()
+                };
+            }
+            if (RadioButtonUnMuteXLRRelease.Checked)
+            {
+                key.GoXLRCallBackOFF = new GoXLRCallBack
+                {
+                    Action = (int)GoXLRControl.Action.UnMute,
+                    Input = CboBoxXLRInputRelease.SelectedItem.ToString(),
+                    Output = CboBoxXLROutputRelease.SelectedItem.ToString()
+                };
+            }
 
-			// finally, display the summary
-			this.UpdateSummaryTextbox(key);
+            // finally, display the summary
+            this.UpdateSummaryTextbox(key);
 
-			return key;
-		}
+            return key;
+        }
 
-		private void UpdateSummaryTextbox(KeyBindEntry proposed) {
-			txtKeybindSummary.Text = "";
-			if(previousSettings != null) {
-				txtKeybindSummary.Text += "Current keybind settings:\r\n";
-				foreach(var s in previousSettings.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries))
-					 txtKeybindSummary.Text += "- " + s + "\r\n";
-				txtKeybindSummary.Text += "\r\n";
-			}
-			if(keybindErrors.Count > 0) {
-				txtKeybindSummary.Visible = true;
+        private void UpdateSummaryTextbox(KeyBindEntry proposed)
+        {
+            txtKeybindSummary.Text = string.Empty;
+            if (previousSettings != null)
+            {
+                txtKeybindSummary.Text += "Current keybind settings:\r\n";
+                foreach (var s in previousSettings.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries))
+                    txtKeybindSummary.Text += "- " + s + "\r\n";
+                txtKeybindSummary.Text += "\r\n";
+            }
+            if (keybindErrors.Count > 0)
+            {
+                txtKeybindSummary.Visible = true;
 
-				txtKeybindSummary.Text += "The following issues with the proposed settings were detected:\r\n";
-				foreach(var s in keybindErrors) {
-					txtKeybindSummary.Text += "- " + s + "\r\n";
-				}
-			} else {
-				txtKeybindSummary.Text += "Proposed keybind settings:\r\n";
-				var proposedChanges = proposed.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries);
-				if(proposedChanges.Length > 0) {
-					txtKeybindSummary.Visible = true;
-					foreach(var s in proposedChanges)
-						txtKeybindSummary.Text += "- " + s + "\r\n";
-				} else {
-					txtKeybindSummary.Visible = (this.previousSettings != null);
-					txtKeybindSummary.Text += "(nothing selected)";
-				}
-			}
-		}
+                txtKeybindSummary.Text += "The following issues with the proposed settings were detected:\r\n";
+                foreach (var s in keybindErrors)
+                {
+                    txtKeybindSummary.Text += "- " + s + "\r\n";
+                }
+            }
+            else
+            {
+                txtKeybindSummary.Text += "Proposed keybind settings:\r\n";
+                var proposedChanges = proposed.Summarize().Split(new string[] { " / " }, StringSplitOptions.RemoveEmptyEntries);
+                if (proposedChanges.Length > 0)
+                {
+                    txtKeybindSummary.Visible = true;
+                    foreach (var s in proposedChanges)
+                        txtKeybindSummary.Text += "- " + s + "\r\n";
+                }
+                else
+                {
+                    txtKeybindSummary.Visible = (this.previousSettings != null);
+                    txtKeybindSummary.Text += "(nothing selected)";
+                }
+            }
+        }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-			var key = GetProposedKeybind();
-			if(keybindErrors.Count > 0) {
-				// invalid settings
-				MessageBox.Show("One or more invalid settings was detected.  Please check your selections and try again.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            var key = GetProposedKeybind();
+            if (keybindErrors.Count > 0)
+            {
+                // invalid settings
+                MessageBox.Show("One or more invalid settings was detected.  Please check your selections and try again.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-				// show root panel
-				foreach(var p in panels) {
-					p.Visible = false;
-				}
-				pnlRoot.Visible = true;
-				
-				lblPanelLabel.Text = "Invalid options detected - please check your settings";
-				return;
-			}
+                // show root panel
+                foreach (var p in panels)
+                {
+                    p.Visible = false;
+                }
+                pnlRoot.Visible = true;
 
-			if(GetProposedKeybind().Summarize().Trim() == "") {
-				// nothing selected
-				MessageBox.Show("You haven't selected any actions for this keybind.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
+                lblPanelLabel.Text = "Invalid options detected - please check your settings";
+                return;
+            }
 
-			if(TxtBoxName.Text == "") {
-				// needs to have a name
-				MessageBox.Show("Enter a name for your new keybind.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
-            
+            if (GetProposedKeybind().Summarize().Trim() == "")
+            {
+                // nothing selected
+                MessageBox.Show("You haven't selected any actions for this keybind.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (TxtBoxName.Text == "")
+            {
+                // needs to have a name
+                MessageBox.Show("Enter a name for your new keybind.", "Invalid options", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
 
             if (EntryName == null) // New
             {
-				// make sure the proposed name isn't already taken
-				if(conf.Config.ContainsKey(TxtBoxName.Text)) {
-					if(MessageBox.Show("A keybind with this name already exists.  Do you want to overwrite it?", "Keybind name taken", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-						return;
-					conf.Config[TxtBoxName.Text] = key;
-				} else {
-					conf.Config.Add(TxtBoxName.Text, key);
-				}
+                // make sure the proposed name isn't already taken
+                if (conf.Config.ContainsKey(TxtBoxName.Text))
+                {
+                    if (MessageBox.Show("A keybind with this name already exists.  Do you want to overwrite it?", "Keybind name taken", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                        return;
+                    conf.Config[TxtBoxName.Text] = key;
+                }
+                else
+                {
+                    conf.Config.Add(TxtBoxName.Text, key);
+                }
             }
             else // Edit
             {
                 if (conf.Config.ContainsKey(TxtBoxName.Text)) // Same Name
                 {
-					conf.Config[TxtBoxName.Text] = key;
-				}
+                    conf.Config[TxtBoxName.Text] = key;
+                }
                 else // Name Modified
                 {
                     conf.Config.Remove(EntryName);
@@ -1577,9 +1738,9 @@ namespace MidiControl
                 }
             }
 
-			conf.Unsaved = true;
+            conf.Unsaved = true;
 
-			DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
 
             Close();
             Dispose();
@@ -1639,13 +1800,13 @@ namespace MidiControl
             TxtBoxDevice.Text = device;
             TxtBoxChannel.Text = channel;
 
-            if(Input == Event.Note)
-			{
+            if (Input == Event.Note)
+            {
                 LblNote.Text = "Note";
                 TxtBoxNote.Text = MIDIListener.GetNoteString(Note);
-            } 
-			else if(Input == Event.Slider)
-			{
+            }
+            else if (Input == Event.Slider)
+            {
                 LblNote.Text = "CC";
             }
         }
@@ -1678,10 +1839,10 @@ namespace MidiControl
             CboBoxFilterSettingSlider.SelectedIndex = 0;
         }
 
-		private void CancelPressed(object sender, EventArgs e)
-		{
-			DialogResult = DialogResult.Cancel;
-			Close();
-		}
-	}
+        private void CancelPressed(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+    }
 }
