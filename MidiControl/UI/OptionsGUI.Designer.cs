@@ -41,7 +41,7 @@ namespace MidiControl
 			this.groupBoxMIDI = new GroupBox();
 			this.txtBoxDelay = new TextBox();
 			this.lblDelay = new Label();
-			this.label1 = new Label();
+			this.lblMIDIIgnore = new Label();
 			this.ChkCmbBoxMIDI = new CheckedListBox();
 			this.groupBoxTwitch = new GroupBox();
 			this.BtnRequestTwitchLogout = new Button();
@@ -132,7 +132,7 @@ namespace MidiControl
 			// 
 			this.groupBoxMIDI.Controls.Add(this.txtBoxDelay);
 			this.groupBoxMIDI.Controls.Add(this.lblDelay);
-			this.groupBoxMIDI.Controls.Add(this.label1);
+			this.groupBoxMIDI.Controls.Add(this.lblMIDIIgnore);
 			this.groupBoxMIDI.Controls.Add(this.ChkCmbBoxMIDI);
 			this.groupBoxMIDI.Location = new System.Drawing.Point(12, 75);
 			this.groupBoxMIDI.Name = "groupBoxMIDI";
@@ -159,12 +159,12 @@ namespace MidiControl
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(6, 52);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(119, 13);
-			this.label1.TabIndex = 10;
-			this.label1.Text = "MIDI Interface to ignore";
+			this.lblMIDIIgnore.AutoSize = true;
+			this.lblMIDIIgnore.Location = new System.Drawing.Point(6, 52);
+			this.lblMIDIIgnore.Name = "label1";
+			this.lblMIDIIgnore.Size = new System.Drawing.Size(119, 13);
+			this.lblMIDIIgnore.TabIndex = 10;
+			this.lblMIDIIgnore.Text = "MIDI Interface to ignore";
 			// 
 			// ChkCmbBoxMIDI
 			// 
@@ -437,7 +437,7 @@ namespace MidiControl
         private Button BtnSave;
         private GroupBox groupBoxMIDI;
         private GroupBox groupBoxOBS;
-        private Label label1;
+        private Label lblMIDIIgnore;
         private CheckedListBox ChkCmbBoxMIDI;
         private TextBox txtBoxDelay;
         private Label lblDelay;

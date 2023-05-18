@@ -208,11 +208,10 @@ namespace MidiControl
 			this.pnlTwitchRelease = new Panel();
 			this.pnlGoXLRRelease = new Panel();
 			this.pnlOBSSlider = new Panel();
-			this.label1 = new Label();
+			this.lblSelectAction = new Label();
 			this.lblPanelLabel = new Label();
 			this.pnlRoot = new Panel();
 			this.btnCancel = new Button();
-			this.lblHideMe = new Label();
 			this.txtKeybindSummary = new TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).BeginInit();
 			this.PanelXLRPress.SuspendLayout();
@@ -1892,12 +1891,12 @@ namespace MidiControl
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(13, 43);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(72, 13);
-			this.label1.TabIndex = 25;
-			this.label1.Text = "Select action:";
+			this.lblSelectAction.AutoSize = true;
+			this.lblSelectAction.Location = new System.Drawing.Point(13, 43);
+			this.lblSelectAction.Name = "label1";
+			this.lblSelectAction.Size = new System.Drawing.Size(72, 13);
+			this.lblSelectAction.TabIndex = 25;
+			this.lblSelectAction.Text = "Select action:";
 			// 
 			// lblPanelLabel
 			// 
@@ -1928,27 +1927,14 @@ namespace MidiControl
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.CancelPressed);
-			// 
-			// lblHideMe
-			// 
-			this.lblHideMe.AutoSize = true;
-			this.lblHideMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHideMe.Location = new System.Drawing.Point(13, 365);
-			this.lblHideMe.Name = "lblHideMe";
-			this.lblHideMe.Size = new System.Drawing.Size(272, 26);
-			this.lblHideMe.TabIndex = 29;
-			this.lblHideMe.Text = "original window size (632, 446)\r\nexpand window to view and edit the subpanels\r\n";
-			this.lblHideMe.Visible = false;
             // 
             // txtKeybindSummary
             // 
             this.txtKeybindSummary.Dock = DockStyle.Fill;
-            //this.txtKeybindSummary.Location = new System.Drawing.Point(15, 32);
             this.txtKeybindSummary.Multiline = true;
 			this.txtKeybindSummary.Name = "txtKeybindSummary";
 			this.txtKeybindSummary.ReadOnly = true;
 			this.txtKeybindSummary.ScrollBars = ScrollBars.Vertical;
-			//this.txtKeybindSummary.Size = new System.Drawing.Size(356, 259);
 			this.txtKeybindSummary.TabIndex = 1;
 			this.txtKeybindSummary.BorderStyle = BorderStyle.None;
 			// 
@@ -1957,11 +1943,10 @@ namespace MidiControl
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(616, 407);
-			this.Controls.Add(this.lblHideMe);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pnlRoot);
 			this.Controls.Add(this.lblPanelLabel);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.lblSelectAction);
 			this.Controls.Add(this.pnlOBSSlider);
 			this.Controls.Add(this.pnlMidiControlRelease);
 			this.Controls.Add(this.pnlTwitchRelease);
@@ -2027,7 +2012,6 @@ namespace MidiControl
 			this.pnlRoot.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-
         }
 
         #endregion
@@ -2181,11 +2165,10 @@ namespace MidiControl
 		private Panel pnlTwitchRelease;
 		private Panel pnlGoXLRRelease;
 		private Panel pnlOBSSlider;
-		private Label label1;
+		private Label lblSelectAction;
 		private Label lblPanelLabel;
 		private Panel pnlRoot;
 		private Button btnCancel;
-		private Label lblHideMe;
 		private TextBox txtKeybindSummary;
 	}
 }
