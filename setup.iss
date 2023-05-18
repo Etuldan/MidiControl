@@ -1,5 +1,5 @@
 #define AppName "MIDIControl"
-#define Dir "MidiControl\bin\Release\net472\"
+#define Dir "MidiControl\bin\Release\net6.0-windows\"
 #define AppVersion() GetVersionComponents(Dir + "MIDIControl.exe", \
     Local[0], Local[1], Local[2], Local[3]), \
     Str(Local[0]) + "." + Str(Local[1]) + "." + Str(Local[2])
@@ -21,7 +21,9 @@ VersionInfoVersion={#AppVersion}
 [Files]
 Source: "{#Dir}MidiControl.exe"; DestDir: "{app}";
 Source: "{#Dir}*.dll"; DestDir: "{app}";
-Source: "{#Dir}MidiControl.exe.config"; DestDir: "{app}";
+Source: "{#Dir}MidiControl.deps.json"; DestDir: "{app}";
+Source: "{#Dir}MidiControl.runtimeconfig.json"; DestDir: "{app}";
+Source: "{#Dir}MidiControl.dll.config"; DestDir: "{app}";
 Source: "{#Dir}Resources\redirect.html"; DestDir: "{app}\Resources";
 Source: "3rd-party-licenses.txt"; DestDir: "{app}";
 Source: "LICENSE"; DestDir: "{app}";
