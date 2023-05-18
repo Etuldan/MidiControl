@@ -9,9 +9,9 @@ namespace MidiControl.Control
     {
         private bool isConnected;
         private IWebSocketConnection socket;
-        public static List<string> inputs = new List<string>(new string[] { "Mic", "Chat", "Music", "Game", "Console", "Line In", "System", "Samples" });
-        public static List<string> outputs = new List<string>(new string[] { "Headphones", "Broadcast Mix", "Line Out", "Chat Mic", "Sampler"});
-        private readonly Dictionary<string, MIDIFeedback> feedbackToggle = new Dictionary<string, MIDIFeedback>();
+        public static List<string> inputs = new(new string[] { "Mic", "Chat", "Music", "Game", "Console", "Line In", "System", "Samples" });
+        public static List<string> outputs = new(new string[] { "Headphones", "Broadcast Mix", "Line Out", "Chat Mic", "Sampler"});
+        private readonly Dictionary<string, MIDIFeedback> feedbackToggle = new();
 
         public enum Action : int
         {
