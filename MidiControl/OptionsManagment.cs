@@ -26,12 +26,11 @@ namespace MidiControl {
 			try {
 				var json = File.ReadAllText(OptionFile);
 				options = JsonConvert.DeserializeObject<Options>(json);
-				if(options == null) {
+                if (options == null)
+                {
 					throw new FileNotFoundException();
 				}
-				if(options.MIDIInterfaces == null) {
-					options.MIDIInterfaces = new List<string>();
-				}
+                options.MIDIInterfaces ??= new List<string>();
 			} catch(FileNotFoundException) {
 				options = new Options {
 					Ip = "127.0.0.1:4444",

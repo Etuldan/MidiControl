@@ -1,4 +1,6 @@
-﻿namespace MidiControl
+﻿using System.Windows.Forms;
+
+namespace MidiControl
 {
     partial class OptionsGUI
     {
@@ -28,38 +30,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Interface");
-			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("MidiControl");
-			this.LblOBSIP = new System.Windows.Forms.Label();
-			this.LblOBSPassword = new System.Windows.Forms.Label();
-			this.TxtBoxOBSIP = new System.Windows.Forms.TextBox();
-			this.TxtBoxOBSPassword = new System.Windows.Forms.TextBox();
-			this.BtnSave = new System.Windows.Forms.Button();
-			this.groupBoxOBS = new System.Windows.Forms.GroupBox();
-			this.groupBoxMIDI = new System.Windows.Forms.GroupBox();
-			this.txtBoxDelay = new System.Windows.Forms.TextBox();
-			this.lblDelay = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.ChkCmbBoxMIDI = new CheckComboBoxTest.CheckedComboBox();
-			this.groupBoxTwitch = new System.Windows.Forms.GroupBox();
-			this.BtnRequestTwitchLogout = new System.Windows.Forms.Button();
-			this.BtnRequestTwitchLogin = new System.Windows.Forms.Button();
-			this.txtBoxTwitchLogin = new System.Windows.Forms.TextBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.chkConfirmDeleteKeybind = new System.Windows.Forms.CheckBox();
-			this.chkConfirmDeleteProfile = new System.Windows.Forms.CheckBox();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.cboTheme = new System.Windows.Forms.ComboBox();
-			this.cboToolbarPosition = new System.Windows.Forms.ComboBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.chkLoadLastProfileOnStart = new System.Windows.Forms.CheckBox();
-			this.chkStartToTray = new System.Windows.Forms.CheckBox();
-			this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
-			this.pnlGeneral = new System.Windows.Forms.Panel();
-			this.treeView1 = new System.Windows.Forms.TreeView();
-			this.pnlInterface = new System.Windows.Forms.Panel();
-			this.button1 = new System.Windows.Forms.Button();
+			TreeNode treeNode3 = new TreeNode("Interface");
+			TreeNode treeNode4 = new TreeNode("MidiControl");
+			this.LblOBSIP = new Label();
+			this.LblOBSPassword = new Label();
+			this.TxtBoxOBSIP = new TextBox();
+			this.TxtBoxOBSPassword = new TextBox();
+			this.BtnSave = new Button();
+			this.groupBoxOBS = new GroupBox();
+			this.groupBoxMIDI = new GroupBox();
+			this.txtBoxDelay = new TextBox();
+			this.lblDelay = new Label();
+			this.lblMIDIIgnore = new Label();
+			this.ChkCmbBoxMIDI = new CheckedListBox();
+			this.groupBoxTwitch = new GroupBox();
+			this.BtnRequestTwitchLogout = new Button();
+			this.BtnRequestTwitchLogin = new Button();
+			this.txtBoxTwitchLogin = new TextBox();
+			this.groupBox2 = new GroupBox();
+			this.chkConfirmDeleteKeybind = new CheckBox();
+			this.chkConfirmDeleteProfile = new CheckBox();
+			this.groupBox1 = new GroupBox();
+			this.label3 = new Label();
+			this.cboTheme = new ComboBox();
+			this.cboToolbarPosition = new ComboBox();
+			this.label2 = new Label();
+			this.chkLoadLastProfileOnStart = new CheckBox();
+			this.chkStartToTray = new CheckBox();
+			this.chkAlwaysOnTop = new CheckBox();
+			this.pnlGeneral = new Panel();
+			this.treeView1 = new TreeView();
+			this.pnlInterface = new Panel();
+			this.button1 = new Button();
 			this.groupBoxOBS.SuspendLayout();
 			this.groupBoxMIDI.SuspendLayout();
 			this.groupBoxTwitch.SuspendLayout();
@@ -104,7 +106,7 @@
 			// 
 			// BtnSave
 			// 
-			this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtnSave.Anchor = ((AnchorStyles)((AnchorStyles.Bottom | AnchorStyles.Right)));
 			this.BtnSave.Location = new System.Drawing.Point(244, 266);
 			this.BtnSave.Name = "BtnSave";
 			this.BtnSave.Size = new System.Drawing.Size(75, 23);
@@ -130,7 +132,7 @@
 			// 
 			this.groupBoxMIDI.Controls.Add(this.txtBoxDelay);
 			this.groupBoxMIDI.Controls.Add(this.lblDelay);
-			this.groupBoxMIDI.Controls.Add(this.label1);
+			this.groupBoxMIDI.Controls.Add(this.lblMIDIIgnore);
 			this.groupBoxMIDI.Controls.Add(this.ChkCmbBoxMIDI);
 			this.groupBoxMIDI.Location = new System.Drawing.Point(12, 75);
 			this.groupBoxMIDI.Name = "groupBoxMIDI";
@@ -157,25 +159,23 @@
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(6, 52);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(119, 13);
-			this.label1.TabIndex = 10;
-			this.label1.Text = "MIDI Interface to ignore";
+			this.lblMIDIIgnore.AutoSize = true;
+			this.lblMIDIIgnore.Location = new System.Drawing.Point(6, 52);
+			this.lblMIDIIgnore.Name = "label1";
+			this.lblMIDIIgnore.Size = new System.Drawing.Size(119, 13);
+			this.lblMIDIIgnore.TabIndex = 10;
+			this.lblMIDIIgnore.Text = "MIDI Interface to ignore";
 			// 
 			// ChkCmbBoxMIDI
 			// 
 			this.ChkCmbBoxMIDI.CheckOnClick = true;
-			this.ChkCmbBoxMIDI.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCmbBoxMIDI.DropDownHeight = 1;
+			this.ChkCmbBoxMIDI.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCmbBoxMIDI.FormattingEnabled = true;
 			this.ChkCmbBoxMIDI.IntegralHeight = false;
 			this.ChkCmbBoxMIDI.Location = new System.Drawing.Point(6, 68);
 			this.ChkCmbBoxMIDI.Name = "ChkCmbBoxMIDI";
 			this.ChkCmbBoxMIDI.Size = new System.Drawing.Size(218, 21);
 			this.ChkCmbBoxMIDI.TabIndex = 9;
-			this.ChkCmbBoxMIDI.ValueSeparator = ", ";
 			// 
 			// groupBoxTwitch
 			// 
@@ -276,7 +276,7 @@
 			// 
 			// cboTheme
 			// 
-			this.cboTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboTheme.DropDownStyle = ComboBoxStyle.DropDownList;
 			this.cboTheme.FormattingEnabled = true;
 			this.cboTheme.Items.AddRange(new object[] {
             "Default (light)",
@@ -289,7 +289,7 @@
 			// 
 			// cboToolbarPosition
 			// 
-			this.cboToolbarPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboToolbarPosition.DropDownStyle = ComboBoxStyle.DropDownList;
 			this.cboToolbarPosition.FormattingEnabled = true;
 			this.cboToolbarPosition.Items.AddRange(new object[] {
             "Top",
@@ -342,7 +342,7 @@
 			// 
 			this.pnlGeneral.AutoScroll = true;
 			this.pnlGeneral.BackColor = System.Drawing.SystemColors.Control;
-			this.pnlGeneral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlGeneral.BorderStyle = BorderStyle.FixedSingle;
 			this.pnlGeneral.Controls.Add(this.groupBoxOBS);
 			this.pnlGeneral.Controls.Add(this.groupBoxTwitch);
 			this.pnlGeneral.Controls.Add(this.groupBoxMIDI);
@@ -363,19 +363,19 @@
 			treeNode4.Name = "general";
 			treeNode4.Text = "MidiControl";
 			treeNode4.ToolTipText = "General program settings";
-			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+			this.treeView1.Nodes.AddRange(new TreeNode[] {
             treeNode3,
             treeNode4});
 			this.treeView1.ShowNodeToolTips = true;
 			this.treeView1.ShowRootLines = false;
 			this.treeView1.Size = new System.Drawing.Size(130, 246);
 			this.treeView1.TabIndex = 16;
-			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OptionsCategoryChanged);
+			this.treeView1.NodeMouseClick += new TreeNodeMouseClickEventHandler(this.OptionsCategoryChanged);
 			// 
 			// pnlInterface
 			// 
 			this.pnlInterface.AutoScroll = true;
-			this.pnlInterface.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlInterface.BorderStyle = BorderStyle.FixedSingle;
 			this.pnlInterface.Controls.Add(this.groupBox2);
 			this.pnlInterface.Controls.Add(this.groupBox1);
 			this.pnlInterface.Location = new System.Drawing.Point(422, 12);
@@ -397,20 +397,20 @@
 			// OptionsGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleMode = AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(412, 301);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.pnlInterface);
 			this.Controls.Add(this.treeView1);
 			this.Controls.Add(this.pnlGeneral);
 			this.Controls.Add(this.BtnSave);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(270, 310);
 			this.Name = "OptionsGUI";
 			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.StartPosition = FormStartPosition.CenterParent;
 			this.Text = "Options";
 			this.groupBoxOBS.ResumeLayout(false);
 			this.groupBoxOBS.PerformLayout();
@@ -430,35 +430,35 @@
 
         #endregion
 
-        private System.Windows.Forms.Label LblOBSIP;
-        private System.Windows.Forms.Label LblOBSPassword;
-        private System.Windows.Forms.TextBox TxtBoxOBSIP;
-        private System.Windows.Forms.TextBox TxtBoxOBSPassword;
-        private System.Windows.Forms.Button BtnSave;
-        private System.Windows.Forms.GroupBox groupBoxMIDI;
-        private System.Windows.Forms.GroupBox groupBoxOBS;
-        private System.Windows.Forms.Label label1;
-        private CheckComboBoxTest.CheckedComboBox ChkCmbBoxMIDI;
-        private System.Windows.Forms.TextBox txtBoxDelay;
-        private System.Windows.Forms.Label lblDelay;
-        private System.Windows.Forms.GroupBox groupBoxTwitch;
-        private System.Windows.Forms.TextBox txtBoxTwitchLogin;
-        private System.Windows.Forms.Button BtnRequestTwitchLogin;
-        private System.Windows.Forms.Button BtnRequestTwitchLogout;
-		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.CheckBox chkConfirmDeleteKeybind;
-		private System.Windows.Forms.CheckBox chkConfirmDeleteProfile;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.CheckBox chkStartToTray;
-		private System.Windows.Forms.CheckBox chkAlwaysOnTop;
-		private System.Windows.Forms.CheckBox chkLoadLastProfileOnStart;
-		private System.Windows.Forms.ComboBox cboToolbarPosition;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.ComboBox cboTheme;
-        private System.Windows.Forms.Panel pnlGeneral;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.Panel pnlInterface;
-		private System.Windows.Forms.Button button1;
+        private Label LblOBSIP;
+        private Label LblOBSPassword;
+        private TextBox TxtBoxOBSIP;
+        private TextBox TxtBoxOBSPassword;
+        private Button BtnSave;
+        private GroupBox groupBoxMIDI;
+        private GroupBox groupBoxOBS;
+        private Label lblMIDIIgnore;
+        private CheckedListBox ChkCmbBoxMIDI;
+        private TextBox txtBoxDelay;
+        private Label lblDelay;
+        private GroupBox groupBoxTwitch;
+        private TextBox txtBoxTwitchLogin;
+        private Button BtnRequestTwitchLogin;
+        private Button BtnRequestTwitchLogout;
+		private GroupBox groupBox2;
+		private CheckBox chkConfirmDeleteKeybind;
+		private CheckBox chkConfirmDeleteProfile;
+		private GroupBox groupBox1;
+		private CheckBox chkStartToTray;
+		private CheckBox chkAlwaysOnTop;
+		private CheckBox chkLoadLastProfileOnStart;
+		private ComboBox cboToolbarPosition;
+		private Label label2;
+		private Label label3;
+		private ComboBox cboTheme;
+        private Panel pnlGeneral;
+        private TreeView treeView1;
+        private Panel pnlInterface;
+		private Button button1;
 	}
 }

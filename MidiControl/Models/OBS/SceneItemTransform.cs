@@ -5,57 +5,57 @@ namespace MidiControl.Models.OBS
     public class SceneItemTransform
     {
         [JsonProperty("alignment")]
-        public int alignment { get; set; }
+        public int Alignment { get; set; }
 
         [JsonProperty("boundsAlignment")]
-        public int boundsAlignment { get; set; }
+        public int BoundsAlignment { get; set; }
 
         [JsonProperty("boundsHeight")]
-        public double boundsHeight { get; set; }
+        public double BoundsHeight { get; set; }
 
         [JsonProperty("boundsType")]
-        public string boundsType { get; set; }
+        public string BoundsType { get; set; }
 
         [JsonProperty("boundsWidth")]
-        public double boundsWidth { get; set; }
+        public double BoundsWidth { get; set; }
 
         [JsonProperty("cropBottom")]
-        public int cropBottom { get; set; }
+        public int CropBottom { get; set; }
 
         [JsonProperty("cropLeft")]
-        public int cropLeft { get; set; }
+        public int CropLeft { get; set; }
 
         [JsonProperty("cropRight")]
-        public int cropRight { get; set; }
+        public int CropRight { get; set; }
 
         [JsonProperty("cropTop")]
-        public int cropTop { get; set; }
+        public int CropTop { get; set; }
 
         [JsonProperty("height")]
-        public double height { get; set; }
+        public double Height { get; set; }
 
         [JsonProperty("positionX")]
-        public double positionX { get; set; }
+        public double PositionX { get; set; }
 
         [JsonProperty("positionY")]
-        public double positionY { get; set; }
+        public double PositionY { get; set; }
 
         [JsonProperty("rotation")]
-        public double rotation { get; set; }
+        public double Rotation { get; set; }
 
         [JsonProperty("scaleX")]
-        public double scaleX { get; set; }
+        public double ScaleX { get; set; }
 
         [JsonProperty("scaleY")]
-        public double scaleY { get; set; }
+        public double ScaleY { get; set; }
 
         [JsonProperty("sourceHeight")]
-        public double sourceHeight { get; set; }
+        public double SourceHeight { get; set; }
 
         [JsonProperty("sourceWidth")]
-        public double sourceWidth { get; set; }
+        public double SourceWidth { get; set; }
 
         [JsonProperty("width")]
-        public double width { get; set; }
+        public double Width { get; set; }
     }
 }

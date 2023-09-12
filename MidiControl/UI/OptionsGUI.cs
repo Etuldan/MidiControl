@@ -11,7 +11,7 @@ namespace MidiControl
     public partial class OptionsGUI : Form
     {
         private readonly OptionsManagment options;
-        private List<Panel> panels;
+        private readonly List<Panel> panels;
 
         public OptionsGUI(OptionsManagment options, string tab = "general")
         {

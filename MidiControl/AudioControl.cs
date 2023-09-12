@@ -64,9 +64,9 @@ namespace MidiControl
         [DllImport("user32.dll")]
         private static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
 
-        private readonly Dictionary<KeyBindEntry, List<WaveOut>> WaveOuts = new Dictionary<KeyBindEntry, List<WaveOut>>();
+        private readonly Dictionary<KeyBindEntry, List<WaveOut>> WaveOuts = new();
 
-        public void MediaKey(MediaType type)
+        public static void MediaKey(MediaType type)
         {
             byte key;
             switch (type)

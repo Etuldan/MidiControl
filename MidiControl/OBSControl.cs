@@ -16,11 +16,11 @@ namespace MidiControl {
 		private readonly OBSWebsocket obs;
 		private readonly MIDIControlGUI gui;
 		private static OBSControl _instance;
-		private readonly Dictionary<string, float[]> FiltersMinMaxValues = new Dictionary<string, float[]>();
-		public readonly Dictionary<string, string> Hotkeys = new Dictionary<string, string>();
+		private readonly Dictionary<string, float[]> FiltersMinMaxValues = new();
+		public readonly Dictionary<string, string> Hotkeys = new();
 		public readonly OptionsManagment options;
 		private Timer timer;
-		private readonly Dictionary<string, MIDIFeedback> feedbackScenes = new Dictionary<string, MIDIFeedback>();
+		private readonly Dictionary<string, MIDIFeedback> feedbackScenes = new();
 		private List<FilterSettingsScene> filterSettings;
 		private bool isConnected = true;
 		private readonly string FilterLog;
@@ -43,7 +43,7 @@ namespace MidiControl {
 
 			var pathFilters = Path.Combine(ConfFolder, Path.GetFileName("filterminmax.csv"));
 			try {
-                using TextFieldParser csvParser = new TextFieldParser(pathFilters);
+                using var csvParser = new TextFieldParser(pathFilters);
                 csvParser.CommentTokens = new string[] { "#" };
                 csvParser.SetDelimiters(new string[] { "," });
                 csvParser.HasFieldsEnclosedInQuotes = true;
@@ -58,7 +58,7 @@ namespace MidiControl {
 
 			string pathHotkeys = Path.Combine(ConfFolder, Path.GetFileName("hotkeys.csv"));
 			try {
-                using TextFieldParser csvParser = new TextFieldParser(pathHotkeys);
+                using var csvParser = new TextFieldParser(pathHotkeys);
                 csvParser.CommentTokens = new string[] { "#" };
                 csvParser.SetDelimiters(new string[] { "," });
                 csvParser.HasFieldsEnclosedInQuotes = true;
@@ -428,9 +428,9 @@ namespace MidiControl {
 				};
                 var result = obs.SendRequest("GetGroupSceneItemList", request)["sceneItems"].ToString();
                 var groupElements = JsonConvert.DeserializeObject<List<Source>>(result);
-                foreach (var groupElement in groupElements.Where(element => sources.Contains(element.sourceName)))
+                foreach (var groupElement in groupElements.Where(element => sources.Contains(element.SourceName)))
                 {
-                    sourcesName.Add(new SourceScene() { Source = groupElement.sourceName, Scene = group }, obs.GetSourceActive(groupElement.sourceName).VideoShowing);
+                    sourcesName.Add(new SourceScene() { Source = groupElement.SourceName, Scene = group }, obs.GetSourceActive(groupElement.SourceName).VideoShowing);
                 }
             }
 
@@ -486,9 +486,9 @@ namespace MidiControl {
                 };
                 var result = obs.SendRequest("GetGroupSceneItemList", request)["sceneItems"].ToString();
                 var groupElements = JsonConvert.DeserializeObject<List<Source>>(result);
-                foreach (var groupElement in groupElements.Where(element => sources.Contains(element.sourceName)))
+                foreach (var groupElement in groupElements.Where(element => sources.Contains(element.SourceName)))
                 {
-                    sourcesName.Add(new SourceScene() { Source = groupElement.sourceName, Scene = group });
+                    sourcesName.Add(new SourceScene() { Source = groupElement.SourceName, Scene = group });
                 }
             }
 
@@ -522,7 +522,7 @@ namespace MidiControl {
 					value = value * (max - min) + min;
 
 					if(filterSetting.FilterSettings.Name == filterName) {
-						JObject o = new JObject(new JProperty(property, value));
+						var o = new JObject(new JProperty(property, value));
 						obs.SetSourceFilterSettings(filterSetting.Scene, filterName, o);
 					}
 				} else if(filterSetting.FilterSettings.Name == filterName) {
@@ -626,7 +626,7 @@ namespace MidiControl {
                 var groupElements = JsonConvert.DeserializeObject<List<Source>>(result);
                 foreach (var groupElement in groupElements)
 				{
-                    sourceString.Add(groupElement.sourceName);
+                    sourceString.Add(groupElement.SourceName);
                 }
             }
 

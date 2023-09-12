@@ -19,7 +19,7 @@ namespace MidiControl
         public string CurrentProfile;
 		public bool Unsaved = false;
         private readonly MIDIControlGUI gui;
-        private static readonly Regex removeInvalidChars = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
+        private static readonly Regex removeInvalidChars = new($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         public Configuration(MIDIControlGUI gui, string initialProfile)
@@ -61,7 +61,7 @@ namespace MidiControl
             var filesEndingIn = Directory.EnumerateFiles(ConfFolder).Where(f => f.EndsWith(".json") && f.Contains("keybinds-"));
             foreach(var item in filesEndingIn)
             {
-                string test = Path.GetFileNameWithoutExtension(item).Substring("keybinds-".Length);
+                string test = Path.GetFileNameWithoutExtension(item)["keybinds-".Length..];
                 output.Add(test);
             }
 
@@ -170,9 +170,9 @@ namespace MidiControl
         public int Channel { get; set; }
         public Event Input { get; set; }
 
-        public List<OBSCallBack> OBSCallBacksON = new List<OBSCallBack>();
-        public List<OBSCallBack> OBSCallBacksOFF = new List<OBSCallBack>();
-        public List<OBSCallBack> OBSCallBacksSlider = new List<OBSCallBack>();
+        public List<OBSCallBack> OBSCallBacksON = new();
+        public List<OBSCallBack> OBSCallBacksOFF = new();
+        public List<OBSCallBack> OBSCallBacksSlider = new();
         public SoundCallBack SoundCallBack;
         public MediaCallBack MediaCallBack;
         public MediaCallBack MediaCallBackOFF;

@@ -1,4 +1,6 @@
-﻿namespace MidiControl
+﻿using System.Windows.Forms;
+
+namespace MidiControl
 {
     partial class EntryGUI
     {
@@ -28,191 +30,189 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("OBS");
-			System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("SoundBoard");
-			System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("Media Keys");
-			System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("Twitch Chat");
-			System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("MidiControl");
-			System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("Go XLR");
-			System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("On Key Press", new System.Windows.Forms.TreeNode[] {
+			TreeNode treeNode49 = new TreeNode("OBS");
+			TreeNode treeNode50 = new TreeNode("SoundBoard");
+			TreeNode treeNode51 = new TreeNode("Media Keys");
+			TreeNode treeNode52 = new TreeNode("Twitch Chat");
+			TreeNode treeNode53 = new TreeNode("MidiControl");
+			TreeNode treeNode54 = new TreeNode("Go XLR");
+			TreeNode treeNode55 = new TreeNode("On Key Press", new TreeNode[] {
             treeNode49,
             treeNode50,
             treeNode51,
             treeNode52,
             treeNode53,
             treeNode54});
-			System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("OBS");
-			System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("SoundBoard");
-			System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode("Media Keys");
-			System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("Twitch Chat");
-			System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("MidiControl");
-			System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("Go XLR");
-			System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("On Key Release", new System.Windows.Forms.TreeNode[] {
+			TreeNode treeNode56 = new TreeNode("OBS");
+			TreeNode treeNode57 = new TreeNode("SoundBoard");
+			TreeNode treeNode58 = new TreeNode("Media Keys");
+			TreeNode treeNode59 = new TreeNode("Twitch Chat");
+			TreeNode treeNode60 = new TreeNode("MidiControl");
+			TreeNode treeNode61 = new TreeNode("Go XLR");
+			TreeNode treeNode62 = new TreeNode("On Key Release", new TreeNode[] {
             treeNode56,
             treeNode57,
             treeNode58,
             treeNode59,
             treeNode60,
             treeNode61});
-			System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("OBS");
-			System.Windows.Forms.TreeNode treeNode64 = new System.Windows.Forms.TreeNode("On Slider Change", new System.Windows.Forms.TreeNode[] {
+			TreeNode treeNode63 = new TreeNode("OBS");
+			TreeNode treeNode64 = new TreeNode("On Slider Change", new TreeNode[] {
             treeNode63});
-			this.LblName = new System.Windows.Forms.Label();
-			this.TxtBoxName = new System.Windows.Forms.TextBox();
-			this.LblNote = new System.Windows.Forms.Label();
-			this.TxtBoxNote = new System.Windows.Forms.TextBox();
-			this.TxtBoxDevice = new System.Windows.Forms.TextBox();
-			this.LblDevice = new System.Windows.Forms.Label();
-			this.BtnAdd = new System.Windows.Forms.Button();
-			this.TxtBoxChannel = new System.Windows.Forms.TextBox();
-			this.LblChannel = new System.Windows.Forms.Label();
-			this.ChkCboBoxHotkeyPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxHotkeyPress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMediaStopPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxMediaStopPress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMediaRestartPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxMediaRestartPress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMediaPlayPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxMediaPlayPress = new System.Windows.Forms.CheckBox();
-			this.CboBoxPreviewScenePress = new System.Windows.Forms.ComboBox();
-			this.ChkBoxPreviewScenePress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMiscPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxMiscPress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxToggleFilterPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxToggleFilterPress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxShowFilterPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxShowFilterPress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxHideFilterPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxHideFilterPress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxToggleSourcePress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxToggleSourcePress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxToggleMutePress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxTogglemutePress = new System.Windows.Forms.CheckBox();
-			this.ChkBoxTransitionPress = new System.Windows.Forms.CheckBox();
-			this.NumericTransitionPress = new System.Windows.Forms.NumericUpDown();
-			this.CboBoxTransitionPress = new System.Windows.Forms.ComboBox();
-			this.ChkCboBoxHidePress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxHideSourcePress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxShowPress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxShowSourcePress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxUnmutePress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxUnmutePress = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMutePress = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxMutePress = new System.Windows.Forms.CheckBox();
-			this.CboBoxSwitchScenePress = new System.Windows.Forms.ComboBox();
-			this.ChkBoxSwitchScenePress = new System.Windows.Forms.CheckBox();
-			this.chkStopAllOthers = new System.Windows.Forms.CheckBox();
-			this.LblVolume = new System.Windows.Forms.Label();
+			this.LblName = new Label();
+			this.TxtBoxName = new TextBox();
+			this.LblNote = new Label();
+			this.TxtBoxNote = new TextBox();
+			this.TxtBoxDevice = new TextBox();
+			this.LblDevice = new Label();
+			this.BtnAdd = new Button();
+			this.TxtBoxChannel = new TextBox();
+			this.LblChannel = new Label();
+			this.ChkCboBoxHotkeyPress = new CheckedListBox();
+			this.ChkBoxHotkeyPress = new CheckBox();
+			this.ChkCboBoxMediaStopPress = new CheckedListBox ();
+			this.ChkBoxMediaStopPress = new CheckBox();
+			this.ChkCboBoxMediaRestartPress = new CheckedListBox ();
+			this.ChkBoxMediaRestartPress = new CheckBox();
+			this.ChkCboBoxMediaPlayPress = new CheckedListBox ();
+			this.ChkBoxMediaPlayPress = new CheckBox();
+			this.CboBoxPreviewScenePress = new ComboBox();
+			this.ChkBoxPreviewScenePress = new CheckBox();
+			this.ChkCboBoxMiscPress = new CheckedListBox ();
+			this.ChkBoxMiscPress = new CheckBox();
+			this.ChkCboBoxToggleFilterPress = new CheckedListBox ();
+			this.ChkBoxToggleFilterPress = new CheckBox();
+			this.ChkCboBoxShowFilterPress = new CheckedListBox ();
+			this.ChkBoxShowFilterPress = new CheckBox();
+			this.ChkCboBoxHideFilterPress = new CheckedListBox ();
+			this.ChkBoxHideFilterPress = new CheckBox();
+			this.ChkCboBoxToggleSourcePress = new CheckedListBox ();
+			this.ChkBoxToggleSourcePress = new CheckBox();
+			this.ChkCboBoxToggleMutePress = new CheckedListBox ();
+			this.ChkBoxTogglemutePress = new CheckBox();
+			this.ChkBoxTransitionPress = new CheckBox();
+			this.NumericTransitionPress = new NumericUpDown();
+			this.CboBoxTransitionPress = new ComboBox();
+			this.ChkCboBoxHidePress = new CheckedListBox ();
+			this.ChkBoxHideSourcePress = new CheckBox();
+			this.ChkCboBoxShowPress = new CheckedListBox ();
+			this.ChkBoxShowSourcePress = new CheckBox();
+			this.ChkCboBoxUnmutePress = new CheckedListBox ();
+			this.ChkBoxUnmutePress = new CheckBox();
+			this.ChkCboBoxMutePress = new CheckedListBox ();
+			this.ChkBoxMutePress = new CheckBox();
+			this.CboBoxSwitchScenePress = new ComboBox();
+			this.ChkBoxSwitchScenePress = new CheckBox();
+			this.chkStopAllOthers = new CheckBox();
+			this.LblVolume = new Label();
 			this.volumeSlider = new NAudio.Gui.VolumeSlider();
-			this.chkBoxLoop = new System.Windows.Forms.CheckBox();
-			this.LblAudioFile = new System.Windows.Forms.Label();
-			this.LblAudioDevice = new System.Windows.Forms.Label();
-			this.ChkBoxEnableAudio = new System.Windows.Forms.CheckBox();
-			this.CboBoxAudioDevice = new System.Windows.Forms.ComboBox();
-			this.BtnAudioSelect = new System.Windows.Forms.Button();
-			this.TxtBoxAudioFile = new System.Windows.Forms.TextBox();
-			this.ChkBoxMediaKeyPreviousPress = new System.Windows.Forms.CheckBox();
-			this.ChkBoxMediaKeyNextPress = new System.Windows.Forms.CheckBox();
-			this.ChkBoxMediaKeyPlayPress = new System.Windows.Forms.CheckBox();
-			this.LblTwitchMessagePress = new System.Windows.Forms.Label();
-			this.TxtBoxTwitchMessagePress = new System.Windows.Forms.TextBox();
-			this.TxtBoxTwitchChannelPress = new System.Windows.Forms.TextBox();
-			this.LblChannelTwitchPress = new System.Windows.Forms.Label();
-			this.CboBoxProfilePress = new System.Windows.Forms.ComboBox();
-			this.ChkBoxSwitchToProfilePress = new System.Windows.Forms.CheckBox();
-			this.ChkBoxStopAllSoundPress = new System.Windows.Forms.CheckBox();
-			this.LblXLROutputPress = new System.Windows.Forms.Label();
-			this.LblXLRInputPress = new System.Windows.Forms.Label();
-			this.PanelXLRPress = new System.Windows.Forms.Panel();
-			this.RadioButtonUnMuteXLRPress = new System.Windows.Forms.RadioButton();
-			this.RadioButtonMuteXLRPress = new System.Windows.Forms.RadioButton();
-			this.RadioButtonToggleXLRPress = new System.Windows.Forms.RadioButton();
-			this.RadioButtonDisabledXLRPress = new System.Windows.Forms.RadioButton();
-			this.CboBoxXLROutputPress = new System.Windows.Forms.ComboBox();
-			this.CboBoxXLRInputPress = new System.Windows.Forms.ComboBox();
-			this.ChkCboBoxHotkeyRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxHotkeyRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMediaStopRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.CboBoxPreviewSceneRelease = new System.Windows.Forms.ComboBox();
-			this.ChkBoxMediaStopRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMediaRestartRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxPreviewSceneRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxMediaRestartRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMiscRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkCboBoxMediaPlayRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxMiscRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxMediaPlayRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxToggleFilterRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkCboBoxToggleSourceRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxToggleFilterRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxToggleSourceRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxShowFilterRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkCboBoxToggleMuteRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxShowFilterRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxHideFilterRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxTogglemuteRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxHideFilterRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxTransitionRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxHideRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.NumericTransitionRelease = new System.Windows.Forms.NumericUpDown();
-			this.ChkBoxSwitchSceneRelease = new System.Windows.Forms.CheckBox();
-			this.CboBoxTransitionRelease = new System.Windows.Forms.ComboBox();
-			this.ChkBoxHideSourceRelease = new System.Windows.Forms.CheckBox();
-			this.CboBoxSwitchSceneRelease = new System.Windows.Forms.ComboBox();
-			this.ChkCboBoxShowRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxMuteRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxShowSourceRelease = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxMuteRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkCboBoxUnmuteRelease = new CheckComboBoxTest.CheckedComboBox();
-			this.ChkBoxUnmuteRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxAudioStop = new System.Windows.Forms.CheckBox();
-			this.ChkBoxMediaKeyPreviousRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxMediaKeyNextRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxMediaKeyPlayRelease = new System.Windows.Forms.CheckBox();
-			this.LblTwitchMessageRelease = new System.Windows.Forms.Label();
-			this.TxtBoxTwitchMessageRelease = new System.Windows.Forms.TextBox();
-			this.TxtBoxTwitchChannelRelease = new System.Windows.Forms.TextBox();
-			this.LblChannelTwitchRelease = new System.Windows.Forms.Label();
-			this.CboBoxProfileRelease = new System.Windows.Forms.ComboBox();
-			this.ChkBoxSwitchToProfileRelease = new System.Windows.Forms.CheckBox();
-			this.ChkBoxStopAllSoundRelease = new System.Windows.Forms.CheckBox();
-			this.LblXLROutputRelease = new System.Windows.Forms.Label();
-			this.LblXLRInputRelease = new System.Windows.Forms.Label();
-			this.PanelXLRRelease = new System.Windows.Forms.Panel();
-			this.RadioButtonUnMuteXLRRelease = new System.Windows.Forms.RadioButton();
-			this.RadioButtonMuteXLRRelease = new System.Windows.Forms.RadioButton();
-			this.RadioButtonToggleXLRRelease = new System.Windows.Forms.RadioButton();
-			this.RadioButtonDisabledXLRRelease = new System.Windows.Forms.RadioButton();
-			this.CboBoxXLROutputRelease = new System.Windows.Forms.ComboBox();
-			this.CboBoxXLRInputRelease = new System.Windows.Forms.ComboBox();
-			this.CboBoxFilterSettingSlider = new System.Windows.Forms.ComboBox();
-			this.CboBoxFilterNameSlider = new System.Windows.Forms.ComboBox();
-			this.ChkBoxAdjustFilter = new System.Windows.Forms.CheckBox();
-			this.ChkBoxSlideTransition = new System.Windows.Forms.CheckBox();
-			this.ChkBoxAdjustTransitionDuration = new System.Windows.Forms.CheckBox();
-			this.ChkBoxAdjustVolume = new System.Windows.Forms.CheckBox();
-			this.ChkCboBoxVolumeSlider = new CheckComboBoxTest.CheckedComboBox();
-			this.treeView1 = new System.Windows.Forms.TreeView();
-			this.pnlOBSPress = new System.Windows.Forms.Panel();
-			this.pnlSoundBoardPress = new System.Windows.Forms.Panel();
-			this.pnlMediaKeysPress = new System.Windows.Forms.Panel();
-			this.pnlGoXLRPress = new System.Windows.Forms.Panel();
-			this.pnlTwitchPress = new System.Windows.Forms.Panel();
-			this.pnlMidiControlPress = new System.Windows.Forms.Panel();
-			this.pnlOBSRelease = new System.Windows.Forms.Panel();
-			this.pnlSoundBoardRelease = new System.Windows.Forms.Panel();
-			this.pnlMediaKeysRelease = new System.Windows.Forms.Panel();
-			this.pnlMidiControlRelease = new System.Windows.Forms.Panel();
-			this.pnlTwitchRelease = new System.Windows.Forms.Panel();
-			this.pnlGoXLRRelease = new System.Windows.Forms.Panel();
-			this.pnlOBSSlider = new System.Windows.Forms.Panel();
-			this.label1 = new System.Windows.Forms.Label();
-			this.lblPanelLabel = new System.Windows.Forms.Label();
-			this.pnlRoot = new System.Windows.Forms.Panel();
-			this.label3 = new System.Windows.Forms.Label();
-			this.btnCancel = new System.Windows.Forms.Button();
-			this.lblHideMe = new System.Windows.Forms.Label();
-			this.txtKeybindSummary = new System.Windows.Forms.TextBox();
+			this.chkBoxLoop = new CheckBox();
+			this.LblAudioFile = new Label();
+			this.LblAudioDevice = new Label();
+			this.ChkBoxEnableAudio = new CheckBox();
+			this.CboBoxAudioDevice = new ComboBox();
+			this.BtnAudioSelect = new Button();
+			this.TxtBoxAudioFile = new TextBox();
+			this.ChkBoxMediaKeyPreviousPress = new CheckBox();
+			this.ChkBoxMediaKeyNextPress = new CheckBox();
+			this.ChkBoxMediaKeyPlayPress = new CheckBox();
+			this.LblTwitchMessagePress = new Label();
+			this.TxtBoxTwitchMessagePress = new TextBox();
+			this.TxtBoxTwitchChannelPress = new TextBox();
+			this.LblChannelTwitchPress = new Label();
+			this.CboBoxProfilePress = new ComboBox();
+			this.ChkBoxSwitchToProfilePress = new CheckBox();
+			this.ChkBoxStopAllSoundPress = new CheckBox();
+			this.LblXLROutputPress = new Label();
+			this.LblXLRInputPress = new Label();
+			this.PanelXLRPress = new Panel();
+			this.RadioButtonUnMuteXLRPress = new RadioButton();
+			this.RadioButtonMuteXLRPress = new RadioButton();
+			this.RadioButtonToggleXLRPress = new RadioButton();
+			this.RadioButtonDisabledXLRPress = new RadioButton();
+			this.CboBoxXLROutputPress = new ComboBox();
+			this.CboBoxXLRInputPress = new ComboBox();
+			this.ChkCboBoxHotkeyRelease = new CheckedListBox ();
+			this.ChkBoxHotkeyRelease = new CheckBox();
+			this.ChkCboBoxMediaStopRelease = new CheckedListBox ();
+			this.CboBoxPreviewSceneRelease = new ComboBox();
+			this.ChkBoxMediaStopRelease = new CheckBox();
+			this.ChkCboBoxMediaRestartRelease = new CheckedListBox ();
+			this.ChkBoxPreviewSceneRelease = new CheckBox();
+			this.ChkBoxMediaRestartRelease = new CheckBox();
+			this.ChkCboBoxMiscRelease = new CheckedListBox ();
+			this.ChkCboBoxMediaPlayRelease = new CheckedListBox ();
+			this.ChkBoxMiscRelease = new CheckBox();
+			this.ChkBoxMediaPlayRelease = new CheckBox();
+			this.ChkCboBoxToggleFilterRelease = new CheckedListBox ();
+			this.ChkCboBoxToggleSourceRelease = new CheckedListBox ();
+			this.ChkBoxToggleFilterRelease = new CheckBox();
+			this.ChkBoxToggleSourceRelease = new CheckBox();
+			this.ChkCboBoxShowFilterRelease = new CheckedListBox ();
+			this.ChkCboBoxToggleMuteRelease = new CheckedListBox ();
+			this.ChkBoxShowFilterRelease = new CheckBox();
+			this.ChkCboBoxHideFilterRelease = new CheckedListBox ();
+			this.ChkBoxTogglemuteRelease = new CheckBox();
+			this.ChkBoxHideFilterRelease = new CheckBox();
+			this.ChkBoxTransitionRelease = new CheckBox();
+			this.ChkCboBoxHideRelease = new CheckedListBox ();
+			this.NumericTransitionRelease = new NumericUpDown();
+			this.ChkBoxSwitchSceneRelease = new CheckBox();
+			this.CboBoxTransitionRelease = new ComboBox();
+			this.ChkBoxHideSourceRelease = new CheckBox();
+			this.CboBoxSwitchSceneRelease = new ComboBox();
+			this.ChkCboBoxShowRelease = new CheckedListBox ();
+			this.ChkBoxMuteRelease = new CheckBox();
+			this.ChkBoxShowSourceRelease = new CheckBox();
+			this.ChkCboBoxMuteRelease = new CheckedListBox ();
+			this.ChkCboBoxUnmuteRelease = new CheckedListBox ();
+			this.ChkBoxUnmuteRelease = new CheckBox();
+			this.ChkBoxAudioStop = new CheckBox();
+			this.ChkBoxMediaKeyPreviousRelease = new CheckBox();
+			this.ChkBoxMediaKeyNextRelease = new CheckBox();
+			this.ChkBoxMediaKeyPlayRelease = new CheckBox();
+			this.LblTwitchMessageRelease = new Label();
+			this.TxtBoxTwitchMessageRelease = new TextBox();
+			this.TxtBoxTwitchChannelRelease = new TextBox();
+			this.LblChannelTwitchRelease = new Label();
+			this.CboBoxProfileRelease = new ComboBox();
+			this.ChkBoxSwitchToProfileRelease = new CheckBox();
+			this.ChkBoxStopAllSoundRelease = new CheckBox();
+			this.LblXLROutputRelease = new Label();
+			this.LblXLRInputRelease = new Label();
+			this.PanelXLRRelease = new Panel();
+			this.RadioButtonUnMuteXLRRelease = new RadioButton();
+			this.RadioButtonMuteXLRRelease = new RadioButton();
+			this.RadioButtonToggleXLRRelease = new RadioButton();
+			this.RadioButtonDisabledXLRRelease = new RadioButton();
+			this.CboBoxXLROutputRelease = new ComboBox();
+			this.CboBoxXLRInputRelease = new ComboBox();
+			this.CboBoxFilterSettingSlider = new ComboBox();
+			this.CboBoxFilterNameSlider = new ComboBox();
+			this.ChkBoxAdjustFilter = new CheckBox();
+			this.ChkBoxSlideTransition = new CheckBox();
+			this.ChkBoxAdjustTransitionDuration = new CheckBox();
+			this.ChkBoxAdjustVolume = new CheckBox();
+			this.ChkCboBoxVolumeSlider = new CheckedListBox ();
+			this.treeView1 = new TreeView();
+			this.pnlOBSPress = new Panel();
+			this.pnlSoundBoardPress = new Panel();
+			this.pnlMediaKeysPress = new Panel();
+			this.pnlGoXLRPress = new Panel();
+			this.pnlTwitchPress = new Panel();
+			this.pnlMidiControlPress = new Panel();
+			this.pnlOBSRelease = new Panel();
+			this.pnlSoundBoardRelease = new Panel();
+			this.pnlMediaKeysRelease = new Panel();
+			this.pnlMidiControlRelease = new Panel();
+			this.pnlTwitchRelease = new Panel();
+			this.pnlGoXLRRelease = new Panel();
+			this.pnlOBSSlider = new Panel();
+			this.lblSelectAction = new Label();
+			this.lblPanelLabel = new Label();
+			this.pnlRoot = new Panel();
+			this.btnCancel = new Button();
+			this.txtKeybindSummary = new TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).BeginInit();
 			this.PanelXLRPress.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.NumericTransitionRelease)).BeginInit();
@@ -313,8 +313,7 @@
 			// ChkCboBoxHotkeyPress
 			// 
 			this.ChkCboBoxHotkeyPress.CheckOnClick = true;
-			this.ChkCboBoxHotkeyPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxHotkeyPress.DropDownHeight = 1;
+			this.ChkCboBoxHotkeyPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxHotkeyPress.Enabled = false;
 			this.ChkCboBoxHotkeyPress.FormattingEnabled = true;
 			this.ChkCboBoxHotkeyPress.IntegralHeight = false;
@@ -322,7 +321,6 @@
 			this.ChkCboBoxHotkeyPress.Name = "ChkCboBoxHotkeyPress";
 			this.ChkCboBoxHotkeyPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxHotkeyPress.TabIndex = 35;
-			this.ChkCboBoxHotkeyPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxHotkeyPress
 			// 
@@ -338,8 +336,7 @@
 			// ChkCboBoxMediaStopPress
 			// 
 			this.ChkCboBoxMediaStopPress.CheckOnClick = true;
-			this.ChkCboBoxMediaStopPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMediaStopPress.DropDownHeight = 1;
+			this.ChkCboBoxMediaStopPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMediaStopPress.Enabled = false;
 			this.ChkCboBoxMediaStopPress.FormattingEnabled = true;
 			this.ChkCboBoxMediaStopPress.IntegralHeight = false;
@@ -347,7 +344,6 @@
 			this.ChkCboBoxMediaStopPress.Name = "ChkCboBoxMediaStopPress";
 			this.ChkCboBoxMediaStopPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMediaStopPress.TabIndex = 33;
-			this.ChkCboBoxMediaStopPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxMediaStopPress
 			// 
@@ -363,8 +359,7 @@
 			// ChkCboBoxMediaRestartPress
 			// 
 			this.ChkCboBoxMediaRestartPress.CheckOnClick = true;
-			this.ChkCboBoxMediaRestartPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMediaRestartPress.DropDownHeight = 1;
+			this.ChkCboBoxMediaRestartPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMediaRestartPress.Enabled = false;
 			this.ChkCboBoxMediaRestartPress.FormattingEnabled = true;
 			this.ChkCboBoxMediaRestartPress.IntegralHeight = false;
@@ -372,7 +367,6 @@
 			this.ChkCboBoxMediaRestartPress.Name = "ChkCboBoxMediaRestartPress";
 			this.ChkCboBoxMediaRestartPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMediaRestartPress.TabIndex = 31;
-			this.ChkCboBoxMediaRestartPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxMediaRestartPress
 			// 
@@ -388,8 +382,7 @@
 			// ChkCboBoxMediaPlayPress
 			// 
 			this.ChkCboBoxMediaPlayPress.CheckOnClick = true;
-			this.ChkCboBoxMediaPlayPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMediaPlayPress.DropDownHeight = 1;
+			this.ChkCboBoxMediaPlayPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMediaPlayPress.Enabled = false;
 			this.ChkCboBoxMediaPlayPress.FormattingEnabled = true;
 			this.ChkCboBoxMediaPlayPress.IntegralHeight = false;
@@ -397,7 +390,6 @@
 			this.ChkCboBoxMediaPlayPress.Name = "ChkCboBoxMediaPlayPress";
 			this.ChkCboBoxMediaPlayPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMediaPlayPress.TabIndex = 29;
-			this.ChkCboBoxMediaPlayPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxMediaPlayPress
 			// 
@@ -433,8 +425,7 @@
 			// ChkCboBoxMiscPress
 			// 
 			this.ChkCboBoxMiscPress.CheckOnClick = true;
-			this.ChkCboBoxMiscPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMiscPress.DropDownHeight = 1;
+			this.ChkCboBoxMiscPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMiscPress.Enabled = false;
 			this.ChkCboBoxMiscPress.FormattingEnabled = true;
 			this.ChkCboBoxMiscPress.IntegralHeight = false;
@@ -442,7 +433,6 @@
 			this.ChkCboBoxMiscPress.Name = "ChkCboBoxMiscPress";
 			this.ChkCboBoxMiscPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMiscPress.TabIndex = 25;
-			this.ChkCboBoxMiscPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxMiscPress
 			// 
@@ -458,8 +448,7 @@
 			// ChkCboBoxToggleFilterPress
 			// 
 			this.ChkCboBoxToggleFilterPress.CheckOnClick = true;
-			this.ChkCboBoxToggleFilterPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxToggleFilterPress.DropDownHeight = 1;
+			this.ChkCboBoxToggleFilterPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxToggleFilterPress.Enabled = false;
 			this.ChkCboBoxToggleFilterPress.FormattingEnabled = true;
 			this.ChkCboBoxToggleFilterPress.IntegralHeight = false;
@@ -467,7 +456,6 @@
 			this.ChkCboBoxToggleFilterPress.Name = "ChkCboBoxToggleFilterPress";
 			this.ChkCboBoxToggleFilterPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxToggleFilterPress.TabIndex = 23;
-			this.ChkCboBoxToggleFilterPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxToggleFilterPress
 			// 
@@ -483,8 +471,7 @@
 			// ChkCboBoxShowFilterPress
 			// 
 			this.ChkCboBoxShowFilterPress.CheckOnClick = true;
-			this.ChkCboBoxShowFilterPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxShowFilterPress.DropDownHeight = 1;
+			this.ChkCboBoxShowFilterPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxShowFilterPress.Enabled = false;
 			this.ChkCboBoxShowFilterPress.FormattingEnabled = true;
 			this.ChkCboBoxShowFilterPress.IntegralHeight = false;
@@ -492,7 +479,6 @@
 			this.ChkCboBoxShowFilterPress.Name = "ChkCboBoxShowFilterPress";
 			this.ChkCboBoxShowFilterPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxShowFilterPress.TabIndex = 21;
-			this.ChkCboBoxShowFilterPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxShowFilterPress
 			// 
@@ -508,8 +494,7 @@
 			// ChkCboBoxHideFilterPress
 			// 
 			this.ChkCboBoxHideFilterPress.CheckOnClick = true;
-			this.ChkCboBoxHideFilterPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxHideFilterPress.DropDownHeight = 1;
+			this.ChkCboBoxHideFilterPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxHideFilterPress.Enabled = false;
 			this.ChkCboBoxHideFilterPress.FormattingEnabled = true;
 			this.ChkCboBoxHideFilterPress.IntegralHeight = false;
@@ -517,7 +502,6 @@
 			this.ChkCboBoxHideFilterPress.Name = "ChkCboBoxHideFilterPress";
 			this.ChkCboBoxHideFilterPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxHideFilterPress.TabIndex = 19;
-			this.ChkCboBoxHideFilterPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxHideFilterPress
 			// 
@@ -533,8 +517,7 @@
 			// ChkCboBoxToggleSourcePress
 			// 
 			this.ChkCboBoxToggleSourcePress.CheckOnClick = true;
-			this.ChkCboBoxToggleSourcePress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxToggleSourcePress.DropDownHeight = 1;
+			this.ChkCboBoxToggleSourcePress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxToggleSourcePress.Enabled = false;
 			this.ChkCboBoxToggleSourcePress.FormattingEnabled = true;
 			this.ChkCboBoxToggleSourcePress.IntegralHeight = false;
@@ -542,7 +525,6 @@
 			this.ChkCboBoxToggleSourcePress.Name = "ChkCboBoxToggleSourcePress";
 			this.ChkCboBoxToggleSourcePress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxToggleSourcePress.TabIndex = 17;
-			this.ChkCboBoxToggleSourcePress.ValueSeparator = ", ";
 			// 
 			// ChkBoxToggleSourcePress
 			// 
@@ -558,8 +540,7 @@
 			// ChkCboBoxToggleMutePress
 			// 
 			this.ChkCboBoxToggleMutePress.CheckOnClick = true;
-			this.ChkCboBoxToggleMutePress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxToggleMutePress.DropDownHeight = 1;
+			this.ChkCboBoxToggleMutePress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxToggleMutePress.Enabled = false;
 			this.ChkCboBoxToggleMutePress.FormattingEnabled = true;
 			this.ChkCboBoxToggleMutePress.IntegralHeight = false;
@@ -567,7 +548,6 @@
 			this.ChkCboBoxToggleMutePress.Name = "ChkCboBoxToggleMutePress";
 			this.ChkCboBoxToggleMutePress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxToggleMutePress.TabIndex = 15;
-			this.ChkCboBoxToggleMutePress.ValueSeparator = ", ";
 			// 
 			// ChkBoxTogglemutePress
 			// 
@@ -585,7 +565,7 @@
 			this.ChkBoxTransitionPress.AutoSize = true;
 			this.ChkBoxTransitionPress.Location = new System.Drawing.Point(12, 228);
 			this.ChkBoxTransitionPress.Name = "ChkBoxTransitionPress";
-			this.ChkBoxTransitionPress.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.ChkBoxTransitionPress.RightToLeft = RightToLeft.No;
 			this.ChkBoxTransitionPress.Size = new System.Drawing.Size(72, 17);
 			this.ChkBoxTransitionPress.TabIndex = 13;
 			this.ChkBoxTransitionPress.Text = "Transition";
@@ -617,8 +597,7 @@
 			// ChkCboBoxHidePress
 			// 
 			this.ChkCboBoxHidePress.CheckOnClick = true;
-			this.ChkCboBoxHidePress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxHidePress.DropDownHeight = 1;
+			this.ChkCboBoxHidePress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxHidePress.Enabled = false;
 			this.ChkCboBoxHidePress.FormattingEnabled = true;
 			this.ChkCboBoxHidePress.IntegralHeight = false;
@@ -626,7 +605,6 @@
 			this.ChkCboBoxHidePress.Name = "ChkCboBoxHidePress";
 			this.ChkCboBoxHidePress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxHidePress.TabIndex = 9;
-			this.ChkCboBoxHidePress.ValueSeparator = ", ";
 			// 
 			// ChkBoxHideSourcePress
 			// 
@@ -642,8 +620,7 @@
 			// ChkCboBoxShowPress
 			// 
 			this.ChkCboBoxShowPress.CheckOnClick = true;
-			this.ChkCboBoxShowPress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxShowPress.DropDownHeight = 1;
+			this.ChkCboBoxShowPress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxShowPress.Enabled = false;
 			this.ChkCboBoxShowPress.FormattingEnabled = true;
 			this.ChkCboBoxShowPress.IntegralHeight = false;
@@ -651,7 +628,6 @@
 			this.ChkCboBoxShowPress.Name = "ChkCboBoxShowPress";
 			this.ChkCboBoxShowPress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxShowPress.TabIndex = 7;
-			this.ChkCboBoxShowPress.ValueSeparator = ", ";
 			// 
 			// ChkBoxShowSourcePress
 			// 
@@ -667,8 +643,7 @@
 			// ChkCboBoxUnmutePress
 			// 
 			this.ChkCboBoxUnmutePress.CheckOnClick = true;
-			this.ChkCboBoxUnmutePress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxUnmutePress.DropDownHeight = 1;
+			this.ChkCboBoxUnmutePress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxUnmutePress.Enabled = false;
 			this.ChkCboBoxUnmutePress.FormattingEnabled = true;
 			this.ChkCboBoxUnmutePress.IntegralHeight = false;
@@ -676,7 +651,6 @@
 			this.ChkCboBoxUnmutePress.Name = "ChkCboBoxUnmutePress";
 			this.ChkCboBoxUnmutePress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxUnmutePress.TabIndex = 5;
-			this.ChkCboBoxUnmutePress.ValueSeparator = ", ";
 			// 
 			// ChkBoxUnmutePress
 			// 
@@ -692,8 +666,7 @@
 			// ChkCboBoxMutePress
 			// 
 			this.ChkCboBoxMutePress.CheckOnClick = true;
-			this.ChkCboBoxMutePress.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMutePress.DropDownHeight = 1;
+			this.ChkCboBoxMutePress.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMutePress.Enabled = false;
 			this.ChkCboBoxMutePress.FormattingEnabled = true;
 			this.ChkCboBoxMutePress.IntegralHeight = false;
@@ -701,14 +674,13 @@
 			this.ChkCboBoxMutePress.Name = "ChkCboBoxMutePress";
 			this.ChkCboBoxMutePress.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMutePress.TabIndex = 3;
-			this.ChkCboBoxMutePress.ValueSeparator = ", ";
 			// 
 			// ChkBoxMutePress
 			// 
 			this.ChkBoxMutePress.AutoSize = true;
 			this.ChkBoxMutePress.Location = new System.Drawing.Point(12, 255);
 			this.ChkBoxMutePress.Name = "ChkBoxMutePress";
-			this.ChkBoxMutePress.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.ChkBoxMutePress.RightToLeft = RightToLeft.No;
 			this.ChkBoxMutePress.Size = new System.Drawing.Size(50, 17);
 			this.ChkBoxMutePress.TabIndex = 2;
 			this.ChkBoxMutePress.Text = "Mute";
@@ -872,7 +844,7 @@
 			this.TxtBoxTwitchMessagePress.Location = new System.Drawing.Point(16, 60);
 			this.TxtBoxTwitchMessagePress.Multiline = true;
 			this.TxtBoxTwitchMessagePress.Name = "TxtBoxTwitchMessagePress";
-			this.TxtBoxTwitchMessagePress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.TxtBoxTwitchMessagePress.ScrollBars = ScrollBars.Vertical;
 			this.TxtBoxTwitchMessagePress.Size = new System.Drawing.Size(356, 180);
 			this.TxtBoxTwitchMessagePress.TabIndex = 2;
 			// 
@@ -1012,8 +984,7 @@
 			// ChkCboBoxHotkeyRelease
 			// 
 			this.ChkCboBoxHotkeyRelease.CheckOnClick = true;
-			this.ChkCboBoxHotkeyRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxHotkeyRelease.DropDownHeight = 1;
+			this.ChkCboBoxHotkeyRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxHotkeyRelease.Enabled = false;
 			this.ChkCboBoxHotkeyRelease.FormattingEnabled = true;
 			this.ChkCboBoxHotkeyRelease.IntegralHeight = false;
@@ -1021,7 +992,6 @@
 			this.ChkCboBoxHotkeyRelease.Name = "ChkCboBoxHotkeyRelease";
 			this.ChkCboBoxHotkeyRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxHotkeyRelease.TabIndex = 41;
-			this.ChkCboBoxHotkeyRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxHotkeyRelease
 			// 
@@ -1037,8 +1007,7 @@
 			// ChkCboBoxMediaStopRelease
 			// 
 			this.ChkCboBoxMediaStopRelease.CheckOnClick = true;
-			this.ChkCboBoxMediaStopRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMediaStopRelease.DropDownHeight = 1;
+			this.ChkCboBoxMediaStopRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMediaStopRelease.Enabled = false;
 			this.ChkCboBoxMediaStopRelease.FormattingEnabled = true;
 			this.ChkCboBoxMediaStopRelease.IntegralHeight = false;
@@ -1046,7 +1015,6 @@
 			this.ChkCboBoxMediaStopRelease.Name = "ChkCboBoxMediaStopRelease";
 			this.ChkCboBoxMediaStopRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMediaStopRelease.TabIndex = 39;
-			this.ChkCboBoxMediaStopRelease.ValueSeparator = ", ";
 			// 
 			// CboBoxPreviewSceneRelease
 			// 
@@ -1071,8 +1039,7 @@
 			// ChkCboBoxMediaRestartRelease
 			// 
 			this.ChkCboBoxMediaRestartRelease.CheckOnClick = true;
-			this.ChkCboBoxMediaRestartRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMediaRestartRelease.DropDownHeight = 1;
+			this.ChkCboBoxMediaRestartRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMediaRestartRelease.Enabled = false;
 			this.ChkCboBoxMediaRestartRelease.FormattingEnabled = true;
 			this.ChkCboBoxMediaRestartRelease.IntegralHeight = false;
@@ -1080,7 +1047,6 @@
 			this.ChkCboBoxMediaRestartRelease.Name = "ChkCboBoxMediaRestartRelease";
 			this.ChkCboBoxMediaRestartRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMediaRestartRelease.TabIndex = 37;
-			this.ChkCboBoxMediaRestartRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxPreviewSceneRelease
 			// 
@@ -1107,8 +1073,7 @@
 			// ChkCboBoxMiscRelease
 			// 
 			this.ChkCboBoxMiscRelease.CheckOnClick = true;
-			this.ChkCboBoxMiscRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMiscRelease.DropDownHeight = 1;
+			this.ChkCboBoxMiscRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMiscRelease.Enabled = false;
 			this.ChkCboBoxMiscRelease.FormattingEnabled = true;
 			this.ChkCboBoxMiscRelease.IntegralHeight = false;
@@ -1116,13 +1081,11 @@
 			this.ChkCboBoxMiscRelease.Name = "ChkCboBoxMiscRelease";
 			this.ChkCboBoxMiscRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMiscRelease.TabIndex = 27;
-			this.ChkCboBoxMiscRelease.ValueSeparator = ", ";
 			// 
 			// ChkCboBoxMediaPlayRelease
 			// 
 			this.ChkCboBoxMediaPlayRelease.CheckOnClick = true;
-			this.ChkCboBoxMediaPlayRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMediaPlayRelease.DropDownHeight = 1;
+			this.ChkCboBoxMediaPlayRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMediaPlayRelease.Enabled = false;
 			this.ChkCboBoxMediaPlayRelease.FormattingEnabled = true;
 			this.ChkCboBoxMediaPlayRelease.IntegralHeight = false;
@@ -1130,7 +1093,6 @@
 			this.ChkCboBoxMediaPlayRelease.Name = "ChkCboBoxMediaPlayRelease";
 			this.ChkCboBoxMediaPlayRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMediaPlayRelease.TabIndex = 35;
-			this.ChkCboBoxMediaPlayRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxMiscRelease
 			// 
@@ -1157,8 +1119,7 @@
 			// ChkCboBoxToggleFilterRelease
 			// 
 			this.ChkCboBoxToggleFilterRelease.CheckOnClick = true;
-			this.ChkCboBoxToggleFilterRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxToggleFilterRelease.DropDownHeight = 1;
+			this.ChkCboBoxToggleFilterRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxToggleFilterRelease.Enabled = false;
 			this.ChkCboBoxToggleFilterRelease.FormattingEnabled = true;
 			this.ChkCboBoxToggleFilterRelease.IntegralHeight = false;
@@ -1166,13 +1127,11 @@
 			this.ChkCboBoxToggleFilterRelease.Name = "ChkCboBoxToggleFilterRelease";
 			this.ChkCboBoxToggleFilterRelease.Size = new System.Drawing.Size(190, 21);
 			this.ChkCboBoxToggleFilterRelease.TabIndex = 29;
-			this.ChkCboBoxToggleFilterRelease.ValueSeparator = ", ";
 			// 
 			// ChkCboBoxToggleSourceRelease
 			// 
 			this.ChkCboBoxToggleSourceRelease.CheckOnClick = true;
-			this.ChkCboBoxToggleSourceRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxToggleSourceRelease.DropDownHeight = 1;
+			this.ChkCboBoxToggleSourceRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxToggleSourceRelease.Enabled = false;
 			this.ChkCboBoxToggleSourceRelease.FormattingEnabled = true;
 			this.ChkCboBoxToggleSourceRelease.IntegralHeight = false;
@@ -1180,7 +1139,6 @@
 			this.ChkCboBoxToggleSourceRelease.Name = "ChkCboBoxToggleSourceRelease";
 			this.ChkCboBoxToggleSourceRelease.Size = new System.Drawing.Size(190, 21);
 			this.ChkCboBoxToggleSourceRelease.TabIndex = 23;
-			this.ChkCboBoxToggleSourceRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxToggleFilterRelease
 			// 
@@ -1207,8 +1165,7 @@
 			// ChkCboBoxShowFilterRelease
 			// 
 			this.ChkCboBoxShowFilterRelease.CheckOnClick = true;
-			this.ChkCboBoxShowFilterRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxShowFilterRelease.DropDownHeight = 1;
+			this.ChkCboBoxShowFilterRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxShowFilterRelease.Enabled = false;
 			this.ChkCboBoxShowFilterRelease.FormattingEnabled = true;
 			this.ChkCboBoxShowFilterRelease.IntegralHeight = false;
@@ -1216,13 +1173,11 @@
 			this.ChkCboBoxShowFilterRelease.Name = "ChkCboBoxShowFilterRelease";
 			this.ChkCboBoxShowFilterRelease.Size = new System.Drawing.Size(190, 21);
 			this.ChkCboBoxShowFilterRelease.TabIndex = 27;
-			this.ChkCboBoxShowFilterRelease.ValueSeparator = ", ";
 			// 
 			// ChkCboBoxToggleMuteRelease
 			// 
 			this.ChkCboBoxToggleMuteRelease.CheckOnClick = true;
-			this.ChkCboBoxToggleMuteRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxToggleMuteRelease.DropDownHeight = 1;
+			this.ChkCboBoxToggleMuteRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxToggleMuteRelease.Enabled = false;
 			this.ChkCboBoxToggleMuteRelease.FormattingEnabled = true;
 			this.ChkCboBoxToggleMuteRelease.IntegralHeight = false;
@@ -1230,7 +1185,6 @@
 			this.ChkCboBoxToggleMuteRelease.Name = "ChkCboBoxToggleMuteRelease";
 			this.ChkCboBoxToggleMuteRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxToggleMuteRelease.TabIndex = 21;
-			this.ChkCboBoxToggleMuteRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxShowFilterRelease
 			// 
@@ -1246,8 +1200,7 @@
 			// ChkCboBoxHideFilterRelease
 			// 
 			this.ChkCboBoxHideFilterRelease.CheckOnClick = true;
-			this.ChkCboBoxHideFilterRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxHideFilterRelease.DropDownHeight = 1;
+			this.ChkCboBoxHideFilterRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxHideFilterRelease.Enabled = false;
 			this.ChkCboBoxHideFilterRelease.FormattingEnabled = true;
 			this.ChkCboBoxHideFilterRelease.IntegralHeight = false;
@@ -1255,7 +1208,6 @@
 			this.ChkCboBoxHideFilterRelease.Name = "ChkCboBoxHideFilterRelease";
 			this.ChkCboBoxHideFilterRelease.Size = new System.Drawing.Size(190, 21);
 			this.ChkCboBoxHideFilterRelease.TabIndex = 25;
-			this.ChkCboBoxHideFilterRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxTogglemuteRelease
 			// 
@@ -1284,7 +1236,7 @@
 			this.ChkBoxTransitionRelease.AutoSize = true;
 			this.ChkBoxTransitionRelease.Location = new System.Drawing.Point(12, 228);
 			this.ChkBoxTransitionRelease.Name = "ChkBoxTransitionRelease";
-			this.ChkBoxTransitionRelease.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.ChkBoxTransitionRelease.RightToLeft = RightToLeft.No;
 			this.ChkBoxTransitionRelease.Size = new System.Drawing.Size(72, 17);
 			this.ChkBoxTransitionRelease.TabIndex = 16;
 			this.ChkBoxTransitionRelease.Text = "Transition";
@@ -1294,8 +1246,7 @@
 			// ChkCboBoxHideRelease
 			// 
 			this.ChkCboBoxHideRelease.CheckOnClick = true;
-			this.ChkCboBoxHideRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxHideRelease.DropDownHeight = 1;
+			this.ChkCboBoxHideRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxHideRelease.Enabled = false;
 			this.ChkCboBoxHideRelease.FormattingEnabled = true;
 			this.ChkCboBoxHideRelease.IntegralHeight = false;
@@ -1303,7 +1254,6 @@
 			this.ChkCboBoxHideRelease.Name = "ChkCboBoxHideRelease";
 			this.ChkCboBoxHideRelease.Size = new System.Drawing.Size(190, 21);
 			this.ChkCboBoxHideRelease.TabIndex = 19;
-			this.ChkCboBoxHideRelease.ValueSeparator = ", ";
 			// 
 			// NumericTransitionRelease
 			// 
@@ -1361,8 +1311,7 @@
 			// ChkCboBoxShowRelease
 			// 
 			this.ChkCboBoxShowRelease.CheckOnClick = true;
-			this.ChkCboBoxShowRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxShowRelease.DropDownHeight = 1;
+			this.ChkCboBoxShowRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxShowRelease.Enabled = false;
 			this.ChkCboBoxShowRelease.FormattingEnabled = true;
 			this.ChkCboBoxShowRelease.IntegralHeight = false;
@@ -1370,14 +1319,13 @@
 			this.ChkCboBoxShowRelease.Name = "ChkCboBoxShowRelease";
 			this.ChkCboBoxShowRelease.Size = new System.Drawing.Size(190, 21);
 			this.ChkCboBoxShowRelease.TabIndex = 17;
-			this.ChkCboBoxShowRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxMuteRelease
 			// 
 			this.ChkBoxMuteRelease.AutoSize = true;
 			this.ChkBoxMuteRelease.Location = new System.Drawing.Point(12, 255);
 			this.ChkBoxMuteRelease.Name = "ChkBoxMuteRelease";
-			this.ChkBoxMuteRelease.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.ChkBoxMuteRelease.RightToLeft = RightToLeft.No;
 			this.ChkBoxMuteRelease.Size = new System.Drawing.Size(50, 17);
 			this.ChkBoxMuteRelease.TabIndex = 12;
 			this.ChkBoxMuteRelease.Text = "Mute";
@@ -1398,8 +1346,7 @@
 			// ChkCboBoxMuteRelease
 			// 
 			this.ChkCboBoxMuteRelease.CheckOnClick = true;
-			this.ChkCboBoxMuteRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxMuteRelease.DropDownHeight = 1;
+			this.ChkCboBoxMuteRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxMuteRelease.Enabled = false;
 			this.ChkCboBoxMuteRelease.FormattingEnabled = true;
 			this.ChkCboBoxMuteRelease.IntegralHeight = false;
@@ -1407,13 +1354,11 @@
 			this.ChkCboBoxMuteRelease.Name = "ChkCboBoxMuteRelease";
 			this.ChkCboBoxMuteRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxMuteRelease.TabIndex = 13;
-			this.ChkCboBoxMuteRelease.ValueSeparator = ", ";
 			// 
 			// ChkCboBoxUnmuteRelease
 			// 
 			this.ChkCboBoxUnmuteRelease.CheckOnClick = true;
-			this.ChkCboBoxUnmuteRelease.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxUnmuteRelease.DropDownHeight = 1;
+			this.ChkCboBoxUnmuteRelease.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxUnmuteRelease.Enabled = false;
 			this.ChkCboBoxUnmuteRelease.FormattingEnabled = true;
 			this.ChkCboBoxUnmuteRelease.IntegralHeight = false;
@@ -1421,7 +1366,6 @@
 			this.ChkCboBoxUnmuteRelease.Name = "ChkCboBoxUnmuteRelease";
 			this.ChkCboBoxUnmuteRelease.Size = new System.Drawing.Size(191, 21);
 			this.ChkCboBoxUnmuteRelease.TabIndex = 15;
-			this.ChkCboBoxUnmuteRelease.ValueSeparator = ", ";
 			// 
 			// ChkBoxUnmuteRelease
 			// 
@@ -1489,7 +1433,7 @@
 			this.TxtBoxTwitchMessageRelease.Location = new System.Drawing.Point(16, 60);
 			this.TxtBoxTwitchMessageRelease.Multiline = true;
 			this.TxtBoxTwitchMessageRelease.Name = "TxtBoxTwitchMessageRelease";
-			this.TxtBoxTwitchMessageRelease.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.TxtBoxTwitchMessageRelease.ScrollBars = ScrollBars.Vertical;
 			this.TxtBoxTwitchMessageRelease.Size = new System.Drawing.Size(356, 180);
 			this.TxtBoxTwitchMessageRelease.TabIndex = 6;
 			// 
@@ -1692,8 +1636,7 @@
 			// ChkCboBoxVolumeSlider
 			// 
 			this.ChkCboBoxVolumeSlider.CheckOnClick = true;
-			this.ChkCboBoxVolumeSlider.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-			this.ChkCboBoxVolumeSlider.DropDownHeight = 1;
+			this.ChkCboBoxVolumeSlider.DrawMode = DrawMode.OwnerDrawVariable;
 			this.ChkCboBoxVolumeSlider.Enabled = false;
 			this.ChkCboBoxVolumeSlider.FormattingEnabled = true;
 			this.ChkCboBoxVolumeSlider.IntegralHeight = false;
@@ -1701,7 +1644,6 @@
 			this.ChkCboBoxVolumeSlider.Name = "ChkCboBoxVolumeSlider";
 			this.ChkCboBoxVolumeSlider.Size = new System.Drawing.Size(186, 21);
 			this.ChkCboBoxVolumeSlider.TabIndex = 1;
-			this.ChkCboBoxVolumeSlider.ValueSeparator = ", ";
 			// 
 			// treeView1
 			// 
@@ -1740,7 +1682,7 @@
 			treeNode63.Text = "OBS";
 			treeNode64.Name = "onsliderchange_root";
 			treeNode64.Text = "On Slider Change";
-			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+			this.treeView1.Nodes.AddRange(new TreeNode[] {
             treeNode55,
             treeNode62,
             treeNode64});
@@ -1748,7 +1690,7 @@
 			this.treeView1.ShowNodeToolTips = true;
 			this.treeView1.Size = new System.Drawing.Size(191, 301);
 			this.treeView1.TabIndex = 14;
-			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.ActionCategoryChanged);
+			this.treeView1.NodeMouseClick += new TreeNodeMouseClickEventHandler(this.ActionCategoryChanged);
 			// 
 			// pnlOBSPress
 			// 
@@ -1788,9 +1730,7 @@
 			this.pnlOBSPress.Controls.Add(this.ChkCboBoxHideFilterPress);
 			this.pnlOBSPress.Controls.Add(this.ChkCboBoxToggleSourcePress);
 			this.pnlOBSPress.Controls.Add(this.ChkBoxHideFilterPress);
-			this.pnlOBSPress.Location = new System.Drawing.Point(856, 25);
 			this.pnlOBSPress.Name = "pnlOBSPress";
-			this.pnlOBSPress.Size = new System.Drawing.Size(147, 110);
 			this.pnlOBSPress.TabIndex = 15;
 			this.pnlOBSPress.Tag = "obs_on";
 			// 
@@ -1807,10 +1747,7 @@
 			this.pnlSoundBoardPress.Controls.Add(this.TxtBoxAudioFile);
 			this.pnlSoundBoardPress.Controls.Add(this.chkBoxLoop);
 			this.pnlSoundBoardPress.Controls.Add(this.BtnAudioSelect);
-			this.pnlSoundBoardPress.Location = new System.Drawing.Point(298, 473);
 			this.pnlSoundBoardPress.Name = "pnlSoundBoardPress";
-			this.pnlSoundBoardPress.Size = new System.Drawing.Size(392, 259);
-			this.pnlSoundBoardPress.TabIndex = 16;
 			this.pnlSoundBoardPress.Tag = "soundboard_on";
 			// 
 			// pnlMediaKeysPress
@@ -1819,10 +1756,7 @@
 			this.pnlMediaKeysPress.Controls.Add(this.ChkBoxMediaKeyPreviousPress);
 			this.pnlMediaKeysPress.Controls.Add(this.ChkBoxMediaKeyPlayPress);
 			this.pnlMediaKeysPress.Controls.Add(this.ChkBoxMediaKeyNextPress);
-			this.pnlMediaKeysPress.Location = new System.Drawing.Point(1033, 34);
 			this.pnlMediaKeysPress.Name = "pnlMediaKeysPress";
-			this.pnlMediaKeysPress.Size = new System.Drawing.Size(133, 94);
-			this.pnlMediaKeysPress.TabIndex = 17;
 			this.pnlMediaKeysPress.Tag = "mediakeys_on";
 			// 
 			// pnlGoXLRPress
@@ -1833,10 +1767,7 @@
 			this.pnlGoXLRPress.Controls.Add(this.LblXLRInputPress);
 			this.pnlGoXLRPress.Controls.Add(this.CboBoxXLRInputPress);
 			this.pnlGoXLRPress.Controls.Add(this.CboBoxXLROutputPress);
-			this.pnlGoXLRPress.Location = new System.Drawing.Point(1211, 158);
 			this.pnlGoXLRPress.Name = "pnlGoXLRPress";
-			this.pnlGoXLRPress.Size = new System.Drawing.Size(99, 98);
-			this.pnlGoXLRPress.TabIndex = 18;
 			this.pnlGoXLRPress.Tag = "goxlr_on";
 			// 
 			// pnlTwitchPress
@@ -1846,10 +1777,7 @@
 			this.pnlTwitchPress.Controls.Add(this.TxtBoxTwitchMessagePress);
 			this.pnlTwitchPress.Controls.Add(this.LblChannelTwitchPress);
 			this.pnlTwitchPress.Controls.Add(this.TxtBoxTwitchChannelPress);
-			this.pnlTwitchPress.Location = new System.Drawing.Point(1039, 165);
 			this.pnlTwitchPress.Name = "pnlTwitchPress";
-			this.pnlTwitchPress.Size = new System.Drawing.Size(108, 91);
-			this.pnlTwitchPress.TabIndex = 18;
 			this.pnlTwitchPress.Tag = "twitch_on";
 			// 
 			// pnlMidiControlPress
@@ -1858,10 +1786,7 @@
 			this.pnlMidiControlPress.Controls.Add(this.CboBoxProfilePress);
 			this.pnlMidiControlPress.Controls.Add(this.ChkBoxStopAllSoundPress);
 			this.pnlMidiControlPress.Controls.Add(this.ChkBoxSwitchToProfilePress);
-			this.pnlMidiControlPress.Location = new System.Drawing.Point(1200, 45);
 			this.pnlMidiControlPress.Name = "pnlMidiControlPress";
-			this.pnlMidiControlPress.Size = new System.Drawing.Size(128, 83);
-			this.pnlMidiControlPress.TabIndex = 18;
 			this.pnlMidiControlPress.Tag = "midicontrol_on";
 			// 
 			// pnlOBSRelease
@@ -1902,20 +1827,14 @@
 			this.pnlOBSRelease.Controls.Add(this.ChkCboBoxShowFilterRelease);
 			this.pnlOBSRelease.Controls.Add(this.ChkBoxShowFilterRelease);
 			this.pnlOBSRelease.Controls.Add(this.ChkCboBoxToggleMuteRelease);
-			this.pnlOBSRelease.Location = new System.Drawing.Point(868, 361);
 			this.pnlOBSRelease.Name = "pnlOBSRelease";
-			this.pnlOBSRelease.Size = new System.Drawing.Size(114, 71);
-			this.pnlOBSRelease.TabIndex = 19;
 			this.pnlOBSRelease.Tag = "obs_off";
 			// 
 			// pnlSoundBoardRelease
 			// 
 			this.pnlSoundBoardRelease.AutoScroll = true;
 			this.pnlSoundBoardRelease.Controls.Add(this.ChkBoxAudioStop);
-			this.pnlSoundBoardRelease.Location = new System.Drawing.Point(868, 461);
 			this.pnlSoundBoardRelease.Name = "pnlSoundBoardRelease";
-			this.pnlSoundBoardRelease.Size = new System.Drawing.Size(114, 81);
-			this.pnlSoundBoardRelease.TabIndex = 20;
 			this.pnlSoundBoardRelease.Tag = "soundboard_off";
 			// 
 			// pnlMediaKeysRelease
@@ -1924,10 +1843,7 @@
 			this.pnlMediaKeysRelease.Controls.Add(this.ChkBoxMediaKeyPreviousRelease);
 			this.pnlMediaKeysRelease.Controls.Add(this.ChkBoxMediaKeyPlayRelease);
 			this.pnlMediaKeysRelease.Controls.Add(this.ChkBoxMediaKeyNextRelease);
-			this.pnlMediaKeysRelease.Location = new System.Drawing.Point(1022, 359);
 			this.pnlMediaKeysRelease.Name = "pnlMediaKeysRelease";
-			this.pnlMediaKeysRelease.Size = new System.Drawing.Size(96, 85);
-			this.pnlMediaKeysRelease.TabIndex = 21;
 			this.pnlMediaKeysRelease.Tag = "mediakeys_off";
 			// 
 			// pnlMidiControlRelease
@@ -1936,10 +1852,7 @@
 			this.pnlMidiControlRelease.Controls.Add(this.CboBoxProfileRelease);
 			this.pnlMidiControlRelease.Controls.Add(this.ChkBoxStopAllSoundRelease);
 			this.pnlMidiControlRelease.Controls.Add(this.ChkBoxSwitchToProfileRelease);
-			this.pnlMidiControlRelease.Location = new System.Drawing.Point(1176, 359);
 			this.pnlMidiControlRelease.Name = "pnlMidiControlRelease";
-			this.pnlMidiControlRelease.Size = new System.Drawing.Size(122, 87);
-			this.pnlMidiControlRelease.TabIndex = 22;
 			this.pnlMidiControlRelease.Tag = "midicontrol_off";
 			// 
 			// pnlTwitchRelease
@@ -1949,10 +1862,7 @@
 			this.pnlTwitchRelease.Controls.Add(this.LblChannelTwitchRelease);
 			this.pnlTwitchRelease.Controls.Add(this.TxtBoxTwitchMessageRelease);
 			this.pnlTwitchRelease.Controls.Add(this.TxtBoxTwitchChannelRelease);
-			this.pnlTwitchRelease.Location = new System.Drawing.Point(1034, 473);
 			this.pnlTwitchRelease.Name = "pnlTwitchRelease";
-			this.pnlTwitchRelease.Size = new System.Drawing.Size(115, 79);
-			this.pnlTwitchRelease.TabIndex = 22;
 			this.pnlTwitchRelease.Tag = "twitch_off";
 			// 
 			// pnlGoXLRRelease
@@ -1963,10 +1873,7 @@
 			this.pnlGoXLRRelease.Controls.Add(this.LblXLRInputRelease);
 			this.pnlGoXLRRelease.Controls.Add(this.CboBoxXLROutputRelease);
 			this.pnlGoXLRRelease.Controls.Add(this.PanelXLRRelease);
-			this.pnlGoXLRRelease.Location = new System.Drawing.Point(1188, 473);
 			this.pnlGoXLRRelease.Name = "pnlGoXLRRelease";
-			this.pnlGoXLRRelease.Size = new System.Drawing.Size(138, 92);
-			this.pnlGoXLRRelease.TabIndex = 22;
 			this.pnlGoXLRRelease.Tag = "goxlr_off";
 			// 
 			// pnlOBSSlider
@@ -1979,20 +1886,17 @@
 			this.pnlOBSSlider.Controls.Add(this.CboBoxFilterNameSlider);
 			this.pnlOBSSlider.Controls.Add(this.ChkCboBoxVolumeSlider);
 			this.pnlOBSSlider.Controls.Add(this.ChkBoxAdjustFilter);
-			this.pnlOBSSlider.Location = new System.Drawing.Point(864, 596);
 			this.pnlOBSSlider.Name = "pnlOBSSlider";
-			this.pnlOBSSlider.Size = new System.Drawing.Size(200, 123);
-			this.pnlOBSSlider.TabIndex = 23;
 			this.pnlOBSSlider.Tag = "obs_slider";
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(13, 43);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(72, 13);
-			this.label1.TabIndex = 25;
-			this.label1.Text = "Select action:";
+			this.lblSelectAction.AutoSize = true;
+			this.lblSelectAction.Location = new System.Drawing.Point(13, 43);
+			this.lblSelectAction.Name = "label1";
+			this.lblSelectAction.Size = new System.Drawing.Size(72, 13);
+			this.lblSelectAction.TabIndex = 25;
+			this.lblSelectAction.Text = "Select action:";
 			// 
 			// lblPanelLabel
 			// 
@@ -2007,21 +1911,12 @@
 			// 
 			this.pnlRoot.AutoScroll = true;
 			this.pnlRoot.Controls.Add(this.txtKeybindSummary);
-			this.pnlRoot.Controls.Add(this.label3);
 			this.pnlRoot.Location = new System.Drawing.Point(218, 60);
 			this.pnlRoot.Name = "pnlRoot";
 			this.pnlRoot.Size = new System.Drawing.Size(385, 301);
 			this.pnlRoot.TabIndex = 27;
 			this.pnlRoot.Tag = "root";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(12, 12);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(206, 13);
-			this.label3.TabIndex = 0;
-			this.label3.Text = "Select a subcategory to configure options.";
+			this.pnlRoot.BorderStyle = BorderStyle.FixedSingle;
 			// 
 			// btnCancel
 			// 
@@ -2032,38 +1927,26 @@
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.CancelPressed);
-			// 
-			// lblHideMe
-			// 
-			this.lblHideMe.AutoSize = true;
-			this.lblHideMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHideMe.Location = new System.Drawing.Point(13, 365);
-			this.lblHideMe.Name = "lblHideMe";
-			this.lblHideMe.Size = new System.Drawing.Size(272, 26);
-			this.lblHideMe.TabIndex = 29;
-			this.lblHideMe.Text = "original window size (632, 446)\r\nexpand window to view and edit the subpanels\r\n";
-			this.lblHideMe.Visible = false;
-			// 
-			// txtKeybindSummary
-			// 
-			this.txtKeybindSummary.Location = new System.Drawing.Point(15, 32);
-			this.txtKeybindSummary.Multiline = true;
+            // 
+            // txtKeybindSummary
+            // 
+            this.txtKeybindSummary.Dock = DockStyle.Fill;
+            this.txtKeybindSummary.Multiline = true;
 			this.txtKeybindSummary.Name = "txtKeybindSummary";
 			this.txtKeybindSummary.ReadOnly = true;
-			this.txtKeybindSummary.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtKeybindSummary.Size = new System.Drawing.Size(356, 259);
+			this.txtKeybindSummary.ScrollBars = ScrollBars.Vertical;
 			this.txtKeybindSummary.TabIndex = 1;
+			this.txtKeybindSummary.BorderStyle = BorderStyle.None;
 			// 
 			// EntryGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleMode = AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(616, 407);
-			this.Controls.Add(this.lblHideMe);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pnlRoot);
 			this.Controls.Add(this.lblPanelLabel);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.lblSelectAction);
 			this.Controls.Add(this.pnlOBSSlider);
 			this.Controls.Add(this.pnlMidiControlRelease);
 			this.Controls.Add(this.pnlTwitchRelease);
@@ -2087,12 +1970,12 @@
 			this.Controls.Add(this.LblNote);
 			this.Controls.Add(this.TxtBoxName);
 			this.Controls.Add(this.LblName);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "EntryGUI";
 			this.Text = "Add MIDI Keybind";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EntryGUI_FormClosing);
+			this.FormClosing += new FormClosingEventHandler(this.EntryGUI_FormClosing);
 			((System.ComponentModel.ISupportInitialize)(this.NumericTransitionPress)).EndInit();
 			this.PanelXLRPress.ResumeLayout(false);
 			this.PanelXLRPress.PerformLayout();
@@ -2129,166 +2012,163 @@
 			this.pnlRoot.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-
         }
 
         #endregion
 
-        private System.Windows.Forms.Label LblName;
-        private System.Windows.Forms.TextBox TxtBoxName;
-        private System.Windows.Forms.Label LblNote;
-        public System.Windows.Forms.TextBox TxtBoxNote;
-        public System.Windows.Forms.TextBox TxtBoxDevice;
-        private System.Windows.Forms.Label LblDevice;
-        private System.Windows.Forms.Button BtnAdd;
-        public System.Windows.Forms.TextBox TxtBoxChannel;
-        private System.Windows.Forms.Label LblChannel;
-        private System.Windows.Forms.CheckBox ChkBoxSwitchScenePress;
-        private System.Windows.Forms.ComboBox CboBoxSwitchScenePress;
-        private System.Windows.Forms.CheckBox ChkBoxMutePress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMutePress;
-        private System.Windows.Forms.CheckBox ChkBoxUnmutePress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxUnmutePress;
-        private System.Windows.Forms.CheckBox ChkBoxHideSourcePress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHidePress;
-        private System.Windows.Forms.CheckBox ChkBoxShowSourcePress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxShowPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHideRelease;
-        private System.Windows.Forms.CheckBox ChkBoxSwitchSceneRelease;
-        private System.Windows.Forms.CheckBox ChkBoxHideSourceRelease;
-        private System.Windows.Forms.ComboBox CboBoxSwitchSceneRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxShowRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMuteRelease;
-        private System.Windows.Forms.CheckBox ChkBoxShowSourceRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMuteRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxUnmuteRelease;
-        private System.Windows.Forms.CheckBox ChkBoxUnmuteRelease;
-        private System.Windows.Forms.Button BtnAudioSelect;
-        private System.Windows.Forms.TextBox TxtBoxAudioFile;
-        private System.Windows.Forms.CheckBox ChkBoxAudioStop;
-        private System.Windows.Forms.CheckBox ChkBoxEnableAudio;
-        private System.Windows.Forms.ComboBox CboBoxAudioDevice;
-        private System.Windows.Forms.Label LblAudioDevice;
-        private System.Windows.Forms.Label LblAudioFile;
-        private System.Windows.Forms.CheckBox chkBoxLoop;
+        private Label LblName;
+        private TextBox TxtBoxName;
+        private Label LblNote;
+        public TextBox TxtBoxNote;
+        public TextBox TxtBoxDevice;
+        private Label LblDevice;
+        private Button BtnAdd;
+        public TextBox TxtBoxChannel;
+        private Label LblChannel;
+        private CheckBox ChkBoxSwitchScenePress;
+        private ComboBox CboBoxSwitchScenePress;
+        private CheckBox ChkBoxMutePress;
+        private CheckedListBox  ChkCboBoxMutePress;
+        private CheckBox ChkBoxUnmutePress;
+        private CheckedListBox  ChkCboBoxUnmutePress;
+        private CheckBox ChkBoxHideSourcePress;
+        private CheckedListBox  ChkCboBoxHidePress;
+        private CheckBox ChkBoxShowSourcePress;
+        private CheckedListBox  ChkCboBoxShowPress;
+        private CheckedListBox  ChkCboBoxHideRelease;
+        private CheckBox ChkBoxSwitchSceneRelease;
+        private CheckBox ChkBoxHideSourceRelease;
+        private ComboBox CboBoxSwitchSceneRelease;
+        private CheckedListBox  ChkCboBoxShowRelease;
+        private CheckBox ChkBoxMuteRelease;
+        private CheckBox ChkBoxShowSourceRelease;
+        private CheckedListBox  ChkCboBoxMuteRelease;
+        private CheckedListBox  ChkCboBoxUnmuteRelease;
+        private CheckBox ChkBoxUnmuteRelease;
+        private Button BtnAudioSelect;
+        private TextBox TxtBoxAudioFile;
+        private CheckBox ChkBoxAudioStop;
+        private CheckBox ChkBoxEnableAudio;
+        private ComboBox CboBoxAudioDevice;
+        private Label LblAudioDevice;
+        private Label LblAudioFile;
+        private CheckBox chkBoxLoop;
         private NAudio.Gui.VolumeSlider volumeSlider;
-        private System.Windows.Forms.Label LblVolume;
-        private System.Windows.Forms.NumericUpDown NumericTransitionPress;
-        private System.Windows.Forms.ComboBox CboBoxTransitionPress;
-        private System.Windows.Forms.CheckBox ChkBoxTransitionPress;
-        private System.Windows.Forms.CheckBox ChkBoxTransitionRelease;
-        private System.Windows.Forms.NumericUpDown NumericTransitionRelease;
-        private System.Windows.Forms.ComboBox CboBoxTransitionRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxToggleSourcePress;
-        private System.Windows.Forms.CheckBox ChkBoxToggleSourcePress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxToggleMutePress;
-        private System.Windows.Forms.CheckBox ChkBoxTogglemutePress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxToggleSourceRelease;
-        private System.Windows.Forms.CheckBox ChkBoxToggleSourceRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxToggleMuteRelease;
-        private System.Windows.Forms.CheckBox ChkBoxTogglemuteRelease;
-        private System.Windows.Forms.CheckBox ChkBoxAdjustVolume;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxVolumeSlider;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxToggleFilterPress;
-        private System.Windows.Forms.CheckBox ChkBoxToggleFilterPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxShowFilterPress;
-        private System.Windows.Forms.CheckBox ChkBoxShowFilterPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHideFilterPress;
-        private System.Windows.Forms.CheckBox ChkBoxHideFilterPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxToggleFilterRelease;
-        private System.Windows.Forms.CheckBox ChkBoxToggleFilterRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxShowFilterRelease;
-        private System.Windows.Forms.CheckBox ChkBoxShowFilterRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHideFilterRelease;
-        private System.Windows.Forms.CheckBox ChkBoxHideFilterRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMiscPress;
-        private System.Windows.Forms.CheckBox ChkBoxMiscPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMiscRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMiscRelease;
-        private System.Windows.Forms.CheckBox ChkBoxAdjustTransitionDuration;
-        private System.Windows.Forms.CheckBox ChkBoxSlideTransition;
-        private System.Windows.Forms.ComboBox CboBoxPreviewScenePress;
-        private System.Windows.Forms.CheckBox ChkBoxPreviewScenePress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaStopPress;
-        private System.Windows.Forms.CheckBox ChkBoxMediaStopPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaRestartPress;
-        private System.Windows.Forms.CheckBox ChkBoxMediaRestartPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaPlayPress;
-        private System.Windows.Forms.CheckBox ChkBoxMediaPlayPress;
-        private System.Windows.Forms.ComboBox CboBoxPreviewSceneRelease;
-        private System.Windows.Forms.CheckBox ChkBoxPreviewSceneRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaStopRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMediaStopRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaRestartRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMediaRestartRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxMediaPlayRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMediaPlayRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPlayPress;
-        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPreviousPress;
-        private System.Windows.Forms.CheckBox ChkBoxMediaKeyNextPress;
-        private System.Windows.Forms.CheckBox ChkBoxAdjustFilter;
-        private System.Windows.Forms.ComboBox CboBoxFilterSettingSlider;
-        private System.Windows.Forms.ComboBox CboBoxFilterNameSlider;
-        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPreviousRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMediaKeyNextRelease;
-        private System.Windows.Forms.CheckBox ChkBoxMediaKeyPlayRelease;
-        private System.Windows.Forms.TextBox TxtBoxTwitchChannelPress;
-        private System.Windows.Forms.Label LblChannelTwitchPress;
-        private System.Windows.Forms.Label LblTwitchMessagePress;
-        private System.Windows.Forms.TextBox TxtBoxTwitchMessagePress;
-        private System.Windows.Forms.Label LblTwitchMessageRelease;
-        private System.Windows.Forms.TextBox TxtBoxTwitchMessageRelease;
-        private System.Windows.Forms.TextBox TxtBoxTwitchChannelRelease;
-        private System.Windows.Forms.Label LblChannelTwitchRelease;
-        private System.Windows.Forms.CheckBox ChkBoxStopAllSoundPress;
-        private System.Windows.Forms.CheckBox ChkBoxStopAllSoundRelease;
-        private System.Windows.Forms.CheckBox ChkBoxSwitchToProfilePress;
-        private System.Windows.Forms.CheckBox ChkBoxSwitchToProfileRelease;
-        private System.Windows.Forms.ComboBox CboBoxProfilePress;
-        private System.Windows.Forms.ComboBox CboBoxProfileRelease;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHotkeyPress;
-        private System.Windows.Forms.CheckBox ChkBoxHotkeyPress;
-        private CheckComboBoxTest.CheckedComboBox ChkCboBoxHotkeyRelease;
-        private System.Windows.Forms.CheckBox ChkBoxHotkeyRelease;
-        private System.Windows.Forms.ComboBox CboBoxXLROutputPress;
-        private System.Windows.Forms.ComboBox CboBoxXLRInputPress;
-        private System.Windows.Forms.ComboBox CboBoxXLROutputRelease;
-        private System.Windows.Forms.ComboBox CboBoxXLRInputRelease;
-        private System.Windows.Forms.Panel PanelXLRPress;
-        private System.Windows.Forms.RadioButton RadioButtonDisabledXLRPress;
-        private System.Windows.Forms.RadioButton RadioButtonUnMuteXLRPress;
-        private System.Windows.Forms.RadioButton RadioButtonMuteXLRPress;
-        private System.Windows.Forms.RadioButton RadioButtonToggleXLRPress;
-        private System.Windows.Forms.Panel PanelXLRRelease;
-        private System.Windows.Forms.RadioButton RadioButtonUnMuteXLRRelease;
-        private System.Windows.Forms.RadioButton RadioButtonMuteXLRRelease;
-        private System.Windows.Forms.RadioButton RadioButtonToggleXLRRelease;
-        private System.Windows.Forms.RadioButton RadioButtonDisabledXLRRelease;
-        private System.Windows.Forms.Label LblXLROutputPress;
-        private System.Windows.Forms.Label LblXLRInputPress;
-        private System.Windows.Forms.Label LblXLROutputRelease;
-        private System.Windows.Forms.Label LblXLRInputRelease;
-		private System.Windows.Forms.CheckBox chkStopAllOthers;
-		private System.Windows.Forms.TreeView treeView1;
-		private System.Windows.Forms.Panel pnlOBSPress;
-		private System.Windows.Forms.Panel pnlSoundBoardPress;
-		private System.Windows.Forms.Panel pnlMediaKeysPress;
-		private System.Windows.Forms.Panel pnlGoXLRPress;
-		private System.Windows.Forms.Panel pnlTwitchPress;
-		private System.Windows.Forms.Panel pnlMidiControlPress;
-		private System.Windows.Forms.Panel pnlOBSRelease;
-		private System.Windows.Forms.Panel pnlSoundBoardRelease;
-		private System.Windows.Forms.Panel pnlMediaKeysRelease;
-		private System.Windows.Forms.Panel pnlMidiControlRelease;
-		private System.Windows.Forms.Panel pnlTwitchRelease;
-		private System.Windows.Forms.Panel pnlGoXLRRelease;
-		private System.Windows.Forms.Panel pnlOBSSlider;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label lblPanelLabel;
-		private System.Windows.Forms.Panel pnlRoot;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.Label lblHideMe;
-		private System.Windows.Forms.TextBox txtKeybindSummary;
+        private Label LblVolume;
+        private NumericUpDown NumericTransitionPress;
+        private ComboBox CboBoxTransitionPress;
+        private CheckBox ChkBoxTransitionPress;
+        private CheckBox ChkBoxTransitionRelease;
+        private NumericUpDown NumericTransitionRelease;
+        private ComboBox CboBoxTransitionRelease;
+        private CheckedListBox  ChkCboBoxToggleSourcePress;
+        private CheckBox ChkBoxToggleSourcePress;
+        private CheckedListBox  ChkCboBoxToggleMutePress;
+        private CheckBox ChkBoxTogglemutePress;
+        private CheckedListBox  ChkCboBoxToggleSourceRelease;
+        private CheckBox ChkBoxToggleSourceRelease;
+        private CheckedListBox  ChkCboBoxToggleMuteRelease;
+        private CheckBox ChkBoxTogglemuteRelease;
+        private CheckBox ChkBoxAdjustVolume;
+        private CheckedListBox  ChkCboBoxVolumeSlider;
+        private CheckedListBox  ChkCboBoxToggleFilterPress;
+        private CheckBox ChkBoxToggleFilterPress;
+        private CheckedListBox  ChkCboBoxShowFilterPress;
+        private CheckBox ChkBoxShowFilterPress;
+        private CheckedListBox  ChkCboBoxHideFilterPress;
+        private CheckBox ChkBoxHideFilterPress;
+        private CheckedListBox  ChkCboBoxToggleFilterRelease;
+        private CheckBox ChkBoxToggleFilterRelease;
+        private CheckedListBox  ChkCboBoxShowFilterRelease;
+        private CheckBox ChkBoxShowFilterRelease;
+        private CheckedListBox  ChkCboBoxHideFilterRelease;
+        private CheckBox ChkBoxHideFilterRelease;
+        private CheckedListBox  ChkCboBoxMiscPress;
+        private CheckBox ChkBoxMiscPress;
+        private CheckedListBox  ChkCboBoxMiscRelease;
+        private CheckBox ChkBoxMiscRelease;
+        private CheckBox ChkBoxAdjustTransitionDuration;
+        private CheckBox ChkBoxSlideTransition;
+        private ComboBox CboBoxPreviewScenePress;
+        private CheckBox ChkBoxPreviewScenePress;
+        private CheckedListBox ChkCboBoxMediaStopPress;
+        private CheckBox ChkBoxMediaStopPress;
+        private CheckedListBox  ChkCboBoxMediaRestartPress;
+        private CheckBox ChkBoxMediaRestartPress;
+        private CheckedListBox ChkCboBoxMediaPlayPress;
+        private CheckBox ChkBoxMediaPlayPress;
+        private ComboBox CboBoxPreviewSceneRelease;
+        private CheckBox ChkBoxPreviewSceneRelease;
+        private CheckedListBox ChkCboBoxMediaStopRelease;
+        private CheckBox ChkBoxMediaStopRelease;
+        private CheckedListBox ChkCboBoxMediaRestartRelease;
+        private CheckBox ChkBoxMediaRestartRelease;
+        private CheckedListBox  ChkCboBoxMediaPlayRelease;
+        private CheckBox ChkBoxMediaPlayRelease;
+        private CheckBox ChkBoxMediaKeyPlayPress;
+        private CheckBox ChkBoxMediaKeyPreviousPress;
+        private CheckBox ChkBoxMediaKeyNextPress;
+        private CheckBox ChkBoxAdjustFilter;
+        private ComboBox CboBoxFilterSettingSlider;
+        private ComboBox CboBoxFilterNameSlider;
+        private CheckBox ChkBoxMediaKeyPreviousRelease;
+        private CheckBox ChkBoxMediaKeyNextRelease;
+        private CheckBox ChkBoxMediaKeyPlayRelease;
+        private TextBox TxtBoxTwitchChannelPress;
+        private Label LblChannelTwitchPress;
+        private Label LblTwitchMessagePress;
+        private TextBox TxtBoxTwitchMessagePress;
+        private Label LblTwitchMessageRelease;
+        private TextBox TxtBoxTwitchMessageRelease;
+        private TextBox TxtBoxTwitchChannelRelease;
+        private Label LblChannelTwitchRelease;
+        private CheckBox ChkBoxStopAllSoundPress;
+        private CheckBox ChkBoxStopAllSoundRelease;
+        private CheckBox ChkBoxSwitchToProfilePress;
+        private CheckBox ChkBoxSwitchToProfileRelease;
+        private ComboBox CboBoxProfilePress;
+        private ComboBox CboBoxProfileRelease;
+        private CheckedListBox ChkCboBoxHotkeyPress;
+        private CheckBox ChkBoxHotkeyPress;
+        private CheckedListBox ChkCboBoxHotkeyRelease;
+        private CheckBox ChkBoxHotkeyRelease;
+        private ComboBox CboBoxXLROutputPress;
+        private ComboBox CboBoxXLRInputPress;
+        private ComboBox CboBoxXLROutputRelease;
+        private ComboBox CboBoxXLRInputRelease;
+        private Panel PanelXLRPress;
+        private RadioButton RadioButtonDisabledXLRPress;
+        private RadioButton RadioButtonUnMuteXLRPress;
+        private RadioButton RadioButtonMuteXLRPress;
+        private RadioButton RadioButtonToggleXLRPress;
+        private Panel PanelXLRRelease;
+        private RadioButton RadioButtonUnMuteXLRRelease;
+        private RadioButton RadioButtonMuteXLRRelease;
+        private RadioButton RadioButtonToggleXLRRelease;
+        private RadioButton RadioButtonDisabledXLRRelease;
+        private Label LblXLROutputPress;
+        private Label LblXLRInputPress;
+        private Label LblXLROutputRelease;
+        private Label LblXLRInputRelease;
+		private CheckBox chkStopAllOthers;
+		private TreeView treeView1;
+		private Panel pnlOBSPress;
+		private Panel pnlSoundBoardPress;
+		private Panel pnlMediaKeysPress;
+		private Panel pnlGoXLRPress;
+		private Panel pnlTwitchPress;
+		private Panel pnlMidiControlPress;
+		private Panel pnlOBSRelease;
+		private Panel pnlSoundBoardRelease;
+		private Panel pnlMediaKeysRelease;
+		private Panel pnlMidiControlRelease;
+		private Panel pnlTwitchRelease;
+		private Panel pnlGoXLRRelease;
+		private Panel pnlOBSSlider;
+		private Label lblSelectAction;
+		private Label lblPanelLabel;
+		private Panel pnlRoot;
+		private Button btnCancel;
+		private TextBox txtKeybindSummary;
 	}
 }

@@ -5,33 +5,33 @@ namespace MidiControl.Models.OBS
     public class Source
     {
         [JsonProperty("inputKind")]
-        public string inputKind { get; set; }
+        public string InputKind { get; set; }
 
         [JsonProperty("isGroup")]
-        public object isGroup { get; set; }
+        public object IsGroup { get; set; }
 
         [JsonProperty("sceneItemBlendMode")]
-        public string sceneItemBlendMode { get; set; }
+        public string SceneItemBlendMode { get; set; }
 
         [JsonProperty("sceneItemEnabled")]
-        public bool sceneItemEnabled { get; set; }
+        public bool SceneItemEnabled { get; set; }
 
         [JsonProperty("sceneItemId")]
-        public int sceneItemId { get; set; }
+        public int SceneItemId { get; set; }
 
         [JsonProperty("sceneItemIndex")]
-        public int sceneItemIndex { get; set; }
+        public int SceneItemIndex { get; set; }
 
         [JsonProperty("sceneItemLocked")]
-        public bool sceneItemLocked { get; set; }
+        public bool SceneItemLocked { get; set; }
 
         [JsonProperty("sceneItemTransform")]
-        public SceneItemTransform sceneItemTransform { get; set; }
+        public SceneItemTransform SceneItemTransform { get; set; }
 
         [JsonProperty("sourceName")]
-        public string sourceName { get; set; }
+        public string SourceName { get; set; }
 
         [JsonProperty("sourceType")]
-        public string sourceType { get; set; }
+        public string SourceType { get; set; }
     }
 }

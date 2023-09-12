@@ -7,11 +7,11 @@ namespace MidiControl
 {
     class MIDIListener
     {
-        public List<string> midiInStringOptions = new List<string>();
+        public List<string> midiInStringOptions = new();
         private MidiInCustom MidiInForward;
         private MidiOutCustom MidiOutForward;
-        public Dictionary<string, MidiInCustom> midiInInterface = new Dictionary<string, MidiInCustom>();
-        public Dictionary<string, MidiOutCustom> midiOutInterface = new Dictionary<string, MidiOutCustom>();
+        public Dictionary<string, MidiInCustom> midiInInterface = new();
+        public Dictionary<string, MidiOutCustom> midiOutInterface = new();
 
         private static MIDIListener _instance;
         private readonly Configuration conf;
@@ -23,7 +23,7 @@ namespace MidiControl
 
         public MIDIListener(Configuration conf)
         {
-            new OBSControl();
+            _ = new OBSControl();
             audioControl = new AudioControl();
             goXLRControl = new GoXLRControl();
             twitchControl = new TwitchChatControl(options.options, conf.Config);
@@ -56,7 +56,7 @@ namespace MidiControl
                     }
                     else if (!options.options.MIDIInterfaces.Contains(MidiIn.DeviceInfo(device).ProductName))
                     {
-                        MidiInCustom MidiIndevice = new MidiInCustom(device);
+                        MidiInCustom MidiIndevice = new(device);
                         midiInInterface.Add(MidiIn.DeviceInfo(device).ProductName, MidiIndevice);
                         MidiIndevice.Start();
                     }
@@ -194,12 +194,11 @@ namespace MidiControl
             }
         }
 
-        private int ValidateSenderDeviceInt(MidiInCustom dev) {
+        private static int ValidateSenderDeviceInt(MidiInCustom dev) {
             var device = dev.device;
-            var assumed = device;
             var adjusted = false;
             var correct = false;
-            var devName = "null";
+            string devName;
 
             while(!correct && device >= 0) {
                 try {
@@ -227,7 +226,7 @@ namespace MidiControl
         // ((MidiInCustom)sender).device = int: numeric device index
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
-            int deviceId = this.ValidateSenderDeviceInt((MidiInCustom)sender);
+            int deviceId = MIDIListener.ValidateSenderDeviceInt((MidiInCustom)sender);
             MidiOutForward?.Send(e.RawMessage);
 
             foreach (var entry in conf.Config)
@@ -270,7 +269,7 @@ namespace MidiControl
                     }
                     if(entry.Value.MediaCallBack != null)
                     {
-                        audioControl.MediaKey(entry.Value.MediaCallBack.MediaType);
+                        AudioControl.MediaKey(entry.Value.MediaCallBack.MediaType);
                     }
                     if (entry.Value.TwitchCallBackON != null)
                     {
@@ -312,7 +311,7 @@ namespace MidiControl
                     }
                     if (entry.Value.MediaCallBackOFF != null)
                     {
-                        audioControl.MediaKey(entry.Value.MediaCallBackOFF.MediaType);
+                        AudioControl.MediaKey(entry.Value.MediaCallBackOFF.MediaType);
                     }
                     if (entry.Value.SoundCallBack != null && entry.Value.SoundCallBack.StopWhenReleased)
                     {
