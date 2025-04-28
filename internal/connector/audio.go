@@ -240,12 +240,7 @@ func getMute(aev *wca.IAudioEndpointVolume) (bool, error) {
 }
 
 func (k Audio) OnPress(device string, key uint8, channel uint8, velocity uint8) (*bool, error) {
-	data, err := k.m.GetActionDown(key)
-	if err != nil {
-		return nil, err
-	}
-
-	toggle, err := k.m.IsToggle(key)
+	data, toggle, err := k.m.GetInfo(key, ActionDown)
 	if err != nil {
 		return nil, err
 	}
@@ -269,12 +264,7 @@ func (k Audio) OnPress(device string, key uint8, channel uint8, velocity uint8) 
 }
 
 func (k Audio) OnRelease(device string, key uint8, channel uint8, velocity uint8) error {
-	data, err := k.m.GetActionUp(key)
-	if err != nil {
-		return err
-	}
-
-	toggle, err := k.m.IsToggle(key)
+	data, toggle, err := k.m.GetInfo(key, ActionUp)
 	if err != nil || toggle {
 		return err
 	}

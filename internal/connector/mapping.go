@@ -28,6 +28,13 @@ type Slider struct {
 	Action     string `json:"action"`
 }
 
+type Actions int
+
+const (
+	ActionUp Actions = iota
+	ActionDown
+)
+
 var errNoKeyFound = errors.New("no key found")
 
 func LoadFromFile(filePath string) (map[string]KeyMapping, error) {
@@ -51,23 +58,18 @@ func LoadFromFile(filePath string) (map[string]KeyMapping, error) {
 	return connectorMappings, nil
 }
 
-func (m *KeyMapping) GetActionUp(key uint8) (string, error) {
+func (m *KeyMapping) GetInfo(key uint8, actionType Actions) (string, bool, error) {
 	for _, info := range m.Keys {
 		if info.Key == key {
-			return info.ActionUp, nil
+			switch actionType {
+			case ActionUp:
+				return info.ActionUp, info.Toggle, nil
+			case ActionDown:
+				return info.ActionDown, info.Toggle, nil
+			}
 		}
 	}
-
-	return "", errNoKeyFound
-}
-
-func (m *KeyMapping) GetActionDown(key uint8) (string, error) {
-	for _, info := range m.Keys {
-		if info.Key == key {
-			return info.ActionDown, nil
-		}
-	}
-	return "", errNoKeyFound
+	return "", false, errNoKeyFound
 }
 
 func (m *KeyMapping) GetActionSlider(controller uint8) (string, error) {
@@ -77,13 +79,4 @@ func (m *KeyMapping) GetActionSlider(controller uint8) (string, error) {
 		}
 	}
 	return "", errNoKeyFound
-}
-
-func (m *KeyMapping) IsToggle(key uint8) (bool, error) {
-	for _, info := range m.Keys {
-		if info.Key == key {
-			return info.Toggle, nil
-		}
-	}
-	return false, errNoKeyFound
 }

@@ -38,7 +38,7 @@ func (k Keyboard) sendInput(data string) error {
 }
 
 func (k Keyboard) OnPress(device string, key uint8, channel uint8, velocity uint8) (*bool, error) {
-	data, err := k.m.GetActionDown(key)
+	data, _, err := k.m.GetInfo(key, ActionDown)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (k Keyboard) OnPress(device string, key uint8, channel uint8, velocity uint
 }
 
 func (k Keyboard) OnRelease(device string, key uint8, channel uint8, velocity uint8) error {
-	data, err := k.m.GetActionUp(key)
+	data, _, err := k.m.GetInfo(key, ActionUp)
 	if err != nil {
 		return err
 	}
@@ -55,7 +55,7 @@ func (k Keyboard) OnRelease(device string, key uint8, channel uint8, velocity ui
 }
 
 func (k Keyboard) OnControlChange(device string, controller uint8, channel uint8, value float32) error {
-	data, err := k.m.GetActionDown(controller)
+	data, err := k.m.GetActionSlider(controller)
 	if err != nil {
 		return err
 	}

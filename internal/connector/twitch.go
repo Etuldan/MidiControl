@@ -15,8 +15,8 @@ func NewTwitch(mapping KeyMapping) Twitch {
 }
 
 func (k Twitch) OnPress(device string, key uint8, channel uint8, velocity uint8) (*bool, error) {
-	a, err := k.m.GetActionDown(key)
-	fmt.Println(a)
+	data, _, err := k.m.GetInfo(key, ActionDown)
+	fmt.Println(data)
 	return nil, err
 }
 
