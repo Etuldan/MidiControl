@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"midicontrol/internal/logger"
 	"midicontrol/internal/midi"
 	"time"
@@ -57,16 +58,16 @@ loop:
 	return
 }
 
-func (s *Service) RunService(name string, isDebug bool) {
-	if isDebug {
-		err := debug.Run(name, s)
-		if err != nil {
-			s.log.LogError("Error running program")
-		}
-	} else {
+func (s *Service) RunService(name string, service bool) {
+	if service {
 		err := svc.Run(name, s)
 		if err != nil {
-			s.log.LogError("Error running service in Service Control mode.")
+			fmt.Println("Error running service in Service Control mode.")
+		}
+	} else {
+		err := debug.Run(name, s)
+		if err != nil {
+			fmt.Println("Error running program")
 		}
 	}
 }
