@@ -1,0 +1,3 @@
+[submodule "go-wca"]
+	path = go-wca
+	url = https://github.com/arkadijs/go-wca.git

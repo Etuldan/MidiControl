@@ -1,5 +1,5 @@
 # MidiControl
-MIDIControl is an external software (Windows Only), to remote control OBS, remote control your GoXLR, act as Soundboard, send message in Twitch Chat, and more..., with any MIDI controller like APC (from AKAI), Launchpad (from Novation), or Maschine (from Native Instruments).
+MIDIControl is an external software (Windows Only), to remote control OBS, act as Soundboard, send message in Twitch Chat, and more..., with any MIDI controller like APC (from AKAI), Launchpad (from Novation), or Maschine (from Native Instruments).
 
 It support profiles/mapping, so you can switch from one to another, to use your MIDI Controller differently if you want to.
 
@@ -16,3 +16,7 @@ TODO
 3. Select the profile you want to use, if needed.
 4. Press on your MIDI keys/controls!
 
+## How to build
+
+[Go](https://go.dev/doc/install) 1.24.2 or later
+`go env -w CGO_ENABLED=1` (more info [here](https://github.com/go101/go101/wiki/CGO-Environment-Setup))
