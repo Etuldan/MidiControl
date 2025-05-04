@@ -12,7 +12,6 @@ import (
 // github.com/gen2brain/malgo
 
 type Audio struct {
-	m     KeyMapping
 	l     *logger.Logger
 	mmde  *wca.IMMDeviceEnumerator
 	mmd   *wca.IMMDevice
@@ -30,7 +29,7 @@ type CallbackRegistration struct {
 	nativeCallback *wca.IAudioSessionEvents
 }
 
-func NewAudio(mapping KeyMapping, logger *logger.Logger) (*Audio, error) {
+func NewAudio(logger *logger.Logger) (*Audio, error) {
 	/*err := ole.CoInitializeEx(0, ole.COINIT_APARTMENTTHREADED)
 	if err != nil {
 		logger.LogError("%v", err)
@@ -141,11 +140,44 @@ func NewAudio(mapping KeyMapping, logger *logger.Logger) (*Audio, error) {
 	}
 	//defer aev.Release()
 
-	return &Audio{m: mapping, l: logger, mmde: mmde, watch: watch, aev: aev}, nil
+	return &Audio{l: logger, mmde: mmde, watch: watch, aev: aev}, nil
 }
 
 func (k Audio) Close() {
 	k.mmde.Release()
+}
+
+func (k Audio) OnPress(action string) (*bool, error) {
+	k.l.LogInfo("Audio Press %v", action)
+	if action == MUTE {
+		//if !toggle {
+		return nil, set(setMute, k.mmde, true)
+		//} else {
+		//data, err := get(getMute, k.mmde)
+		//if err != nil {
+		//	return nil, err
+		//}
+		//data = !data
+		//return nil, k.test(0.5)
+
+		//return &data, set(setMute, k.mmde, data)
+		//}
+	}
+	return nil, nil
+}
+
+func (k Audio) OnRelease(action string) error {
+	k.l.LogInfo("Audio Press %v", action)
+	if action == UNMUTE {
+		return set(setMute, k.mmde, false)
+	}
+
+	return nil
+}
+
+func (k Audio) OnControlChange(action string, value float32) error {
+	k.l.LogInfo("Audio Change %v", action)
+	return set(setMasterVolume, k.mmde, value)
 }
 
 func onSessionCreated(deviceName string, watch chan *wca.IAudioSessionControl, pNewSession *wca.IAudioSessionControl) error {
@@ -237,53 +269,6 @@ func getMute(aev *wca.IAudioEndpointVolume) (bool, error) {
 	var mute bool = false
 	err := aev.GetMute(&mute)
 	return mute, err
-}
-
-func (k Audio) OnPress(device string, key uint8, channel uint8, velocity uint8) (*bool, error) {
-	data, toggle, err := k.m.GetInfo(key, ActionDown)
-	if err != nil {
-		return nil, err
-	}
-
-	k.l.LogInfo("Audio Press %v", data)
-	if data == MUTE {
-		if !toggle {
-			return nil, set(setMute, k.mmde, true)
-		} else {
-			//data, err := get(getMute, k.mmde)
-			//if err != nil {
-			//	return nil, err
-			//}
-			//data = !data
-			return nil, k.test(0.5)
-
-			//return &data, set(setMute, k.mmde, data)
-		}
-	}
-	return nil, nil
-}
-
-func (k Audio) OnRelease(device string, key uint8, channel uint8, velocity uint8) error {
-	data, toggle, err := k.m.GetInfo(key, ActionUp)
-	if err != nil || toggle {
-		return err
-	}
-
-	k.l.LogInfo("Audio Press %v", data)
-	if data == UNMUTE {
-		return set(setMute, k.mmde, false)
-	}
-
-	return nil
-}
-
-func (k Audio) OnControlChange(device string, controller uint8, channel uint8, value float32) error {
-	data, err := k.m.GetActionSlider(controller)
-	if err != nil {
-		return err
-	}
-	k.l.LogInfo("Audio Change %v", data)
-	return set(setMasterVolume, k.mmde, value)
 }
 
 func setupSessionCallback(deviceName string, release chan CallbackRegistration, session *wca.IAudioSessionControl) error {

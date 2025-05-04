@@ -12,22 +12,39 @@ import (
 type Midi struct {
 	stop func()
 	log  *logger.Logger
-	c    []connector.Connector
+	c    map[string]connector.Connector
+	m    Mapping
 }
 
-func NewMidi(logger *logger.Logger, connectors []connector.Connector) *Midi {
-	return &Midi{log: logger, c: connectors}
+func NewMidi(logger *logger.Logger, m Mapping) *Midi {
+	return &Midi{log: logger, m: m}
 }
 
-func (m *Midi) feedback(state *bool) {
+func (m *Midi) UpdateConnector(c map[string]connector.Connector) {
+	m.c = c
+}
+
+func (m *Midi) UpdateMapping(mapping Mapping) {
+	m.m = mapping
+}
+
+func (m *Midi) feedback(state *bool, device drivers.In, ch uint8, key uint8) {
 	if state == nil {
 		return
 	}
 	m.log.LogInfo("Light %v", *state)
 }
 
-func (m *Midi) UpdateConnectors(connectors []connector.Connector) {
-	m.c = connectors
+func checkInput(mapping Common, device drivers.In, channel uint8, key uint8) bool {
+	if mapping.Device == device.String() && mapping.Channel == channel && mapping.Key == key {
+		return true
+	}
+
+	return false
+}
+
+func isToggle(mapping ButtonsMapping) bool {
+	return len(mapping.ActionsDown) == 0
 }
 
 func (m *Midi) Listen() {
@@ -51,32 +68,53 @@ func (m *Midi) Listen() {
 			var controller, value uint8
 			switch {
 			case msg.GetSysEx(&bt):
-				//m.log.LogInfo("[%s] got sysex: % X\n", device.String(), bt)
+				m.log.LogInfo("[%s] got sysex: % X\n", device.String(), bt)
 			case msg.GetNoteStart(&ch, &key, &vel):
-				//m.log.LogInfo("[%s] starting note %v on channel %v with velocity %v\n", device.String(), key, ch, vel)
+				m.log.LogInfo("[%s] starting note %v on channel %v with velocity %v\n", device.String(), key, ch, vel)
 				var finalState *bool
-				for _, connector := range m.c {
-					result, err := connector.OnPress(device.String(), key, ch, vel)
-					if err == nil && result != nil {
-						if finalState == nil {
-							finalState = result
-						} else {
-							*finalState = *result || *finalState
-						}
+				for _, mapping := range m.m.Buttons {
+					if checkInput(mapping.Common, device, ch, key) {
+						go func() {
+							for _, actions := range mapping.ActionsDown {
+								result, err := m.c[actions.Connector].OnPress(actions.Action)
+								if isToggle(mapping) {
+									if err == nil && result != nil {
+										if finalState == nil {
+											finalState = result
+										} else {
+											*finalState = *result || *finalState
+										}
+									}
+								}
+							}
+							if isToggle(mapping) {
+								m.feedback(finalState, device, ch, key)
+							}
+						}()
+						break
 					}
 				}
-				m.feedback(finalState)
-
 			case msg.GetNoteEnd(&ch, &key):
-				//m.log.LogInfo("[%s] ending note %s on channel %v\n", device.String(), midiDriver.Note(key), ch)
-				for _, connector := range m.c {
-					connector.OnRelease(device.String(), key, ch, vel)
+				m.log.LogInfo("[%s] ending note %s on channel %v\n", device.String(), midiDriver.Note(key), ch)
+				for _, mapping := range m.m.Buttons {
+					if checkInput(mapping.Common, device, ch, key) {
+						for _, actions := range mapping.ActionsUp {
+							m.c[actions.Connector].OnRelease(actions.Action)
+						}
+						break
+					}
 				}
 			case msg.GetControlChange(&ch, &controller, &value):
 				var float float32 = float32(value) / 127
 				m.log.LogInfo("[%s] control change %v on channel %v for value %v\n", device.String(), controller, ch, float)
-				for _, connector := range m.c {
-					connector.OnControlChange(device.String(), controller, ch, float)
+
+				for _, mapping := range m.m.Sliders {
+					if checkInput(mapping.Common, device, ch, controller) {
+						for _, actions := range mapping.Actions {
+							m.c[actions.Connector].OnControlChange(actions.Action, float)
+						}
+						break
+					}
 				}
 
 			default:

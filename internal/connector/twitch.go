@@ -1,31 +1,27 @@
 package connector
 
-import "fmt"
-
 type Twitch struct {
-	m KeyMapping
 }
 
 const (
 	CHAT = "chat"
 )
 
-func NewTwitch(mapping KeyMapping) Twitch {
-	return Twitch{m: mapping}
+func NewTwitch() Twitch {
+	return Twitch{}
 }
 
-func (k Twitch) OnPress(device string, key uint8, channel uint8, velocity uint8) (*bool, error) {
-	data, _, err := k.m.GetInfo(key, ActionDown)
-	fmt.Println(data)
-	return nil, err
+func (k Twitch) OnPress(action string) (*bool, error) {
+
+	return nil, nil
 }
 
-func (k Twitch) OnRelease(device string, key uint8, channel uint8, velocity uint8) error {
+func (k Twitch) OnRelease(action string) error {
 
 	return nil
 }
 
-func (k Twitch) OnControlChange(device string, controller uint8, channel uint8, value float32) error {
+func (k Twitch) OnControlChange(action string, value float32) error {
 
 	return nil
 }
