@@ -51,6 +51,7 @@ func isToggle(mapping ButtonsMapping) bool {
 }
 
 func (m *Midi) Listen() {
+	m.log.LogInfo("starting midi ...")
 	var err error
 	inPorts := midiDriver.GetInPorts()
 
@@ -145,6 +146,7 @@ func (m *Midi) Listen() {
 }
 
 func (m *Midi) Stop() {
+	m.log.LogInfo("stopping midi ...")
 	defer midiDriver.CloseDriver()
 	m.stop()
 }

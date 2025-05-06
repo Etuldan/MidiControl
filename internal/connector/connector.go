@@ -1,9 +1,13 @@
 package connector
 
+import "fmt"
+
 type Action struct {
 	Command string
 	Params  []string
 }
+
+var ErrInvalidParameter error = fmt.Errorf("invalid parameter")
 
 type Connector interface {
 	OnPress(action Action) (*bool, error)
