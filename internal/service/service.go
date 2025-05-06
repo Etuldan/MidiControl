@@ -102,8 +102,8 @@ loop:
 				s.log.LogInfo("Shutting service...!")
 				break loop
 			case svc.Pause:
-				changes <- svc.Status{State: svc.Paused, Accepts: cmdsAccepted}
 				s.midi.Stop()
+				changes <- svc.Status{State: svc.Paused, Accepts: cmdsAccepted}
 				tick = slowtick
 			case svc.Continue:
 				s.midi.Listen()

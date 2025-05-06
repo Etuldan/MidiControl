@@ -147,9 +147,9 @@ func (k Audio) Close() {
 	k.mmde.Release()
 }
 
-func (k Audio) OnPress(action string) (*bool, error) {
+func (k Audio) OnPress(action Action) (*bool, error) {
 	k.l.LogInfo("Audio Press %v", action)
-	if action == MUTE {
+	if action.Command == MUTE {
 		//if !toggle {
 		return nil, set(setMute, k.mmde, true)
 		//} else {
@@ -166,16 +166,16 @@ func (k Audio) OnPress(action string) (*bool, error) {
 	return nil, nil
 }
 
-func (k Audio) OnRelease(action string) error {
+func (k Audio) OnRelease(action Action) error {
 	k.l.LogInfo("Audio Press %v", action)
-	if action == UNMUTE {
+	if action.Command == UNMUTE {
 		return set(setMute, k.mmde, false)
 	}
 
 	return nil
 }
 
-func (k Audio) OnControlChange(action string, value float32) error {
+func (k Audio) OnControlChange(action Action, value float32) error {
 	k.l.LogInfo("Audio Change %v", action)
 	return set(setMasterVolume, k.mmde, value)
 }

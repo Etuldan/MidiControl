@@ -1,7 +1,12 @@
 package connector
 
+type Action struct {
+	Command string
+	Params  []string
+}
+
 type Connector interface {
-	OnPress(action string) (*bool, error)
-	OnRelease(action string) error
-	OnControlChange(action string, value float32) error
+	OnPress(action Action) (*bool, error)
+	OnRelease(action Action) error
+	OnControlChange(action Action, value float32) error
 }

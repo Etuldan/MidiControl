@@ -29,7 +29,8 @@ type SliderMapping struct {
 
 type Action struct {
 	Connector string `json:"connector"`
-	Action    string `json:"action"`
+	Command   string `json:"command"`
+	Params    string `json:"parameters"`
 }
 
 func NewMapping(filePath string) (mapping *Mapping, err error) {

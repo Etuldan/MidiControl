@@ -2,7 +2,6 @@ package connector
 
 import (
 	"midicontrol/internal/logger"
-	"strings"
 
 	"github.com/andreykaipov/goobs"
 	"github.com/andreykaipov/goobs/api/requests/scenes"
@@ -27,10 +26,8 @@ func (k Obs) Close() error {
 	return k.o.Disconnect()
 }
 
-func (k Obs) OnPress(action string) (*bool, error) {
-	data := strings.Fields(action)
-
-	err := k.doAction(data[0], data[1:]...)
+func (k Obs) OnPress(action Action) (*bool, error) {
+	err := k.doAction(action.Command, action.Params...)
 	if err != nil {
 		return nil, err
 	}
@@ -40,12 +37,11 @@ func (k Obs) OnPress(action string) (*bool, error) {
 	return &toggleResult, nil
 }
 
-func (k Obs) OnRelease(action string) error {
-	data := strings.Fields(action)
-	return k.doAction(data[0], data[1:]...)
+func (k Obs) OnRelease(action Action) error {
+	return k.doAction(action.Command, action.Params...)
 }
 
-func (k Obs) OnControlChange(action string, value float32) error {
+func (k Obs) OnControlChange(action Action, value float32) error {
 
 	return nil
 }

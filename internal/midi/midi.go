@@ -3,6 +3,7 @@ package midi
 import (
 	"midicontrol/internal/connector"
 	"midicontrol/internal/logger"
+	"strings"
 
 	midiDriver "gitlab.com/gomidi/midi/v2"
 	"gitlab.com/gomidi/midi/v2/drivers"
@@ -26,6 +27,8 @@ func (m *Midi) UpdateConnector(c map[string]connector.Connector) {
 
 func (m *Midi) UpdateMapping(mapping Mapping) {
 	m.m = mapping
+	m.Stop()
+	m.Listen()
 }
 
 func (m *Midi) feedback(state *bool, device drivers.In, ch uint8, key uint8) {
@@ -75,8 +78,12 @@ func (m *Midi) Listen() {
 				for _, mapping := range m.m.Buttons {
 					if checkInput(mapping.Common, device, ch, key) {
 						go func() {
-							for _, actions := range mapping.ActionsDown {
-								result, err := m.c[actions.Connector].OnPress(actions.Action)
+							for _, action := range mapping.ActionsDown {
+								a := connector.Action{
+									Command: action.Command,
+									Params:  strings.Fields(action.Params),
+								}
+								result, err := m.c[action.Connector].OnPress(a)
 								if isToggle(mapping) {
 									if err == nil && result != nil {
 										if finalState == nil {
@@ -98,8 +105,12 @@ func (m *Midi) Listen() {
 				m.log.LogInfo("[%s] ending note %s on channel %v\n", device.String(), midiDriver.Note(key), ch)
 				for _, mapping := range m.m.Buttons {
 					if checkInput(mapping.Common, device, ch, key) {
-						for _, actions := range mapping.ActionsUp {
-							m.c[actions.Connector].OnRelease(actions.Action)
+						for _, action := range mapping.ActionsUp {
+							a := connector.Action{
+								Command: action.Command,
+								Params:  strings.Fields(action.Params),
+							}
+							m.c[action.Connector].OnRelease(a)
 						}
 						break
 					}
@@ -110,8 +121,12 @@ func (m *Midi) Listen() {
 
 				for _, mapping := range m.m.Sliders {
 					if checkInput(mapping.Common, device, ch, controller) {
-						for _, actions := range mapping.Actions {
-							m.c[actions.Connector].OnControlChange(actions.Action, float)
+						for _, action := range mapping.Actions {
+							a := connector.Action{
+								Command: action.Command,
+								Params:  strings.Fields(action.Params),
+							}
+							m.c[action.Connector].OnControlChange(a, float)
 						}
 						break
 					}
