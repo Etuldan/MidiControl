@@ -83,6 +83,7 @@ func (m *Midi) Listen() {
 								a := connector.Action{
 									Command: action.Command,
 									Params:  strings.Fields(action.Params),
+									Toggle:  len(mapping.ActionsUp) == 0,
 								}
 								result, err := m.c[action.Connector].OnPress(a)
 								if isToggle(mapping) {

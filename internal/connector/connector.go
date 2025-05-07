@@ -5,6 +5,7 @@ import "fmt"
 type Action struct {
 	Command string
 	Params  []string
+	Toggle  bool
 }
 
 var ErrInvalidParameter error = fmt.Errorf("invalid parameter")

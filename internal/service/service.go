@@ -12,8 +12,9 @@ import (
 )
 
 type Service struct {
-	log  *logger.Logger
-	midi *midi.Midi
+	log   *logger.Logger
+	midi  *midi.Midi
+	audio *connector.Audio
 }
 
 func (s Service) UpdateMapping(file string) error {
@@ -37,15 +38,13 @@ func NewService(log *logger.Logger, mappingFile string) *Service {
 
 	connectors := make(map[string]connector.Connector, 0)
 
-	/*
-		audio, err := connector.NewAudio(log)
-		if err != nil {
-			log.LogError("Unable to load Audio %v", err)
-		} else {
-			connectors["audio"] = audio
-			defer audio.Close()
-		}
-	*/
+	audio, err := connector.NewAudio(log)
+	if err != nil {
+		log.LogError("Unable to load Audio %v", err)
+	} else {
+		connectors["audio"] = audio
+		service.audio = audio
+	}
 
 	keyboard, err := connector.NewKeyboard(log)
 	if err != nil {
@@ -77,6 +76,10 @@ func NewService(log *logger.Logger, mappingFile string) *Service {
 	return &service
 }
 
+func (s *Service) close() {
+	s.audio.Close()
+}
+
 func (s *Service) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (ssec bool, errno uint32) {
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 
@@ -99,6 +102,7 @@ loop:
 				changes <- c.CurrentStatus
 			case svc.Stop, svc.Shutdown:
 				s.midi.Stop()
+				s.close()
 				s.log.LogInfo("Shutting service...!")
 				break loop
 			case svc.Pause:

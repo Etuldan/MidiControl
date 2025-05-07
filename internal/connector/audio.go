@@ -1,7 +1,6 @@
 package connector
 
 import (
-	"fmt"
 	"midicontrol/internal/logger"
 
 	"github.com/go-ole/go-ole"
@@ -12,191 +11,211 @@ import (
 // github.com/gen2brain/malgo
 
 type Audio struct {
-	l     *logger.Logger
-	mmde  *wca.IMMDeviceEnumerator
-	mmd   *wca.IMMDevice
-	watch chan *wca.IAudioSessionControl
-	aev   *wca.IAudioEndpointVolume
+	l       *logger.Logger
+	mmde    *wca.IMMDeviceEnumerator
+	devices map[string]*wca.IMMDevice
 }
 
 const (
 	MUTE   = "mute"
 	UNMUTE = "unmute"
+	VOLUME = "volume"
 )
 
+/*
 type CallbackRegistration struct {
 	session        *wca.IAudioSessionControl
 	nativeCallback *wca.IAudioSessionEvents
 }
+*/
 
 func NewAudio(logger *logger.Logger) (*Audio, error) {
-	/*err := ole.CoInitializeEx(0, ole.COINIT_APARTMENTTHREADED)
-	if err != nil {
-		logger.LogError("%v", err)
-		panic(err)
-	}*/
-	//defer ole.CoUninitialize()
-
-	/*var mmde *wca.IMMDeviceEnumerator
-	err = wca.CoCreateInstance(wca.CLSID_MMDeviceEnumerator, 0, wca.CLSCTX_ALL, wca.IID_IMMDeviceEnumerator, &mmde)
-	if err != nil {
-		logger.LogError("%v", err)
-		panic(err)
-	}*/
-
 	if err := ole.CoInitializeEx(0, ole.COINIT_MULTITHREADED); err != nil {
 		return nil, err
 	}
-	//defer ole.CoUninitialize()
 
 	var mmde *wca.IMMDeviceEnumerator
 	if err := wca.CoCreateInstance(wca.CLSID_MMDeviceEnumerator, 0, wca.CLSCTX_ALL, wca.IID_IMMDeviceEnumerator, &mmde); err != nil {
 		return nil, err
 	}
-	//defer mmde.Release()
+
+	var mmdc *wca.IMMDeviceCollection
+	err := mmde.EnumAudioEndpoints(wca.ERender, wca.DEVICE_STATE_ACTIVE, &mmdc)
+	if err != nil {
+		return nil, err
+	}
+
+	var count uint32
+	err = mmdc.GetCount(&count)
+	if err != nil {
+		return nil, err
+	}
+	devices := make(map[string]*wca.IMMDevice, 0)
 
 	var mmd *wca.IMMDevice
-	err := mmde.GetDefaultAudioEndpoint(wca.ERender, wca.EConsole, &mmd)
+	err = mmde.GetDefaultAudioEndpoint(wca.ERender, wca.EConsole, &mmd)
 	if err != nil {
 		return nil, err
 	}
-	//defer mmd.Release()
 
-	var ps *wca.IPropertyStore
-	if err := mmd.OpenPropertyStore(wca.STGM_READ, &ps); err != nil {
-		return nil, err
-	}
+	devices["DEFAULT"] = mmd
 
-	//defer ps.Release()
-	var pv wca.PROPVARIANT
-	if err := ps.GetValue(&wca.PKEY_Device_FriendlyName, &pv); err != nil {
-		return nil, err
-	}
-
-	deviceName := pv.String()
-
-	var asm2 *wca.IAudioSessionManager2
-	err = mmd.Activate(wca.IID_IAudioSessionManager2, wca.CLSCTX_INPROC_SERVER, nil, &asm2)
-	if err != nil {
-
-	}
-
-	watch := make(chan *wca.IAudioSessionControl, 10)
-	release := make(chan CallbackRegistration, 10)
-
-	go func() {
-		for session := range watch {
-			setupSessionCallback(deviceName, release, session)
-		}
-	}()
-
-	callback := wca.IAudioSessionNotificationCallback{
-		OnSessionCreated: func(pNewSession *wca.IAudioSessionControl) error {
-			return onSessionCreated(deviceName, watch, pNewSession)
-		},
-	}
-
-	asn := wca.NewIAudioSessionNotification(callback)
-	if err := asm2.RegisterSessionNotification(asn); err != nil {
-		return nil, err
-	}
-
-	// You must call IAudioSessionEnumerator::GetCount to begin receiving notifications.
-	// https://learn.microsoft.com/en-us/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification
-	var sessionEnum *wca.IAudioSessionEnumerator
-	err = asm2.GetSessionEnumerator(&sessionEnum)
-	if err != nil {
-		return nil, err
-	}
-	var sessionCount int
-	if err := sessionEnum.GetCount(&sessionCount); err != nil {
-		return nil, err
-	}
-
-	fmt.Printf("%s: %d session(s)\n", deviceName, sessionCount)
-
-	for i := 0; i < sessionCount; i++ {
-		var session *wca.IAudioSessionControl
-		if err := sessionEnum.GetSession(i, &session); err != nil {
+	for i := range count {
+		err = mmdc.Item(i, &mmd)
+		if err != nil {
 			return nil, err
 		}
 
-		session.AddRef()
-		simpleVolume := (*wca.ISimpleAudioVolume)(session)
-		//var state uint32
-		//err = s.GetState(&state)
-		//var retVal ole.GUID
-		//err = s.GetGroupingParam(&retVal)
-		//var muted bool
-		//simpleVolume.GetMute(&muted)
-		simpleVolume.SetMasterVolume(0.5, nil)
-		watch <- session
+		var ps *wca.IPropertyStore
+		if err := mmd.OpenPropertyStore(wca.STGM_READ, &ps); err != nil {
+			return nil, err
+		}
+
+		var pv wca.PROPVARIANT
+		if err := ps.GetValue(&wca.PKEY_Device_FriendlyName, &pv); err != nil {
+			return nil, err
+		}
+
+		deviceName := pv.String()
+		devices[deviceName] = mmd
+		logger.LogInfo("found audio output device %s", deviceName)
+
+		ps.Release()
 	}
 
-	var aev *wca.IAudioEndpointVolume
-	err = mmd.Activate(wca.IID_IAudioEndpointVolume, wca.CLSCTX_ALL, watch, &aev)
-	if err != nil {
-		return nil, err
-	}
-	//defer aev.Release()
+	/*
+		err = mmde.GetDefaultAudioEndpoint(wca.ERender, wca.EConsole, &mmd)
+		if err != nil {
+			return nil, err
+		}
 
-	return &Audio{l: logger, mmde: mmde, watch: watch, aev: aev}, nil
+		var asm2 *wca.IAudioSessionManager2
+		err = mmd.Activate(wca.IID_IAudioSessionManager2, wca.CLSCTX_INPROC_SERVER, nil, &asm2)
+		if err != nil {
+
+		}
+
+		watch := make(chan *wca.IAudioSessionControl, 10)
+		release := make(chan CallbackRegistration, 10)
+
+		go func() {
+			for session := range watch {
+				setupSessionCallback(deviceName, release, session)
+			}
+		}()
+
+		callback := wca.IAudioSessionNotificationCallback{
+			OnSessionCreated: func(pNewSession *wca.IAudioSessionControl) error {
+				return onSessionCreated(deviceName, watch, pNewSession)
+			},
+		}
+
+		asn := wca.NewIAudioSessionNotification(callback)
+		if err := asm2.RegisterSessionNotification(asn); err != nil {
+			return nil, err
+		}
+
+		// You must call IAudioSessionEnumerator::GetCount to begin receiving notifications.
+		// https://learn.microsoft.com/en-us/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification
+		var sessionEnum *wca.IAudioSessionEnumerator
+		err = asm2.GetSessionEnumerator(&sessionEnum)
+		if err != nil {
+			return nil, err
+		}
+		var sessionCount int
+		if err := sessionEnum.GetCount(&sessionCount); err != nil {
+			return nil, err
+		}
+
+		fmt.Printf("%s: %d session(s)\n", deviceName, sessionCount)
+
+		for i := 0; i < sessionCount; i++ {
+			var session *wca.IAudioSessionControl
+			if err := sessionEnum.GetSession(i, &session); err != nil {
+				return nil, err
+			}
+
+			session.AddRef()
+			simpleVolume := (*wca.ISimpleAudioVolume)(session)
+			//var state uint32
+			//err = s.GetState(&state)
+			//var retVal ole.GUID
+			//err = s.GetGroupingParam(&retVal)
+			//var muted bool
+			//simpleVolume.GetMute(&muted)
+			simpleVolume.SetMasterVolume(0.5, nil)
+			watch <- session
+		}
+
+		var aev *wca.IAudioEndpointVolume
+		err = mmd.Activate(wca.IID_IAudioEndpointVolume, wca.CLSCTX_ALL, watch, &aev)
+		if err != nil {
+			return nil, err
+		}*/
+
+	return &Audio{l: logger, mmde: mmde, devices: devices}, nil
 }
 
 func (k Audio) Close() {
+	k.l.LogInfo("stopping audio ...")
+	for deviceName, device := range k.devices {
+		k.l.LogInfo("releasing device %v", deviceName)
+		device.Release()
+	}
 	k.mmde.Release()
+	ole.CoUninitialize()
 }
 
-func (k Audio) OnPress(action Action) (*bool, error) {
+func (k Audio) OnPress(action Action) (toggle *bool, err error) {
 	k.l.LogInfo("Audio Press %v", action)
-	if action.Command == MUTE {
-		//if !toggle {
-		return nil, set(setMute, k.mmde, true)
-		//} else {
-		//data, err := get(getMute, k.mmde)
-		//if err != nil {
-		//	return nil, err
-		//}
-		//data = !data
-		//return nil, k.test(0.5)
+	switch action.Command {
+	case MUTE:
+		var deviceName string = "DEFAULT"
+		var value bool = false
 
-		//return &data, set(setMute, k.mmde, data)
-		//}
+		if len(action.Params) > 1 && action.Params[0] == "device" {
+			deviceName = action.Params[1]
+		}
+		if action.Toggle {
+			value, err = get(getMute, k.devices[deviceName])
+			if err != nil {
+				return nil, err
+			}
+		}
+		return nil, set(setMute, k.devices[deviceName], !value)
 	}
 	return nil, nil
 }
 
 func (k Audio) OnRelease(action Action) error {
 	k.l.LogInfo("Audio Press %v", action)
-	if action.Command == UNMUTE {
-		return set(setMute, k.mmde, false)
+	switch action.Command {
+	case MUTE:
+		var deviceName string = "DEFAULT"
+		if len(action.Params) > 1 && action.Params[0] == "device" {
+			deviceName = action.Params[1]
+		}
+		return set(setMute, k.devices[deviceName], false)
 	}
-
 	return nil
 }
 
 func (k Audio) OnControlChange(action Action, value float32) error {
 	k.l.LogInfo("Audio Change %v", action)
-	return set(setMasterVolume, k.mmde, value)
-}
-
-func onSessionCreated(deviceName string, watch chan *wca.IAudioSessionControl, pNewSession *wca.IAudioSessionControl) error {
-	fmt.Printf("%s: called OnSessionCreated\n", deviceName)
-	pNewSession.AddRef()
-	watch <- pNewSession
+	switch action.Command {
+	case VOLUME:
+		var deviceName string = "DEFAULT"
+		if len(action.Params) > 1 && action.Params[0] == "device" {
+			deviceName = action.Params[1]
+		}
+		return set(setMasterVolume, k.devices[deviceName], value)
+	}
 	return nil
 }
 
-func set[T any](fn func(aev *wca.IAudioEndpointVolume, value T) error, mmde *wca.IMMDeviceEnumerator, value T) error {
-	var mmd *wca.IMMDevice
-	err := mmde.GetDefaultAudioEndpoint(wca.ERender, wca.EConsole, &mmd)
-	if err != nil {
-		return err
-	}
-	defer mmd.Release()
-
+func set[T any](fn func(aev *wca.IAudioEndpointVolume, value T) error, mmd *wca.IMMDevice, value T) error {
 	var aev *wca.IAudioEndpointVolume
-	err = mmd.Activate(wca.IID_IAudioEndpointVolume, wca.CLSCTX_ALL, nil, &aev)
+	err := mmd.Activate(wca.IID_IAudioEndpointVolume, wca.CLSCTX_ALL, nil, &aev)
 	if err != nil {
 		return err
 	}
@@ -205,31 +224,38 @@ func set[T any](fn func(aev *wca.IAudioEndpointVolume, value T) error, mmde *wca
 	return fn(aev, value)
 }
 
-func get[T any](fn func(aev *wca.IAudioEndpointVolume) (T, error), mmde *wca.IMMDeviceEnumerator) (T, error) {
+func get[T any](fn func(aev *wca.IAudioEndpointVolume) (T, error), mmd *wca.IMMDevice) (T, error) {
 	var ret T
-
-	//var mmdc *wca.IMMDeviceCollection
-	//err := mmde.EnumAudioEndpoints(wca.ERender, wca.ECapture, &mmdc)
-	//if err != nil {
-	//	return ret, err
-	//}
-	//defer mmdc.Release()
-
-	var mmd *wca.IMMDevice
-	err := mmde.GetDefaultAudioEndpoint(wca.ERender, wca.EConsole, &mmd)
-	if err != nil {
-		return ret, err
-	}
-	defer mmd.Release()
-
 	var aev *wca.IAudioEndpointVolume
-	err = mmd.Activate(wca.IID_IAudioEndpointVolume, wca.CLSCTX_ALL, nil, &aev)
+	err := mmd.Activate(wca.IID_IAudioEndpointVolume, wca.CLSCTX_ALL, nil, &aev)
 	if err != nil {
 		return ret, err
 	}
 	defer aev.Release()
 
 	return fn(aev)
+}
+
+func setMasterVolume(aev *wca.IAudioEndpointVolume, value float32) error {
+	return aev.SetMasterVolumeLevelScalar(value, nil)
+}
+
+func setMute(aev *wca.IAudioEndpointVolume, mute bool) error {
+	return aev.SetMute(mute, nil)
+}
+
+func getMute(aev *wca.IAudioEndpointVolume) (bool, error) {
+	var mute bool = false
+	err := aev.GetMute(&mute)
+	return mute, err
+}
+
+/*
+func onSessionCreated(deviceName string, watch chan *wca.IAudioSessionControl, pNewSession *wca.IAudioSessionControl) error {
+	fmt.Printf("%s: called OnSessionCreated\n", deviceName)
+	pNewSession.AddRef()
+	watch <- pNewSession
+	return nil
 }
 
 func (k Audio) test(value float32) error {
@@ -255,20 +281,6 @@ func (k Audio) test(value float32) error {
 		return
 	}()
 	return nil
-}
-
-func setMasterVolume(aev *wca.IAudioEndpointVolume, value float32) error {
-	return aev.SetMasterVolumeLevelScalar(value, nil)
-}
-
-func setMute(aev *wca.IAudioEndpointVolume, mute bool) error {
-	return aev.SetMute(mute, nil)
-}
-
-func getMute(aev *wca.IAudioEndpointVolume) (bool, error) {
-	var mute bool = false
-	err := aev.GetMute(&mute)
-	return mute, err
 }
 
 func setupSessionCallback(deviceName string, release chan CallbackRegistration, session *wca.IAudioSessionControl) error {
@@ -317,6 +329,7 @@ func setupSessionCallback(deviceName string, release chan CallbackRegistration, 
 	return err
 }
 
+
 func onDisplayNameChanged(deviceName, newDisplayName string, eventContext *ole.GUID) error {
 	fmt.Printf("%s: called OnDisplayNameChanged\t%q\n", deviceName, newDisplayName)
 
@@ -363,3 +376,4 @@ func onSessionDisconnected(deviceName, sessionName string, release func(), disco
 
 	return nil
 }
+*/
