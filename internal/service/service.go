@@ -123,13 +123,9 @@ loop:
 	return
 }
 
-func (s *Service) RunService(name string, service bool) {
-	if service {
-		err := svc.Run(name, s)
-		if err != nil {
-			fmt.Println("Error running service in Service Control mode.")
-		}
-	} else {
+func (s *Service) RunService(name string) {
+	err := svc.Run(name, s)
+	if err != nil {
 		err := debug.Run(name, s)
 		if err != nil {
 			fmt.Println("Error running program")

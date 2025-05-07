@@ -5,19 +5,20 @@ import (
 	"fmt"
 	"midicontrol/internal/logger"
 	"midicontrol/internal/service"
+	"os"
 )
 
 const NAME string = "MidiControl"
 
 func main() {
-	debugFlag := flag.Bool("debug", false, "Run in debug mode")
-	serviceFlag := flag.Bool("service", true, "Run as Service")
-	mappingFile := flag.String("mapping", "C:/Users/Etuldan/source/repos/MidiControl/mapping.json", "Set the file path of the mapping configuration file")
-	//configFile := flag.String("config", "e:/Dev/Git/MidiControl/mapping.json", "Set the file path of the configuration file")
+	appData, err := os.UserConfigDir()
+	debugFlag := flag.Bool("debug", true, "Run in debug mode")
+	mappingFile := flag.String("mapping", appData+"/MidiControl/mapping.json", "Set the file path of the mapping configuration file")
+	//configFile := flag.String("config", "appData+"/MidiControl/config.json", "Set the file path of the configuration file")
 
 	flag.Parse()
 
-	logger, err := logger.NewLogger(NAME, *serviceFlag, *debugFlag)
+	logger, err := logger.NewLogger(NAME, *debugFlag)
 	if err != nil {
 		fmt.Println("Unable to open Logger, exiting ...")
 		return
@@ -25,5 +26,5 @@ func main() {
 	defer logger.Delete()
 
 	sv := service.NewService(logger, *mappingFile)
-	sv.RunService(NAME, *serviceFlag)
+	sv.RunService(NAME)
 }
