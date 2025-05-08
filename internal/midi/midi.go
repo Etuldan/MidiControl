@@ -47,7 +47,7 @@ func checkInput(mapping Common, device drivers.In, channel uint8, key uint8) boo
 }
 
 func isToggle(mapping ButtonsMapping) bool {
-	return len(mapping.ActionsDown) == 0
+	return len(mapping.ActionsUp) == 0
 }
 
 func (m *Midi) Listen() {
@@ -83,7 +83,7 @@ func (m *Midi) Listen() {
 								a := connector.Action{
 									Command: action.Command,
 									Params:  strings.Fields(action.Params),
-									Toggle:  len(mapping.ActionsUp) == 0,
+									Toggle:  isToggle(mapping),
 								}
 								result, err := m.c[action.Connector].OnPress(a)
 								if isToggle(mapping) {
