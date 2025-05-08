@@ -168,7 +168,6 @@ func (k Audio) Close() {
 }
 
 func (k Audio) OnPress(action Action) (toggle *bool, err error) {
-	k.l.LogInfo("Audio Press %v", action)
 	switch action.Command {
 	case MUTE:
 		var value bool = false
@@ -184,7 +183,6 @@ func (k Audio) OnPress(action Action) (toggle *bool, err error) {
 }
 
 func (k Audio) OnRelease(action Action) error {
-	k.l.LogInfo("Audio Press %v", action)
 	switch action.Command {
 	case MUTE:
 		return set(setMute, k.devices[getDeviceName(action.Params)], false)
@@ -193,7 +191,6 @@ func (k Audio) OnRelease(action Action) error {
 }
 
 func (k Audio) OnControlChange(action Action, value float32) error {
-	k.l.LogInfo("Audio Change %v", action)
 	switch action.Command {
 	case VOLUME:
 		return set(setMasterVolume, k.devices[getDeviceName(action.Params)], value)

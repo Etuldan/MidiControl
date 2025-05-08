@@ -72,9 +72,9 @@ func (m *Midi) Listen() {
 			var controller, value uint8
 			switch {
 			case msg.GetSysEx(&bt):
-				m.log.LogInfo("[%s] got sysex: % X\n", device.String(), bt)
+				m.log.LogInfo("[%s] got sysex: % X", device.String(), bt)
 			case msg.GetNoteStart(&ch, &key, &vel):
-				m.log.LogInfo("[%s] starting note %v on channel %v with velocity %v\n", device.String(), key, ch, vel)
+				m.log.LogInfo("[%s] starting note %v on channel %v with velocity %v", device.String(), key, ch, vel)
 				var finalState *bool
 				for _, mapping := range m.m.Buttons {
 					if checkInput(mapping.Common, device, ch, key) {
@@ -104,7 +104,7 @@ func (m *Midi) Listen() {
 					}
 				}
 			case msg.GetNoteEnd(&ch, &key):
-				m.log.LogInfo("[%s] ending note %s on channel %v\n", device.String(), midiDriver.Note(key), ch)
+				m.log.LogInfo("[%s] ending note %s on channel %v", device.String(), midiDriver.Note(key), ch)
 				for _, mapping := range m.m.Buttons {
 					if checkInput(mapping.Common, device, ch, key) {
 						for _, action := range mapping.ActionsUp {
@@ -119,7 +119,7 @@ func (m *Midi) Listen() {
 				}
 			case msg.GetControlChange(&ch, &controller, &value):
 				var float float32 = float32(value) / 127
-				m.log.LogInfo("[%s] control change %v on channel %v for value %v\n", device.String(), controller, ch, float)
+				m.log.LogInfo("[%s] control change %v on channel %v for value %v", device.String(), controller, ch, float)
 
 				for _, mapping := range m.m.Sliders {
 					if checkInput(mapping.Common, device, ch, controller) {
@@ -140,7 +140,7 @@ func (m *Midi) Listen() {
 		}, midiDriver.UseSysEx())
 
 		if err != nil {
-			m.log.LogError("[%s] ERROR: %s\n", device.String(), err)
+			m.log.LogError("[%s] ERROR: %s", device.String(), err)
 			return
 		}
 	}
