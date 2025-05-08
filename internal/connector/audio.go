@@ -2,6 +2,7 @@ package connector
 
 import (
 	"midicontrol/internal/logger"
+	"strings"
 
 	"github.com/go-ole/go-ole"
 	"github.com/moutend/go-wca/pkg/wca"
@@ -170,19 +171,14 @@ func (k Audio) OnPress(action Action) (toggle *bool, err error) {
 	k.l.LogInfo("Audio Press %v", action)
 	switch action.Command {
 	case MUTE:
-		var deviceName string = "DEFAULT"
 		var value bool = false
-
-		if len(action.Params) > 1 && action.Params[0] == "device" {
-			deviceName = action.Params[1]
-		}
 		if action.Toggle {
-			value, err = get(getMute, k.devices[deviceName])
+			value, err = get(getMute, k.devices[getDeviceName(action.Params)])
 			if err != nil {
 				return nil, err
 			}
 		}
-		return nil, set(setMute, k.devices[deviceName], !value)
+		return nil, set(setMute, k.devices[getDeviceName(action.Params)], !value)
 	}
 	return nil, nil
 }
@@ -191,11 +187,7 @@ func (k Audio) OnRelease(action Action) error {
 	k.l.LogInfo("Audio Press %v", action)
 	switch action.Command {
 	case MUTE:
-		var deviceName string = "DEFAULT"
-		if len(action.Params) > 1 && action.Params[0] == "device" {
-			deviceName = action.Params[1]
-		}
-		return set(setMute, k.devices[deviceName], false)
+		return set(setMute, k.devices[getDeviceName(action.Params)], false)
 	}
 	return nil
 }
@@ -204,13 +196,17 @@ func (k Audio) OnControlChange(action Action, value float32) error {
 	k.l.LogInfo("Audio Change %v", action)
 	switch action.Command {
 	case VOLUME:
-		var deviceName string = "DEFAULT"
-		if len(action.Params) > 1 && action.Params[0] == "device" {
-			deviceName = action.Params[1]
-		}
-		return set(setMasterVolume, k.devices[deviceName], value)
+		return set(setMasterVolume, k.devices[getDeviceName(action.Params)], value)
 	}
 	return nil
+}
+
+func getDeviceName(params []string) (deviceName string) {
+	deviceName = "DEFAULT"
+	if len(params) > 1 && params[0] == "device" {
+		deviceName = strings.Join([]string(params[1:]), " ")
+	}
+	return
 }
 
 func set[T any](fn func(aev *wca.IAudioEndpointVolume, value T) error, mmd *wca.IMMDevice, value T) error {
