@@ -26,6 +26,10 @@ func main() {
 	defer logger.Delete()
 
 	config, err := tools.NewConfig(*configFile)
+	if err != nil {
+		logger.LogError("unable to read config file %s", err)
+		return
+	}
 
 	sv := service.NewService(logger, config, *mappingFile)
 	sv.RunService(NAME)

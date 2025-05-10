@@ -19,7 +19,7 @@ type Obs struct {
 }
 
 func NewObs(logger *tools.Logger, config *tools.Config) (*Obs, error) {
-	client, err := goobs.New(fmt.Sprintf("%s:%s", config.Obs.Host, config.Obs.Password), goobs.WithPassword(config.Obs.Password))
+	client, err := goobs.New(fmt.Sprintf("%s:%s", config.Obs.Host, config.Obs.Port), goobs.WithPassword(config.Obs.Password))
 	if err != nil {
 		return nil, err
 	}
@@ -32,6 +32,10 @@ func (k Obs) Close() error {
 }
 
 func (k Obs) OnPress(action Action) (*bool, error) {
+	if len(action.Params) == 0 {
+		return nil, ErrInvalidParameter
+	}
+
 	err := k.doAction(action.Command, action.Params...)
 	if err != nil {
 		return nil, err
@@ -43,10 +47,17 @@ func (k Obs) OnPress(action Action) (*bool, error) {
 }
 
 func (k Obs) OnRelease(action Action) error {
+	if len(action.Params) == 0 {
+		return ErrInvalidParameter
+	}
+
 	return k.doAction(action.Command, action.Params...)
 }
 
 func (k Obs) OnControlChange(action Action, value float32) error {
+	if len(action.Params) == 0 {
+		return ErrInvalidParameter
+	}
 
 	return nil
 }
