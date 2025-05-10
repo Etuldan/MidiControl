@@ -11,17 +11,18 @@ import (
 // https://github.com/moutend/go-wca
 // github.com/gen2brain/malgo
 
+const (
+	AUDIO_MUTE       = "mute"
+	AUDIO_UNMUTE     = "unmute"
+	AUDIO_TOGGLEMUTE = "togglemute"
+	AUDIO_VOLUME     = "volume"
+)
+
 type Audio struct {
 	l       *logger.Logger
 	mmde    *wca.IMMDeviceEnumerator
 	devices map[string]*wca.IMMDevice
 }
-
-const (
-	MUTE   = "mute"
-	UNMUTE = "unmute"
-	VOLUME = "volume"
-)
 
 /*
 type CallbackRegistration struct {
@@ -169,22 +170,29 @@ func (k Audio) Close() {
 
 func (k Audio) OnPress(action Action) (toggle *bool, err error) {
 	switch action.Command {
-	case MUTE:
-		var value bool = false
+	case AUDIO_TOGGLEMUTE:
+		var value bool = true
 		if action.Toggle {
 			value, err = get(getMute, k.devices[getDeviceName(action.Params)])
 			if err != nil {
 				return nil, err
 			}
+			value = !value
 		}
-		return nil, set(setMute, k.devices[getDeviceName(action.Params)], !value)
+		return &value, set(setMute, k.devices[getDeviceName(action.Params)], value)
+	case AUDIO_MUTE:
+		return nil, set(setMute, k.devices[getDeviceName(action.Params)], true)
+	case AUDIO_UNMUTE:
+		return nil, set(setMute, k.devices[getDeviceName(action.Params)], false)
 	}
 	return nil, nil
 }
 
 func (k Audio) OnRelease(action Action) error {
 	switch action.Command {
-	case MUTE:
+	case AUDIO_MUTE:
+		return set(setMute, k.devices[getDeviceName(action.Params)], true)
+	case AUDIO_UNMUTE:
 		return set(setMute, k.devices[getDeviceName(action.Params)], false)
 	}
 	return nil
@@ -192,7 +200,7 @@ func (k Audio) OnRelease(action Action) error {
 
 func (k Audio) OnControlChange(action Action, value float32) error {
 	switch action.Command {
-	case VOLUME:
+	case AUDIO_VOLUME:
 		return set(setMasterVolume, k.devices[getDeviceName(action.Params)], value)
 	}
 	return nil
