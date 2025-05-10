@@ -1,18 +1,19 @@
 package connector
 
 import (
-	"midicontrol/internal/logger"
+	"midicontrol/internal/tools"
 	"strconv"
 
 	"github.com/micmonay/keybd_event"
 )
 
+
 type Keyboard struct {
 	kb keybd_event.KeyBonding
-	l  *logger.Logger
+	l  *tools.Logger
 }
 
-func NewKeyboard(logger *logger.Logger) (*Keyboard, error) {
+func NewKeyboard(logger *tools.Logger) (*Keyboard, error) {
 	kb, err := keybd_event.NewKeyBonding()
 	if err != nil {
 		return nil, err

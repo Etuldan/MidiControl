@@ -2,7 +2,7 @@ package midi
 
 import (
 	"midicontrol/internal/connector"
-	"midicontrol/internal/logger"
+	"midicontrol/internal/tools"
 	"strings"
 
 	midiDriver "gitlab.com/gomidi/midi/v2"
@@ -12,12 +12,12 @@ import (
 
 type Midi struct {
 	stop func()
-	log  *logger.Logger
+	log  *tools.Logger
 	c    map[string]connector.Connector
 	m    Mapping
 }
 
-func NewMidi(logger *logger.Logger, m Mapping) *Midi {
+func NewMidi(logger *tools.Logger, m Mapping) *Midi {
 	return &Midi{log: logger, m: m}
 }
 

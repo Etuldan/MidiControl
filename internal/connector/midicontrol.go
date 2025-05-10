@@ -1,7 +1,7 @@
 package connector
 
 import (
-	"midicontrol/internal/logger"
+	"midicontrol/internal/tools"
 	"os/exec"
 	"strconv"
 	"time"
@@ -12,11 +12,11 @@ type service interface {
 }
 
 type MidiControl struct {
-	l *logger.Logger
+	l *tools.Logger
 	s service
 }
 
-func NewMidiControl(logger *logger.Logger, service service) *MidiControl {
+func NewMidiControl(logger *tools.Logger, service service) *MidiControl {
 	return &MidiControl{l: logger, s: service}
 }
 

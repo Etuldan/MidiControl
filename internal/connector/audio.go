@@ -1,7 +1,7 @@
 package connector
 
 import (
-	"midicontrol/internal/logger"
+	"midicontrol/internal/tools"
 	"strings"
 
 	"github.com/go-ole/go-ole"
@@ -19,7 +19,7 @@ const (
 )
 
 type Audio struct {
-	l       *logger.Logger
+	l       *tools.Logger
 	mmde    *wca.IMMDeviceEnumerator
 	devices map[string]*wca.IMMDevice
 }
@@ -31,7 +31,7 @@ type CallbackRegistration struct {
 }
 */
 
-func NewAudio(logger *logger.Logger) (*Audio, error) {
+func NewAudio(logger *tools.Logger) (*Audio, error) {
 	if err := ole.CoInitializeEx(0, ole.COINIT_MULTITHREADED); err != nil {
 		return nil, err
 	}

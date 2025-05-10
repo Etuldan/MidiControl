@@ -1,20 +1,21 @@
 package connector
 
 import (
-	"midicontrol/internal/logger"
+	"fmt"
+	"midicontrol/internal/tools"
 
 	"github.com/andreykaipov/goobs"
 	"github.com/andreykaipov/goobs/api/requests/scenes"
 )
 
+
 type Obs struct {
 	o *goobs.Client
-	l *logger.Logger
+	l *tools.Logger
 }
 
-func NewObs(logger *logger.Logger) (*Obs, error) {
-	// TODO Config
-	client, err := goobs.New("localhost:4455", goobs.WithPassword("97kI0JjvVGx40dOr"))
+func NewObs(logger *tools.Logger, config *tools.Config) (*Obs, error) {
+	client, err := goobs.New(fmt.Sprintf("%s:%s", config.Obs.Host, config.Obs.Password), goobs.WithPassword(config.Obs.Password))
 	if err != nil {
 		return nil, err
 	}

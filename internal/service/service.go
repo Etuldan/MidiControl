@@ -3,8 +3,8 @@ package service
 import (
 	"fmt"
 	"midicontrol/internal/connector"
-	"midicontrol/internal/logger"
 	"midicontrol/internal/midi"
+	"midicontrol/internal/tools"
 	"time"
 
 	"golang.org/x/sys/windows/svc"
@@ -12,7 +12,7 @@ import (
 )
 
 type Service struct {
-	log   *logger.Logger
+	log   *tools.Logger
 	midi  *midi.Midi
 	audio *connector.Audio
 }
@@ -26,7 +26,7 @@ func (s Service) UpdateMapping(file string) error {
 	return nil
 }
 
-func NewService(log *logger.Logger, mappingFile string) *Service {
+func NewService(log *tools.Logger, config *tools.Config, mappingFile string) *Service {
 	connectorMappings, err := midi.NewMapping(mappingFile)
 	if err != nil {
 		log.LogError("Unable to load mapping %v", err)
@@ -60,15 +60,13 @@ func NewService(log *logger.Logger, mappingFile string) *Service {
 		connectors["midicontrol"] = midicontrol
 	}
 
-	/*
-		obs, err := connector.NewObs(log)
-		if err != nil {
-			log.LogError("Unable to load OBS %v", err)
-		} else {
-			defer obs.Close()
-			connectors["obs"] = obs
-		}
-	*/
+	obs, err := connector.NewObs(log, config)
+	if err != nil {
+		log.LogError("Unable to load OBS %v", err)
+	} else {
+		defer obs.Close()
+		connectors["obs"] = obs
+	}
 
 	midi.UpdateConnector(connectors)
 	midi.Listen()
