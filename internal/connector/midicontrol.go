@@ -7,6 +7,12 @@ import (
 	"time"
 )
 
+const (
+	MIDICONTROL_MAPPING = "mapping"
+	MIDICONTROL_SLEEP   = "sleep"
+	MIDICONTROL_EXEC    = "exec"
+)
+
 type service interface {
 	UpdateMapping(file string) error
 }
@@ -39,15 +45,15 @@ func (k MidiControl) doAction(action Action) error {
 	}
 
 	switch action.Command {
-	case "mapping":
+	case MIDICONTROL_MAPPING:
 		k.s.UpdateMapping(action.Params[0])
-	case "sleep":
+	case MIDICONTROL_SLEEP:
 		duration, err := strconv.Atoi(action.Params[0])
 		if err != nil {
 			return err
 		}
 		time.Sleep(time.Second * time.Duration(duration))
-	case "exec":
+	case MIDICONTROL_EXEC:
 		cmd := exec.Command(action.Params[0], action.Params[1:]...)
 		err := cmd.Run()
 		if err != nil {

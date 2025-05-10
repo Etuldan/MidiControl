@@ -7,6 +7,9 @@ import (
 	"github.com/micmonay/keybd_event"
 )
 
+const (
+	KEYBOARD_PRESS = "press"
+)
 
 type Keyboard struct {
 	kb keybd_event.KeyBonding
@@ -23,7 +26,7 @@ func NewKeyboard(logger *tools.Logger) (*Keyboard, error) {
 
 func (k Keyboard) OnPress(action Action) (*bool, error) {
 	switch action.Command {
-	case "press":
+	case KEYBOARD_PRESS:
 		for _, param := range action.Params {
 			return nil, k.sendInput(param)
 		}
@@ -33,7 +36,7 @@ func (k Keyboard) OnPress(action Action) (*bool, error) {
 
 func (k Keyboard) OnRelease(action Action) error {
 	switch action.Command {
-	case "press":
+	case KEYBOARD_PRESS:
 		for _, param := range action.Params {
 			return k.sendInput(param)
 		}
@@ -43,7 +46,7 @@ func (k Keyboard) OnRelease(action Action) error {
 
 func (k Keyboard) OnControlChange(action Action, value float32) error {
 	switch action.Command {
-	case "press":
+	case KEYBOARD_PRESS:
 		for _, param := range action.Params {
 			return k.sendInput(param)
 		}

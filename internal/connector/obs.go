@@ -8,6 +8,10 @@ import (
 	"github.com/andreykaipov/goobs/api/requests/scenes"
 )
 
+const (
+	OBS_SWITCHSCENE  = "switchScene"
+	OBS_PREVIEWSCENE = "previewScene"
+)
 
 type Obs struct {
 	o *goobs.Client
@@ -50,12 +54,12 @@ func (k Obs) OnControlChange(action Action, value float32) error {
 func (k Obs) doAction(action string, params ...string) error {
 	var err error
 	switch action {
-	case "switchScene":
+	case OBS_SWITCHSCENE:
 		scene := &scenes.SetCurrentProgramSceneParams{
 			SceneName: &params[0],
 		}
 		_, err = k.o.Scenes.SetCurrentProgramScene(scene)
-	case "previewScene":
+	case OBS_PREVIEWSCENE:
 		scene := &scenes.SetCurrentPreviewSceneParams{
 			SceneName: &params[0],
 		}
