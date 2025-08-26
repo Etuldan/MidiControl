@@ -24,7 +24,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="obs-websocket-dotnet" Version="5.0.0.3" />
     <PackageReference Include="TwitchLib.Client" Version="3.3.1" />
-    <PackageReference Include="TwitchLib.Client.Enums" Version="3.3.1" />
+    <PackageReference Include="TwitchLib.Client.Enums" Version="3.4.0" />
     <PackageReference Include="TwitchLib.Client.Models" Version="3.3.1" />
     <PackageReference Include="TwitchLib.Communication" Version="1.0.6" />
     <PackageReference Include="Websocket.Client" Version="4.6.1" />
